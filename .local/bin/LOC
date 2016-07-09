@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Author: Anders Evenrud <andersevenrud@gmail.com>
+#
+
+declare -a types=("js" "css" "html" "php" "less" "json" "md")
+
+total=0
+count=0
+for i in "${types[@]}"; do
+  num=$(git ls-files | grep -s "\.$i\$" | wc -l)
+  loc=$(git ls-files | grep -s "\.$i\$" | xargs cat 2>/dev/null | wc -l)
+
+  echo "${i}: ${loc} in ${num} file(s)"
+
+  total=$(expr $total + $loc)
+  count=$(expr $count + $num)
+done
+
+echo -e "\n${total} in ${count} file(s)"
