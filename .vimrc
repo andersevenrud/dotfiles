@@ -188,7 +188,8 @@ set title
 "
 
 set laststatus=2
-let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+" let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php']
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1

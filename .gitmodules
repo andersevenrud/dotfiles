@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/vim-js-indent"]
 	path = .vim/bundle/vim-js-indent
 	url = https://github.com/gavocanov/vim-js-indent.git
+[submodule ".bash/git-aware-prompt"]
+	path = .bash/git-aware-prompt
+	url = git://github.com/jimeh/git-aware-prompt.git
