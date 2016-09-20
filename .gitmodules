@@ -25,3 +25,9 @@
 [submodule ".bash/git-aware-prompt"]
 	path = .bash/git-aware-prompt
 	url = git://github.com/jimeh/git-aware-prompt.git
+[submodule ".vim/bundle/vim-autoclose"]
+	path = .vim/bundle/vim-autoclose
+	url = https://github.com/Townk/vim-autoclose.git
+[submodule ".vim/bundle/vim-closetag"]
+	path = .vim/bundle/vim-closetag
+	url = https://github.com/alvan/vim-closetag.git
