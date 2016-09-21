@@ -194,6 +194,9 @@ let g:syntastic_php_checkers = ['php']
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 
+let g:javascript_plugin_jsdoc = 1
+
+
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
 

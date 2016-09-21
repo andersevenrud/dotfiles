@@ -31,3 +31,21 @@
 [submodule ".vim/bundle/vim-closetag"]
 	path = .vim/bundle/vim-closetag
 	url = https://github.com/alvan/vim-closetag.git
+[submodule ".vim/bundle/vim-commentary"]
+	path = .vim/bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule ".vim/bundle/vim-css3-syntax"]
+	path = .vim/bundle/vim-css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
+[submodule ".vim/bundle/vim-indent-guides"]
+	path = .vim/bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule ".vim/bundle/vim-markdown"]
+	path = .vim/bundle/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown.git
+[submodule ".vim/bundle/vim-surround"]
+	path = .vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule ".vim/bundle/vim-signify"]
+	path = .vim/bundle/vim-signify
+	url = https://github.com/mhinz/vim-signify
