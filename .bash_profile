@@ -18,7 +18,7 @@ TYELLOW="\033[38;5;11m\033[48;5;239m"
 TGRAY="\033[38;5;239m\033[48;5;234m"
 TWHITE="\033[38;5;234m\033[48;5;0m"
 
-export PS1="${YELLOW} \u@\h ${TYELLOW}${TRIANGLE}${OFF}${GRAY} \w ${TGRAY}${TRIANGLE}${OFF}${BLACK} $git_branch\[$txtred\]\$git_dirty\[$txtrst\]${TWHITE}${TRIANGLE}${OFF} "
+export PS1="${YELLOW} \u@\h ${TYELLOW}${TRIANGLE}${OFF}${GRAY} \w ${TGRAY}${TRIANGLE}${OFF}${BLACK} $git_branch \[$txtred\]\$git_dirty\[$txtrst\]${TWHITE}${TRIANGLE}${OFF} "
 
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
