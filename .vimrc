@@ -44,6 +44,9 @@ set tags=./tags,tags;/
 
 "set omnifunc=syntaxcomplete#Complete
 
+" Folding
+set foldlevel=20
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User interface setings
