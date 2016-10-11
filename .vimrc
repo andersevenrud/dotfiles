@@ -53,7 +53,6 @@ set foldlevel=20
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 syntax on
-colorscheme desert
 
 set showmatch                        " Show matching braces when over one
 set ruler                            " Always show current position
@@ -61,8 +60,6 @@ set number                           " Always show line-numbers
 set numberwidth=5                    " Line-number margin width
 set mousehide                        " Do not show mouse while typing
 set antialias                        " Pretty fonts
-set t_Co=256                         " 256-color palletes
-set background=dark                  " Dark background variation of theme
 set guifont=Monaco\ 7.5          " Monospaced small font
 set guioptions-=T                    " TODO
 set guioptions+=c                    " TODO Console messages
@@ -105,6 +102,11 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Theme
+set t_Co=256
+colorscheme desert256
+set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
@@ -196,9 +198,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php']
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-
 let g:javascript_plugin_jsdoc = 1
-
+let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
 
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
