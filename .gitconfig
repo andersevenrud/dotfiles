@@ -1,0 +1,19 @@
+[user]
+	email = andersevenrud@gmail.com
+	name = Anders Evenrud
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+
+[color "status"]
+	added = green
+	changed = red bold
+	untracked = magenta bold
+
+[color "branch"]
+	remote = yellow
