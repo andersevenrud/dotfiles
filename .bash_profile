@@ -3,23 +3,34 @@
 
 PATH=$PATH:$HOME/.local/bin
 
+# Git aware command prompt
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
-#export PS1="\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
-
-# Powerline-like bar that I played around with
-OFF="\033[0m"
-YELLOW="\033[38;5;17m\033[48;5;11m"
-GRAY="\033[38;5;15m\033[48;5;239m"
-BLACK="\033[38;5;49m\033[48;5;234m"
-TRIANGLE=$'\xee\x82\xb0'
-TYELLOW="\033[38;5;11m\033[48;5;239m"
-TGRAY="\033[38;5;239m\033[48;5;234m"
-TWHITE="\033[38;5;234m\033[48;5;0m"
-
-export PS1="${YELLOW} \u@\h ${TYELLOW}${TRIANGLE}${OFF}${GRAY} \w ${TGRAY}${TRIANGLE}${OFF}${BLACK} $git_branch \[$txtred\]\$git_dirty\[$txtrst\]${TWHITE}${TRIANGLE}${OFF} "
-
+# Commands
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
 alias lsl="ls -l"
+alias pacman-clean="sudo pacman -Sc"
+alias pacman-remove="sudo pacman -Rs"
+alias pacman-search="pacman -Ss"
+alias pacman-install="sudo pacman -S"
+alias pacman-ugrade="sudo pacman -Syu"
+
+# Color output
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+
+
+# 'less' colors
+export LESS='-R '
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" # 'source-highlight' package
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline]']']']']']']'
