@@ -1,7 +1,8 @@
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$HOME/.local/bin:~/.gem/ruby/2.3.0/bin
+
 
 # Git aware command prompt
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
@@ -21,7 +22,8 @@ alias pacman-ugrade="sudo pacman -Syu"
 # Color output
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
+alias ls='ls --color -h --group-directories-first -l --time-style="+%m-%d-%y %H:%m:%S" -p -a'
 
 
 # 'less' colors
