@@ -1,0 +1,82 @@
+font DejaVu Sans Mono:size=12
+border_width 0
+#display DVI-D-0
+alignment top_right
+gap_x 20
+gap_y 20
+double_buffer yes
+
+TEXT
+${color #FFFFFF}
+$nodename - $sysname $kernel ($uptime)
+
+$hr
+
+[CPU] $cpu% (${freq}mhz)
+${cpubar 8}
+
+[MEM] $memperc% ($mem / $memmax)
+${membar 8}
+
+[SWP] $swapperc% ($swap / $swapmax)
+${swapbar 8}
+
+$hr
+
+[FS] Root ${fs_used /}/${fs_size /}${alignr}${fs_used_perc /}%
+${fs_bar 8 /}
+${diskio /dev/sdd3}
+
+[FS] Home ${fs_used /home}/${fs_size /home}${alignr}${fs_used_perc /home}%
+${fs_bar 8 /home}
+${diskio /dev/sda1}
+
+[FS] Data ${fs_used /data}/${fs_size /data}${alignr}${fs_used_perc /data}%
+${fs_bar 8 /data}
+${diskio /dev/sdb1}
+
+[FS] Backup ${fs_used /mnt/hdd-backup}/${fs_size /mnt/hdd-backup}${alignr}${fs_used_perc /mnt/hdd-backup}%
+${fs_bar 8 /mnt/hdd-backup}
+${diskio /dev/sde1}
+
+[FS] Windows ${fs_used /mnt/ssd-windows}/${fs_size /mnt/ssd-windows}${alignr}${fs_used_perc /mnt/ssd-windows}%
+${fs_bar 8 /mnt/ssd-windows}
+${diskio /dev/sdc2}
+
+$hr
+
+[NET] (${downspeedf enp3s0}k/s ${totaldown enp3s0} / ${upspeedf enp3s0}k/s ${totalup enp3s0})
+${downspeedgraph enp3s0}
+${upspeedgraph enp3s0}
+
+$hr
+
+[TMP] CPU* ${alignr}${exec sensors | grep 'Physical' | cut -c18-21} °C
+
+[TMP] CPU0 ${alignr}${exec sensors | grep 'Core 0' | cut -c18-21} °C
+
+[TMP] CPU1 ${alignr}${exec sensors | grep 'Core 1' | cut -c18-21} °C
+
+[TMP] CPU2 ${alignr}${exec sensors | grep 'Core 2' | cut -c18-21} °C
+
+[TMP] CPU3 ${alignr}${exec sensors | grep 'Core 3' | cut -c18-21} °C
+
+[TMP] GPU0 ${alignr}${exec nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader}.0 °C
+
+$hr
+
+[TMP] SYS0 ${alignr}${exec sensors | grep 'AUXTIN2' | cut -c26-29} °C
+
+[TMP] SYS1 ${alignr}${exec sensors | grep 'AUXTIN3' | cut -c26-29} °C
+
+[TMP] SYS2 ${alignr}${exec sensors | grep 'PECI' | cut -c26-29} °C
+
+$hr
+
+[FAN] CPU ${alignr}${exec sensors | grep 'fan1' | cut -d ' ' -f20} RPM 
+
+[FAN] EXT ${alignr}${exec sensors | grep 'fan4' | cut -d ' ' -f20} RPM 
+
+[FAN] INT ${alignr}${exec sensors | grep 'fan2' | cut -d ' ' -f20} RPM 
+
+[FAN] GPU ${alignr}${exec nvidia-settings -q all | grep  -i "Attribute 'GPUCurrentFanSpeedRPM'" | cut -d : -f4 | cut -d . -f1 | xargs echo -n} RPM 
