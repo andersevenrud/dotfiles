@@ -1,0 +1,18 @@
+# Write your default config options here!
+#
+quiet=yes
+nolirc=yes
+ao=pulse
+vo=vdpau
+vc=ffh264vdpau,ffmpeg12vdpau,ffodivxvdpau,ffwmv3vdpau,ffvc1vdpau,ffhevcvdpau
+mixer-channel=Master
+srate=48000
+a52drc=0
+double=yes
+ontop=1
+stop-xscreensaver=yes
+spuaa=4
+slang=en,eng,english,no,nor,nb,norwegian
+unicode=yes
+utf8=yes
+channels=2
