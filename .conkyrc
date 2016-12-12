@@ -10,6 +10,8 @@ TEXT
 ${color #FFFFFF}
 $nodename - $sysname $kernel ($uptime)
 
+${alignc} ${time %d.%m.%Y} ${time %H:%M}
+
 $hr
 
 [CPU] $cpu% (${freq}mhz)
