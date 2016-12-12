@@ -2,15 +2,12 @@
 
 This is all of my personal developer computer dotfiles etc for Linux.
 
-You'll find:
-
-- vim configuration
-- vim plugins
-- tmux configuration and theme
-- tmux plugins
-- bash configurations, aliases and theme
-- misc scripts
+* Vim configurations and bundles
+* Bash environment and aliases
+* Tmux configurations and plugins
+* Xfce setup
+* Misc scripts
 
 # Screenshots
 
-![Screenshot](https://www.dropbox.com/s/pqht59shf6fduc3/screenshot.png?dl=1)
+![Screenshot](https://www.dropbox.com/s/2az4ko1y43h9mb3/Screenshot_2016-12-12_18-45-18.png?dl=1)

@@ -41,6 +41,7 @@ set shiftwidth=2
 set tags=./tags,tags;/
 "set tags=./tags;,tags;
 "
+autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 "set omnifunc=syntaxcomplete#Complete
 
