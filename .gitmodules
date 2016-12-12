@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundle/vim-localvimrc"]
+	path = .vim/bundle/vim-localvimrc
+	url = https://github.com/embear/vim-localvimrc.git
