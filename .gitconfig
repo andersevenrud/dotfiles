@@ -1,7 +1,6 @@
 [user]
 	email = andersevenrud@gmail.com
 	name = Anders Evenrud
-	signkey = 83D2EDBE
 
 [color]
 	diff = auto
@@ -18,3 +17,6 @@
 
 [color "branch"]
 	remote = yellow
+
+[core]
+	editor = vim
