@@ -6,7 +6,7 @@ This is all of my personal developer computer dotfiles etc for Linux.
 * Bash environment and aliases
 * Tmux configurations and plugins
 * Xfce setup
-* Misc scripts
+* Misc scripts and configurations
 
 # Screenshots
 
