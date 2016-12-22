@@ -9,7 +9,7 @@ set encoding=utf-8
 set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 
 " General behaviour
-set autochdir      " CWD is always same as current file
+"set autochdir      " CWD is always same as current file
 set ai             " Autoident
 "set si             " Smartident
 set nowrap         " Do not wrap lines
@@ -41,13 +41,15 @@ set shiftwidth=2
 set tags=./tags,tags;/
 "set tags=./tags;,tags;
 "
-autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-
-"set omnifunc=syntaxcomplete#Complete
+autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete_extended#CompletePHP
+autocmd Filetype *.blade.php setlocal cino=:0g0(0,W2 tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " Folding
 set foldlevel=20
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set path+=**
+"set omnifunc=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User interface setings
@@ -119,6 +121,9 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " RESIZE with numlock +-/*
 if bufwinnr(1)
@@ -203,6 +208,9 @@ let g:neocomplete#enable_smart_case = 1
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_root_markers = ['composer.json', 'package.json']
+
 
 "imap <C-J> <Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
