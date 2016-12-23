@@ -85,3 +85,15 @@
 [submodule "/home/anders/.vim/bundle/ack.vim"]
 	path = /home/anders/.vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule ".vim/bundle/tern_for_vim"]
+	path = .vim/bundle/tern_for_vim
+	url = https://github.com/ternjs/tern_for_vim.git
+[submodule ".vim/bundle/html5.vim"]
+	path = .vim/bundle/html5.vim
+	url = https://github.com/othree/html5.vim.git
+[submodule ".vim/bundle/csscomplete.vim"]
+	path = .vim/bundle/csscomplete.vim
+	url = https://github.com/othree/csscomplete.vim.git
+[submodule ".vim/bundle/vim-blade"]
+	path = .vim/bundle/vim-blade
+	url = https://github.com/jwalton512/vim-blade.git
