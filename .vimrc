@@ -1,7 +1,10 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable filetype plugin
 filetype plugin on
 filetype indent on
+syntax on
 
 " Filetypes and encoding
 set fileformats=unix,dos,mac
@@ -9,20 +12,28 @@ set encoding=utf-8
 set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 
 " General behaviour
-"set autochdir      " CWD is always same as current file
-set ai             " Autoident
-"set si             " Smartident
-set nowrap         " Do not wrap lines
-set nocompatible   " ViM settings instead of Vi
-set smartcase      " Smart casing when searching
-set ignorecase     " ... or ignore casing
-set hlsearch       " Highlight matches
-set incsearch      " Modern (wrapping) search
-set history=500    " Long undo history
-set tw=1000
+set nowrap
+set nocompatible
+set lazyredraw
+set wildmenu
+set wildmode=longest,list,full
 
-" make backspace a more flexible
+" Search behaviour
+set smartcase
+set ignorecase
+set hlsearch
+set incsearch
+
+" Make per-project .vimrc available
+set exrc
+set secure
+
+" Make backspace a more flexible
 set backspace=indent,eol,start
+
+" Autocompletion
+set completeopt+=longest,menuone
+highlight Pmenu guibg=brown gui=bold
 
 " Disable sounds
 set vb t_vb="
@@ -30,58 +41,43 @@ set noerrorbells
 set visualbell
 
 " Tabbing, Default to 2 spaces as tabs
+set ai
 set cino=:0g0(0,W2
 set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-" Filetype sesific
-"au FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+" Misc runtime stuff
 set tags=./tags,tags;/
-"set tags=./tags;,tags;
-"
-autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete_extended#CompletePHP
-autocmd Filetype *.blade.php setlocal cino=:0g0(0,W2 tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-" Folding
-set foldlevel=20
-
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set path+=**
-"set omnifunc=syntaxcomplete#Complete
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" User interface setings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General user interface
+set showmatch
+set ruler
+set number
 
-syntax on
-
-set showmatch                        " Show matching braces when over one
-set ruler                            " Always show current position
-set number                           " Always show line-numbers
-set numberwidth=5                    " Line-number margin width
-set mousehide                        " Do not show mouse while typing
-set antialias                        " Pretty fonts
-set guifont=Monaco\ 7.5          " Monospaced small font
-set guioptions-=T                    " TODO
-set guioptions+=c                    " TODO Console messages
-set linespace=0                      " Don't insert any extra pixel lines
-set lazyredraw                       " Don't redraw while running macros
-set wildmenu                         " Wild menu
-set wildmode=longest,list,full       " Wild menu options
-
-" Display special characters and helpers
-set list
-" Show < or > when characters are not displayed on the left or right.
-" Also show tabs and trailing spaces.
+" Other interface stuff
+set numberwidth=5
+set linespace=0
+set history=500
+set tw=1000
+set foldlevel=20
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+set laststatus=2
 
-" Autocompletion
-set ofu=syntaxcomplete#Complete
-set completeopt+=longest,menuone
-highlight Pmenu guibg=brown gui=bold
-let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
+" X Settings
+set mousehide
+set antialias
+set guifont=Monaco\ 7.5
+set guioptions-=T
+set guioptions+=c
+
+" Themes and colors
+set t_Co=256
+colorscheme desert256
+set background=dark
 
 " Statusline
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
@@ -101,29 +97,15 @@ set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 "              +-- full path to file in the buffer
 
 " Highlight trailing whitespaces (+ keybindings below)
-highlight ExtraWhitespace ctermbg=red guibg=red
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Theme
-set t_Co=256
-colorscheme desert256
-set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Change PgUp/PgDown to scroll
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-" These actually conflicts with autoclose and omnicomplete
-"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-"inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-"inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
 
 " RESIZE with numlock +-/*
 if bufwinnr(1)
@@ -186,20 +168,37 @@ nnoremap <Leader>wf :match<CR>
 noremap <S-space> <C-b>
 noremap <space> <C-f>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" TMUX
+" Highlight trailing whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Tmux compability
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
-"autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
 autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
 autocmd VimLeave * call system("tmux rename-window bash")
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
-"
-" Plugins
-"
+" Filetypes
+autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+"autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete_extended#CompletePHP
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
+"autocmd Filetype *.blade.php setlocal cino=:0g0(0,W2 tabstop=2 softtabstop=2 shiftwidth=2 expandtab omnifunc=htmlcomplete#CompleteTags
+autocmd BufNewFile,BufRead *.blade.php set ft=blade
 
-set laststatus=2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php']
@@ -208,11 +207,10 @@ let g:neocomplete#enable_smart_case = 1
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json']
-
-
-"imap <C-J> <Plug>snipMateNextOrTrigger
-"smap <C-J> <Plug>snipMateNextOrTrigger
+let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 
 execute pathogen#infect()
