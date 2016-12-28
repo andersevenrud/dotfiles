@@ -213,4 +213,41 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 let g:ctrlp_root_markers = ['composer.json', 'package.json']
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+  Plugin 'VundleVim/Vundle.vim'
+  Plugin 'MarcWeber/vim-addon-mw-utils'
+  Plugin 'tomtom/tlib_vim'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'bling/vim-airline'
+  Plugin 'elzr/vim-json'
+  Plugin 'Shougo/neocomplete.vim'
+  Plugin 'garbas/vim-snipmate'
+  Plugin 'gavocanov/vim-js-indent'
+  Plugin 'Townk/vim-autoclose'
+  Plugin 'alvan/vim-closetag'
+  Plugin 'hail2u/vim-css3-syntax'
+  Plugin 'nathanaelkane/vim-indent-guides'
+  Plugin 'plasticboy/vim-markdown'
+  Plugin 'tpope/vim-surround'
+  Plugin 'mhinz/vim-signify'
+  Plugin 'tpope/vim-obsession'
+  Plugin 'tmux-plugins/vim-tmux'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'embear/vim-localvimrc'
+  Plugin 'joonty/vdebug'
+  Plugin 'Shougo/vimproc.vim'
+  Plugin 'Shougo/unite.vim'
+  Plugin 'm2mdas/phpcomplete-extended'
+  Plugin 'ctrlpvim/ctrlp.vim'
+  Plugin 'mileszs/ack.vim'
+  Plugin 'ternjs/tern_for_vim'
+  Plugin 'othree/html5.vim'
+  Plugin 'othree/csscomplete.vim'
+  Plugin 'jwalton512/vim-blade'
+  Plugin 'evidens/vim-twig'
+  Plugin 'tpope/vim-commentary'
+call vundle#end()
+
 execute pathogen#infect()
