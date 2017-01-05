@@ -53,6 +53,7 @@
         <value type="string" value="obs"/>
         <value type="string" value="vlc"/>
         <value type="string" value="thunar"/>
+        <value type="string" value="networkmanager applet"/>
         <value type="string" value="skype"/>
         <value type="string" value="steam"/>
         <value type="string" value="pidgin"/>
