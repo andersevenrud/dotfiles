@@ -75,10 +75,10 @@ $hr
 
 $hr
 
-[FAN] CPU ${alignr}${exec sensors | grep 'fan1' | cut -d ' ' -f20} RPM 
+[FAN] CPU ${alignr}${exec sensors | grep 'fan2' | sed -e 's/\s\+/ /g' | cut -d ' ' -f2} RPM 
 
-[FAN] EXT ${alignr}${exec sensors | grep 'fan4' | cut -d ' ' -f20} RPM 
+[FAN] EXT ${alignr}${exec sensors | grep 'fan1' | sed -e 's/\s\+/ /g' | cut -d ' ' -f2} RPM 
 
-[FAN] INT ${alignr}${exec sensors | grep 'fan2' | cut -d ' ' -f20} RPM 
+[FAN] INT ${alignr}${exec sensors | grep 'fan4' | sed -e 's/\s\+/ /g' | cut -d ' ' -f2} RPM 
 
 [FAN] GPU ${alignr}${exec nvidia-settings -q all | grep  -i "Attribute 'GPUCurrentFanSpeedRPM'" | cut -d : -f4 | cut -d . -f1 | xargs echo -n} RPM 
