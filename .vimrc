@@ -32,7 +32,7 @@ set secure
 set backspace=indent,eol,start
 
 " Autocompletion
-set completeopt+=longest,menuone
+set completeopt=longest,menuone
 highlight Pmenu guibg=brown gui=bold
 
 " Disable sounds
@@ -153,6 +153,7 @@ if has("gui_running")
 	imap <C-down> <C-o><C-e>
 endif
 
+" Tab resizing
 if bufwinnr(1)
   map <kPlus>  <C-W>+
   map <kMinus> <C-W>-
@@ -167,6 +168,12 @@ nnoremap <Leader>wf :match<CR>
 " space / shift-space scroll in normal mode
 noremap <S-space> <C-b>
 noremap <space> <C-f>
+
+" nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" neocomplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -189,7 +196,7 @@ set title
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 "autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete_extended#CompletePHP
+autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 "autocmd Filetype *.blade.php setlocal cino=:0g0(0,W2 tabstop=2 softtabstop=2 shiftwidth=2 expandtab omnifunc=htmlcomplete#CompleteTags
@@ -212,42 +219,58 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json']
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
   Plugin 'VundleVim/Vundle.vim'
+
+  " Libraries
+  Plugin 'tpope/vim-obsession'
   Plugin 'MarcWeber/vim-addon-mw-utils'
   Plugin 'tomtom/tlib_vim'
-  Plugin 'scrooloose/syntastic'
-  Plugin 'bling/vim-airline'
-  Plugin 'elzr/vim-json'
-  Plugin 'Shougo/neocomplete.vim'
-  Plugin 'garbas/vim-snipmate'
-  Plugin 'gavocanov/vim-js-indent'
-  Plugin 'Townk/vim-autoclose'
-  Plugin 'alvan/vim-closetag'
-  Plugin 'hail2u/vim-css3-syntax'
-  Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'plasticboy/vim-markdown'
-  Plugin 'tpope/vim-surround'
-  Plugin 'mhinz/vim-signify'
-  Plugin 'tpope/vim-obsession'
   Plugin 'tmux-plugins/vim-tmux'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'scrooloose/nerdtree'
   Plugin 'embear/vim-localvimrc'
-  Plugin 'joonty/vdebug'
-  Plugin 'Shougo/vimproc.vim'
-  Plugin 'Shougo/unite.vim'
-  Plugin 'm2mdas/phpcomplete-extended'
-  Plugin 'ctrlpvim/ctrlp.vim'
+  "Plugin 'Shougo/vimproc.vim'
   Plugin 'mileszs/ack.vim'
   Plugin 'ternjs/tern_for_vim'
+
+  " Syntax
   Plugin 'othree/html5.vim'
   Plugin 'othree/csscomplete.vim'
   Plugin 'jwalton512/vim-blade'
-  Plugin 'evidens/vim-twig'
+  Plugin 'lumiliet/vim-twig'
+  Plugin 'elzr/vim-json'
+  Plugin 'gavocanov/vim-js-indent'
+  Plugin 'hail2u/vim-css3-syntax'
+  Plugin 'plasticboy/vim-markdown'
+  Plugin 'groenewege/vim-less'
+  Plugin 'ekalinin/Dockerfile.vim'
+  Plugin 'StanAngeloff/php.vim'
+
+  " Editing
+  "Plugin 'Townk/vim-autoclose'
+  Plugin 'jiangmiao/auto-pairs'
+  Plugin 'alvan/vim-closetag'
+  Plugin 'tpope/vim-surround'
+  Plugin 'nathanaelkane/vim-indent-guides'
+  Plugin 'ctrlpvim/ctrlp.vim'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'garbas/vim-snipmate'
+  "Plugin 'm2mdas/phpcomplete-extended'
+  Plugin 'shawncplus/phpcomplete.vim'
+  Plugin 'Shougo/neocomplete.vim'
+  "Plugin 'Shougo/unite.vim'
   Plugin 'tpope/vim-commentary'
+
+  " UI and other interfaces
+  Plugin 'bling/vim-airline'
+  Plugin 'mhinz/vim-signify'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'Xuyuanp/nerdtree-git-plugin'
+  Plugin 'joonty/vdebug'
+
 call vundle#end()
 
 execute pathogen#infect()
