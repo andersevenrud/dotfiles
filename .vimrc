@@ -1,10 +1,10 @@
+syntax on
+filetype plugin on
+filetype indent on
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-filetype plugin on
-filetype indent on
-syntax on
 
 " Filetypes and encoding
 set fileformats=unix,dos,mac
@@ -17,11 +17,12 @@ set nocompatible
 set lazyredraw
 set wildmenu
 set wildmode=longest,list,full
+set laststatus=2
+set history=500
 
 " Search behaviour
 set smartcase
 set ignorecase
-set hlsearch
 set incsearch
 
 " Make per-project .vimrc available
@@ -34,11 +35,6 @@ set backspace=indent,eol,start
 " Autocompletion
 set completeopt=longest,menuone
 highlight Pmenu guibg=brown gui=bold
-
-" Disable sounds
-set vb t_vb="
-set noerrorbells
-set visualbell
 
 " Tabbing, Default to 2 spaces as tabs
 set ai
@@ -53,33 +49,44 @@ set tags=./tags,tags;/
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set path+=**
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" X11
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set mousehide
+set antialias
+set guifont=Monaco\ 7.5
+set guioptions-=T
+set guioptions+=c
+set linespace=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Visuals
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Theme
+set t_Co=256
+colorscheme desert256
+set background=dark
+
+" Only visual bell
+set vb t_vb="
+set noerrorbells
+set visualbell
+
 " General user interface
+set hlsearch
 set showmatch
 set ruler
 set number
 
 " Other interface stuff
 set numberwidth=5
-set linespace=0
-set history=500
 set tw=1000
-set foldlevel=20
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
-set laststatus=2
+set foldlevel=20
 
-" X Settings
-set mousehide
-set antialias
-set guifont=Monaco\ 7.5
-set guioptions-=T
-set guioptions+=c
-
-" Themes and colors
-set t_Co=256
-colorscheme desert256
-set background=dark
-
-" Statusline
+" When airline not present
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 "              | | | | |  |   |      |  |     |    |
 "              | | | | |  |   |      |  |     |    + current
@@ -96,24 +103,23 @@ set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 "              | +-- rodified flag in square brackets
 "              +-- full path to file in the buffer
 
-" Highlight trailing whitespaces (+ keybindings below)
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Change PgUp/PgDown to scroll
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+" <Leader>+ <Leader>- for resize pane
+nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
+nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
 
-" RESIZE with numlock +-/*
-if bufwinnr(1)
-  map + <C-W>+
-  map - <C-W>-
-endif
+" <Leader>f for nerdtree
+" <Leader><Shift-f> for nerdtree
+map <Leader>f :NERDTreeToggle<CR>
+map <Leader><S-f> :NERDTreeFind<CR>
 
-"<home> toggles between start of line and start of text
+" <TAB> for neocomplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <home> toggles between start of line and start of text
 imap <khome> <home>
 nmap <khome> <home>
 inoremap <silent> <home> <C-O>:call HHome()<CR>
@@ -127,7 +133,7 @@ function! HHome()
 	endif
 endfunction
 
-"<end> goes to end of screen before end of line
+" <end> goes to end of screen before end of line
 imap <kend> <end>
 nmap <kend> <end>
 inoremap <silent> <end> <C-O>:call HEnd()<CR>
@@ -144,36 +150,6 @@ function! HEnd()
 		normal $
 	endif
 endfunction
-
-"Ctrl-{up,down} to scroll. (gvim)
-if has("gui_running")
-	nmap <C-up> <C-y>
-	imap <C-up> <C-o><C-y>
-	nmap <C-down> <C-e>
-	imap <C-down> <C-o><C-e>
-endif
-
-" Tab resizing
-if bufwinnr(1)
-  map <kPlus>  <C-W>+
-  map <kMinus> <C-W>-
-  map <kDivide> <c-w><
-  map <kMultiply> <c-w>>
-endif
-
-" For highlighting trailing whitespaces
-nnoremap <Leader>wn :match ExtraWhitespace /^\s* \s*\<Bar>\s\+$/<CR>
-nnoremap <Leader>wf :match<CR>
-
-" space / shift-space scroll in normal mode
-noremap <S-space> <C-b>
-noremap <space> <C-f>
-
-" nerdtree
-map <C-n> :NERDTreeToggle<CR>
-
-" neocomplete
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -194,12 +170,10 @@ set title
 
 " Filetypes
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType javascript setlocal omnifunc=tern#Complete
-"autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete#CompletePHP
+autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-"autocmd Filetype *.blade.php setlocal cino=:0g0(0,W2 tabstop=2 softtabstop=2 shiftwidth=2 expandtab omnifunc=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.blade.php set ft=blade
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
