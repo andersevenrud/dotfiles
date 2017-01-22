@@ -169,6 +169,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
 " Filetypes
+autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab omnifunc=phpcomplete#CompletePHP
 autocmd FileType javascript setlocal omnifunc=tern#Complete
