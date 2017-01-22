@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Exec=nvidia-settings -a "[gpu:0]/GPUFanControlState=1" -a "[fan:0]/GPUCurrentFanSpeed=35"
+X-GNOME-Autostart-enabled=true
+Name=nvidia-fan-speed
