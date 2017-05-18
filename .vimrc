@@ -151,6 +151,12 @@ function! HEnd()
 	endif
 endfunction
 
+" Remember gt + gT
+" <CTRL> + t
+" <CTRL> + w
+inoremap <C-t>     <Esc>:tabnew<CR>
+inoremap <C-w>     <Esc>:tabclose<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,6 +189,7 @@ autocmd BufNewFile,BufRead *.blade.php set ft=blade
 
 " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
 let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_checkers = ['php']
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -237,6 +244,7 @@ call vundle#begin()
   Plugin 'Shougo/neocomplete.vim'
   "Plugin 'Shougo/unite.vim'
   Plugin 'tpope/vim-commentary'
+  Plugin 'docteurklein/vim-symfony'
 
   " UI and other interfaces
   Plugin 'bling/vim-airline'
@@ -247,5 +255,15 @@ call vundle#begin()
   Plugin 'joonty/vdebug'
 
 call vundle#end()
+
+"autocmd vimenter * NERDTree
+
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 execute pathogen#infect()
