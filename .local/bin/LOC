@@ -3,7 +3,7 @@
 # Author: Anders Evenrud <andersevenrud@gmail.com>
 #
 
-declare -a types=("js" "css" "html" "php" "less" "json" "md")
+declare -a types=("js" "css" "html" "php" "less" "json" "md" "scss" "less")
 
 total=0
 count=0
@@ -11,10 +11,13 @@ for i in "${types[@]}"; do
   num=$(git ls-files | grep -s "\.$i\$" | wc -l)
   loc=$(git ls-files | grep -s "\.$i\$" | xargs cat 2>/dev/null | wc -l)
 
-  echo "${i}: ${loc} in ${num} file(s)"
+  if [[ "$num" -gt 0 ]]; then
+    echo "${i}: ${loc} in ${num} file(s)"
+
+    count=$(expr $count + $num)
+  fi
 
   total=$(expr $total + $loc)
-  count=$(expr $count + $num)
 done
 
 echo -e "\n${total} in ${count} file(s)"
