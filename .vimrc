@@ -151,12 +151,6 @@ function! HEnd()
 	endif
 endfunction
 
-" Remember gt + gT
-" <CTRL> + t
-" <CTRL> + w
-inoremap <C-t>     <Esc>:tabnew<CR>
-inoremap <C-w>     <Esc>:tabclose<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -229,6 +223,9 @@ call vundle#begin()
   Plugin 'groenewege/vim-less'
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'StanAngeloff/php.vim'
+  Plugin 'othree/yajs.vim'
+  Plugin 'posva/vim-vue'
+  Bundle 'nikvdp/ejs-syntax'
 
   " Editing
   "Plugin 'Townk/vim-autoclose'
@@ -245,6 +242,7 @@ call vundle#begin()
   "Plugin 'Shougo/unite.vim'
   Plugin 'tpope/vim-commentary'
   Plugin 'docteurklein/vim-symfony'
+  Plugin 'yuttie/comfortable-motion.vim'
 
   " UI and other interfaces
   Plugin 'bling/vim-airline'
