@@ -18,6 +18,7 @@ alias pacman-remove="sudo pacman -Rs"
 alias pacman-search="pacman -Ss"
 alias pacman-install="sudo pacman -S"
 alias pacman-ugrade="sudo pacman -Syu"
+alias pacman-aur="makepkg -sri ?"
 
 # Color output
 alias diff='diff --color=auto'
