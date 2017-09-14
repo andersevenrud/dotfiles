@@ -227,6 +227,11 @@ call vundle#begin()
   Plugin 'posva/vim-vue'
   Bundle 'nikvdp/ejs-syntax'
 
+  Plugin 'prabirshrestha/async.vim'
+  Plugin 'prabirshrestha/vim-lsp'
+  Plugin 'prabirshrestha/asyncomplete.vim'
+  Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
   " Editing
   "Plugin 'Townk/vim-autoclose'
   Plugin 'jiangmiao/auto-pairs'
@@ -243,6 +248,8 @@ call vundle#begin()
   Plugin 'tpope/vim-commentary'
   Plugin 'docteurklein/vim-symfony'
   Plugin 'yuttie/comfortable-motion.vim'
+  Plugin 'moll/vim-node'
+  Plugin 'othree/jspc.vim'
 
   " UI and other interfaces
   Plugin 'bling/vim-airline'
@@ -265,3 +272,12 @@ call vundle#end()
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 execute pathogen#infect()
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'javascript-typescript-langserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'javascript-typescript-stdio']},
+        " \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'javascript'],
+        \ })
+endif
