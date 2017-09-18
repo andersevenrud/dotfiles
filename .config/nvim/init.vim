@@ -201,8 +201,6 @@ autocmd BufNewFile,BufRead *.blade.php set ft=blade
 let g:echodoc_enable_at_startup = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php']
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
@@ -214,10 +212,16 @@ let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:phpcd_disable_modifier = 0
 let g:neosnippet#enable_completed_snippet = 1
+let g:tern_request_timeout = 1
+let g:tern_request_timeout = 6000
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#tss#javascript_support = 1
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['flow-language-server', '--try-flow-bin', '--stdio'],
-    \ 'javascript.jsx': ['flow-language-server', '--try-flow-bin', '--stdio'],
+    \ 'javascript': ['flow-language-server', '--stdio'],
+    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
 
 call plug#begin('~/.config/nvim')
@@ -229,6 +233,7 @@ call plug#begin('~/.config/nvim')
   Plug 'tmux-plugins/vim-tmux'
   Plug 'embear/vim-localvimrc'
   Plug 'mileszs/ack.vim'
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
   " Syntax
   Plug 'othree/html5.vim'
@@ -275,9 +280,13 @@ call plug#begin('~/.config/nvim')
   Plug 'junegunn/fzf'
   Plug 'Shougo/denite.nvim'
   Plug 'roxma/nvim-completion-manager'
-  Plug 'roxma/ncm-flow'
   Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
   Plug 'roxma/ncm-phpactor'
+  Plug 'roxma/ncm-flow'
+  Plug 'carlitux/deoplete-ternjs'
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+
 
   Plug 'Shougo/echodoc.vim'
   Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
