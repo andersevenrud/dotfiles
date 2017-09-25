@@ -57,9 +57,9 @@ set path+=**
 set noshowmode
 
 " For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visuals
@@ -194,10 +194,16 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.blade.php set ft=blade
 
+autocmd FileType markdown let g:indentLine_enabled=0
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:markdown_syntax_conceal = 0
+"let g:markdown_composer_open_browser = 0
+let g:markdown_composer_autostart = 0
+"let g:markdown_composer_browser = 'firefox'
 let g:echodoc_enable_at_startup = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php']
@@ -224,6 +230,16 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
 
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    if has('nvim')
+      !cargo build --release
+    else
+      !cargo build --release --no-default-features --features json-rpc
+    endif
+  endif
+endfunction
+
 call plug#begin('~/.config/nvim')
 
   " Libraries
@@ -243,7 +259,7 @@ call plug#begin('~/.config/nvim')
   Plug 'elzr/vim-json'
   Plug 'gavocanov/vim-js-indent'
   Plug 'hail2u/vim-css3-syntax'
-  Plug 'plasticboy/vim-markdown'
+  "Plug 'plasticboy/vim-markdown'
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
@@ -266,6 +282,7 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'othree/jspc.vim'
   Plug 'honza/vim-snippets'
+  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
   " UI and other interfaces
   Plug 'bling/vim-airline'
