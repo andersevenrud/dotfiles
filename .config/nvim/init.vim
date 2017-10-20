@@ -169,6 +169,10 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+" Ale
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -205,11 +209,19 @@ let g:markdown_syntax_conceal = 0
 let g:markdown_composer_autostart = 0
 "let g:markdown_composer_browser = 'firefox'
 let g:echodoc_enable_at_startup = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_php_checkers = ['php']
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_php_checkers = ['php']
+let g:ale_sign_column_always = 1
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'css': ['stylelint'],
+\   'php': ['php -l']
+\}
+
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -249,6 +261,21 @@ function! BuildComposer(info)
   endif
 endfunction
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
+
 call plug#begin('~/.config/nvim')
 
   " Libraries
@@ -283,7 +310,8 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'scrooloose/syntastic'
+  "Plug 'scrooloose/syntastic'
+  Plug 'w0rp/ale'
   Plug 'garbas/vim-snipmate'
   Plug 'tpope/vim-commentary'
   Plug 'docteurklein/vim-symfony'
