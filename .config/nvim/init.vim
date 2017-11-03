@@ -23,6 +23,7 @@ set wildmenu
 set wildmode=longest,list,full
 set laststatus=2
 set history=500
+set mouse=a
 set hidden
 
 " Search behaviour
@@ -119,6 +120,10 @@ nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
 " <Leader><Shift-f> for nerdtree
 map <Leader>f :NERDTreeToggle<CR>
 map <Leader><S-f> :NERDTreeFind<CR>
+
+" F12 for 'IDE' mode
+
+nnoremap <f12> :UpdateTags <CR> :NERDTreeFind <CR> :TagbarToggle <CR>
 
 " <home> toggles between start of line and start of text
 imap <khome> <home>
@@ -241,6 +246,18 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['flow-language-server', '--stdio'],
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
+let NERDTreeWinPos = 'left'
+let g:tagbar_left = 1
+let g:tagbar_vertical = 25
+let g:easytags_async = 1
+"let g:easytags_always_enabled = 1
+"let g:easytags_events = ['BufWritePost']
+let g:easytags_languages = {
+\   'javascript': {
+\     'cmd': 'jsctags',
+\       'args': [],
+\   }
+\}
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
@@ -328,6 +345,9 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-fugitive'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'joonty/vdebug'
+  Plug 'majutsushi/tagbar'
+  Plug 'xolox/vim-easytags'
+  Plug 'xolox/vim-misc'
 
   " LanguageServer stuff
   Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
