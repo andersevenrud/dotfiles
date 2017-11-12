@@ -23,7 +23,7 @@ set wildmenu
 set wildmode=longest,list,full
 set laststatus=2
 set history=500
-set mouse=a
+set mouse=n
 set hidden
 
 " Search behaviour
@@ -108,6 +108,10 @@ set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" copy/paste X
+inoremap <C-S-v> <ESC>"+pa
+vnoremap <C-S-c> "+y
 
 " Esc triggers C-c
 inoremap <c-c> <ESC>
@@ -199,7 +203,7 @@ set title
 autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.blade.php set ft=blade
 
@@ -234,6 +238,7 @@ let g:ctrlp_root_markers = ['composer.json', 'package.json']
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:phpcd_disable_modifier = 0
+"let g:php_syntax_extensions_enabled = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:tern_request_timeout = 1
 let g:tern_request_timeout = 6000
@@ -247,26 +252,19 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ }
 let NERDTreeWinPos = 'left'
+let g:tagbar_compact = 1
+let g:tagbar_singleclick = 1
 let g:tagbar_left = 1
 let g:tagbar_vertical = 25
+let g:tagbar_width = 60
 let g:easytags_async = 1
-"let g:easytags_always_enabled = 1
-"let g:easytags_events = ['BufWritePost']
+let g:easytags_updatetime_min = 1000
 let g:easytags_languages = {
 \   'javascript': {
 \     'cmd': 'jsctags',
 \       'args': [],
 \   }
 \}
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -303,16 +301,16 @@ call plug#begin('~/.config/nvim')
   Plug 'embear/vim-localvimrc'
   Plug 'mileszs/ack.vim'
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+  Plug 'xolox/vim-misc'
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
   " Syntax
   Plug 'othree/html5.vim'
-  Plug 'othree/csscomplete.vim'
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
   Plug 'gavocanov/vim-js-indent'
   Plug 'hail2u/vim-css3-syntax'
-  "Plug 'plasticboy/vim-markdown'
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
@@ -320,53 +318,51 @@ call plug#begin('~/.config/nvim')
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
 
+  " Autocomplete
+  Plug 'junegunn/fzf'
+  Plug 'Shougo/denite.nvim'
+  Plug 'othree/jspc.vim'
+  Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+  Plug 'roxma/nvim-completion-manager'
+  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+  Plug 'calebeby/ncm-css'
+  Plug 'roxma/ncm-phpactor'
+  Plug 'roxma/ncm-flow'
+
   " Editing
-  "Plug 'Townk/vim-autoclose'
   Plug 'jiangmiao/auto-pairs'
   Plug 'alvan/vim-closetag'
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'ctrlpvim/ctrlp.vim'
-  "Plug 'scrooloose/syntastic'
   Plug 'w0rp/ale'
-  Plug 'garbas/vim-snipmate'
   Plug 'tpope/vim-commentary'
-  Plug 'docteurklein/vim-symfony'
   Plug 'yuttie/comfortable-motion.vim'
-  Plug 'moll/vim-node'
-  Plug 'othree/jspc.vim'
-  Plug 'honza/vim-snippets'
   Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
 
   " UI and other interfaces
+  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-signify'
   Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-fugitive'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'joonty/vdebug'
   Plug 'majutsushi/tagbar'
   Plug 'xolox/vim-easytags'
-  Plug 'xolox/vim-misc'
 
-  " LanguageServer stuff
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'junegunn/fzf'
-  Plug 'Shougo/denite.nvim'
-  Plug 'roxma/nvim-completion-manager'
-  Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
-  Plug 'roxma/ncm-phpactor'
-  Plug 'roxma/ncm-flow'
-  Plug 'carlitux/deoplete-ternjs'
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-
-
-  Plug 'Shougo/echodoc.vim'
+  " PHP Support
   Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
-  Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+  Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
+  Plug 'alvan/vim-php-manual'
+  Plug 'docteurklein/vim-symfony'
+
+  " JavaScript Support
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  Plug 'moll/vim-node'
+
+  " Misc Languages
+  Plug 'joonty/vdebug'
 
 call plug#end()
 
