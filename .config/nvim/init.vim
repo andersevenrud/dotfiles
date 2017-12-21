@@ -108,6 +108,8 @@ set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <C-Delete> :tabclose<CR>
+nnoremap <C-End> :tabonly<CR>
 
 " copy/paste X
 inoremap <C-S-v> <ESC>"+pa
@@ -206,6 +208,7 @@ autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=
 "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.blade.php set ft=blade
+autocmd BufNewFile,BufRead *.heml set ft=html
 
 autocmd FileType markdown let g:indentLine_enabled=0
 
@@ -221,10 +224,11 @@ let g:echodoc_enable_at_startup = 1
 "let g:syntastic_javascript_checkers = ['eslint']
 "let g:syntastic_php_checkers = ['php']
 let g:ale_sign_column_always = 1
+let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'css': ['stylelint'],
-\   'php': ['php -l']
+\   'php': ['php -l', 'phpmd', 'phpcs']
 \}
 
 let g:javascript_plugin_jsdoc = 1
