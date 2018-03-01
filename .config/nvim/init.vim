@@ -215,6 +215,9 @@ autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
+" makes sure nerdtree does not respect my symbol listings
+autocmd FileType nerdtree setlocal nolist
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -274,6 +277,12 @@ let g:easytags_languages = {
 \       'args': [],
 \   }
 \}
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_ctrlp = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 0
+let g:webdevicons_conceal_nerdtree_brackets = 1
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -360,6 +369,9 @@ call plug#begin('~/.config/nvim')
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'majutsushi/tagbar'
   Plug 'xolox/vim-easytags'
+
+  " This must be loaded lastly
+  Plug 'ryanoasis/vim-devicons'
 
   " PHP Support
   Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
