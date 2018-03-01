@@ -23,7 +23,7 @@ set wildmenu
 set wildmode=longest,list,full
 set laststatus=2
 set history=500
-set mouse=n
+"set mouse=n
 set hidden
 
 " Search behaviour
@@ -212,9 +212,14 @@ autocmd BufNewFile,BufRead *.heml set ft=html
 
 autocmd FileType markdown let g:indentLine_enabled=0
 
+autocmd FileType vue syntax sync fromstart
+"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vue_disable_pre_processors=1
 
 let g:markdown_syntax_conceal = 0
 "let g:markdown_composer_open_browser = 0
@@ -307,6 +312,7 @@ call plug#begin('~/.config/nvim')
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
   Plug 'xolox/vim-misc'
   Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'wincent/terminus'
 
   " Syntax
   Plug 'othree/html5.vim'

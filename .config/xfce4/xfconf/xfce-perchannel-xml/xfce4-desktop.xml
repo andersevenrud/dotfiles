@@ -6,7 +6,7 @@
       <property name="monitor0" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="4"/>
+          <property name="image-style" type="int" value="0"/>
           <property name="last-image" type="string" value="/mnt/hdd-backup/Storage/Windows/Pictures/03314_mesa_1920x1200.jpg"/>
           <property name="color1" type="array">
             <value type="uint" value="0"/>
@@ -14,6 +14,7 @@
             <value type="uint" value="0"/>
             <value type="uint" value="65535"/>
           </property>
+          <property name="backdrop-cycle-enable" type="bool" value="false"/>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
@@ -54,7 +55,7 @@
       <property name="monitor1" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
+          <property name="image-style" type="int" value="0"/>
           <property name="last-image" type="string" value="/mnt/hdd-backup/Storage/Windows/Pictures/03314_mesa_1920x1200.jpg"/>
           <property name="color1" type="array">
             <value type="uint" value="0"/>
@@ -102,7 +103,7 @@
       <property name="monitor2" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="4"/>
+          <property name="image-style" type="int" value="0"/>
           <property name="last-image" type="string" value="/mnt/hdd-backup/Storage/Windows/Pictures/03314_mesa_1920x1200.jpg"/>
           <property name="color1" type="array">
             <value type="uint" value="0"/>

@@ -20,3 +20,8 @@
 
 [core]
 	editor = vim
+[status]
+	short = true
+	branch = true
+[advice]
+	statusHints = false
