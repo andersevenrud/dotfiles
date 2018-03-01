@@ -1,0 +1,5 @@
+decoration,
+.window-frame {
+  border : 0 none !important;
+  border-radius: 0 !important;
+}
