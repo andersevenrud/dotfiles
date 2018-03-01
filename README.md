@@ -5,8 +5,8 @@ This is all of my personal developer computer dotfiles etc for Linux.
 * Vim configurations and bundles
 * Bash environment and aliases
 * Tmux configurations and plugins
-* Xfce setup
 * Misc scripts and configurations
+* Desktop setup (i3, polybar, etc)
 
 # Screenshots
 
