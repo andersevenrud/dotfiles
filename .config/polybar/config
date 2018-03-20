@@ -8,13 +8,13 @@
 ;=====================================================
 
 [colors]
-background = #222
-background-alt = #444
+background = #4C566A
+background-alt = #2E3440
 foreground = #ffffff
-foreground-alt = #666666
+foreground-alt = #eceff4
 primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+secondary = #d8dee9
+alert = #BF616A
 
 [bar/example]
 width = 100%
@@ -22,7 +22,7 @@ height = 32
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -42,9 +42,10 @@ module-margin-right = 1
 font-0 = "SauceCodePro Nerd Font:pixelsize=12;2"
 font-1 = "SauceCodePro Nerd Font:pixelsize=10;1"
 font-2 = "SauceCodePro Nerd Font Mono:pixelsize=10;1"
+font-3 = "SauceCodePro Nerd Font:pixelsize=12:weight=bold;2"
 
 #modules-left = bspwm
-modules-left = filesystem
+modules-left = filesystem syslog
 modules-center = date
 #modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 modules-right = xkeyboard memory cpu eth temperature powermenu
@@ -64,6 +65,13 @@ scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/syslog]
+
+type = custom/script
+exec = ~/.config/polybar/dmesg.sh
+label = [%output%]
+interval = 1
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -87,10 +95,11 @@ interval = 25
 
 mount-0 = /
 mount-1 = /home
-mount-2 = /mnt/hdd-backup
-mount-3 = /mnt/hdd-stuff
+mount-2 = /data
+mount-3 = /mnt/hdd-backup
+mount-4 = /mnt/hdd-stuff
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#d8dee9}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -150,6 +159,7 @@ time = %H:%M:%S
 time-alt = %H:%M:%S
 
 label = %date% %time%
+label-font = 4
 
 [module/temperature]
 type = internal/temperature

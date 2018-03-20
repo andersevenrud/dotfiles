@@ -68,8 +68,8 @@ set noshowmode
 
 " Theme
 set t_Co=256
-colorscheme desert256
-set background=dark
+"colorscheme desert256
+"set background=dark
 
 " Only visual bell
 set vb t_vb="
@@ -216,7 +216,7 @@ autocmd FileType vue syntax sync fromstart
 "autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 " makes sure nerdtree does not respect my symbol listings
-autocmd FileType nerdtree setlocal nolist
+autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -281,8 +281,13 @@ let g:easytags_languages = {
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_ctrlp = 1
-let g:WebDevIconsUnicodeDecorateFileNodes = 0
 let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -310,6 +315,7 @@ endfunction
 set statusline=%{LinterStatus()}
 
 call plug#begin('~/.config/nvim')
+  Plug 'arcticicestudio/nord-vim'
 
   " Libraries
   Plug 'tpope/vim-obsession'
@@ -385,6 +391,8 @@ call plug#begin('~/.config/nvim')
 
   " Misc Languages
   Plug 'joonty/vdebug'
+  Plug 'tpope/vim-db'
 
 call plug#end()
 
+colorscheme nord
