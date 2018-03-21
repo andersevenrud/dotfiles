@@ -40,6 +40,7 @@ set backspace=indent,eol,start
 
 " Autocompletion
 "set completeopt=longest,menuone
+set completeopt=longest,menuone
 "highlight Pmenu guibg=brown gui=bold
 set shortmess+=c
 
@@ -218,6 +219,11 @@ autocmd FileType vue syntax sync fromstart
 " makes sure nerdtree does not respect my symbol listings
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
+"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+"autocmd FileType php setlocal omnifunc=phpactor#Complete
+autocmd filetype php set omnifunc=LanguageClient#complete
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -249,7 +255,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 let g:ctrlp_root_markers = ['composer.json', 'package.json']
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-let g:phpcd_disable_modifier = 0
 "let g:php_syntax_extensions_enabled = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:tern_request_timeout = 1
@@ -288,6 +293,8 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
+
+let g:cm_completed_snippet_enable=1
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -347,12 +354,11 @@ call plug#begin('~/.config/nvim')
   Plug 'junegunn/fzf'
   Plug 'Shougo/denite.nvim'
   Plug 'othree/jspc.vim'
-  Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
   Plug 'roxma/nvim-completion-manager'
   Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
   Plug 'calebeby/ncm-css'
-  Plug 'roxma/ncm-phpactor'
   Plug 'roxma/ncm-flow'
+  Plug 'roxma/ncm-phpactor'
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
@@ -381,7 +387,7 @@ call plug#begin('~/.config/nvim')
 
   " PHP Support
   Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-  Plug 'phpactor/phpactor' ,  {'do': 'composer install'}
+  Plug 'phpactor/phpactor',  {'do': 'composer install'}
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
 
