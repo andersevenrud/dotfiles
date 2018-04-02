@@ -187,6 +187,7 @@ exec_always --no-startup-id gnome-settings-daemon
 exec_always --no-startup-id xscreensaver
 
 exec --no-startup-id nm-applet
+exec --no-startup-id solaar
 exec --no-startup-id alacritty
 exec --no-startup-id chromium
 exec --no-startup-id thunderbird

@@ -253,6 +253,9 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json']
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
 let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 "let g:php_syntax_extensions_enabled = 1
@@ -374,6 +377,7 @@ call plug#begin('~/.config/nvim')
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-signify'
   Plug 'scrooloose/nerdtree'
