@@ -40,8 +40,7 @@ set backspace=indent,eol,start
 
 " Autocompletion
 "set completeopt=longest,menuone
-set completeopt=longest,menuone
-"highlight Pmenu guibg=brown gui=bold
+"set completeopt=longest,menuone
 set shortmess+=c
 
 " Tabbing, Default to 2 spaces as tabs
@@ -57,11 +56,6 @@ set tags=./tags,tags;/
 set runtimepath^=~/.config/nvim/ctrlp.vim
 set path+=**
 set noshowmode
-
-" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visuals
@@ -88,6 +82,7 @@ set numberwidth=5
 set tw=1000
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
 set foldlevel=20
+set signcolumn=yes
 
 " When airline not present
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
@@ -122,15 +117,6 @@ inoremap <c-c> <ESC>
 " <Leader>+ <Leader>- for resize pane
 nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
-
-" <Leader>f for nerdtree
-" <Leader><Shift-f> for nerdtree
-map <Leader>f :NERDTreeToggle<CR>
-map <Leader><S-f> :NERDTreeFind<CR>
-
-" F12 for 'IDE' mode
-
-nnoremap <f12> :UpdateTags <CR> :NERDTreeFind <CR> :TagbarToggle <CR>
 
 " <home> toggles between start of line and start of text
 imap <khome> <home>
@@ -206,22 +192,20 @@ set title
 autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.blade.php set ft=blade
 autocmd BufNewFile,BufRead *.heml set ft=html
-
 autocmd FileType markdown let g:indentLine_enabled=0
-
 autocmd FileType vue syntax sync fromstart
-"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 " makes sure nerdtree does not respect my symbol listings
-autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
+"autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
+"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 "autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 "autocmd FileType php setlocal omnifunc=phpactor#Complete
-autocmd filetype php set omnifunc=LanguageClient#complete
+"autocmd filetype php set omnifunc=LanguageClient#complete
+"autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -233,17 +217,16 @@ let g:vue_disable_pre_processors=1
 let g:markdown_syntax_conceal = 0
 "let g:markdown_composer_open_browser = 0
 let g:markdown_composer_autostart = 0
-"let g:markdown_composer_browser = 'firefox'
+"let g:markdown_composer_browser = 'chromium'
 let g:echodoc_enable_at_startup = 1
-"let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_php_checkers = ['php']
 let g:ale_sign_column_always = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'css': ['stylelint'],
-\   'php': ['php -l', 'phpmd', 'phpcs']
 \}
+" Handled by phactor
+"\   'php': ['php -l', 'phpmd', 'phpcs']
 
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
@@ -256,35 +239,23 @@ let g:ctrlp_root_markers = ['composer.json', 'package.json']
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
-let g:SuperTabDefaultCompletionType = "<C-x><C-o>"
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-"let g:php_syntax_extensions_enabled = 1
 let g:neosnippet#enable_completed_snippet = 1
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#tss#javascript_support = 1
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['flow-language-server', '--stdio'],
-    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'css': ['css-languageserver', '--stdio'],
+    \ 'less': ['css-languageserver', '--stdio'],
+    \ 'sass': ['css-languageserver', '--stdio'],
+    \ 'scss': ['css-languageserver', '--stdio']
     \ }
-let NERDTreeWinPos = 'left'
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 let g:tagbar_left = 1
 let g:tagbar_vertical = 25
 let g:tagbar_width = 60
-let g:easytags_async = 1
-let g:easytags_updatetime_min = 1000
-let g:easytags_languages = {
-\   'javascript': {
-\     'cmd': 'jsctags',
-\       'args': [],
-\   }
-\}
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -296,18 +267,6 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
-
-let g:cm_completed_snippet_enable=1
-
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    if has('nvim')
-      !cargo build --release
-    else
-      !cargo build --release --no-default-features --features json-rpc
-    endif
-  endif
-endfunction
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -325,8 +284,6 @@ endfunction
 set statusline=%{LinterStatus()}
 
 call plug#begin('~/.config/nvim')
-  Plug 'arcticicestudio/nord-vim'
-
   " Libraries
   Plug 'tpope/vim-obsession'
   Plug 'MarcWeber/vim-addon-mw-utils'
@@ -336,10 +293,10 @@ call plug#begin('~/.config/nvim')
   Plug 'mileszs/ack.vim'
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
   Plug 'xolox/vim-misc'
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
   Plug 'wincent/terminus'
+  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
 
-  " Syntax
+  " Syntax and languages
   Plug 'othree/html5.vim'
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
@@ -352,16 +309,25 @@ call plug#begin('~/.config/nvim')
   Plug 'othree/yajs.vim'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
+  Plug 'moll/vim-node'
+  Plug 'alvan/vim-php-manual'
+  Plug 'docteurklein/vim-symfony'
+
+  " Language Support etc
+  Plug 'joonty/vdebug'
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+  Plug 'phpactor/phpactor',  {'do': 'composer install'}
+  "Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 
   " Autocomplete
-  Plug 'junegunn/fzf'
-  Plug 'Shougo/denite.nvim'
-  Plug 'othree/jspc.vim'
-  Plug 'roxma/nvim-completion-manager'
-  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-  Plug 'calebeby/ncm-css'
-  Plug 'roxma/ncm-flow'
-  Plug 'roxma/ncm-phpactor'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'kristijanhusak/deoplete-phpactor'
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
@@ -369,39 +335,20 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'w0rp/ale'
-  Plug 'tpope/vim-commentary'
-  Plug 'yuttie/comfortable-motion.vim'
-  Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-signify'
-  Plug 'scrooloose/nerdtree'
   Plug 'tpope/vim-fugitive'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'majutsushi/tagbar'
-  Plug 'xolox/vim-easytags'
 
   " This must be loaded lastly
+  Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
-
-  " PHP Support
-  Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-  Plug 'phpactor/phpactor',  {'do': 'composer install'}
-  Plug 'alvan/vim-php-manual'
-  Plug 'docteurklein/vim-symfony'
-
-  " JavaScript Support
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-  Plug 'moll/vim-node'
-
-  " Misc Languages
-  Plug 'joonty/vdebug'
-  Plug 'tpope/vim-db'
 
 call plug#end()
 
