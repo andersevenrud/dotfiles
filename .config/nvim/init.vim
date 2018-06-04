@@ -1,7 +1,3 @@
-"
-" c-y = echodoc
-"
-"
 syntax on
 filetype plugin on
 filetype indent on
@@ -25,7 +21,6 @@ set wildmenu
 set wildmode=longest,list,full
 set laststatus=2
 set history=500
-"set mouse=n
 set hidden
 
 " Search behaviour
@@ -41,7 +36,6 @@ set secure
 set backspace=indent,eol,start
 
 " Autocompletion
-"set completeopt=longest,menuone
 set completeopt=longest,menuone
 set shortmess+=c
 
@@ -59,14 +53,9 @@ set runtimepath^=~/.config/nvim/ctrlp.vim
 set path+=**
 set noshowmode
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Visuals
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Theme
 set t_Co=256
 "colorscheme desert256
-"set background=dark
 
 " Only visual bell
 set vb t_vb="
@@ -86,26 +75,10 @@ set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
 set foldlevel=20
 set signcolumn=yes
 
-" When airline not present
-set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
-"              | | | | |  |   |      |  |     |    |
-"              | | | | |  |   |      |  |     |    + current
-"              | | | | |  |   |      |  |     |       column
-"              | | | | |  |   |      |  |     +-- current line
-"              | | | | |  |   |      |  +-- current % into file
-"              | | | | |  |   |      +-- current syntax in
-"              | | | | |  |   |          square brackets
-"              | | | | |  |   +-- current fileformat
-"              | | | | |  +-- number of lines
-"              | | | | +-- preview flag in square brackets
-"              | | | +-- help flag in square brackets
-"              | | +-- readonly flag in square brackets
-"              | +-- rodified flag in square brackets
-"              +-- full path to file in the buffer
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nnoremap <C-Delete> :tabclose<CR>
 nnoremap <C-End> :tabonly<CR>
 
@@ -153,9 +126,9 @@ function! HEnd()
 endfunction
 
 " LS
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+"nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Tab-ing for popup
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -202,16 +175,6 @@ autocmd BufNewFile,BufRead *.heml set ft=html
 autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 
-" makes sure nerdtree does not respect my symbol listings
-"autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
-
-"autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-"autocmd FileType php setlocal omnifunc=phpactor#Complete
-"autocmd filetype php set omnifunc=LanguageClient#complete
-"autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -229,32 +192,26 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'css': ['stylelint'],
 \}
-" Handled by phactor
-"\   'php': ['php -l', 'phpmd', 'phpcs']
 
 let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ackprg = 'rg --vimgrep --no-heading'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
+let g:neosnippet#enable_completed_snippet = 1
+let g:deoplete#enable_at_startup = 1
+
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json', '.eslintrc', '.csslintrc']
-"if executable('rg')
-"  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-"  let g:ctrlp_use_caching = 0
-"endif
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
 let g:ctrlp_working_path_mode = 'w'
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-let g:neosnippet#enable_completed_snippet = 1
-let g:deoplete#enable_at_startup = 1
+
 let g:LanguageClient_autoStart = 1
-    " 'javascript': ['javascript-typescript-stdio'],
-    " 'javascript.jsx': ['javascript-typescript-stdio'],
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['flow-language-server', '--stdio'],
     \ 'javascript.jsx': ['flow-language-server', '--stdio'],
@@ -283,21 +240,6 @@ let g:nord_italic_comments = 1
 let g:phpactorPhpBin = 'php'
 let g:phpactorBranch = 'master'
 let g:phpactorOmniError = v:false
-
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
-set statusline=%{LinterStatus()}
 
 call plug#begin('~/.config/nvim')
   " Libraries
@@ -335,16 +277,13 @@ call plug#begin('~/.config/nvim')
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-  "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
   Plug 'phpactor/phpactor',  {'do': 'composer install'}
-  "Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/deoplete-phpactor'
   Plug 'wokalski/autocomplete-flow'
-  "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   Plug 'Shougo/echodoc.vim'
 
   " Editing
@@ -362,12 +301,26 @@ call plug#begin('~/.config/nvim')
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
-  Plug 'majutsushi/tagbar'
 
   " This must be loaded lastly
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
 
 colorscheme nord
