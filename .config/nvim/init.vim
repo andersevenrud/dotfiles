@@ -13,7 +13,9 @@ filetype indent on
 " Filetypes and encoding
 set fileformats=unix,dos,mac
 set encoding=utf-8
-set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
+set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
+set wildignore+=.git,.svn,CVS
+set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
 
 " General behaviour
 set nowrap
@@ -40,7 +42,7 @@ set backspace=indent,eol,start
 
 " Autocompletion
 "set completeopt=longest,menuone
-"set completeopt=longest,menuone
+set completeopt=longest,menuone
 set shortmess+=c
 
 " Tabbing, Default to 2 spaces as tabs
@@ -189,6 +191,9 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
 " Filetypes
+autocmd BufNewFile,BufRead *.mjs set syntax=javascript
+autocmd BufNewFile,BufRead *.ejs set syntax=javascript
+autocmd BufNewFile,BufRead *.inc set syntax=php
 autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
@@ -206,7 +211,6 @@ autocmd FileType vue syntax sync fromstart
 "autocmd FileType php setlocal omnifunc=phpactor#Complete
 "autocmd filetype php set omnifunc=LanguageClient#complete
 "autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -232,20 +236,28 @@ let g:javascript_plugin_jsdoc = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
+let g:ackprg = 'rg --vimgrep --no-heading'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_root_markers = ['composer.json', 'package.json']
-let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-let g:ctrlp_use_caching = 0
+let g:ctrlp_root_markers = ['composer.json', 'package.json', '.eslintrc', '.csslintrc']
+"if executable('rg')
+"  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+"  let g:ctrlp_use_caching = 0
+"endif
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
+let g:ctrlp_working_path_mode = 'w'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_autoStart = 1
+    " 'javascript': ['javascript-typescript-stdio'],
+    " 'javascript.jsx': ['javascript-typescript-stdio'],
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'javascript': ['flow-language-server', '--stdio'],
+    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
     \ 'css': ['css-languageserver', '--stdio'],
     \ 'less': ['css-languageserver', '--stdio'],
     \ 'sass': ['css-languageserver', '--stdio'],
@@ -267,6 +279,10 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
+
+let g:phpactorPhpBin = 'php'
+let g:phpactorBranch = 'master'
+let g:phpactorOmniError = v:false
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -322,12 +338,14 @@ call plug#begin('~/.config/nvim')
   "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
   Plug 'phpactor/phpactor',  {'do': 'composer install'}
   "Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/deoplete-phpactor'
+  Plug 'wokalski/autocomplete-flow'
+  "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'Shougo/echodoc.vim'
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
