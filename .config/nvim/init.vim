@@ -220,11 +220,6 @@ let g:LanguageClient_serverCommands = {
     \ 'sass': ['css-languageserver', '--stdio'],
     \ 'scss': ['css-languageserver', '--stdio']
     \ }
-let g:tagbar_compact = 1
-let g:tagbar_singleclick = 1
-let g:tagbar_left = 1
-let g:tagbar_vertical = 25
-let g:tagbar_width = 60
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
