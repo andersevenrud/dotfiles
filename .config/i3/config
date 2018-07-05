@@ -191,5 +191,6 @@ exec --no-startup-id solaar
 exec --no-startup-id alacritty
 exec --no-startup-id chromium
 exec --no-startup-id thunderbird
+exec --no-startup-id redshift-gtk
 
 exec --no-startup-id xsetroot -solid "#2E3440"
