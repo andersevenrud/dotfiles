@@ -146,6 +146,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+" NERDTree
+map <Leader>f :NERDTreeToggle<CR>
+map <Leader><S-f> :NERDTreeFind<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -175,17 +179,13 @@ autocmd BufNewFile,BufRead *.heml set ft=html
 autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 
+" Other
+autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
+" Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:vue_disable_pre_processors=1
-
-let g:markdown_syntax_conceal = 0
-"let g:markdown_composer_open_browser = 0
-let g:markdown_composer_autostart = 0
-"let g:markdown_composer_browser = 'chromium'
-let g:echodoc_enable_at_startup = 1
 let g:ale_sign_column_always = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_fixers = {
@@ -193,12 +193,23 @@ let g:ale_fixers = {
 \   'css': ['stylelint'],
 \}
 
+let g:markdown_syntax_conceal = 0
+let g:markdown_composer_autostart = 0
+"let g:markdown_composer_open_browser = 0
+"let g:markdown_composer_browser = 'chromium'
+
 let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+
 let g:Powerline_symbols = 'fancy'
+let g:NERDTreeWinPos = 'left'
+let g:vue_disable_pre_processors=1
+let g:echodoc_enable_at_startup = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ackprg = 'rg --vimgrep --no-heading'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
+let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#enable_at_startup = 1
 
@@ -236,6 +247,17 @@ let g:phpactorPhpBin = 'php'
 let g:phpactorBranch = 'master'
 let g:phpactorOmniError = v:false
 
+let g:mta_use_matchparen_group = 1
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin List
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call plug#begin('~/.config/nvim')
   " Libraries
   Plug 'tpope/vim-obsession'
@@ -249,12 +271,11 @@ call plug#begin('~/.config/nvim')
   Plug 'wincent/terminus'
   Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
 
-  " Syntax and languages
+  " Syntax
   Plug 'othree/html5.vim'
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
-  Plug 'gavocanov/vim-js-indent'
   Plug 'hail2u/vim-css3-syntax'
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
@@ -262,9 +283,6 @@ call plug#begin('~/.config/nvim')
   Plug 'othree/yajs.vim'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
-  Plug 'moll/vim-node'
-  Plug 'alvan/vim-php-manual'
-  Plug 'docteurklein/vim-symfony'
 
   " Language Support etc
   Plug 'joonty/vdebug'
@@ -273,7 +291,10 @@ call plug#begin('~/.config/nvim')
     \ 'do': 'bash install.sh',
     \ }
   Plug 'phpactor/phpactor',  {'do': 'composer install'}
-
+  Plug 'moll/vim-node'
+  Plug 'alvan/vim-php-manual'
+  Plug 'docteurklein/vim-symfony'
+  Plug 'othree/javascript-libraries-syntax.vim'
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -290,32 +311,20 @@ call plug#begin('~/.config/nvim')
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
+  Plug 'Valloric/MatchTagAlways'
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'bling/vim-airline'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " This must be loaded lastly
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
-
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
-set statusline=%{LinterStatus()}
 
 colorscheme nord
