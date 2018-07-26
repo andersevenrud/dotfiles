@@ -280,7 +280,9 @@ call plug#begin('~/.config/nvim')
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
-  Plug 'othree/yajs.vim'
+  "Plug 'othree/yajs.vim'
+  "Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
 
@@ -294,7 +296,6 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
-  Plug 'othree/javascript-libraries-syntax.vim'
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
