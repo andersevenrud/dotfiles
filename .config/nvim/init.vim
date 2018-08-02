@@ -182,6 +182,13 @@ autocmd FileType vue syntax sync fromstart
 " Other
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
+" Highlight current line
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine ctermbg=234
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -313,6 +320,8 @@ call plug#begin('~/.config/nvim')
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
   Plug 'Valloric/MatchTagAlways'
+  Plug 'RRethy/vim-illuminate'
+  "Plug 'itchyny/vim-cursorword'
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
