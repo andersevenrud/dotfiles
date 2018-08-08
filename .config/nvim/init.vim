@@ -292,6 +292,7 @@ call plug#begin('~/.config/nvim')
   Plug 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
+  Plug 'tbastos/vim-lua'
 
   " Language Support etc
   Plug 'joonty/vdebug'
