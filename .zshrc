@@ -1,9 +1,13 @@
 source ~/.zplug/init.zsh
 
 zplug "supercrabtree/k"
-zplug "agkozak/agkozak-zsh-prompt"
+#zplug "olivierverdier/zsh-git-prompt", use:zshrc.sh, hook-build:"zplug clear"
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "lukechilds/zsh-nvm"
 zplug "twang817/zsh-ssh-agent"
+zplug "chrissicool/zsh-256color"
+zplug "akoenig/npm-run.plugin.zsh"
+zplug "MikeDacre/tmux-zsh-vim-titles"
 
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
@@ -27,5 +31,7 @@ export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
 export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline]']']']']']']'
+
+PROMPT='%B%m%~%b$(git_super_status) %# '
 
 zplug load --verbose
