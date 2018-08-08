@@ -177,6 +177,9 @@ for_window [class="Vlc"] floating enable
 for_window [class="MPlayer"] floating enable
 for_window [class="mpv"] floating enable
 
+for_window [class="^Minecraft"] floating enable
+for_window [class="^Minecraft"] resize set 800 600
+
 ###############################################################################
 # Startup
 ###############################################################################
