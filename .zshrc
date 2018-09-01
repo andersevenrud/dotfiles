@@ -34,4 +34,7 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline]']']']']']']'
 
 PROMPT='%B%m%~%b$(git_super_status) %# '
 
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 zplug load --verbose
