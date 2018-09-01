@@ -2,6 +2,12 @@ syntax on
 filetype plugin on
 filetype indent on
 
+function! AirlineInit()
+  call airline#parts#define_raw('time', 'XXXXX')
+  let g:airline_section_y = airline#section#create_left(['ffenc', 'time'])
+endfunction
+autocmd VimEnter * call AirlineInit()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -56,6 +62,9 @@ set noshowmode
 " Theme
 set t_Co=256
 "colorscheme desert256
+set termguicolors " True-color
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " Only visual bell
 set vb t_vb="
@@ -168,6 +177,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
 " Filetypes
+autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
 autocmd BufNewFile,BufRead *.mjs set syntax=javascript
 autocmd BufNewFile,BufRead *.ejs set syntax=javascript
 autocmd BufNewFile,BufRead *.inc set syntax=php
@@ -196,6 +206,7 @@ highlight CursorLine ctermbg=234
 let g:ale_sign_column_always = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_fixers = {
+\   'javascript.jsx': ['eslint'],
 \   'javascript': ['eslint'],
 \   'css': ['stylelint'],
 \}
@@ -219,6 +230,13 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -239,6 +257,10 @@ let g:LanguageClient_serverCommands = {
     \ 'scss': ['css-languageserver', '--stdio']
     \ }
 
+"    \ 'javascript': ['javascript-typescript-stdio'],
+"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"    \ 'javascript': ['flow-language-server', '--stdio'],
+"    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_ctrlp = 1
@@ -260,6 +282,8 @@ let g:mta_filetypes = {
     \ 'xhtml' : 1,
     \ 'xml' : 1,
     \}
+
+let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin List
@@ -304,12 +328,16 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
+  Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+  Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/deoplete-phpactor'
   Plug 'wokalski/autocomplete-flow'
   Plug 'Shougo/echodoc.vim'
+  Plug 'carlitux/deoplete-ternjs'
+  Plug 'mhartington/deoplete-typescript'
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
