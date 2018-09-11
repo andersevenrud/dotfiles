@@ -1,17 +1,23 @@
 "
 " Anders Evenrud neovim config
 "
-" Dependencies:
-"
+" Base Dependencies:
 " - vim-plug
 " - python3
 "
-" Some plugins requires the following:
+" Plugin Dependencies:
 " - node/npm
 " - php/composer
 " - rust/cargo
 " - c/make
 "
+" Language Integration:
+" - LC/Deoplete: .tern-config - Javascript
+" - LC/Deoplete: .flowconfig - Javascript/Flow
+" - LC/Deoplete: tsconfig.json - Javascript/Typescript
+" - LC/Deoplete: composer.json - PHP
+" - Ale: .eslintrc - Javascript Linting
+" - Ale: .stylelint - CSS Linting
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
@@ -27,22 +33,10 @@ let g:ale_fixers = {
 
 let g:markdown_syntax_conceal = 0
 let g:markdown_composer_autostart = 0
-"let g:markdown_composer_open_browser = 0
-"let g:markdown_composer_browser = 'chromium'
 
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
-let g:Powerline_symbols = 'fancy'
-let g:NERDTreeWinPos = 'left'
-let g:vue_disable_pre_processors=1
-let g:echodoc_enable_at_startup = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ackprg = 'rg --vimgrep --no-heading'
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
-let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
@@ -91,10 +85,21 @@ let g:mta_filetypes = {
     \ 'html' : 1,
     \ 'xhtml' : 1,
     \ 'xml' : 1,
+    \ 'blade' : 1,
+    \ 'ejs' : 1,
+    \ 'javascript.jsx' : 1,
     \}
 
-let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
-
+let g:Powerline_symbols = 'fancy'
+let g:NERDTreeWinPos = 'left'
+let g:vue_disable_pre_processors=1
+let g:echodoc_enable_at_startup = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ackprg = 'rg --vimgrep --no-heading'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
+let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
+let g:neosnippet#enable_completed_snippet = 1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
