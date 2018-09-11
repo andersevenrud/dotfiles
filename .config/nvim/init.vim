@@ -282,6 +282,12 @@ inoremap <c-c> <ESC>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Enter for autocomplete+neosnippet
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return deoplete#mappings#smart_close_popup() . "\<CR>"
+endfunction
+
 " Tab manipulation
 nnoremap <C-Delete> :tabclose<CR>
 nnoremap <C-End> :tabonly<CR>
