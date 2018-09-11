@@ -22,7 +22,7 @@
 " - stylelint
 "
 " Integration Usage:
-" - LC/Deoplete: .tern-config - Javascript
+" - LC/Deoplete: .tern-project - Javascript
 " - LC/Deoplete: .flowconfig - Javascript/Flow
 " - LC/Deoplete: tsconfig.json - Javascript/Typescript
 " - LC/Deoplete: composer.json - PHP
@@ -60,8 +60,10 @@ let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
+let g:deoplete#sources#ternjs#case_insensitive = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#types = 1
 
-let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json', '.eslintrc', '.csslintrc']
@@ -79,6 +81,8 @@ let g:LanguageClient_serverCommands = {
     \ 'sass': ['css-languageserver', '--stdio'],
     \ 'scss': ['css-languageserver', '--stdio']
     \ }
+"    \ 'javascript': ['javascript-typescript-stdio'],
+"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -157,16 +161,14 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
-  "Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
   Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
   Plug 'w0rp/ale'
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/deoplete-phpactor'
-  "Plug 'wokalski/autocomplete-flow'
   Plug 'Shougo/echodoc.vim'
-  "Plug 'carlitux/deoplete-ternjs'
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
   Plug 'mhartington/deoplete-typescript'
 
   " Editing
@@ -187,8 +189,6 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-
-  " This must be loaded lastly
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
 call plug#end()
