@@ -1,206 +1,20 @@
-syntax on
-filetype plugin on
-filetype indent on
-
-function! AirlineInit()
-  call airline#parts#define_raw('time', 'XXXXX')
-  let g:airline_section_y = airline#section#create_left(['ffenc', 'time'])
-endfunction
-autocmd VimEnter * call AirlineInit()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Filetypes and encoding
-set fileformats=unix,dos,mac
-set encoding=utf-8
-set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
-set wildignore+=.git,.svn,CVS
-set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
-
-" General behaviour
-set nowrap
-set nocompatible
-set lazyredraw
-set wildmenu
-set wildmode=longest,list,full
-set laststatus=2
-set history=500
-set hidden
-
-" Search behaviour
-set smartcase
-set ignorecase
-set incsearch
-
-" Make per-project .vimrc available
-set exrc
-set secure
-
-" Make backspace a more flexible
-set backspace=indent,eol,start
-
-" Autocompletion
-set completeopt=longest,menuone
-set shortmess+=c
-
-" Tabbing, Default to 2 spaces as tabs
-set ai
-set cino=:0g0(0,W2
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-
-" Misc runtime stuff
-set tags=./tags,tags;/
-set runtimepath^=~/.config/nvim/ctrlp.vim
-set path+=**
-set noshowmode
-
-" Theme
-set t_Co=256
-"colorscheme desert256
-set termguicolors " True-color
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-" Only visual bell
-set vb t_vb="
-set noerrorbells
-set visualbell
-
-" General user interface
-set hlsearch
-set showmatch
-set ruler
-set number
-
-" Other interface stuff
-set numberwidth=5
-set tw=1000
-set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
-set foldlevel=20
-set signcolumn=yes
+"
+" Anders Evenrud neovim config
+"
+" Dependencies:
+"
+" - vim-plug
+" - python3
+"
+" Some plugins requires the following:
+" - node/npm
+" - php/composer
+" - rust/cargo
+" - c/make
+"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Key mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <C-Delete> :tabclose<CR>
-nnoremap <C-End> :tabonly<CR>
-
-" copy/paste X
-inoremap <C-S-v> <ESC>"+pa
-vnoremap <C-S-c> "+y
-
-" Esc triggers C-c
-inoremap <c-c> <ESC>
-
-" <Leader>+ <Leader>- for resize pane
-nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
-nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
-
-" <home> toggles between start of line and start of text
-imap <khome> <home>
-nmap <khome> <home>
-inoremap <silent> <home> <C-O>:call HHome()<CR>
-nnoremap <silent> <home> :call HHome()<CR>
-function! HHome()
-	let curcol = wincol()
-	normal ^
-	let newcol = wincol()
-	if newcol == curcol
-		normal 0
-	endif
-endfunction
-
-" <end> goes to end of screen before end of line
-imap <kend> <end>
-nmap <kend> <end>
-inoremap <silent> <end> <C-O>:call HEnd()<CR>
-nnoremap <silent> <end> :call HEnd()<CR>
-function! HEnd()
-	let curcol = wincol()
-	normal g$
-	let newcol = wincol()
-	if newcol == curcol
-		normal $
-	endif
-	"http://www.pixelbeat.org/patches/vim-7.0023-eol.diff
-	if virtcol(".") == virtcol("$") - 1
-		normal $
-	endif
-endfunction
-
-" LS
-"nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-"nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-
-" Tab-ing for popup
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" Ale
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" NERDTree
-map <Leader>f :NERDTreeToggle<CR>
-map <Leader><S-f> :NERDTreeFind<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Highlight trailing whitespaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Tmux compability
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
-autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
-autocmd VimLeave * call system("tmux rename-window bash")
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-set title
-
-" Filetypes
-autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
-autocmd BufNewFile,BufRead *.mjs set syntax=javascript
-autocmd BufNewFile,BufRead *.ejs set syntax=javascript
-autocmd BufNewFile,BufRead *.inc set syntax=php
-autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd Filetype php setlocal cino=:0g0(0,W4 tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd BufNewFile,BufRead *.blade.php set ft=blade
-autocmd BufNewFile,BufRead *.heml set ft=html
-autocmd FileType markdown let g:indentLine_enabled=0
-autocmd FileType vue syntax sync fromstart
-
-" Other
-autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
-
-" Highlight current line
-set cursorline
-hi cursorline cterm=none term=none
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-highlight CursorLine ctermbg=234
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin Configurations
+" Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ale_sign_column_always = 1
@@ -257,10 +71,6 @@ let g:LanguageClient_serverCommands = {
     \ 'scss': ['css-languageserver', '--stdio']
     \ }
 
-"    \ 'javascript': ['javascript-typescript-stdio'],
-"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"    \ 'javascript': ['flow-language-server', '--stdio'],
-"    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_ctrlp = 1
@@ -285,8 +95,11 @@ let g:mta_filetypes = {
 
 let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin List
+" Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim')
@@ -311,8 +124,7 @@ call plug#begin('~/.config/nvim')
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
-  "Plug 'othree/yajs.vim'
-  "Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'othree/yajs.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
@@ -350,7 +162,6 @@ call plug#begin('~/.config/nvim')
   Plug 'Shougo/neosnippet-snippets'
   Plug 'Valloric/MatchTagAlways'
   Plug 'RRethy/vim-illuminate'
-  "Plug 'itchyny/vim-cursorword'
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
@@ -363,7 +174,146 @@ call plug#begin('~/.config/nvim')
   " This must be loaded lastly
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
-
 call plug#end()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" General behavior
+set nowrap
+set nocompatible
+set lazyredraw
+set wildmenu
+set wildmode=longest,list,full
+set laststatus=2
+set history=500
+set hidden
+set smartcase
+set ignorecase
+set incsearch
+set exrc
+set secure
+set backspace=indent,eol,start
+set completeopt=longest,menuone
+set shortmess+=c
+
+" Tabbing, Default to 2 spaces as tabs
+set ai
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+" Misc runtime stuff
+set tags=./tags,tags;/
+set runtimepath^=~/.config/nvim/ctrlp.vim
+set path+=**
+set noshowmode
+
+" Don't blink terminal or make that annoying sound
+set vb t_vb="
+set noerrorbells
+set visualbell
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" General
+set hlsearch
+set showmatch
+set ruler
+set number
+set numberwidth=5
+set foldlevel=20
+set signcolumn=yes
+
+" Theme
+set t_Co=256
+set termguicolors
 colorscheme nord
+
+" Highlight trailing whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Highlight unwanted characters
+set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+
+" Highlight current line
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine ctermbg=234
+
+" Tmux window titles
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
+autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
+autocmd VimLeave * call system("tmux rename-window bash")
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+set title
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Copy paste via system clipboard
+inoremap <C-S-v> <ESC>"+pa
+vnoremap <C-S-c> "+y
+
+" Make escape behave like C-c
+inoremap <c-c> <ESC>
+
+" Tabbing in autocompletion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Tab manipulation
+nnoremap <C-Delete> :tabclose<CR>
+nnoremap <C-End> :tabonly<CR>
+nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
+nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
+
+" Neosnippet parameter completion
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" Ale Linting error jumping
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" NERDTree
+map <Leader>f :NERDTreeToggle<CR>
+map <Leader><S-f> :NERDTreeFind<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Teh Codez
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" General
+set fileformats=unix,dos,mac
+set encoding=utf-8
+set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
+set wildignore+=.git,.svn,CVS
+set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
+
+" Extensions
+autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
+autocmd BufNewFile,BufRead *.mjs set syntax=javascript
+autocmd BufNewFile,BufRead *.ejs set syntax=javascript
+autocmd BufNewFile,BufRead *.inc set syntax=php
+autocmd BufNewFile,BufRead *.blade.php set ft=blade
+autocmd BufNewFile,BufRead *.heml set ft=html
+
+" Code Formatting options
+autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType markdown let g:indentLine_enabled=0
+autocmd FileType vue syntax sync fromstart
+autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
