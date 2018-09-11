@@ -157,16 +157,16 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
-  Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+  "Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
   Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
   Plug 'w0rp/ale'
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'kristijanhusak/deoplete-phpactor'
-  Plug 'wokalski/autocomplete-flow'
+  "Plug 'wokalski/autocomplete-flow'
   Plug 'Shougo/echodoc.vim'
-  Plug 'carlitux/deoplete-ternjs'
+  "Plug 'carlitux/deoplete-ternjs'
   Plug 'mhartington/deoplete-typescript'
 
   " Editing
