@@ -5,19 +5,34 @@
 " - vim-plug
 " - python3
 "
-" Plugin Dependencies:
+" Plugin Binaries:
 " - node/npm
 " - php/composer
 " - rust/cargo
 " - c/make
 "
-" Language Integration:
+" Integration Binaries:
+" - flow-language-server
+" - css-language-server
+" - typescript
+" - tern
+" - php
+" - node
+" - eslint
+" - stylelint
+"
+" Integration Usage:
 " - LC/Deoplete: .tern-config - Javascript
 " - LC/Deoplete: .flowconfig - Javascript/Flow
 " - LC/Deoplete: tsconfig.json - Javascript/Typescript
 " - LC/Deoplete: composer.json - PHP
 " - Ale: .eslintrc - Javascript Linting
 " - Ale: .stylelint - CSS Linting
+"
+" TODO: See if some set-ers can be removed because of defaults.
+" TODO: See if some of syntax plugins can be removed (outdated/nvim bundled).
+" TODO: Settle on one method of JS integration support. Needs more testing.
+" TODO: Check back on PHP LanguageClient integration instead of phpactor.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
@@ -87,6 +102,7 @@ let g:mta_filetypes = {
     \ 'xml' : 1,
     \ 'blade' : 1,
     \ 'ejs' : 1,
+    \ 'vue' : 1,
     \ 'javascript.jsx' : 1,
     \}
 
@@ -186,7 +202,6 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " General behavior
-set nowrap
 set nocompatible
 set lazyredraw
 set wildmenu
@@ -202,13 +217,6 @@ set secure
 set backspace=indent,eol,start
 set completeopt=longest,menuone
 set shortmess+=c
-
-" Tabbing, Default to 2 spaces as tabs
-set ai
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
 
 " Misc runtime stuff
 set tags=./tags,tags;/
@@ -226,6 +234,7 @@ set visualbell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " General
+set nowrap
 set hlsearch
 set showmatch
 set ruler
@@ -306,6 +315,13 @@ set encoding=utf-8
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
 set wildignore+=.git,.svn,CVS
 set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
+
+" Default tabbing (spaces)
+set ai
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 " Extensions
 autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
