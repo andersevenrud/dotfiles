@@ -282,11 +282,8 @@ inoremap <c-c> <ESC>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Enter for autocomplete+neosnippet
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return deoplete#mappings#smart_close_popup() . "\<CR>"
-endfunction
+" Don't make newline when using enter in autocomplete
+imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
 
 " Tab manipulation
 nnoremap <C-Delete> :tabclose<CR>
@@ -340,3 +337,10 @@ autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
+
+" Auto insert pairs on autocomplete
+call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
+
+" Deoplete source ordering
+call deoplete#custom#source('ternjs', 'rank', 10000)
+call deoplete#custom#source('LanguageClient', 'rank', 100)
