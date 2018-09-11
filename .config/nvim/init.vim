@@ -145,7 +145,6 @@ call plug#begin('~/.config/nvim')
   Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
-  Plug 'othree/yajs.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
