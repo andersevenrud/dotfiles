@@ -152,16 +152,14 @@ call plug#begin('~/.config/nvim')
 
   " Language Support etc
   Plug 'joonty/vdebug'
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+  Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
   Plug 'phpactor/phpactor',  {'do': 'composer install'}
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
   Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
   Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+  Plug 'w0rp/ale'
 
   " Autocomplete
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -176,7 +174,6 @@ call plug#begin('~/.config/nvim')
   Plug 'alvan/vim-closetag'
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'w0rp/ale'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
