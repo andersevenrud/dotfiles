@@ -22,17 +22,15 @@
 " - stylelint
 "
 " Integration Usage:
-" - LC/Deoplete: .tern-project - Javascript
-" - LC/Deoplete: .flowconfig - Javascript/Flow
-" - LC/Deoplete: tsconfig.json - Javascript/Typescript
-" - LC/Deoplete: composer.json - PHP
+" - LC/coc: .tern-project - Javascript
+" - LC/coc: .flowconfig - Javascript/Flow
+" - LC/coc: tsconfig.json - Javascript/Typescript
+" - LC/coc: composer.json - PHP
 " - Ale: .eslintrc - Javascript Linting
 " - Ale: .stylelint - CSS Linting
 "
 " TODO: See if some set-ers can be removed because of defaults.
 " TODO: See if some of syntax plugins can be removed (outdated/nvim bundled).
-" TODO: Settle on one method of JS integration support. Needs more testing.
-" TODO: Check back on PHP LanguageClient integration instead of phpactor.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
@@ -52,18 +50,6 @@ let g:markdown_composer_autostart = 0
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#docs = 1
-let g:deoplete#sources#ternjs#types = 1
-
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_root_markers = ['composer.json', 'package.json', '.eslintrc', '.csslintrc']
@@ -71,18 +57,6 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|sv
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
 let g:ctrlp_working_path_mode = 'w'
-
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['flow-language-server', '--stdio'],
-    \ 'javascript.jsx': ['flow-language-server', '--stdio'],
-    \ 'css': ['css-languageserver', '--stdio'],
-    \ 'less': ['css-languageserver', '--stdio'],
-    \ 'sass': ['css-languageserver', '--stdio'],
-    \ 'scss': ['css-languageserver', '--stdio']
-    \ }
-"    \ 'javascript': ['javascript-typescript-stdio'],
-"    \ 'javascript.jsx': ['javascript-typescript-stdio'],
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -94,10 +68,6 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
-
-let g:phpactorPhpBin = 'php'
-let g:phpactorBranch = 'master'
-let g:phpactorOmniError = v:false
 
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
@@ -114,8 +84,6 @@ let g:Powerline_symbols = 'fancy'
 let g:NERDTreeWinPos = 'left'
 let g:vue_disable_pre_processors=1
 let g:echodoc_enable_at_startup = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
 let g:ackprg = 'rg --vimgrep --no-heading'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
@@ -123,6 +91,30 @@ let g:neosnippet#enable_completed_snippet = 1
 let g:jsx_ext_required = 1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ 'component_type': {
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left'
+      \ },
+      \ 'component_expand': {
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok'
+      \ }
+ \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -155,23 +147,19 @@ call plug#begin('~/.config/nvim')
   Plug 'nikvdp/ejs-syntax'
   Plug 'tbastos/vim-lua'
   Plug 'mxw/vim-jsx'
+  Plug 'HerringtonDarkholme/yats.vim'
 
   " Language Support etc
   Plug 'joonty/vdebug'
-  Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-  Plug 'phpactor/phpactor',  {'do': 'composer install'}
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
-  Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   Plug 'w0rp/ale'
 
   " Autocomplete
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'kristijanhusak/deoplete-phpactor'
   Plug 'Shougo/echodoc.vim'
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-  Plug 'mhartington/deoplete-typescript'
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
@@ -179,20 +167,21 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-surround'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
   Plug 'Valloric/MatchTagAlways'
   Plug 'RRethy/vim-illuminate'
 
   " UI and other interfaces
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'bling/vim-airline'
+  Plug 'itchyny/lightline.vim'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
+
+  Plug 'jungomi/vim-mdnquery'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,6 +204,7 @@ set secure
 set backspace=indent,eol,start
 set completeopt=longest,menuone
 set shortmess+=c
+set updatetime=500
 
 " Misc runtime stuff
 set tags=./tags,tags;/
@@ -280,23 +270,11 @@ vnoremap <C-S-c> "+y
 " Make escape behave like C-c
 inoremap <c-c> <ESC>
 
-" Tabbing in autocompletion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Don't make newline when using enter in autocomplete
-imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
-
 " Tab manipulation
 nnoremap <C-Delete> :tabclose<CR>
 nnoremap <C-End> :tabonly<CR>
 nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
-
-" Neosnippet parameter completion
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Ale Linting error jumping
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -305,6 +283,53 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " NERDTree
 map <Leader>f :NERDTreeToggle<CR>
 map <Leader><S-f> :NERDTreeFind<CR>
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Teh Codez
@@ -339,10 +364,3 @@ autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
-
-" Auto insert pairs on autocomplete
-call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
-
-" Deoplete source ordering
-call deoplete#custom#source('ternjs', 'rank', 10000)
-call deoplete#custom#source('LanguageClient', 'rank', 100)
