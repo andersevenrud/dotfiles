@@ -11,38 +11,20 @@
 " - rust/cargo
 " - c/make
 "
-" Integration Binaries:
-" - flow-language-server
-" - css-language-server
-" - typescript
-" - tern
-" - php
-" - node
-" - eslint
-" - stylelint
 "
 " Integration Usage:
 " - LC/coc: .tern-project - Javascript
 " - LC/coc: .flowconfig - Javascript/Flow
 " - LC/coc: tsconfig.json - Javascript/Typescript
 " - LC/coc: composer.json - PHP
-" - Ale: .eslintrc - Javascript Linting
-" - Ale: .stylelint - CSS Linting
+" - LC/coc: .eslintrc - Javascript Linting
+" - LC/coc: .stylelint - CSS Linting
 "
 " TODO: See if some set-ers can be removed because of defaults.
-" TODO: See if some of syntax plugins can be removed (outdated/nvim bundled).
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:ale_sign_column_always = 1
-let g:ale_php_phpcs_standard = 'PSR2'
-let g:ale_fixers = {
-\   'javascript.jsx': ['eslint'],
-\   'javascript': ['eslint'],
-\   'css': ['stylelint'],
-\}
 
 let g:markdown_syntax_conceal = 0
 let g:markdown_composer_autostart = 0
@@ -87,7 +69,6 @@ let g:echodoc_enable_at_startup = 1
 let g:ackprg = 'rg --vimgrep --no-heading'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
-let g:neosnippet#enable_completed_snippet = 1
 let g:jsx_ext_required = 1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -107,12 +88,6 @@ let g:lightline = {
       \   'linter_warnings': 'warning',
       \   'linter_errors': 'error',
       \   'linter_ok': 'left'
-      \ },
-      \ 'component_expand': {
-      \   'linter_checking': 'lightline#ale#checking',
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \   'linter_ok': 'lightline#ale#ok'
       \ }
  \}
 
@@ -122,24 +97,14 @@ let g:lightline = {
 
 call plug#begin('~/.config/nvim')
   " Libraries
-  Plug 'tpope/vim-obsession'
-  Plug 'MarcWeber/vim-addon-mw-utils'
-  Plug 'tomtom/tlib_vim'
   Plug 'tmux-plugins/vim-tmux'
   Plug 'embear/vim-localvimrc'
-  Plug 'mileszs/ack.vim'
-  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-  Plug 'xolox/vim-misc'
   Plug 'wincent/terminus'
-  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
 
-  " Syntax
-  Plug 'othree/html5.vim'
+  " Syntax and indenting
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'groenewege/vim-less'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
   Plug 'pangloss/vim-javascript'
@@ -154,12 +119,7 @@ call plug#begin('~/.config/nvim')
   Plug 'moll/vim-node'
   Plug 'alvan/vim-php-manual'
   Plug 'docteurklein/vim-symfony'
-  Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-  Plug 'w0rp/ale'
-
-  " Autocomplete
-  Plug 'Shougo/echodoc.vim'
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
 
   " Editing
   Plug 'jiangmiao/auto-pairs'
@@ -171,7 +131,9 @@ call plug#begin('~/.config/nvim')
   Plug 'RRethy/vim-illuminate'
 
   " UI and other interfaces
+  Plug 'Shougo/echodoc.vim'
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
   Plug 'itchyny/lightline.vim'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
@@ -179,7 +141,6 @@ call plug#begin('~/.config/nvim')
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
-
   Plug 'jungomi/vim-mdnquery'
 
 call plug#end()
@@ -275,10 +236,6 @@ nnoremap <C-Delete> :tabclose<CR>
 nnoremap <C-End> :tabonly<CR>
 nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
-
-" Ale Linting error jumping
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " NERDTree
 map <Leader>f :NERDTreeToggle<CR>
