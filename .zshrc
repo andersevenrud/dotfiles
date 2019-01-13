@@ -36,5 +36,9 @@ PROMPT='%B%m%~%b$(git_super_status) %# '
 
 bindkey -v
 bindkey '^R' history-incremental-search-backward
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+bindkey    "^[[3~"          delete-char
+bindkey    "^[3;5~"         delete-char
 
 zplug load --verbose
