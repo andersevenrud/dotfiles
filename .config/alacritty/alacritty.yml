@@ -89,7 +89,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #style: Regular
+    style: Regular
     family: 'SauceCodePro Nerd Font Mono'
 
   # Bold font face
@@ -114,7 +114,7 @@ font:
 
     # The `style` can be specified to pick a specific face.
     family: 'SauceCodePro Nerd Font Mono'
-    #style: Italic
+    style: Italic
 
   # Point size
   size: 10.0
