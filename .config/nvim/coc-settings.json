@@ -1,0 +1,22 @@
+{
+  "coc.preferences.autoTrigger": "always",
+  "coc.preferences.timeout": 2000,
+  "languageserver": {
+    // "php": {
+    //   "trace.server": "verbose",
+    //   "command": "php",
+    //   // "args": ["/home/anders/.config/nvim/vendor/felixfbecker/language-server/bin/php-language-server.php"],
+    //   "args": ["/home/anders/.config/nvim/tenkawa/bin/tenkawa.php"],
+    //   "filetypes": ["php"]
+    // }
+
+    "ccls": {
+      "command": "/usr/bin/ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cacheDirectory": "/tmp/ccls"
+      }
+    }
+  }
+}
