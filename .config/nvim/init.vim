@@ -123,7 +123,6 @@ call plug#begin('~/.config/nvim')
 
   " Language Support
   Plug 'joonty/vdebug'
-  Plug 'moll/vim-node'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
 
