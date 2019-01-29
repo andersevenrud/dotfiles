@@ -4,23 +4,26 @@
 " Base Dependencies:
 " - vim-plug
 " - python3
+" - node + npm + yarn
+" - typescript npm package
+" - rust + cargo
+" - make
 "
-" Plugin Binaries:
-" - node/npm
-" - php/composer
-" - rust/cargo
-" - c/make
+" Extensions:
+" - coc-rls
+" - coc-html
+" - coc-jest
+" - coc-highlight
+" - coc-snippets
+" - coc-json
+" - coc-css
+" - coc-eslint
+" - coc-yaml
+" - coc-phpls
+" - coc-vetur
+" - coc-stylelint
+" - coc-tsserver
 "
-"
-" Integration Usage:
-" - LC/coc: .tern-project - Javascript
-" - LC/coc: .flowconfig - Javascript/Flow
-" - LC/coc: tsconfig.json - Javascript/Typescript
-" - LC/coc: composer.json - PHP
-" - LC/coc: .eslintrc - Javascript Linting
-" - LC/coc: .stylelint - CSS Linting
-"
-" TODO: See if some set-ers can be removed because of defaults.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
@@ -50,6 +53,9 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 14
+let g:nord_cursor_line_number_background = 1
+let g:nord_underline = 1
 
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
@@ -100,8 +106,9 @@ call plug#begin('~/.config/nvim')
   Plug 'tmux-plugins/vim-tmux'
   Plug 'embear/vim-localvimrc'
   Plug 'wincent/terminus'
+  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
 
-  " Syntax and indenting
+  " Improved Syntax
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
@@ -114,34 +121,29 @@ call plug#begin('~/.config/nvim')
   Plug 'mxw/vim-jsx'
   Plug 'HerringtonDarkholme/yats.vim'
 
-  " Language Support etc
+  " Language Support
   Plug 'joonty/vdebug'
   Plug 'moll/vim-node'
-  Plug 'alvan/vim-php-manual'
-  Plug 'docteurklein/vim-symfony'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
-
-  " Editing
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'alvan/vim-closetag'
-  Plug 'tpope/vim-surround'
-  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
-  Plug 'Valloric/MatchTagAlways'
-  Plug 'RRethy/vim-illuminate'
 
-  " UI and other interfaces
-  Plug 'Shougo/echodoc.vim'
+  " UI
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
   Plug 'itchyny/lightline.vim'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'jungomi/vim-mdnquery'
+
+  " FIXME: coc-oairs can replace these ?!
+  " https://github.com/neoclide/coc-pairs/issues/4
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'alvan/vim-closetag'
+
+  " Themes
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
-  Plug 'jungomi/vim-mdnquery'
 
 call plug#end()
 
