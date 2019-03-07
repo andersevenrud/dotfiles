@@ -8,6 +8,7 @@ zplug "twang817/zsh-ssh-agent"
 zplug "chrissicool/zsh-256color"
 zplug "akoenig/npm-run.plugin.zsh"
 zplug "MikeDacre/tmux-zsh-vim-titles"
+zplug "zsh-users/zsh-autosuggestions"
 
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
