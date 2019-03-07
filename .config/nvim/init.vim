@@ -192,6 +192,7 @@ set number
 set numberwidth=5
 set foldlevel=20
 set signcolumn=yes
+set cmdheight=2
 
 " Theme
 set t_Co=256
