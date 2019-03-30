@@ -50,17 +50,9 @@ let g:markdown_composer_autostart = 0
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_root_markers = ['composer.json', 'package.json', '.eslintrc', '.csslintrc']
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
-let g:ctrlp_working_path_mode = 'w'
-
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_enable_ctrlp = 1
+let g:webdevicons_enable_ctrlp = 0
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsUnicodeDecorateFileNodes = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -115,7 +107,6 @@ call plug#begin('~/.config/nvim')
   Plug 'tmux-plugins/vim-tmux'
   Plug 'embear/vim-localvimrc'
   Plug 'wincent/terminus'
-  Plug 'nixprime/cpsm', { 'do': 'env PY3=OFF ./install.sh' }
 
   " Improved Syntax
   Plug 'jwalton512/vim-blade'
@@ -123,7 +114,7 @@ call plug#begin('~/.config/nvim')
   Plug 'elzr/vim-json'
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
-  Plug 'pangloss/vim-javascript'
+  Plug 'chemzqm/vim-jsx-improve' " replaces 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
   Plug 'tbastos/vim-lua'
@@ -137,12 +128,12 @@ call plug#begin('~/.config/nvim')
   Plug 'jungomi/vim-mdnquery'
 
   " UI
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'itchyny/lightline.vim'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'Shougo/denite.nvim'
 
   " Editing
   Plug 'alvan/vim-closetag'
@@ -178,7 +169,6 @@ set updatetime=444
 
 " Misc runtime stuff
 set tags=./tags,tags;/
-set runtimepath^=~/.config/nvim/ctrlp.vim
 set path+=**
 set noshowmode
 
@@ -236,6 +226,9 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Denite
+nnoremap <C-p> :<C-u>Denite file<CR>
 
 " Copy paste via system clipboard
 inoremap <C-S-v> <ESC>"+pa
