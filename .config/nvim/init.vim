@@ -23,7 +23,22 @@
 " - coc-vetur
 " - coc-stylelint
 " - coc-tsserver
+" - coc-jest
+" - coc-lists
 "
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
@@ -53,7 +68,7 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 14
+"let g:nord_comment_brightness = 14
 let g:nord_cursor_line_number_background = 1
 let g:nord_underline = 1
 
@@ -82,18 +97,12 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
-      \   'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified', 'vistanearest' ] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ 'component_type': {
-      \   'linter_checking': 'left',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'left'
+      \   'cocstatus': 'coc#status',
+      \   'vistanearest': 'NearestMethodOrFunction'
       \ }
  \}
 
@@ -125,6 +134,7 @@ call plug#begin('~/.config/nvim')
   Plug 'joonty/vdebug'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
+  Plug 'liuchengxu/vista.vim'
 
   " UI
   Plug 'ctrlpvim/ctrlp.vim'
@@ -285,11 +295,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Teh Codez
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -323,3 +328,19 @@ autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType markdown let g:indentLine_enabled=0
 autocmd FileType vue syntax sync fromstart
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Run jest for current project
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+" Run jest for current test
+nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+
+" Init jest in current cwd, require global jest command exists
+command! JestInit :call CocAction('runCommand', 'jest.init')
