@@ -133,8 +133,8 @@ call plug#begin('~/.config/nvim')
   " Language Support
   Plug 'joonty/vdebug'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
-  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'liuchengxu/vista.vim'
+  Plug 'jungomi/vim-mdnquery'
 
   " UI
   Plug 'ctrlpvim/ctrlp.vim'
@@ -143,12 +143,10 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'jungomi/vim-mdnquery'
 
-  " FIXME: coc-oairs can replace these ?!
-  " https://github.com/neoclide/coc-pairs/issues/4
-  Plug 'jiangmiao/auto-pairs'
+  " Editing
   Plug 'alvan/vim-closetag'
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
 
   " Themes
   Plug 'arcticicestudio/nord-vim'
@@ -176,7 +174,7 @@ set secure
 set backspace=indent,eol,start
 set completeopt=longest,menuone
 set shortmess+=c
-set updatetime=500
+set updatetime=444
 
 " Misc runtime stuff
 set tags=./tags,tags;/
@@ -231,6 +229,9 @@ autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
 autocmd VimLeave * call system("tmux rename-window bash")
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
+
+" Vista trigger
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
