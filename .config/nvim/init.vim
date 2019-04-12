@@ -145,6 +145,14 @@ call plug#begin('~/.config/nvim')
 
 call plug#end()
 
+call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!node_modules'])
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -228,7 +236,7 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Denite
-nnoremap <C-p> :<C-u>Denite file<CR>
+nnoremap <C-p> :<C-u>Denite file/rec buffer<CR>
 
 " Copy paste via system clipboard
 inoremap <C-S-v> <ESC>"+pa
