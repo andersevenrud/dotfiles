@@ -1,6 +1,2 @@
-# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
-include "/home/anders/.themes/NordGTK/gtk-2.0/gtkrc"
-
-include "/home/anders/.gtkrc-2.0.mine"
-
-# -- THEME AUTO-WRITTEN BY gtk-theme-switch2 DO NOT EDIT
+gtk-theme-name = "Nordic"
+gtk-font-name = "Source Sans Pro 10"

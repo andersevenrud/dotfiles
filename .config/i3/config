@@ -18,7 +18,7 @@ set $right semicolon
 
 smart_gaps on
 smart_gaps inverse_outer
-gaps inner 10
+gaps inner 8
 for_window [class=".*"] border pixel 0
 
 ###############################################################################
