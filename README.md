@@ -8,6 +8,7 @@ This is all of my personal developer computer dotfiles etc for Linux.
 * Misc scripts and configurations
 * Desktop setup (i3, polybar, etc)
 
-# Screenshots
 
-![Screenshot](https://www.dropbox.com/s/2az4ko1y43h9mb3/Screenshot_2016-12-12_18-45-18.png?dl=1)
+## Note-to-self
+
+* [Remove stupid chrome/chromium borders](https://stackoverflow.com/questions/11505767/how-can-i-set-chrome-to-use-system-titlebars-and-border-in-preferences-file)
