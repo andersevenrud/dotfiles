@@ -13,6 +13,15 @@ set $left j
 set $right semicolon
 
 ###############################################################################
+# i3 gaps
+###############################################################################
+
+smart_gaps on
+smart_gaps inverse_outer
+gaps inner 10
+for_window [class=".*"] border pixel 0
+
+###############################################################################
 # Keybindings
 ###############################################################################
 
@@ -195,7 +204,7 @@ exec --no-startup-id solaar
 exec --no-startup-id alacritty
 exec --no-startup-id chromium
 exec --no-startup-id thunderbird
-exec --no-startup-id keeweb
+exec --no-startup-id KeeWeb
 exec --no-startup-id redshift-gtk
 
-exec --no-startup-id xsetroot -solid "#2E3440"
+exec --no-startup-id xsetroot -solid "#3B4252"
