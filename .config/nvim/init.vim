@@ -91,18 +91,20 @@ let g:ackprg = 'rg --vimgrep --no-heading'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
 let g:jsx_ext_required = 1
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified', 'vistanearest' ] ]
+      \             [ 'cocstatus' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'vistanearest' ] ]
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'vistanearest': 'NearestMethodOrFunction'
+      \   'vistanearest': 'NearestMethodOrFunction',
+      \   'gitbranch': 'fugitive#head'
       \ }
  \}
 
