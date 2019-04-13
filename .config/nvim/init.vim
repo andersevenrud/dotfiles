@@ -40,6 +40,14 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,12 +111,8 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim')
-  " Libraries
-  Plug 'tmux-plugins/vim-tmux'
-  Plug 'embear/vim-localvimrc'
-  Plug 'wincent/terminus'
-
   " Improved Syntax
+  Plug 'tmux-plugins/vim-tmux'
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
@@ -126,6 +130,8 @@ call plug#begin('~/.config/nvim')
   Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
   Plug 'liuchengxu/vista.vim'
   Plug 'jungomi/vim-mdnquery'
+  Plug 'alvan/vim-closetag'
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
 
   " UI
   Plug 'itchyny/lightline.vim'
@@ -134,15 +140,9 @@ call plug#begin('~/.config/nvim')
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'Shougo/denite.nvim'
-
-  " Editing
-  Plug 'alvan/vim-closetag'
-  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
-
-  " Themes
+  Plug 'wincent/terminus'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
-
 call plug#end()
 
 call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!node_modules'])
@@ -174,6 +174,8 @@ set backspace=indent,eol,start
 set completeopt=longest,menuone
 set shortmess+=c
 set updatetime=444
+set fileformats=unix,dos,mac
+set encoding=utf-8
 
 " Misc runtime stuff
 set tags=./tags,tags;/
@@ -185,11 +187,7 @@ set vb t_vb="
 set noerrorbells
 set visualbell
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" UI
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" General
+" General visuals
 set nowrap
 set hlsearch
 set showmatch
@@ -200,36 +198,24 @@ set foldlevel=20
 set signcolumn=yes
 set cmdheight=2
 
+" Default indentation
+set ai
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
 " Theme
 set t_Co=256
 set termguicolors
 colorscheme nord
 
-" Highlight trailing whitespaces
+" Highlight trailing whitespaces and unwanted characters
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Highlight unwanted characters
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
-
-" Highlight current line
-set cursorline
-hi cursorline cterm=none term=none
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-highlight CursorLine ctermbg=234
-
-" Tmux window titles
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
-autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
-autocmd VimLeave * call system("tmux rename-window bash")
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-set title
-
-" Vista trigger
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
@@ -246,8 +232,6 @@ vnoremap <C-S-c> "+y
 inoremap <c-c> <ESC>
 
 " Tab manipulation
-nnoremap <C-Delete> :tabclose<CR>
-nnoremap <C-End> :tabonly<CR>
 nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
 
@@ -280,40 +264,26 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Teh Codez
+" Filetypes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " General
-set fileformats=unix,dos,mac
-set encoding=utf-8
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
 set wildignore+=.git,.svn,CVS
 set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
-
-" Default tabbing (spaces)
-set ai
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
 
 " Extensions
 autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
@@ -332,8 +302,36 @@ autocmd FileType vue syntax sync fromstart
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom commands
+" Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Highlight current line
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine ctermbg=234
+
+" Tmux window titles
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
+autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
+autocmd VimLeave * call system("tmux rename-window bash")
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+set title
+
+" Vista trigger
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Run jest for current project
 command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
@@ -346,3 +344,10 @@ nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
 
 " Init jest in current cwd, require global jest command exists
 command! JestInit :call CocAction('runCommand', 'jest.init')
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
