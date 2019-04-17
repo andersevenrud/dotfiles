@@ -1,7 +1,7 @@
 configuration {
 	font: "Source Sans Pro 10";
-	color-normal: "#2E3440, #D8DEE9, #2E3440, #5E81AC, #D8DEE9";
-	color-urgent: "#2E3440, #D8DEE9, #2E3440, #BF616A, #D8DEE9";
-	color-active: "#2E3440, #D8DEE9, #2E3440, #8FBCBB, #D8DEE9";
-	color-window: "#2E3440, #2E3440, #4C566A";
+	color-normal: "#4C566A, #D8DEE9, #4C566A, #5E81AC, #D8DEE9";
+	color-urgent: "#4C566A, #D8DEE9, #4C566A, #BF616A, #D8DEE9";
+	color-active: "#4C566A, #D8DEE9, #4C566A, #8FBCBB, #D8DEE9";
+	color-window: "#4C566A, #4C566A, #4C566A";
 }
