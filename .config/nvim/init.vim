@@ -9,23 +9,6 @@
 " - rust + cargo
 " - make
 "
-" Extensions:
-" - coc-rls
-" - coc-html
-" - coc-jest
-" - coc-highlight
-" - coc-snippets
-" - coc-json
-" - coc-css
-" - coc-eslint
-" - coc-yaml
-" - coc-phpls
-" - coc-vetur
-" - coc-stylelint
-" - coc-tsserver
-" - coc-jest
-" - coc-lists
-"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin functions
@@ -64,11 +47,9 @@ let g:webdevicons_enable_ctrlp = 0
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsUnicodeDecorateFileNodes = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
-"let g:nord_comment_brightness = 14
 let g:nord_cursor_line_number_background = 1
 let g:nord_underline = 1
 
@@ -83,11 +64,8 @@ let g:mta_filetypes = {
     \ 'javascript.jsx' : 1,
     \}
 
-let g:Powerline_symbols = 'fancy'
 let g:NERDTreeWinPos = 'left'
 let g:vue_disable_pre_processors=1
-let g:echodoc_enable_at_startup = 1
-let g:ackprg = 'rg --vimgrep --no-heading'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
 let g:jsx_ext_required = 1
@@ -107,6 +85,26 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ }
  \}
+
+let g:coc_global_extensions = [
+      \ 'coc-rls',
+      \ 'coc-html',
+      \ 'coc-jest',
+      \ 'coc-highlight',
+      \ 'coc-snippets',
+      \ 'coc-json',
+      \ 'coc-css',
+      \ 'coc-eslint',
+      \ 'coc-yaml',
+      \ 'coc-phpls',
+      \ 'coc-vetur',
+      \ 'coc-stylelint',
+      \ 'coc-tsserver',
+      \ 'coc-jest',
+      \ 'coc-lists',
+      \ 'coc-pairs',
+      \ 'coc-tslint'
+      \ ]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
