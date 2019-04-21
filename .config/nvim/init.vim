@@ -2,6 +2,7 @@
 " Anders Evenrud neovim config
 "
 " Base Dependencies:
+" - ripgrep (rg)
 " - vim-plug
 " - python3
 " - node + npm + yarn
@@ -281,9 +282,13 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " General
-set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.swp,.tern-port
+set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
+set wildignore+=*.*.swp,.tern-port,*.tmp
+set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp
 set wildignore+=.git,.svn,CVS
-set wildignore+=*/node_modules/**,*/bower_components/**,*/vendor/**,*/DS_Store/**
+set wildignore+=*/vendor/**
+set wildignore+=*/node_modules/**,*/bower_components/**
+set wildignore+=*/DS_Store/**
 
 " Extensions
 autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
@@ -302,7 +307,7 @@ autocmd FileType vue syntax sync fromstart
 autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Commands
+" Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Highlight current line
@@ -318,6 +323,10 @@ autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
 autocmd VimLeave * call system("tmux rename-window bash")
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Commands
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Vista trigger
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
