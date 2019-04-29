@@ -207,7 +207,7 @@ set softtabstop=2
 set shiftwidth=2
 
 " Theme
-set t_Co=256
+"set t_Co=256
 set termguicolors
 colorscheme nord
 
