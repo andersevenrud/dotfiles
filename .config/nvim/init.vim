@@ -125,6 +125,7 @@ call plug#begin('~/.config/nvim')
   Plug 'tbastos/vim-lua'
   Plug 'mxw/vim-jsx'
   Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
   " Language Support
   Plug 'joonty/vdebug'

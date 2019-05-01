@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "coc-css": "^1.0.7",
+    "coc-eslint": "^1.1.1",
+    "coc-highlight": "^1.0.5",
+    "coc-html": "^1.0.7",
+    "coc-jest": "^1.0.1",
+    "coc-json": "^1.0.14",
+    "coc-lists": "^1.1.0",
+    "coc-pairs": "^1.2.8",
+    "coc-phpls": "^2.0.3",
+    "coc-rls": "^1.0.11",
+    "coc-snippets": "^2.0.10",
+    "coc-stylelint": "^1.0.8",
+    "coc-tslint": "^1.0.15",
+    "coc-tsserver": "^1.2.1",
+    "coc-vetur": "^1.1.1",
+    "coc-yaml": "^1.0.1",
+    "typescript-styled-plugin": "^0.14.0"
+  }
+}
