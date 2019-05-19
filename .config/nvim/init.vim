@@ -129,7 +129,7 @@ call plug#begin('~/.config/nvim')
 
   " Language Support
   Plug 'joonty/vdebug'
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'npm install'}
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
   Plug 'liuchengxu/vista.vim'
   Plug 'jungomi/vim-mdnquery'
   Plug 'alvan/vim-closetag'
