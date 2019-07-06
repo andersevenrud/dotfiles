@@ -39,11 +39,6 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
-bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[F"   end-of-line
-bindkey    "^[3;5~"         delete-char
-bindkey    "^[[3~"          delete-char
-bindkey    "^[3;5~"         delete-char
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
