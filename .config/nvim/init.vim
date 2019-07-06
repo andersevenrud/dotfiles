@@ -205,14 +205,14 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-" Theme
-colorscheme nord
-
 " Fixes truecolor support
 "set t_Co=256
-"set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+" Theme (set last)
+colorscheme nord
 
 " Highlight trailing whitespaces and unwanted characters
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -312,13 +312,6 @@ autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Highlight current line
-set cursorline
-hi cursorline cterm=none term=none
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-highlight CursorLine ctermbg=12
 
 " Tmux window titles
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
