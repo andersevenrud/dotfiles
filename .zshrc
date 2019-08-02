@@ -5,7 +5,7 @@ zplug "supercrabtree/k"
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "lukechilds/zsh-nvm"
 zplug "twang817/zsh-ssh-agent"
-zplug "chrissicool/zsh-256color"
+#zplug "chrissicool/zsh-256color"
 zplug "akoenig/npm-run.plugin.zsh"
 zplug "MikeDacre/tmux-zsh-vim-titles"
 zplug "zsh-users/zsh-autosuggestions"
