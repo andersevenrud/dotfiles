@@ -127,7 +127,7 @@ call plug#begin('~/.config/nvim')
 
   " Language Support
   Plug 'joonty/vdebug'
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
   Plug 'liuchengxu/vista.vim'
   Plug 'jungomi/vim-mdnquery'
   Plug 'alvan/vim-closetag'
@@ -176,6 +176,7 @@ set shortmess+=c
 set updatetime=444
 set fileformats=unix,dos,mac
 set encoding=utf-8
+syntax sync minlines=333
 
 " Misc runtime stuff
 set tags=./tags,tags;/
