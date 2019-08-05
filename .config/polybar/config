@@ -48,7 +48,7 @@ font-3 = "SauceCodePro Nerd Font:pixelsize=12:weight=bold;2"
 modules-left = filesystem syslog
 modules-center = date
 #modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
-modules-right = xkeyboard memory cpu eth temperature powermenu
+modules-right = title xkeyboard memory cpu eth temperature powermenu
 
 tray-position = right
 tray-padding = 2
@@ -201,6 +201,11 @@ menu-1-1 = reboot
 menu-1-1-exec = sudo reboot
 menu-1-2 = poweroff
 menu-1-2-exec = sudo poweroff
+
+[module/title]
+type = internal/xwindow
+label-maxlen = 30
+label-font = 2
 
 [settings]
 screenchange-reload = true
