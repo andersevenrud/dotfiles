@@ -88,7 +88,6 @@ let g:lightline = {
 let g:coc_global_extensions = [
       \ 'coc-rls',
       \ 'coc-html',
-      \ 'coc-jest',
       \ 'coc-highlight',
       \ 'coc-snippets',
       \ 'coc-json',
@@ -99,10 +98,18 @@ let g:coc_global_extensions = [
       \ 'coc-vetur',
       \ 'coc-stylelint',
       \ 'coc-tsserver',
-      \ 'coc-jest',
       \ 'coc-lists',
       \ 'coc-pairs',
-      \ 'coc-tslint'
+      \ 'coc-tslint',
+      \ 'coc-import-cost',
+      \ 'coc-xml',
+      \ 'coc-template',
+      \ 'coc-inline-jest',
+      \ 'coc-docker',
+      \ 'coc-sh',
+      \ 'coc-lua',
+      \ 'coc-styled-components',
+      \ 'coc-flutter'
       \ ]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -115,7 +122,6 @@ call plug#begin('~/.config/nvim')
   Plug 'jwalton512/vim-blade'
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
-  Plug 'ekalinin/Dockerfile.vim'
   Plug 'StanAngeloff/php.vim'
   Plug 'chemzqm/vim-jsx-improve' " replaces 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
@@ -123,7 +129,8 @@ call plug#begin('~/.config/nvim')
   Plug 'tbastos/vim-lua'
   Plug 'mxw/vim-jsx'
   Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+  "Old coc was typescript-styled-plugin
+  "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
   " Language Support
   Plug 'joonty/vdebug'

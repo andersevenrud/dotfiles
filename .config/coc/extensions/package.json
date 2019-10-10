@@ -1,21 +1,29 @@
 {
   "dependencies": {
     "coc-css": "^1.2.2",
+    "coc-docker": ">=0.2.1",
     "coc-eslint": ">=1.2.2",
+    "coc-flutter": ">=0.0.1-dev4",
     "coc-highlight": ">=1.2.5",
     "coc-html": "^1.2.1",
+    "coc-import-cost": ">=1.0.1",
+    "coc-inline-jest": ">=0.0.3",
     "coc-jest": "^1.0.3",
     "coc-json": ">=1.2.3",
     "coc-lists": ">=1.3.4",
+    "coc-lua": ">=0.2.0",
     "coc-pairs": ">=1.2.18",
     "coc-phpls": ">=2.0.7",
     "coc-rls": "^1.1.2",
+    "coc-sh": ">=0.2.1",
     "coc-snippets": ">=2.1.11",
+    "coc-styled-components": ">=0.2.0",
     "coc-stylelint": ">=1.1.0",
+    "coc-template": ">=1.0.4",
     "coc-tslint": ">=1.0.17",
-    "coc-tsserver": ">=1.4.2",
+    "coc-tsserver": ">=1.4.4",
     "coc-vetur": ">=1.1.5",
-    "coc-yaml": "^1.0.2",
-    "typescript-styled-plugin": "^0.14.0"
+    "coc-xml": ">=1.9.2",
+    "coc-yaml": "^1.0.2"
   }
 }
