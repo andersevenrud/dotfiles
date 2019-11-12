@@ -36,6 +36,8 @@ endfunction
 " Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:vim_jsx_pretty_colorful_config = 1
+
 let g:markdown_syntax_conceal = 0
 let g:markdown_composer_autostart = 0
 
@@ -69,7 +71,6 @@ let g:NERDTreeWinPos = 'left'
 let g:vue_disable_pre_processors=1
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
-let g:jsx_ext_required = 1
 
 let g:lightline = {
       \ 'colorscheme': 'nord',
@@ -123,11 +124,11 @@ call plug#begin('~/.config/nvim')
   Plug 'lumiliet/vim-twig'
   Plug 'elzr/vim-json'
   Plug 'StanAngeloff/php.vim'
-  Plug 'chemzqm/vim-jsx-improve' " replaces 'pangloss/vim-javascript'
+  Plug 'pangloss/vim-javascript'
+  Plug 'MaxMEllon/vim-jsx-pretty' " replaces 'chemzqm/vim-jsx-improve' 'pangloss/vim-javascript'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
   Plug 'tbastos/vim-lua'
-  Plug 'mxw/vim-jsx'
   Plug 'HerringtonDarkholme/yats.vim'
   "Old coc was typescript-styled-plugin
   "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
