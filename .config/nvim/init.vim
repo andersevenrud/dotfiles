@@ -1,14 +1,21 @@
 "
-" Anders Evenrud neovim config
+" Anders Evenrud vim config
+"
+" Vim Dependencies:
+" - python3
+" - vim-plug
 "
 " Base Dependencies:
-" - ripgrep (rg)
-" - vim-plug
-" - python3
-" - node + npm + yarn
+" - nodejs w/npm
 " - typescript npm package
+"
+" Language Dependencies:
+" - ripgrep (rg)
+" - php w/composer
 " - rust + cargo
 " - make
+"
+" Notes: See 'composer.json' and 'coc-settings.json'
 "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -32,11 +39,27 @@ function! s:show_documentation()
   endif
 endfunction
 
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:vim_jsx_pretty_colorful_config = 1
+let g:vim_jsx_pretty_highlight_close_tag = 1
 
 let g:markdown_syntax_conceal = 0
 let g:markdown_composer_autostart = 0
@@ -56,6 +79,12 @@ let g:nord_italic_comments = 1
 let g:nord_cursor_line_number_background = 1
 let g:nord_underline = 1
 
+let g:indentLine_color_term = 0
+let g:indentLine_bgcolor_term = "NONE"
+let g:indentLine_color_gui = '#3b4252'
+let g:indentLine_bgcolor_gui = 'NONE'
+let g:indentLine_concealcursor = 0
+
 let g:mta_use_matchparen_group = 1
 let g:mta_filetypes = {
     \ 'html' : 1,
@@ -68,9 +97,10 @@ let g:mta_filetypes = {
     \}
 
 let g:NERDTreeWinPos = 'left'
-let g:vue_disable_pre_processors=1
+
+let g:vue_pre_processors = 'detect_on_enter'
+
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-let g:node_host_prog = '/home/anders/.nvm/versions/node/v8.11.2/bin/neovim-node-host'
 
 let g:lightline = {
       \ 'colorscheme': 'nord',
@@ -105,7 +135,6 @@ let g:coc_global_extensions = [
       \ 'coc-import-cost',
       \ 'coc-xml',
       \ 'coc-template',
-      \ 'coc-inline-jest',
       \ 'coc-docker',
       \ 'coc-sh',
       \ 'coc-lua',
@@ -125,21 +154,18 @@ call plug#begin('~/.config/nvim')
   Plug 'elzr/vim-json'
   Plug 'StanAngeloff/php.vim'
   Plug 'pangloss/vim-javascript'
-  Plug 'MaxMEllon/vim-jsx-pretty' " replaces 'chemzqm/vim-jsx-improve' 'pangloss/vim-javascript'
+  Plug 'MaxMEllon/vim-jsx-pretty'
   Plug 'posva/vim-vue'
   Plug 'nikvdp/ejs-syntax'
   Plug 'tbastos/vim-lua'
   Plug 'HerringtonDarkholme/yats.vim'
-  "Old coc was typescript-styled-plugin
-  "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
   " Language Support
   Plug 'joonty/vdebug'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
   Plug 'liuchengxu/vista.vim'
-  Plug 'jungomi/vim-mdnquery'
   Plug 'alvan/vim-closetag'
-  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
+  Plug 'euclio/vim-markdown-composer', {'do': 'cargo build --release'}
 
   " UI
   Plug 'itchyny/lightline.vim'
@@ -151,15 +177,18 @@ call plug#begin('~/.config/nvim')
   Plug 'wincent/terminus'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'Yggdroot/indentLine'
 call plug#end()
 
-call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!node_modules'])
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
+if executable('rg')
+  call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!node_modules'])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -206,6 +235,7 @@ set numberwidth=5
 set foldlevel=20
 set signcolumn=yes
 set cmdheight=2
+set title
 
 " Default indentation
 set ai
@@ -230,13 +260,22 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
 
+" Ignores
+set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
+set wildignore+=*.*.swp,.tern-port,*.tmp
+set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp
+set wildignore+=.git,.svn,CVS
+set wildignore+=*/vendor/**
+set wildignore+=*/node_modules/**,*/bower_components/**
+set wildignore+=*/DS_Store/**
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Denite
-nnoremap <C-p> :<C-u>Denite file/rec<CR>
-nnoremap <F36> :<C-u>Denite buffer<CR>
+nnoremap <F35> :<C-u>Denite buffer<CR>
+nnoremap <F36> :<C-u>Denite file/rec<CR>
 
 " Copy paste via system clipboard
 inoremap <C-S-v> <ESC>"+pa
@@ -250,8 +289,8 @@ nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
 
 " NERDTree
-map <Leader>f :NERDTreeToggle<CR>
-map <Leader><S-f> :NERDTreeFind<CR>
+map <F11> :NERDTreeToggle<CR>
+map <F12> :NERDTreeFind<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -268,6 +307,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -277,6 +320,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -296,96 +343,62 @@ imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
 
-" Denite defaults
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Filetypes
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
 
-" General
-set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
-set wildignore+=*.*.swp,.tern-port,*.tmp
-set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp
-set wildignore+=.git,.svn,CVS
-set wildignore+=*/vendor/**
-set wildignore+=*/node_modules/**,*/bower_components/**
-set wildignore+=*/DS_Store/**
-
-" Extensions
-autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
-autocmd BufNewFile,BufRead *.mjs set syntax=javascript
-autocmd BufNewFile,BufRead *.ejs set syntax=javascript
-autocmd BufNewFile,BufRead *.inc set syntax=php
-autocmd BufNewFile,BufRead *.blade.php set ft=blade
-autocmd BufNewFile,BufRead *.heml set ft=html
-
-" Code Formatting options
-autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType markdown let g:indentLine_enabled=0
-autocmd FileType vue syntax sync fromstart
-autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Tmux window titles
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
-autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
-autocmd VimLeave * call system("tmux rename-window bash")
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-set title
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Vista trigger
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Run jest for current project
-command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
-
-" Run jest for current file
-command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
-
-" Run jest for current test
-nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
-
-" Init jest in current cwd, require global jest command exists
-command! JestInit :call CocAction('runCommand', 'jest.init')
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
+" Auto commands for files and buffers
+augroup mygroup
+  autocmd!
+
+  " Syntax per filetype
+  autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
+  autocmd BufNewFile,BufRead *.mjs set syntax=javascript
+  autocmd BufNewFile,BufRead *.ejs set syntax=javascript
+  autocmd BufNewFile,BufRead *.inc set syntax=php
+  autocmd BufNewFile,BufRead *.blade.php set ft=blade
+  autocmd BufNewFile,BufRead *.heml set ft=html
+
+  " Formatting per filetype
+  autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd FileType markdown let g:indentLine_enabled=0
+  autocmd FileType vue syntax sync fromstart
+  autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
+  autocmd FileType denite call s:denite_my_settings()
+
+  " Tmux: Window titles
+  autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
+  autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
+  autocmd VimLeave * call system("tmux rename-window bash")
+  autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+
+  " Vista: Show nearest function or method
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+  " Coc: Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Coc: Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+
+  " Coc: Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
