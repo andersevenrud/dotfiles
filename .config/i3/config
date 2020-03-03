@@ -181,7 +181,7 @@ for_window [class=".*"] title_format "%class - %title"
 for_window [instance="^crx.*$" window_role="pop-up"]  floating enable
 for_window [instance="^crx.*$" window_role="pop-up"]  sticky   enable
 for_window [class="Deluge"] move container to workspace 3
-for_window [class="KeeWeb"] move container to workspace 2
+for_window [class="KeePassXC"] move container to workspace 2
 for_window [class="Thunderbird"] move container to workspace 2
 for_window [class="Chromium"] move container to workspace 1
 for_window [class="Vlc"] floating enable
@@ -197,16 +197,16 @@ for_window [class="^Minecraft"] resize set 800 600
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id setxkbmap -layout no
-exec_always --no-startup-id gnome-settings-daemon
 exec_always --no-startup-id xscreensaver
 
 exec --no-startup-id nm-applet
 exec --no-startup-id solaar
+exec --no-startup-id redshift-gtk
+
 exec --no-startup-id alacritty
 exec --no-startup-id chromium
 exec --no-startup-id thunderbird
-exec --no-startup-id KeeWeb
-exec --no-startup-id redshift-gtk
+exec --no-startup-id keepassxc
 exec --no-startup-id deluge
 
 exec --no-startup-id xsetroot -solid "#3B4252"
