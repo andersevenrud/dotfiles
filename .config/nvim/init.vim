@@ -350,8 +350,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-a> <Plug>(coc-range-select)
-xmap <silent> <C-a> <Plug>(coc-range-select)
+nmap <silent> <C-S-a> <Plug>(coc-range-select)
+xmap <silent> <C-S-a> <Plug>(coc-range-select)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
