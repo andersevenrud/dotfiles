@@ -10,6 +10,13 @@
     //   "filetypes": ["php"]
     // }
 
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+
     "ccls": {
       "command": "/usr/bin/ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
