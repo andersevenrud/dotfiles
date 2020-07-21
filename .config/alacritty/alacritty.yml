@@ -43,6 +43,9 @@ window:
   #     - transparent: Title bar, transparent background, but no title bar buttons
   decorations: full
 
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
 # Font configuration (changes require restart)
 font:
   normal:
@@ -101,7 +104,7 @@ colors:
   indexed_colors: []
 
 # Visual Bell
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -111,8 +114,6 @@ background_opacity: 1.0
 
 mouse:
   hide_when_typing: false
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   style: Block
