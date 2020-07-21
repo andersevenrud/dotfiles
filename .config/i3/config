@@ -181,7 +181,7 @@ for_window [class=".*"] title_format "%class - %title"
 for_window [instance="^crx.*$" window_role="pop-up"]  floating enable
 for_window [instance="^crx.*$" window_role="pop-up"]  sticky   enable
 for_window [class="Deluge"] move container to workspace 3
-for_window [class="KeePassXC"] move container to workspace 2
+for_window [class="KeePassXC"] move container to workspace 10
 for_window [class="Thunderbird"] move container to workspace 2
 for_window [class="Chromium"] move container to workspace 1
 for_window [class="Vlc"] floating enable
