@@ -1,19 +1,20 @@
 "
-" Anders Evenrud vim config
+" Anders Evenrud <andersevenrud@gmail.com> (neo)vim config
 "
 " Vim Dependencies:
 " - python3
 " - vim-plug
 "
-" Base Dependencies:
-" - nodejs w/npm
-" - typescript npm package
-"
 " Language Dependencies:
-" - ripgrep (rg)
-" - php w/composer
+" - nodejs + npm
+" - php + composer
 " - rust + cargo
+" - ripgrep (rg)
 " - make
+"
+" Node dependencies:
+" - typescript
+" - vue-language-server
 "
 " Notes: See 'composer.json' and 'coc-settings.json'
 "
@@ -117,6 +118,7 @@ let g:lightline = {
  \}
 
 let g:coc_global_extensions = [
+      \ 'coc-python',
       \ 'coc-rls',
       \ 'coc-html',
       \ 'coc-highlight',

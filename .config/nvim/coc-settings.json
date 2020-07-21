@@ -1,6 +1,8 @@
 {
   "suggest.timeout": 4000,
-  "tsserver.npm": "/home/anders/.nvm/versions/node/v8.11.2/bin/npm",
+  "tsserver.npm": "/home/anders/.nvm/versions/node/v13.6.0/bin/npm",
+  "python.jediEnabled": false,
+  "eslint.filetypes": ["vue", "js"],
   "languageserver": {
     // "php": {
     //   "trace.server": "verbose",
