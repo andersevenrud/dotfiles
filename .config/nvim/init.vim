@@ -163,7 +163,7 @@ call plug#begin('~/.config/nvim')
   Plug 'HerringtonDarkholme/yats.vim'
 
   " Language Support
-  Plug 'joonty/vdebug'
+  Plug 'puremourning/vimspector'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
   Plug 'liuchengxu/vista.vim'
   Plug 'alvan/vim-closetag'
