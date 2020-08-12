@@ -74,6 +74,8 @@ let g:webdevicons_enable_ctrlp = 0
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsUnicodeDecorateFileNodes = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
@@ -81,7 +83,7 @@ let g:nord_cursor_line_number_background = 1
 let g:nord_underline = 1
 
 let g:indentLine_color_term = 0
-let g:indentLine_bgcolor_term = "NONE"
+let g:indentLine_bgcolor_term = 'NONE'
 let g:indentLine_color_gui = '#3b4252'
 let g:indentLine_bgcolor_gui = 'NONE'
 let g:indentLine_concealcursor = 0
@@ -98,6 +100,8 @@ let g:mta_filetypes = {
     \}
 
 let g:NERDTreeWinPos = 'left'
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
 
 let g:vue_pre_processors = 'detect_on_enter'
 
@@ -117,6 +121,7 @@ let g:lightline = {
       \ }
  \}
 
+let g:coc_node_path = trim(system('which node'))
 let g:coc_global_extensions = [
       \ 'coc-python',
       \ 'coc-rls',
