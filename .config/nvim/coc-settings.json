@@ -1,17 +1,10 @@
 {
   "suggest.timeout": 4000,
-  "tsserver.npm": "/home/anders/.nvm/versions/node/v13.6.0/bin/npm",
+  "tsserver.npm": "/home/anders/.nvm/versions/node/v14.13.0/bin/npm",
   "python.jediEnabled": false,
   "eslint.filetypes": ["vue", "js"],
+  "tabnine.priority": 90,
   "languageserver": {
-    // "php": {
-    //   "trace.server": "verbose",
-    //   "command": "php",
-    //   // "args": ["/home/anders/.config/nvim/vendor/felixfbecker/language-server/bin/php-language-server.php"],
-    //   "args": ["/home/anders/.config/nvim/tenkawa/bin/tenkawa.php"],
-    //   "filetypes": ["php"]
-    // }
-
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
