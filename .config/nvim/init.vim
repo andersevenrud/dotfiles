@@ -245,7 +245,7 @@ set ruler
 set number
 set numberwidth=5
 set foldlevel=20
-set signcolumn=number
+set signcolumn=yes
 set cmdheight=2
 set title
 
