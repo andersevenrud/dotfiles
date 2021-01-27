@@ -3,13 +3,13 @@
 # Author: Anders Evenrud <andersevenrud@gmail.com>
 #
 
-declare -a types=("ts" "js" "css" "html" "php" "less" "json" "md" "scss" "less" "vue" "jsx")
+declare -a types=("ts" "js" "ejs" "mjs" "css" "html" "php" "less" "json" "md" "scss" "less" "vue" "jsx" "py" "yml" "yaml" "txt" "sql", "sh")
 
 total=0
 count=0
 for i in "${types[@]}"; do
-  num=$(git ls-files | grep -s "\.$i\$" | wc -l)
-  loc=$(git ls-files | grep -s "\.$i\$" | xargs cat 2>/dev/null | wc -l)
+  num=$(git ls-files | grep -v package-lock.json | grep -ve "\.lock$" | grep -s "\.$i\$" | wc -l)
+  loc=$(git ls-files | grep -v package-lock.json | grep -ve "\.lock$" | grep -s "\.$i\$" | xargs cat 2>/dev/null | wc -l)
 
   if [[ "$num" -gt 0 ]]; then
     echo "${i}: ${loc} in ${num} file(s)"
