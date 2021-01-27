@@ -20,5 +20,10 @@
         "cacheDirectory": "/tmp/ccls"
       }
     }
+  },
+  "grammarly.diagnostics": {
+    "[markdown]": {
+      "ignore": ["inlineCode", "code"]
+    }
   }
 }
