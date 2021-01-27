@@ -48,8 +48,6 @@ endfunction
 " Plugins Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:polyglot_disabled = ['sensible']
-
 let g:vue_pre_processors = 'detect_on_enter'
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
@@ -148,15 +146,11 @@ let g:coc_global_extensions = [
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim')
-  " Syntaxes
-  Plug 'sheerun/vim-polyglot'
-  Plug 'MaxMEllon/vim-jsx-pretty'
-
-
   " Language Support
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'sheerun/vim-polyglot'
   Plug 'puremourning/vimspector'
   Plug 'liuchengxu/vista.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " Editing
   Plug 'alvan/vim-closetag'
