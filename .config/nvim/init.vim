@@ -50,9 +50,9 @@ endfunction
 
 let g:polyglot_disabled = ['sensible']
 
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-let g:coc_snippet_next = '<tab>'
+let g:vue_pre_processors = 'detect_on_enter'
+
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 
 let g:vim_jsx_pretty_colorful_config = 1
 let g:vim_jsx_pretty_highlight_close_tag = 1
@@ -85,13 +85,6 @@ let g:mta_filetypes = {
     \ 'javascript.jsx' : 1,
     \}
 
-let g:vue_pre_processors = 'detect_on_enter'
-
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
-
-let b:coc_git_status = 1
-let b:coc_git_blame = 1
-
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
@@ -111,6 +104,10 @@ let g:lightline = {
       \ }
  \}
 
+
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_next = '<tab>'
 let g:coc_node_path = trim(system('which node'))
 let g:coc_global_extensions = [
       \ 'coc-python',
@@ -151,12 +148,17 @@ let g:coc_global_extensions = [
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim')
-  " Language Support
+  " Syntaxes
   Plug 'sheerun/vim-polyglot'
   Plug 'MaxMEllon/vim-jsx-pretty'
-  Plug 'puremourning/vimspector'
+
+
+  " Language Support
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'puremourning/vimspector'
   Plug 'liuchengxu/vista.vim'
+
+  " Editing
   Plug 'alvan/vim-closetag'
   Plug 'euclio/vim-markdown-composer', {'do': 'cargo build --release'}
 
