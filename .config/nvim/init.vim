@@ -13,9 +13,10 @@
 " - make
 " - watchman
 "
-" Node dependencies:
+" Node dependencies (npm install -g):
 " - typescript
 " - vue-language-server
+" - bash-language-server
 "
 " Notes: See 'composer.json' and 'coc-settings.json'
 "
@@ -41,21 +42,6 @@ function! s:show_documentation()
   else
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
-endfunction
-
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,22 +179,11 @@ call plug#begin('~/.config/nvim')
   Plug 'tpope/vim-fugitive'
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'Shougo/denite.nvim'
   Plug 'wincent/terminus'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
   Plug 'Yggdroot/indentLine'
 call plug#end()
-
-if executable('rg')
-  call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!node_modules'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -293,9 +268,9 @@ set wildignore+=*/DS_Store/**
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Denite
-nnoremap <F35> :<C-u>Denite buffer<CR>
-nnoremap <F36> :<C-u>Denite file/rec<CR>
+" CocList-s
+nnoremap <F35> :CocList buffers<CR>
+nnoremap <F36> :CocList files<CR>
 
 " Copy paste via system clipboard
 inoremap <C-S-v> <ESC>"+pa
@@ -463,7 +438,6 @@ augroup mygroup
   autocmd FileType markdown let g:indentLine_enabled=0
   autocmd FileType vue syntax sync fromstart
   autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
-  autocmd FileType denite call s:denite_my_settings()
 
   " Tmux: Window titles
   autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
