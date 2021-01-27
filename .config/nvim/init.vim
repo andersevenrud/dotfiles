@@ -116,12 +116,20 @@ let g:vue_pre_processors = 'detect_on_enter'
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.blade.php"
 
+let b:coc_git_status = 1
+let b:coc_git_blame = 1
+
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'vistanearest' ] ]
+      \   'left': [
+      \     [ 'mode', 'paste', 'readonly', 'filename', 'modified' ],
+      \     [ 'cocstatus', 'diagnostics' ]
+      \   ],
+      \   'right': [
+      \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+      \     [ 'gitbranch', 'vistanearest' ]
+      \   ]
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
@@ -150,7 +158,6 @@ let g:coc_global_extensions = [
       \ 'coc-tslint',
       \ 'coc-import-cost',
       \ 'coc-xml',
-      \ 'coc-template',
       \ 'coc-docker',
       \ 'coc-sh',
       \ 'coc-lua',
@@ -162,7 +169,8 @@ let g:coc_global_extensions = [
       \ 'coc-yank',
       \ 'coc-style-helper',
       \ 'coc-explorer',
-      \ 'coc-tabnine'
+      \ 'coc-tabnine',
+      \ 'coc-grammarly'
       \ ]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -465,6 +473,9 @@ augroup mygroup
 
   " Vista: Show nearest function or method
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+  " Coc: Use autocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
   " Coc: Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
