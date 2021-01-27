@@ -63,15 +63,6 @@ let g:markdown_composer_autostart = 0
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_enable_ctrlp = 0
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:WebDevIconsUnicodeDecorateFileNodes = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
-let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
 let g:nord_cursor_line_number_background = 1
@@ -93,10 +84,6 @@ let g:mta_filetypes = {
     \ 'vue' : 1,
     \ 'javascript.jsx' : 1,
     \}
-
-let g:NERDTreeWinPos = 'left'
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
 
 let g:vue_pre_processors = 'detect_on_enter'
 
@@ -177,8 +164,6 @@ call plug#begin('~/.config/nvim')
   Plug 'itchyny/lightline.vim'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'wincent/terminus'
   Plug 'arcticicestudio/nord-vim'
   Plug 'ryanoasis/vim-devicons'
@@ -268,9 +253,10 @@ set wildignore+=*/DS_Store/**
 " Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" CocList-s
+" Coc extensions
 nnoremap <F35> :CocList buffers<CR>
 nnoremap <F36> :CocList files<CR>
+map <F12> :CocCommand explorer<CR>
 
 " Copy paste via system clipboard
 inoremap <C-S-v> <ESC>"+pa
@@ -282,10 +268,6 @@ inoremap <c-c> <ESC>
 " Tab manipulation
 nnoremap <silent> <Leader>+ :exe "vertical resize +10"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -10"<CR>
-
-" NERDTree
-map <F11> :NERDTreeToggle<CR>
-map <F12> :NERDTreeFind<CR>
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -437,7 +419,6 @@ augroup mygroup
   autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
   autocmd FileType markdown let g:indentLine_enabled=0
   autocmd FileType vue syntax sync fromstart
-  autocmd FileType nerdtree setlocal nolist conceallevel=3 concealcursor=niv
 
   " Tmux: Window titles
   autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
