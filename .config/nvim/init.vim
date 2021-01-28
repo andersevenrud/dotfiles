@@ -401,12 +401,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 augroup mygroup
   autocmd!
 
-  " Syntax per filetype
-  autocmd BufNewFile,BufRead *.jsx set syntax=javascript.jsx
-  autocmd BufNewFile,BufRead *.mjs set syntax=javascript
-  autocmd BufNewFile,BufRead *.ejs set syntax=javascript
-  autocmd BufNewFile,BufRead *.inc set syntax=php
-  autocmd BufNewFile,BufRead *.blade.php set ft=blade
+  " Custom syntax types
   autocmd BufNewFile,BufRead *.heml set ft=html
 
   " Formatting per filetype
