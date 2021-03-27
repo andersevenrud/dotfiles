@@ -10,6 +10,7 @@ require'gitsigns'.setup()
 require'nvim-ts-autotag'.setup()
 require'lsp_signature'.on_attach()
 require'lspsaga'.init_lsp_saga{}
+require'lspkind'.init({})
 
 require'lualine'.setup{
     options = {
@@ -98,4 +99,10 @@ require'lspconfig'.tsserver.setup {
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Gr', ':LspRenameFile<CR>', {silent = true})
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Gi', ':LspImportAll<CR>', {silent = true})
     end
+}
+
+require'nvim-lightbulb'.update_lightbulb {
+    virtual_text = {
+        enabled = false
+    }
 }

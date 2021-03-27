@@ -10,6 +10,9 @@
 "   - vim-plug
 "   - patched nerd fonts
 "
+" Optional:
+"   - rust
+"
 " Language servers:
 "   npm install -g typescript typescript-language-server
 "   npm install -g vscode-css-languageserver-bin

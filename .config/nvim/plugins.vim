@@ -18,7 +18,6 @@ call plug#begin('~/.config/nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'Raimondi/delimitMate'
-  Plug 'arcticicestudio/nord-vim'
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'onsails/lspkind-nvim'
@@ -27,12 +26,18 @@ call plug#begin('~/.config/nvim')
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'hoob3rt/lualine.nvim'
+  Plug 'kosayoda/nvim-lightbulb'
+  Plug 'christianchiarulli/nvcode-color-schemes.vim'
+  Plug 'f-person/git-blame.nvim'
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'euclio/vim-markdown-composer', {'do': 'cargo build --release'}
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Nord
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:nvcode_termcolors=256
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
 let g:nord_cursor_line_number_background = 1
@@ -95,6 +100,19 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lightbulb
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git Blame
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:gitblame_date_format = '%Y.%m%.%d %H:%M'
+let g:gitblame_message_template = '<author> <date>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Snip
