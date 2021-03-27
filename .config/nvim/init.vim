@@ -163,31 +163,6 @@ nnoremap <F11> :NvimTreeToggle<CR>
 " Compe
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.debug = v:false
-let g:compe.min_length = 1
-let g:compe.preselect = 'enable'
-let g:compe.throttle_time = 80
-let g:compe.source_timeout = 200
-let g:compe.incomplete_delay = 400
-let g:compe.max_abbr_width = 100
-let g:compe.max_kind_width = 100
-let g:compe.max_menu_width = 100
-let g:compe.documentation = v:true
-
-" Explicitly enable sources
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.nvim_lua = v:true
-let g:compe.source.vsnip = v:true
-let g:compe.source.tabnine = v:true
-let g:compe.source.treesitter = v:true
-
 " Skip these sources entirely
 let g:loaded_compe_spell = v:true
 let g:loaded_compe_path = v:true
@@ -210,15 +185,6 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=999
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TabNine
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:compe.source.tabnine = {}
-let g:compe.source.tabnine.max_num_results = 6
-let g:compe.source.tabnine.priority = 0
-let g:compe.source.tabnine.max_line = 1000
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Snip
@@ -271,116 +237,4 @@ nnoremap <silent> <space>q    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " Configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-lua <<EOF
-local secrets = require("secrets")
-local nvim_lsp = require("lspconfig")
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-require'gitsigns'.setup()
-require'nvim-ts-autotag'.setup()
-
-require'lualine'.setup{
-  options = {
-    theme = 'nord'
-  },
-  sections = {
-    lualine_a = { { 'mode', upper = true } },
-    lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } },
-    lualine_c = { { 'filename', file_status = true } },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' },
-  }
-}
-
--- Treesitter
-require'nvim-treesitter.configs'.setup{
-  ensure_installed = {
-    'typescript',
-    'javascript',
-    'css',
-    'bash',
-    'html',
-    'json',
-    'lua',
-    'python',
-    'c',
-    'cpp',
-    'regex',
-    'vue'
-  },
-  context_commentstring = {
-    enable = true
-  },
-  highlight = {
-    enable = true
-  },
-  indent = {
-    enable = true
-  }
-}
-
--- Telescope
-require'telescope'.setup{
-  builtin = {
-    treesitter = true
-  }
-}
-
--- LSP Additions
-require'lsp_signature'.on_attach()
-require'lspsaga'.init_lsp_saga{}
-
--- LSP Servers
-nvim_lsp.dockerls.setup{
-  capabilities = capabilities
-}
-nvim_lsp.yamlls.setup{
-  capabilities = capabilities
-}
-nvim_lsp.pyls.setup{
-  capabilities = capabilities
-}
-nvim_lsp.vuels.setup{
-  capabilities = capabilities
-}
-nvim_lsp.cssls.setup{
-  capabilities = capabilities
-}
-nvim_lsp.vuels.setup{
-  capabilities = capabilities
-}
-nvim_lsp.html.setup {
-  capabilities = capabilities
-}
-nvim_lsp.tsserver.setup {
-  capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        require("nvim-lsp-ts-utils").setup {}
-
-        -- no default maps, so you may want to define some here
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "Go", ":LspOrganize<CR>", {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "Gf", ":LspFixCurrent<CR>", {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "Gr", ":LspRenameFile<CR>", {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, "n", "Gi", ":LspImportAll<CR>", {silent = true})
-    end
-}
-nvim_lsp.intelephense.setup{
-  capabilities = capabilities,
-  init_options = {
-    licenceKey = secrets.intelephense.licenceKey
-  }
-}
-
--- Hide the inline diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    signs = true,
-  }
-)
-vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
-vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
-EOF
+luafile ~/.config/nvim/neovim.lua
