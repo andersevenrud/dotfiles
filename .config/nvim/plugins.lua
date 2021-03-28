@@ -60,6 +60,12 @@ require'nvim-treesitter.configs'.setup{
     ensure_installed = {
         'typescript',
         'javascript',
+        'jsdoc',
+        'dart',
+        'c',
+        'cpp',
+        'c_sharp',
+        'go',
         'css',
         'bash',
         'html',
@@ -69,7 +75,8 @@ require'nvim-treesitter.configs'.setup{
         'c',
         'cpp',
         'regex',
-        'vue'
+        'vue',
+        'php'
     },
     context_commentstring = {
         enable = true

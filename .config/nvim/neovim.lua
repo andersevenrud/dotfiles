@@ -29,15 +29,17 @@ nvim_lsp.vuels.setup{
 nvim_lsp.html.setup {
     capabilities = capabilities
 }
-nvim_lsp.tsserver.setup {
-    capabilities = capabilities
-}
 nvim_lsp.intelephense.setup{
     capabilities = capabilities,
     init_options = {
         licenceKey = secrets.intelephense.licenceKey
     }
 }
+
+-- Superseded in plugins.lua
+-- nvim_lsp.tsserver.setup {
+--     capabilities = capabilities
+-- }
 
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
