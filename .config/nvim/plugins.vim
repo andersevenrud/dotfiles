@@ -4,45 +4,53 @@
 "
 
 call plug#begin('~/.config/nvim/plugins')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'hrsh7th/nvim-compe'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
-  Plug 'windwp/nvim-ts-autotag'
+  " Libraries
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'wincent/terminus'
+
+  " UI
+  Plug 'lewis6991/gitsigns.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'Raimondi/delimitMate'
-  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
-  Plug 'ray-x/lsp_signature.nvim'
-  Plug 'onsails/lspkind-nvim'
+  Plug 'hoob3rt/lualine.nvim'
+  Plug 'christianchiarulli/nvcode-color-schemes.vim'
+  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
   Plug 'glepnir/lspsaga.nvim'
-  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  Plug 'onsails/lspkind-nvim'
+
+  " Editing
+  Plug 'Raimondi/delimitMate'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
-  Plug 'hoob3rt/lualine.nvim'
-  Plug 'kosayoda/nvim-lightbulb'
-  Plug 'christianchiarulli/nvcode-color-schemes.vim'
-  Plug 'f-person/git-blame.nvim'
-  Plug 'mfussenegger/nvim-dap'
-  Plug 'euclio/vim-markdown-composer', {'do': 'cargo build --release'}
+  Plug 'windwp/nvim-ts-autotag'
+
+  " Navigation
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'kyazdani42/nvim-tree.lua'
+
+  " Utilities
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'TimUntersberger/neogit'
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'f-person/git-blame.nvim'
+
+  " Languages support
+  Plug 'hrsh7th/nvim-compe'
+  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'ray-x/lsp_signature.nvim'
+  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  Plug 'kosayoda/nvim-lightbulb'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Nord
+" nvcode-color-schemes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:nvcode_termcolors=256
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_cursor_line_number_background = 1
-let g:nord_underline = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indentLine
@@ -110,7 +118,7 @@ autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:gitblame_date_format = '%Y.%m%.%d %H:%M'
-let g:gitblame_message_template = '<author> <date>'
+let g:gitblame_message_template = '<author> <date> <summary>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Markdown composer
