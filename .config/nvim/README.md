@@ -30,7 +30,7 @@ Optional:
 - patched (nerd) fonts
 - rust
 
-## Secrets
+### Secrets
 
 Secrets are stored in `~/.config/nvim/lua/secrets.lua`:
 
@@ -42,7 +42,7 @@ return {
 }
 ```
 
-## LSP
+### LSP
 
 These are the dependecies to make LSP integration work for configured servers:
 
@@ -57,6 +57,11 @@ npm install -g dockerfile-language-server-nodejs
 npm install -g vscode-html-languageserver-bin
 pip install 'python-language-server[all]'
 ```
+
+## Setup
+
+Use `:PlugInstall` to install plugins and everything else is set up the next time
+neovim is started.
 
 ## TODO
 
