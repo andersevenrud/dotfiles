@@ -106,3 +106,5 @@ require'nvim-lightbulb'.update_lightbulb {
         enabled = false
     }
 }
+
+require'neogit'.setup{}

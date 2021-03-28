@@ -31,6 +31,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'f-person/git-blame.nvim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'euclio/vim-markdown-composer', {'do': 'cargo build --release'}
+  Plug 'TimUntersberger/neogit'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
