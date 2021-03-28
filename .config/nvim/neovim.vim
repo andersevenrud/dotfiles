@@ -7,7 +7,7 @@ colorscheme nord
 
 set shortmess+=c                  " Silence warnings
 set completeopt=menuone,noselect  " Always open popup and user selection
-set numberwidth=6                 " Wide number gutter
+set numberwidth=4                 " Wide number gutter
 set number                        " Show number gutter
 set termguicolors                 " Respect terminal colors
 set hidden                        " Allow jumping between unsaved buffers
@@ -46,6 +46,8 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+
+hi LineNr ctermbg=NONE guibg=NONE
 
 " Auto commands
 augroup mygroup
