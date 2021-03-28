@@ -48,17 +48,12 @@ let g:nord_underline = 1
 " indentLine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:indentLine_char = '┊'
-let g:indentLine_color_term = 0
-let g:indentLine_bgcolor_term = 'NONE'
-let g:indentLine_color_gui = '#3b4252'
-let g:indentLine_bgcolor_gui = 'NONE'
-let g:indentLine_concealcursor = 0
+let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_char = '┊'
+let g:indent_blankline_buftype_exclude = ['help', 'terminal']
+let g:indent_blankline_use_treesitter = v:true
 
-augroup mygroup
-  autocmd!
-  autocmd FileType markdown let g:indentLine_enabled=0
-augroup end
+autocmd FileType markdown let g:indent_blankline_enabled=v:false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
