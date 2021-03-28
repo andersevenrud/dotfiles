@@ -7,6 +7,8 @@ colorscheme nord
 
 set shortmess+=c                  " Silence warnings
 set completeopt=menuone,noselect  " Always open popup and user selection
+set backspace=indent,eol,start    " Backspace context
+set signcolumn=yes                " Use sign column in gutter to prevent jumping
 set numberwidth=4                 " Wide number gutter
 set number                        " Show number gutter
 set termguicolors                 " Respect terminal colors
@@ -14,7 +16,6 @@ set hidden                        " Allow jumping between unsaved buffers
 set smartcase                     " Smart case handling in search
 set ignorecase                    " Ignore casing in highlights etc
 set incsearch                     " Incremental searches
-set backspace=indent,eol,start    " Backspace context
 set noshowmode                    " No show mode
 set noerrorbells                  " No error bells
 set visualbell                    " No visual bells
@@ -22,7 +23,6 @@ set nowrap                        " No text wrapping
 set hlsearch                      " Highlight searches
 set showmatch                     " Show matching brackets, etc
 set ruler                         " Show ruler in status
-set signcolumn=yes                " Use sign column in gutter to prevent jumping
 set title                         " Use windot title
 set ai                            " Use autoindent
 set expandtab                     " Spaces, not tabs
@@ -37,8 +37,6 @@ set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
 set wildignore+=*.*.swp,.tern-port,*.tmp
 set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp
 set wildignore+=.git,.svn,CVS
-set wildignore+=*/vendor/**
-set wildignore+=*/node_modules/**,*/bower_components/**
 set wildignore+=*/DS_Store/**
 
 " Highlight trailing characters
