@@ -80,4 +80,9 @@ neovim is started.
 
 ### Slow compe or telescope
 
-**Solution**: Disable tree-sitter integration.
+Disable tree-sitter integration.
+
+### Syntax does not seem to match colorscheme
+
+This setup relies on tree-sitter. So syntax is either not installed,
+is not an option at this moment.
