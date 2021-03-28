@@ -69,7 +69,7 @@ pip install 'python-language-server[all]'
 
 * Make sure tree-sitter is up-to-date first
 * Build a fresh version of neovim nightly
-* Nuke `~/.config/nvim/tree-sitter/parser/` directory
+* Nuke `~/.config/nvim/plugins/tree-sitter/parser/` directory
 * Start up neovim again and it will install the defined parsers
   * If this is not enabled, use `:TSInstallFromGrammar` command
 

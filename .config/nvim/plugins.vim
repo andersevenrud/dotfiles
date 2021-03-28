@@ -3,7 +3,7 @@
 " Anders Evenrud <andersevenrud@gmail.com>
 "
 
-call plug#begin('~/.config/nvim')
+call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'hrsh7th/nvim-compe'
   Plug 'lewis6991/gitsigns.nvim'
