@@ -93,11 +93,10 @@ require'lspconfig'.tsserver.setup {
     on_attach = function(client, bufnr)
         require('nvim-lsp-ts-utils').setup {}
 
-        -- no default maps, so you may want to define some here
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Go', ':LspOrganize<CR>', {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Gf', ':LspFixCurrent<CR>', {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Gr', ':LspRenameFile<CR>', {silent = true})
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Gi', ':LspImportAll<CR>', {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Lo', ':LspOrganize<CR>', {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Lf', ':LspFixCurrent<CR>', {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Lr', ':LspRenameFile<CR>', {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'Li', ':LspImportAll<CR>', {silent = true})
     end
 }
 
