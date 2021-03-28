@@ -30,6 +30,7 @@ set tabstop=2                     " Default spacing
 set softtabstop=2                 " Default spacing
 set shiftwidth=2                  " Default spacing
 set foldlevel=999                 " Expand all folds by default
+set updatetime=300                " Lower CursorHold update times
 
 " Ignore these files and directories
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj

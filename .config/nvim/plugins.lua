@@ -101,7 +101,7 @@ require'lspconfig'.tsserver.setup {
     end
 }
 
-require'nvim-lightbulb'.update_lightbulb {
+require'nvim-lightbulb'.update_lightbulb{
     virtual_text = {
         enabled = false
     }
