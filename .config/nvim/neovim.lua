@@ -29,6 +29,9 @@ nvim_lsp.vuels.setup{
 nvim_lsp.html.setup {
     capabilities = capabilities
 }
+nvim_lsp.rust_analyzer.setup {
+    capabilities = capabilities
+}
 nvim_lsp.intelephense.setup{
     capabilities = capabilities,
     init_options = {
@@ -36,7 +39,7 @@ nvim_lsp.intelephense.setup{
     }
 }
 
--- Superseded in plugins.lua
+-- Superseeded in plugins.lua
 -- nvim_lsp.tsserver.setup {
 --     capabilities = capabilities
 -- }

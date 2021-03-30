@@ -10,6 +10,9 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'wincent/terminus'
 
+  " Syntax (for non tree-sitter)
+  Plug 'sheerun/vim-polyglot'
+
   " UI
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
@@ -19,9 +22,11 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
   Plug 'glepnir/lspsaga.nvim'
   Plug 'onsails/lspkind-nvim'
+  Plug 'yamatsum/nvim-cursorline'
+  Plug 'romgrk/barbar.nvim'
 
   " Editing
-  Plug 'Raimondi/delimitMate'
+  Plug 'Raimondi/delimitMate' " windwp/nvim-autopairs ?
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'windwp/nvim-ts-autotag'
@@ -29,6 +34,7 @@ call plug#begin('~/.config/nvim/plugins')
   " Navigation
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
+  "Plug 'nvim-telescope/telescope-media-files.nvim'
 
   " Utilities
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
@@ -38,7 +44,7 @@ call plug#begin('~/.config/nvim/plugins')
 
   " Languages support
   Plug 'hrsh7th/nvim-compe'
-  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+  Plug 'tzachar/compe-tabnine', { 'do': './install.sh', 'commit': 'ab4bd13fed86b38eb5719b83890999bcbc8ad67b' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'ray-x/lsp_signature.nvim'
@@ -95,8 +101,8 @@ let g:loaded_compe_emoji = v:true
 
 " Autocompletion popup bindings
 inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' }) " ('<C-e>')
+inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' }) " ('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
@@ -127,6 +133,13 @@ let g:gitblame_message_template = '<author> <date> <summary>'
 let g:markdown_composer_autostart = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" barbar
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
+nnoremap <silent>    <A->> :BufferMoveNext<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Snip
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -148,17 +161,17 @@ xmap S <Plug>(vsnip-cut-text)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <silent> gh         <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-nnoremap <silent><leader>ca  <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
-nnoremap <silent> K          <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
-nnoremap <silent> <C-f>      <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b>      <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> gs         <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent> gr         <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent><leader>ca  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
+vnoremap <silent><leader>ca :<C-U>lua require'lspsaga.codeaction'.range_code_action()<CR>
+nnoremap <silent> K          <cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>
+nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(1)<CR>
+nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(-1)<CR>
+nnoremap <silent> gs         <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
+nnoremap <silent> gr         <cmd>lua require'lspsaga.rename'.rename()<CR>
 nnoremap <silent> gd         <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent><leader>cd  <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
 nnoremap <silent><leader>cc  <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
 nnoremap <silent> [e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> <A-d>      <cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>
-tnoremap <silent> <A-d>      <C-\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>
+nnoremap <silent> <A-d>      <cmd>lua require'lspsaga.floaterm'.open_float_terminal()<CR>
+tnoremap <silent> <A-d>      <C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>
