@@ -5,6 +5,7 @@
 
 colorscheme nord
 
+" General options
 set shortmess+=c                  " Silence warnings
 set completeopt=menuone,noselect  " Always open popup and user selection
 set backspace=indent,eol,start    " Backspace context
@@ -32,6 +33,10 @@ set shiftwidth=2                  " Default spacing
 set foldlevel=999                 " Expand all folds by default
 set updatetime=300                " Lower CursorHold update times
 
+" Color overrides
+hi LineNr ctermbg=NONE guibg=NONE
+hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
+
 " Ignore these files and directories
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
 set wildignore+=*.*.swp,.tern-port,*.tmp
@@ -45,8 +50,6 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
-
-hi LineNr ctermbg=NONE guibg=NONE
 
 " Auto commands
 augroup mygroup
