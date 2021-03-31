@@ -24,11 +24,13 @@ The following dependencies are required:
 - nodejs
 - tree-sitter
 - vim-plug
+- neovim 0.5 nightly compiled w/tree-sitter
 
 Optional:
 
 - patched (nerd) fonts
 - rust
+- ripgrep
 
 ### Secrets
 
@@ -65,7 +67,7 @@ neovim is started.
 
 ## TODO
 
-* Signature autocompletion via compe is not fully working
+* Signature autocompletion is not available in some language servers at this moment
 * LSP Server status in status line (if it's initing, indexing, etc.)
 
 ## Troubleshooting
