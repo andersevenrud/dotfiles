@@ -43,8 +43,8 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'f-person/git-blame.nvim'
 
   " Languages support
-  Plug 'hrsh7th/nvim-compe'
-  Plug 'tzachar/compe-tabnine', { 'do': './install.sh', 'commit': 'ab4bd13fed86b38eb5719b83890999bcbc8ad67b' }
+  Plug 'hrsh7th/nvim-compe', { 'commit': 'c2f59c052eb3d5de4953a851739fcd27728d8e3d' }
+  Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'ray-x/lsp_signature.nvim'
