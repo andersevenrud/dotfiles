@@ -9,6 +9,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'wincent/terminus'
+  Plug 'alexaandru/nvim-lspupdate'
 
   " Syntax (for non tree-sitter)
   Plug 'sheerun/vim-polyglot'

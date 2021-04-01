@@ -29,6 +29,7 @@ The following dependencies are required:
 Optional:
 
 - patched (nerd) fonts
+- rust_analyzer
 - rust
 - ripgrep
 
@@ -44,26 +45,10 @@ return {
 }
 ```
 
-### LSP
-
-These are the dependecies to make LSP integration work for configured servers:
-
-```bash
-npm install -g typescript typescript-language-server
-npm install -g vscode-css-languageserver-bin
-npm install -g vls
-npm install -g diagnostic-languageserver
-npm install -g yaml-language-server
-npm install -g intelephense
-npm install -g dockerfile-language-server-nodejs
-npm install -g vscode-html-languageserver-bin
-pip install 'python-language-server[all]'
-```
-
 ## Setup
 
-Use `:PlugInstall` to install plugins and everything else is set up the next time
-neovim is started.
+1. Use `:PlugInstall` to install plugins and everything else is set up the next time neovim is started.
+2. Use `:LspUpdate` to install language servers.
 
 ## TODO
 
