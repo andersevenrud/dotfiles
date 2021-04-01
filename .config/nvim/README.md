@@ -67,10 +67,18 @@ neovim is started.
 
 ## TODO
 
+* Typing multiline comments will misalign (motions work)
 * Signature autocompletion is not available in some language servers at this moment
 * LSP Server status in status line (if it's initing, indexing, etc.)
 
 ## Troubleshooting
+
+### Lua crashes in Neovim
+
+Build neovim from the official github repositories, not AUR etc.
+
+Neovim official ships with it's own third party dependencies and expects
+these versions, not from the system package manager.
 
 ### Treesitter ABI version conflicts
 
