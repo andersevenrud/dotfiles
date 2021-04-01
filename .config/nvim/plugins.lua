@@ -6,12 +6,15 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require'gitsigns'.setup()
 require'nvim-ts-autotag'.setup()
 require'lsp_signature'.on_attach()
 require'lspsaga'.init_lsp_saga{}
 require'lspkind'.init({})
 require'neogit'.setup{}
+
+require'gitsigns'.setup{
+    current_line_blame = true
+}
 
 require'lualine'.setup{
     options = {

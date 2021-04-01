@@ -40,7 +40,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'TimUntersberger/neogit'
   Plug 'mfussenegger/nvim-dap'
-  Plug 'f-person/git-blame.nvim'
 
   " Languages support
   Plug 'hrsh7th/nvim-compe', { 'commit': 'c2f59c052eb3d5de4953a851739fcd27728d8e3d' }
@@ -118,13 +117,6 @@ set foldexpr=nvim_treesitter#foldexpr()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Git Blame
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:gitblame_date_format = '%Y.%m%.%d %H:%M'
-let g:gitblame_message_template = '<author> <date> <summary>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Markdown composer
