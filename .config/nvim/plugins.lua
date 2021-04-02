@@ -52,6 +52,7 @@ require'compe'.setup {
         nvim_lua = true;
         vsnip = true;
         treesitter = true;
+        tmux = true;
         tabnine = {
             max_num_results = 6;
             priority = 0;
