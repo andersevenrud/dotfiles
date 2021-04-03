@@ -130,8 +130,15 @@ let g:markdown_composer_autostart = 0
 " barbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.tabpages = v:false
+let bufferline.auto_hide = v:true
+let bufferline.animation = v:false
+
 nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
 nnoremap <silent>    <A->> :BufferMoveNext<CR>
+
+hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Snip
