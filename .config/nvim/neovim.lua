@@ -78,6 +78,40 @@ require'lspkind'.init({})
 require'neogit'.setup{}
 
 -------------------------------------------------------------------------------
+-- plugin: barbar
+-------------------------------------------------------------------------------
+
+vim.g.bufferline = {
+    tabpages = false;
+    auto_hide = true;
+    animation = false;
+}
+
+-------------------------------------------------------------------------------
+-- plugin: indent-blankline
+-------------------------------------------------------------------------------
+
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_buftype_exclude = { 'help', 'terminal' }
+vim.g.indent_blankline_use_treesitter = true
+vim.g.indent_blankline_show_first_indent_level = false
+
+vim.cmd [[autocmd FileType markdown let g:indent_blankline_enabled=v:false]]
+
+-------------------------------------------------------------------------------
+-- plugin: markdown-composer
+-------------------------------------------------------------------------------
+
+vim.g.markdown_composer_autostart = 0
+
+-------------------------------------------------------------------------------
+-- plugin: nvcode-color-schemes
+-------------------------------------------------------------------------------
+
+vim.g.nvcode_termcolors = 256
+
+-------------------------------------------------------------------------------
 -- plugin: gitsigns
 -------------------------------------------------------------------------------
 
@@ -163,6 +197,7 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
+
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t '<C-p>'
@@ -230,3 +265,5 @@ require'nvim-lightbulb'.update_lightbulb{
         enabled = false
     }
 }
+
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
