@@ -14,50 +14,51 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 nvim_lsp.dockerls.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
 nvim_lsp.yamlls.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
 nvim_lsp.pyls.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
 nvim_lsp.vuels.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
 nvim_lsp.cssls.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
 nvim_lsp.vuels.setup{
-    capabilities = capabilities
+    capabilities = capabilities;
 }
-nvim_lsp.html.setup {
-    capabilities = capabilities
+nvim_lsp.html.setup{
+    capabilities = capabilities;
 }
-nvim_lsp.rust_analyzer.setup {
-    capabilities = capabilities
+nvim_lsp.rust_analyzer.setup{
+    capabilities = capabilities;
 }
 nvim_lsp.intelephense.setup{
-    capabilities = capabilities,
+    capabilities = capabilities;
     init_options = {
-        licenceKey = secrets.intelephense.licenceKey
-    }
+        licenceKey = secrets.intelephense.licenceKey;
+    },
 }
-nvim_lsp.tsserver.setup {
+nvim_lsp.tsserver.setup{
     capabilities = capabilities,
 
     -- TS server plugins
     on_attach = function(client, bufnr)
-        require('nvim-lsp-ts-utils').setup {}
+        require'nvim-lsp-ts-utils'.setup{}
+        require'nvim-ts-autotag'.setup{}
     end
 }
 
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
+        virtual_text = false;
+        underline = true;
+        signs = true;
     }
 )
 vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
@@ -67,13 +68,11 @@ vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 -- plugin: Misc
 -------------------------------------------------------------------------------
 
-require'nvim-ts-autotag'.setup()
-
 require'lsp_signature'.on_attach()
 
 require'lspsaga'.init_lsp_saga{}
 
-require'lspkind'.init({})
+require'lspkind'.init{}
 
 require'neogit'.setup{}
 
@@ -116,7 +115,7 @@ vim.g.nvcode_termcolors = 256
 -------------------------------------------------------------------------------
 
 require'gitsigns'.setup{
-    current_line_blame = true
+    current_line_blame = true;
 }
 
 -------------------------------------------------------------------------------
@@ -125,23 +124,23 @@ require'gitsigns'.setup{
 
 require'lualine'.setup{
     options = {
-        theme = 'nord'
+        theme = 'nord';
     },
     sections = {
-        lualine_a = { { 'mode', upper = true } },
-        lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } },
-        lualine_c = { { 'filename', file_status = true } },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' },
-    }
+        lualine_a = { { 'mode', upper = true } };
+        lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } };
+        lualine_c = { { 'filename', file_status = true } };
+        lualine_x = { 'encoding', 'fileformat', 'filetype' };
+        lualine_y = { 'progress' };
+        lualine_z = { 'location' };
+    },
 }
 
 -------------------------------------------------------------------------------
 -- plugin: compe
 -------------------------------------------------------------------------------
 
-require'compe'.setup {
+require'compe'.setup{
     enabled = true;
     autocomplete = true;
     debug = false;
@@ -154,7 +153,6 @@ require'compe'.setup {
     max_kind_width = 100;
     max_menu_width = 100;
     documentation = true;
-
     source = {
         path = true;
         buffer = true;
@@ -169,8 +167,8 @@ require'compe'.setup {
             priority = 0;
             max_line = 1000;
             show_prediction_strength = true;
-        }
-    };
+        },
+    },
 }
 
 local t = function(str)
@@ -236,14 +234,14 @@ require'nvim-treesitter.configs'.setup{
         'rust'
     },
     context_commentstring = {
-        enable = true
+        enable = true;
     },
     highlight = {
-        enable = true
+        enable = true;
     },
     indent = {
-        enable = true
-    }
+        enable = true;
+    },
 }
 
 -------------------------------------------------------------------------------
@@ -252,8 +250,8 @@ require'nvim-treesitter.configs'.setup{
 
 require'telescope'.setup{
     builtin = {
-        treesitter = true
-    }
+        treesitter = true;
+    },
 }
 
 -------------------------------------------------------------------------------
@@ -262,8 +260,8 @@ require'telescope'.setup{
 
 require'nvim-lightbulb'.update_lightbulb{
     virtual_text = {
-        enabled = false
-    }
+        enabled = false;
+    },
 }
 
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
