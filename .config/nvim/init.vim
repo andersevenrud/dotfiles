@@ -5,5 +5,7 @@
 
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/neovim.vim
-luafile ~/.config/nvim/neovim.lua
 luafile ~/.config/nvim/plugins.lua
+luafile ~/.config/nvim/neovim.lua
+source ~/.config/nvim/keybindings.vim
+luafile ~/.config/nvim/keybindings.lua

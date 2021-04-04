@@ -72,23 +72,6 @@ let g:indent_blankline_show_first_indent_level = v:false
 autocmd FileType markdown let g:indent_blankline_enabled=v:false
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Telescope
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Tree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <F36> :NvimTreeRefresh<CR>
-nnoremap <F12> :NvimTreeFindFile<CR>
-nnoremap <F11> :NvimTreeToggle<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compe
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -99,13 +82,6 @@ let g:loaded_compe_nvim_lua = v:true
 let g:loaded_compe_calc = v:true
 let g:loaded_compe_tags = v:true
 let g:loaded_compe_emoji = v:true
-
-" Autocompletion popup bindings
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' }) " ('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treesitter
@@ -134,45 +110,3 @@ let bufferline = get(g:, 'bufferline', {})
 let bufferline.tabpages = v:false
 let bufferline.auto_hide = v:true
 let bufferline.animation = v:false
-
-nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
-nnoremap <silent>    <A->> :BufferMoveNext<CR>
-
-hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Snip
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-nmap s <Plug>(vsnip-select-text)
-xmap s <Plug>(vsnip-select-text)
-nmap S <Plug>(vsnip-cut-text)
-xmap S <Plug>(vsnip-cut-text)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Saga
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <silent> gh         <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-nnoremap <silent><leader>ca  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
-vnoremap <silent><leader>ca :<C-U>lua require'lspsaga.codeaction'.range_code_action()<CR>
-nnoremap <silent> K          <cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>
-nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> gs         <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
-nnoremap <silent> gr         <cmd>lua require'lspsaga.rename'.rename()<CR>
-nnoremap <silent> gd         <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent><leader>cd  <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
-nnoremap <silent><leader>cc  <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
-nnoremap <silent> [e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-nnoremap <silent> ]e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> <A-d>      <cmd>lua require'lspsaga.floaterm'.open_float_terminal()<CR>
-tnoremap <silent> <A-d>      <C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>

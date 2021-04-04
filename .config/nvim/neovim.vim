@@ -47,6 +47,9 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
 
+" Color overrides
+hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
+
 " Auto commands
 augroup mygroup
   autocmd!
@@ -66,17 +69,3 @@ augroup mygroup
   autocmd VimLeave * call system("tmux rename-window bash")
   autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 augroup end
-
-" Make C-c behave like ESC
-inoremap <c-c> <ESC>
-
-" LSP Keybindings
-nnoremap <silent> gD          <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <space>gd   <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <space>wa   <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
-nnoremap <silent> <space>wr   <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
-nnoremap <silent> <space>wl   <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-nnoremap <silent> <space>D    <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <space>r    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <space>q    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
