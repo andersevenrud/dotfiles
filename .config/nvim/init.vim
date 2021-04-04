@@ -8,4 +8,3 @@ source ~/.config/nvim/neovim.vim
 luafile ~/.config/nvim/plugins.lua
 luafile ~/.config/nvim/neovim.lua
 source ~/.config/nvim/keybindings.vim
-luafile ~/.config/nvim/keybindings.lua
