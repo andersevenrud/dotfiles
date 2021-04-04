@@ -3,7 +3,10 @@
 " Anders Evenrud <andersevenrud@gmail.com>
 "
 
+" Theme
 colorscheme nord
+
+hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
 
 " General options
 set shortmess+=c                  " Silence warnings
@@ -47,25 +50,18 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
 
-" Color overrides
-hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
+" Custom filetypes
+autocmd BufNewFile,BufRead *.heml set ft=html
 
-" Auto commands
-augroup mygroup
-  autocmd!
+" Language rules
+autocmd FileType lua    setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd Filetype php    setlocal tabstop=4 softtabstop=4 shiftwidth=4
 
-  " Custom filetypes
-  autocmd BufNewFile,BufRead *.heml set ft=html
-
-  " Language rules
-  autocmd FileType lua setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  autocmd Filetype php setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  "autocmd FileType vue syntax sync fromstart
-
-  " Tmux window titles
+" Tmux window titles
+if exists('$TMUX')
   autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
   autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
   autocmd VimLeave * call system("tmux rename-window bash")
   autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-augroup end
+endif
