@@ -2,9 +2,6 @@
 
 My **neovim 0.5+** configuration.
 
-Configured to give an editor experience that is comparable with VSCode or any
-other heavy lifter out there.
-
 ## Features
 
 * Auto tags, indentation, parentheses, etc.
@@ -18,24 +15,22 @@ other heavy lifter out there.
 
 ## Prerequisites
 
-The following dependencies are required:
+### Requirements
 
-- python3
-- nodejs
-- tree-sitter
-- vim-plug
-- neovim 0.5 nightly compiled w/tree-sitter
+- `neovim >= 0.5` compiled with `tree-sitter`, `lua` and `python`
+- `vim-plug` for plugin management
 
-Optional:
+### Optional
 
-- patched (nerd) fonts
-- rust_analyzer
-- rust
-- ripgrep
+- `nerd-fonts` for icons and symbols
+- `nodejs` for language misc servers
+- `rust` for certain plugins
+- `rust_analyzer` for rust language server
+- `ripgrep` for faster fuzzy searches
 
 ### Secrets
 
-Secrets are stored in `~/.config/nvim/lua/secrets.lua`:
+Set up a secrets file in `~/.config/nvim/lua/secrets.lua` with this template:
 
 ```lua
 return {
