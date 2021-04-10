@@ -71,6 +71,7 @@ colorscheme nord
 
 " Override certain styles
 hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
+hi LineNr ctermbg=NONE guibg=NONE
 
 " Highlight trailing characters
 highlight ExtraWhitespace ctermbg=red guibg=red

@@ -10,6 +10,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'wincent/terminus'
   Plug 'alexaandru/nvim-lspupdate'
+  Plug 'theHamsta/nvim-dap-virtual-text'
 
   " UI
   Plug 'lewis6991/gitsigns.nvim'
@@ -22,6 +23,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'onsails/lspkind-nvim'
   Plug 'yamatsum/nvim-cursorline'
   Plug 'romgrk/barbar.nvim'
+  Plug 'romgrk/nvim-treesitter-context'
 
   " Editing
   Plug 'Raimondi/delimitMate' " windwp/nvim-autopairs ?
