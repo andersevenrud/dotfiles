@@ -24,6 +24,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'yamatsum/nvim-cursorline'
   Plug 'romgrk/barbar.nvim'
   Plug 'romgrk/nvim-treesitter-context'
+  Plug 'nacro90/numb.nvim'
 
   " Editing
   Plug 'Raimondi/delimitMate' " windwp/nvim-autopairs ?

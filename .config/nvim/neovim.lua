@@ -275,3 +275,12 @@ require'nvim-lightbulb'.update_lightbulb{
 }
 
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+
+-------------------------------------------------------------------------------
+-- plugin: numb
+-------------------------------------------------------------------------------
+
+require('numb').setup{
+   show_numbers = true;
+   show_cursorline = true;
+}
