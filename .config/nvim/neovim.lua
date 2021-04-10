@@ -52,6 +52,9 @@ nvim_lsp.tsserver.setup{
         require'nvim-ts-autotag'.setup{}
     end
 }
+nvim_lsp.svelte.setup{
+    capabilities = capabilities,
+}
 
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
@@ -231,7 +234,8 @@ require'nvim-treesitter.configs'.setup{
         'regex',
         'vue',
         'php',
-        'rust'
+        'rust',
+        'svelte'
     },
     context_commentstring = {
         enable = true;
