@@ -44,7 +44,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'mfussenegger/nvim-dap'
 
   " Languages support
-  Plug 'hrsh7th/nvim-compe', { 'commit': 'c2f59c052eb3d5de4953a851739fcd27728d8e3d' }
+  Plug 'hrsh7th/nvim-compe'
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'andersevenrud/compe-tmux'
   Plug 'neovim/nvim-lspconfig'
