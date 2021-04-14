@@ -17,7 +17,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
   Plug 'hoob3rt/lualine.nvim'
-  Plug 'christianchiarulli/nvcode-color-schemes.vim'
   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
   Plug 'glepnir/lspsaga.nvim'
   Plug 'onsails/lspkind-nvim'
@@ -25,6 +24,11 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'romgrk/barbar.nvim'
   Plug 'romgrk/nvim-treesitter-context'
   Plug 'nacro90/numb.nvim'
+  Plug 'norcalli/nvim-colorizer.lua'
+
+  " Themes
+  Plug 'tjdevries/colorbuddy.nvim'
+  Plug 'maaslalani/nordbuddy'
 
   " Editing
   Plug 'Raimondi/delimitMate' " windwp/nvim-autopairs ?

@@ -68,10 +68,11 @@ endif
 " vim theme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colorscheme nord
+colorscheme nordbuddy
 
 " Override certain styles
-hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold cterm=bold
+hi BufferCurrentMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=bold,italic cterm=bold,italic
+hi BufferVisibleMod guifg=#eceff4 ctermfg=255 guibg=#2e3440 ctermbg=237 gui=italic cterm=italic
 hi LineNr ctermbg=NONE guibg=NONE
 
 " Highlight trailing characters
