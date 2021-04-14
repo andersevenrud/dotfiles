@@ -295,3 +295,13 @@ require('numb').setup{
 -------------------------------------------------------------------------------
 
 require'colorizer'.setup()
+
+-------------------------------------------------------------------------------
+-- plugin: nvim-tree
+-------------------------------------------------------------------------------
+
+vim.g.nvim_tree_ignore = { '.git', '.cache' }
+vim.g.nvim_tree_gitignore = true
+vim.g.nvim_tree_auto_close = true
+vim.g.nvim_tree_add_trailing = true
+vim.g.nvim_tree_lsp_diagnostics = true
