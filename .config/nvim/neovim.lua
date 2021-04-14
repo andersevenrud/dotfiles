@@ -64,8 +64,6 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         signs = true;
     }
 )
-vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
-vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 
 -------------------------------------------------------------------------------
 -- plugin: Misc
@@ -73,11 +71,18 @@ vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 
 require'lsp_signature'.on_attach()
 
-require'lspsaga'.init_lsp_saga{}
-
 require'lspkind'.init{}
 
 require'neogit'.setup{}
+
+-------------------------------------------------------------------------------
+-- plugin: saga
+-------------------------------------------------------------------------------
+
+require'lspsaga'.init_lsp_saga{}
+
+vim.cmd [[autocmd CursorHold * lua require'lspsaga.diagnostic'.show_cursor_diagnostics()]]
+vim.cmd [[autocmd CursorHoldI * silent! lua require'lspsaga.signaturehelp'.signature_help()]]
 
 -------------------------------------------------------------------------------
 -- plugin: barbar
