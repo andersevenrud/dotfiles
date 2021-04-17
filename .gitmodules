@@ -1,9 +1,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule ".vim/bundle/Vundle.vim"]
-	path = .vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule ".bash/git-aware-prompt"]
 	path = .bash/git-aware-prompt
 	url = git://github.com/jimeh/git-aware-prompt.git
