@@ -277,18 +277,6 @@ require'telescope'.setup{
 }
 
 -------------------------------------------------------------------------------
--- plugin: lightbulb
--------------------------------------------------------------------------------
-
-require'nvim-lightbulb'.update_lightbulb{
-    virtual_text = {
-        enabled = false;
-    },
-}
-
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-
--------------------------------------------------------------------------------
 -- plugin: numb
 -------------------------------------------------------------------------------
 

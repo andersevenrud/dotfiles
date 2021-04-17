@@ -55,7 +55,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'hrsh7th/vim-vsnip'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-  Plug 'kosayoda/nvim-lightbulb'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
