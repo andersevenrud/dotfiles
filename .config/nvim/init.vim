@@ -21,7 +21,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'glepnir/lspsaga.nvim'
   Plug 'onsails/lspkind-nvim'
   Plug 'yamatsum/nvim-cursorline'
-  Plug 'romgrk/barbar.nvim'
+  Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
   Plug 'nacro90/numb.nvim'
   Plug 'norcalli/nvim-colorizer.lua'

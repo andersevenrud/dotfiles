@@ -92,13 +92,18 @@ vim.cmd [[autocmd CursorHold * lua require'lspsaga.diagnostic'.show_cursor_diagn
 vim.cmd [[autocmd CursorHoldI * silent! lua require'lspsaga.signaturehelp'.signature_help()]]
 
 -------------------------------------------------------------------------------
--- plugin: barbar
+-- plugin: nvim-bufferline
 -------------------------------------------------------------------------------
 
-vim.g.bufferline = {
-    tabpages = false;
-    auto_hide = true;
-    animation = false;
+require'bufferline'.setup{
+    options = {
+        diagnostics = 'nvim_lsp';
+        show_buffer_close_icons = false;
+        show_close_icon = false;
+        show_buffer_close_icons = false;
+        show_tab_indicators = false;
+        always_show_bufferline = false;
+    }
 }
 
 -------------------------------------------------------------------------------
