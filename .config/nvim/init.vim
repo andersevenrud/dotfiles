@@ -31,7 +31,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'maaslalani/nordbuddy'
 
   " Editing
-  Plug 'Raimondi/delimitMate' " windwp/nvim-autopairs ?
+  Plug 'Raimondi/delimitMate'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'windwp/nvim-ts-autotag'
