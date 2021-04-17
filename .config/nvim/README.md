@@ -18,7 +18,7 @@ My **neovim 0.5+** configuration.
 ### Requirements
 
 - `neovim >= 0.5` compiled with `tree-sitter`, `lua` and `python`
-- `vim-plug` for plugin management
+- [`vim-plug`](https://github.com/junegunn/vim-plug#neovim) for plugin management
 
 ### Optional
 
