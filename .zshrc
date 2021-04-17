@@ -59,4 +59,7 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 SPACESHIP_GCLOUD_SHOW=false
 
+export DENO_INSTALL="/home/anders/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 zplug load --verbose

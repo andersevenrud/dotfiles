@@ -53,16 +53,22 @@ return {
 
 ## Troubleshooting
 
-### Lua crashes in Neovim
-
 Build neovim from the official github repositories, not AUR etc.
 
 Neovim official ships with it's own third party dependencies and expects
 these versions, not from the system package manager.
 
+### Incorrect release version or dependencies
+
+Don't use CMake to bootstrap the source. Instead do the following:
+
+```bash
+make CMAKE_BUILD_TYPE=Release
+sudo make install CMAKE_INSTALL_CONFIG_NAME=Release
+```
+
 ### Treesitter ABI version conflicts
 
-* Make sure tree-sitter is up-to-date first
 * Build a fresh version of neovim nightly
 * Nuke `~/.config/nvim/plugins/tree-sitter/parser/` directory
 * Start up neovim again and it will install the defined parsers
