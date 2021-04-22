@@ -47,7 +47,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'TimUntersberger/neogit'
   Plug 'mfussenegger/nvim-dap'
 
-  " Languages support
+  " LSP
   Plug 'hrsh7th/nvim-compe'
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'andersevenrud/compe-tmux'
@@ -55,6 +55,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'hrsh7th/vim-vsnip'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  Plug 'folke/lsp-trouble.nvim'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim

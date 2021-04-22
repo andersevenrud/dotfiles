@@ -105,6 +105,12 @@ nnoremap <silent> <A-d>      <cmd>lua require'lspsaga.floaterm'.open_float_termi
 tnoremap <silent> <A-d>      <C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" trouble
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>xx <cmd>LspTroubleToggle<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nvim-lsp-ts-utils
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
