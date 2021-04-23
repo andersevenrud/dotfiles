@@ -10,7 +10,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'wincent/terminus'
   Plug 'alexaandru/nvim-lspupdate'
-  Plug 'theHamsta/nvim-dap-virtual-text'
+  Plug 'tjdevries/colorbuddy.nvim'
 
   " UI
   Plug 'lewis6991/gitsigns.nvim'
@@ -18,36 +18,39 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'ryanoasis/vim-devicons'
   Plug 'hoob3rt/lualine.nvim'
   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
-  Plug 'glepnir/lspsaga.nvim'
   Plug 'onsails/lspkind-nvim'
-  Plug 'yamatsum/nvim-cursorline'
   Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
-  Plug 'nacro90/numb.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
 
   " Themes
-  Plug 'tjdevries/colorbuddy.nvim'
   Plug 'maaslalani/nordbuddy'
+  "Plug 'folke/lsp-colors.nvim'
 
   " Editing
   Plug 'Raimondi/delimitMate'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'windwp/nvim-ts-autotag'
-  Plug 'editorconfig/editorconfig-vim'
 
   " Navigation
+  Plug 'yamatsum/nvim-cursorline'
+  Plug 'nacro90/numb.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
   "Plug 'nvim-telescope/telescope-media-files.nvim'
 
   " Utilities
-  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'TimUntersberger/neogit'
   Plug 'mfussenegger/nvim-dap'
+  Plug 'theHamsta/nvim-dap-virtual-text'
+
+  " Misc language support
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
+  Plug 'editorconfig/editorconfig-vim'
 
   " LSP
+  Plug 'glepnir/lspsaga.nvim'
   Plug 'hrsh7th/nvim-compe'
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'andersevenrud/compe-tmux'
