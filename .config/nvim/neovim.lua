@@ -56,7 +56,6 @@ nvim_lsp.tsserver.setup{
     -- TS server plugins
     on_attach = function(client, bufnr)
         require'nvim-lsp-ts-utils'.setup{}
-        require'nvim-ts-autotag'.setup{}
     end
 }
 nvim_lsp.svelte.setup{
@@ -81,6 +80,8 @@ require'lsp_signature'.on_attach()
 require'lspkind'.init{}
 
 require'neogit'.setup{}
+
+require'nvim-ts-autotag'.setup{}
 
 -------------------------------------------------------------------------------
 -- plugin: saga
@@ -261,13 +262,13 @@ require'nvim-treesitter.configs'.setup{
         'rust',
         'svelte'
     },
-    context_commentstring = {
-        enable = true;
-    },
     highlight = {
         enable = true;
     },
     indent = {
+        enable = true;
+    },
+    context_commentstring = { -- Plugin
         enable = true;
     },
 }
@@ -303,6 +304,9 @@ require'colorizer'.setup({
     'typescript';
     'javascriptreact';
     'typescriptreact';
+    'vue';
+    'svelte';
+    'twig';
 }, {
     css = true;
 })
