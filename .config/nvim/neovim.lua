@@ -295,7 +295,17 @@ require'numb'.setup{
 -- plugin: colorizer
 -------------------------------------------------------------------------------
 
-require'colorizer'.setup()
+require'colorizer'.setup({
+    'html';
+    'css';
+    'scss';
+    'javascript';
+    'typescript';
+    'javascriptreact';
+    'typescriptreact';
+}, {
+    css = true;
+})
 
 -------------------------------------------------------------------------------
 -- plugin: trouble
