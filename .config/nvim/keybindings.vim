@@ -8,21 +8,20 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Make C-c behave like ESC
-inoremap <c-c> <ESC>
+inoremap <C-c> <ESC>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> gD          <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gi          <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <space>gd   <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <space>wa   <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
-nnoremap <silent> <space>wr   <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
-nnoremap <silent> <space>wl   <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-nnoremap <silent> <space>D    <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> <space>r    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <space>q    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> gD        <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <space>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <space>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
+nnoremap <silent> <space>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
+nnoremap <silent> <space>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+nnoremap <silent> <space>D  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> <space>q  <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
@@ -67,17 +66,17 @@ smap <expr> <S-Tab> v:lua.s_tab_complete()
 " barbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
-nnoremap <silent>    <A->> :BufferMoveNext<CR>
+nnoremap <silent> <A-<> :BufferMovePrevious<CR>
+nnoremap <silent> <A->> :BufferMoveNext<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim snip
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <C-j> vsnip#expandable() ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j> vsnip#expandable() ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
 nmap s <Plug>(vsnip-select-text)
 xmap s <Plug>(vsnip-select-text)
@@ -88,7 +87,7 @@ xmap S <Plug>(vsnip-cut-text)
 " Saga
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> gh         <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+nnoremap <silent><leader>gd  <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 nnoremap <silent><leader>ca  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
 vnoremap <silent><leader>ca :<C-U>lua require'lspsaga.codeaction'.range_code_action()<CR>
 nnoremap <silent> K          <cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>
