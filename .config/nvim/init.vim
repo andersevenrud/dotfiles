@@ -42,9 +42,10 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'simrat39/symbols-outline.nvim'
 
   " Utilities
-  Plug 'TimUntersberger/neogit'
+  "Plug 'TimUntersberger/neogit'
   Plug 'mfussenegger/nvim-dap'
   Plug 'theHamsta/nvim-dap-virtual-text'
+  Plug 'kdheepak/lazygit.nvim'
 
   " Misc language support
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }

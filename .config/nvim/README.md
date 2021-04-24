@@ -27,6 +27,7 @@ My **neovim 0.5+** configuration.
 - `rust` for certain plugins
 - `rust_analyzer` for rust language server
 - `ripgrep` for faster fuzzy searches
+- `lazygit` for git integration
 
 ### Secrets
 
@@ -47,7 +48,8 @@ return {
 
 ## TODO
 
-* Typing multiline comments will misalign (motions work)
+* Convert to Lua configs for everything
+* Typing multiline comments will misalign (commenting blocks work)
 * Signature autocompletion is not available in some language servers at this moment
 * LSP Server status in status line (if it's initing, indexing, etc.)
 

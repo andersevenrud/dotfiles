@@ -36,8 +36,14 @@ nnoremap <leader>fh <cmd>lua require'telescope.builtin'.help_tags()<cr>
 " neogit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <F10> :Neogit<CR>
-nnoremap <F34> :Neogit commit<CR>
+"nnoremap <F10> :Neogit<CR>
+"nnoremap <F34> :Neogit commit<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lazygit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <silent> <F10> :LazyGit<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Tree

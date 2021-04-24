@@ -79,7 +79,7 @@ require'lsp_signature'.on_attach()
 
 require'lspkind'.init{}
 
-require'neogit'.setup{}
+--require'neogit'.setup{}
 
 require'nvim-ts-autotag'.setup{}
 
@@ -328,3 +328,9 @@ vim.g.nvim_tree_gitignore = true
 vim.g.nvim_tree_auto_close = true
 vim.g.nvim_tree_add_trailing = true
 vim.g.nvim_tree_lsp_diagnostics = true
+
+-------------------------------------------------------------------------------
+-- plugin: lazygit
+-------------------------------------------------------------------------------
+
+vim.g.lazygit_floating_window_use_plenary = true
