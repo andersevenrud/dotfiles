@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
   "Plug 'nvim-telescope/telescope-media-files.nvim'
+  Plug 'simrat39/symbols-outline.nvim'
 
   " Utilities
   Plug 'TimUntersberger/neogit'
