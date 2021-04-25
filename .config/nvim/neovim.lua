@@ -269,7 +269,7 @@ require'compe'.setup{
     enabled = true;
     autocomplete = true;
     debug = false;
-    min_length = 1;
+    min_length = 2;
     preselect = 'enable';
     throttle_time = 80;
     source_timeout = 200;
@@ -279,13 +279,13 @@ require'compe'.setup{
     max_menu_width = 100;
     documentation = true;
     source = {
+        -- calc = true;
+        -- treesitter = true;
         path = true;
         buffer = true;
-        calc = true;
         nvim_lsp = true;
         nvim_lua = true;
         vsnip = true;
-        treesitter = true;
         tmux = true;
         tabnine = {
             max_num_results = 6;
