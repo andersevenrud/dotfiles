@@ -6,7 +6,7 @@ My **neovim 0.5+** configuration.
 
 * Auto tags, indentation, parentheses, etc.
 * Autocompletion and auto-import
-* Full LSP integration
+* Full LSP integration w/diagnostics
 * Git integration
 * File browser
 * Fuzzy finder
@@ -46,17 +46,16 @@ return {
 1. Use `:PlugInstall` to install plugins and everything else is set up the next time neovim is started.
 2. Use `:LspUpdate` to install language servers.
 
-## TODO
-
-* Convert to Lua configs for everything
-* Typing multiline comments will misalign (commenting blocks work)
-
 ## Notes
 
 Some language servers implementations does not provide the following natively:
 
 * progress status updates
 * signature autocompletion via snippets
+
+There are also some bugs:
+
+* Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6)
 
 ## Troubleshooting
 
@@ -89,3 +88,7 @@ Disable tree-sitter integration.
 
 This setup relies on tree-sitter. So syntax is either not installed,
 is not an option at this moment.
+
+## TODO
+
+* Convert everything to Lua ?
