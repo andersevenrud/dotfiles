@@ -71,6 +71,8 @@ endif
 colorscheme nordbuddy
 
 " Override certain styles
+highlight link LspDiagnosticsUnderlineError DiffDelete
+highlight link LspDiagnosticsUnderlineWarning DiffChange
 hi LineNr ctermbg=NONE guibg=NONE
 
 " Highlight trailing characters
