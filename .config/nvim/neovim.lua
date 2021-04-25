@@ -81,8 +81,6 @@ require'lspkind'.init{}
 
 --require'neogit'.setup{}
 
-require'nvim-ts-autotag'.setup{}
-
 require'symbols-outline'.setup{}
 
 -------------------------------------------------------------------------------
@@ -262,7 +260,9 @@ require'nvim-treesitter.configs'.setup{
         'vue',
         'php',
         'rust',
-        'svelte'
+        'svelte',
+        'jsdoc',
+        'tsx'
     },
     highlight = {
         enable = true;
@@ -270,9 +270,15 @@ require'nvim-treesitter.configs'.setup{
     indent = {
         enable = true;
     },
-    context_commentstring = { -- Plugin
+
+    -- Plugins
+
+    context_commentstring = {
         enable = true;
     },
+    autotag = {
+        enable = true;
+    }
 }
 
 -------------------------------------------------------------------------------
