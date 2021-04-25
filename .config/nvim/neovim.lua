@@ -174,6 +174,9 @@ require'lspsaga'.init_lsp_saga{
     infor_sign = '';
     dianostic_header_icon = '   ';
     code_action_icon = ' ';
+    code_action_prompt = {
+        virtual_text = false
+    }
 }
 
 vim.cmd [[autocmd CursorHold * lua require'lspsaga.diagnostic'.show_cursor_diagnostics()]]
