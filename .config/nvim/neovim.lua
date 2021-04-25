@@ -159,7 +159,14 @@ require'symbols-outline'.setup{}
 -- plugin: saga
 -------------------------------------------------------------------------------
 
-require'lspsaga'.init_lsp_saga{}
+require'lspsaga'.init_lsp_saga{
+    error_sign = '';
+    warn_sign = '';
+    hint_sign = '';
+    infor_sign = '';
+    dianostic_header_icon = '   ';
+    code_action_icon = ' ';
+}
 
 vim.cmd [[autocmd CursorHold * lua require'lspsaga.diagnostic'.show_cursor_diagnostics()]]
 vim.cmd [[autocmd CursorHoldI * silent! lua require'lspsaga.signaturehelp'.signature_help()]]
