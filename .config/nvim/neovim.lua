@@ -61,6 +61,67 @@ nvim_lsp.tsserver.setup{
 nvim_lsp.svelte.setup{
     capabilities = capabilities,
 }
+nvim_lsp.diagnosticls.setup{
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'scss', 'css' },
+    root_dir = nvim_lsp.util.root_pattern('package.json'),
+    init_options = {
+        linters = {
+            eslint = {
+                command = 'node_modules/.bin/eslint',
+                rootPatterns = { 'package.json' },
+                debounce = 100,
+                args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
+                sourceName = 'eslint',
+                parseJson = {
+                    errorsRoot = '[0].messages',
+                    line = 'line',
+                    column = 'column',
+                    endLine = 'endLine',
+                    endColumn = 'endColumn',
+                    message = '[eslint] ${message} [${ruleId}]',
+                    security = 'severity'
+                },
+                securities = {
+                    [2] = 'error',
+                    [1] = 'warning'
+                }
+            },
+            stylelint = {
+                command = 'node_modules/.bin/stylelint',
+                rootPatterns = { 'package.json' },
+                debounce = 100,
+                args = { '--formatter', 'unix', '--stdin-filename', '%filename' },
+                sourceName = 'stylelint',
+                isStdout = true,
+                isStderr = false,
+                offsetLine = 0,
+                offsetColumn = 0,
+                formatLines = 1,
+                formatPattern = {
+                    '^[^:]+:(\\d+):(\\d+):\\s(.+)\\s\\[(\\w+)\\]$',
+                    {
+                        line = 1,
+                        column = 2,
+                        message = 3,
+                        security = 4
+                    }
+                },
+                securities = {
+                    [2] = 'error',
+                    [1] = 'warning'
+                }
+            }
+        },
+        filetypes = {
+            javascript = 'eslint',
+            javascriptreact = 'eslint',
+            typescript = 'eslint',
+            typescriptreact = 'eslint',
+            css = 'stylelint',
+            scss = 'stylelint'
+        }
+    }
+}
 
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
