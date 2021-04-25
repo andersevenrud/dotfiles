@@ -61,6 +61,14 @@ nvim_lsp.tsserver.setup{
 nvim_lsp.svelte.setup{
     capabilities = capabilities,
 }
+nvim_lsp.dartls.setup{
+    capabilities = capabilities,
+    cmd = {
+        'dart',
+        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+        '--lsp'
+    }
+}
 nvim_lsp.diagnosticls.setup{
     root_dir = nvim_lsp.util.root_pattern('package.json'),
     filetypes = {
