@@ -92,8 +92,12 @@ nvim_lsp.diagnosticls.setup{
                     security = 'severity'
                 },
                 securities = {
-                    [2] = 'error',
-                    [1] = 'warning'
+                    [1] = 'error',
+                    [2] = 'warning'
+                },
+                requiredFiles = {
+                    '.eslintrc',
+                    'package.json'
                 }
             },
             stylelint = {
@@ -117,8 +121,12 @@ nvim_lsp.diagnosticls.setup{
                     }
                 },
                 securities = {
-                    [2] = 'error',
-                    [1] = 'warning'
+                    [1] = 'error',
+                    [2] = 'warning'
+                },
+                requiredFiles = {
+                    '.stylelintrc',
+                    'package.json'
                 }
             }
         },
