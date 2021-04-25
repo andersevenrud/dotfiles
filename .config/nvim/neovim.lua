@@ -62,8 +62,18 @@ nvim_lsp.svelte.setup{
     capabilities = capabilities,
 }
 nvim_lsp.diagnosticls.setup{
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'scss', 'css' },
     root_dir = nvim_lsp.util.root_pattern('package.json'),
+    filetypes = {
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
+        'scss',
+        'less',
+        'css',
+        'svelte',
+        'vue'
+    },
     init_options = {
         linters = {
             eslint = {
@@ -118,7 +128,8 @@ nvim_lsp.diagnosticls.setup{
             typescript = 'eslint',
             typescriptreact = 'eslint',
             css = 'stylelint',
-            scss = 'stylelint'
+            scss = 'stylelint',
+            less = 'stylelint'
         }
     }
 }
