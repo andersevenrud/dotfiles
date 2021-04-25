@@ -50,8 +50,13 @@ return {
 
 * Convert to Lua configs for everything
 * Typing multiline comments will misalign (commenting blocks work)
-* Signature autocompletion is not available in some language servers at this moment
-* LSP Server status in status line (if it's initing, indexing, etc.)
+
+## Notes
+
+Some language servers implementations does not provide the following natively:
+
+* progress status updates
+* signature autocompletion via snippets
 
 ## Troubleshooting
 

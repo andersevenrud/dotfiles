@@ -61,6 +61,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'folke/lsp-trouble.nvim'
+  Plug 'arkav/lualine-lsp-progress'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
