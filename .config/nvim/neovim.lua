@@ -171,6 +171,8 @@ require'lspkind'.init{}
 
 require'symbols-outline'.setup{}
 
+require'flutter-tools'.setup{} -- use defaults
+
 -------------------------------------------------------------------------------
 -- plugin: saga
 -------------------------------------------------------------------------------
