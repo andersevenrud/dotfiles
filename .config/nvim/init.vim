@@ -28,7 +28,7 @@ call plug#begin('~/.config/nvim/plugins')
   "Plug 'folke/lsp-colors.nvim'
 
   " Editing
-  Plug 'Raimondi/delimitMate'
+  Plug 'windwp/nvim-autopairs'
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'windwp/nvim-ts-autotag'

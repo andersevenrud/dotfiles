@@ -5,6 +5,7 @@
 
 local secrets = require('secrets') -- ~/.config/nvim/lua/secrets.lua
 local nvim_lsp = require('lspconfig')
+local npairs = require('nvim-autopairs')
 
 -------------------------------------------------------------------------------
 -- LSP
@@ -179,6 +180,15 @@ require'lspkind'.init{}
 require'symbols-outline'.setup{}
 
 -------------------------------------------------------------------------------
+-- plugin: autopairs
+-------------------------------------------------------------------------------
+
+npairs.setup{
+    disable_filetype = { 'TelescopePrompt' },
+    check_ts = true,
+}
+
+-------------------------------------------------------------------------------
 -- plugin: saga
 -------------------------------------------------------------------------------
 
@@ -306,7 +316,7 @@ require'compe'.setup{
 
 vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 
--- Expose functions used in keymappings
+-- Tabbing keybindingss
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -339,6 +349,21 @@ _G.s_tab_complete = function()
     return t '<Plug>(vsnip-jump-prev)'
   else
     return t '<S-Tab>'
+  end
+end
+
+-- Enter keybidinging
+vim.g.completion_confirm_key = ''
+
+_G.completion_confirm = function()
+  if vim.fn.pumvisible() ~= 0  then
+    if vim.fn.complete_info()['selected'] ~= -1 then
+      return vim.fn['compe#confirm'](npairs.esc('<cr>'))
+    else
+      return npairs.esc('<cr>')
+    end
+  else
+    return npairs.autopairs_cr()
   end
 end
 
