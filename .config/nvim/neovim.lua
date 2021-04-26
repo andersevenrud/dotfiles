@@ -279,7 +279,7 @@ require'lualine'.setup{
 
 require'compe'.setup{
     enabled = true;
-    autocomplete = true;
+    autocomplete = false;
     debug = false;
     min_length = 2;
     preselect = 'enable';
