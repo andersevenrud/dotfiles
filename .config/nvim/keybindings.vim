@@ -10,6 +10,10 @@
 " Make C-c behave like ESC
 inoremap <C-c> <ESC>
 
+" Don't increment search on '*'
+nnoremap * *``
+nnoremap * :keepjumps normal! mi*`i<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
