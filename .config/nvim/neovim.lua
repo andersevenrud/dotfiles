@@ -61,14 +61,6 @@ nvim_lsp.tsserver.setup{
 nvim_lsp.svelte.setup{
     capabilities = capabilities,
 }
-nvim_lsp.dartls.setup{
-    capabilities = capabilities,
-    cmd = {
-        'dart',
-        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
-        '--lsp'
-    }
-}
 nvim_lsp.diagnosticls.setup{
     root_dir = nvim_lsp.util.root_pattern('package.json'),
     filetypes = {
@@ -150,6 +142,21 @@ nvim_lsp.diagnosticls.setup{
     }
 }
 
+--nvim_lsp.dartls.setup{
+--    capabilities = capabilities,
+--    cmd = {
+--        'dart',
+--        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+--        '--lsp'
+--    }
+--}
+require'flutter-tools'.setup{
+    flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
+    lsp = {
+        capabilities = capabilities,
+    }
+}
+
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -170,8 +177,6 @@ require'lspkind'.init{}
 --require'neogit'.setup{}
 
 require'symbols-outline'.setup{}
-
-require'flutter-tools'.setup{} -- use defaults
 
 -------------------------------------------------------------------------------
 -- plugin: saga

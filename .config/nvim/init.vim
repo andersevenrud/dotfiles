@@ -62,7 +62,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'folke/lsp-trouble.nvim'
   Plug 'arkav/lualine-lsp-progress'
-  Plug 'akinsho/flutter-tools.nvim'
+  Plug 'akinsho/flutter-tools.nvim', { 'branch': 'bugfix/support-non-path-flutter' }
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
