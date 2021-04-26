@@ -26,6 +26,7 @@ set nowrap                              " No text wrapping
 set hlsearch                            " Highlight searches
 set showmatch                           " Show matching brackets, etc
 set ruler                               " Show ruler in status
+set cursorline                          " Show cursor line hightlight
 set title                               " Use window title
 set ai                                  " Use autoindent
 set expandtab                           " Spaces, not tabs
