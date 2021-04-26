@@ -168,8 +168,6 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 -- plugin: Misc
 -------------------------------------------------------------------------------
 
-require'lsp_signature'.on_attach()
-
 require'lspkind'.init{}
 
 --require'neogit'.setup{}
