@@ -74,6 +74,7 @@ colorscheme nordbuddy
 " Override certain styles
 highlight link LspDiagnosticsUnderlineError DiffDelete
 highlight link LspDiagnosticsUnderlineWarning DiffChange
+highlight link GitSignsCurrentLineBlame tscomment
 hi LineNr ctermbg=NONE guibg=NONE
 
 " Highlight trailing characters
