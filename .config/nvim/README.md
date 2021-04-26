@@ -41,6 +41,13 @@ return {
 }
 ```
 
+## Structure
+
+* `init.vim` - Entrypoint w/plugin list
+* `neovim.lua` - Plugin settings
+* `neovim.vim` - General settings
+* `keybindings.vim` - Keybindings
+
 ## Setup
 
 1. Use `:PlugInstall` to install plugins and everything else is set up the next time neovim is started.
