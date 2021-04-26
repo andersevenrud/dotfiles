@@ -13,6 +13,32 @@ My **neovim 0.5+** configuration.
 * Snippets
 * Debugger
 
+Configured language servers:
+
+* Docker
+* YAML
+* Python
+* Rust
+* Dart
+* PHP
+* TypeScript
+* JavaScript
+* CSS
+* HTML
+* Vue
+* Svelte
+
+Configured additional diagnostics:
+
+* eslint
+* stylelint
+
+Additional language support:
+
+* TypeScript
+* Flutter
+* Markdown
+
 ## Prerequisites
 
 ### Requirements
