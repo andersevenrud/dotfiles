@@ -299,6 +299,9 @@ require'compe'.setup{
     },
 }
 
+vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
+
+-- Expose functions used in keymappings
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -332,6 +335,24 @@ _G.s_tab_complete = function()
   else
     return t '<S-Tab>'
   end
+end
+
+-- Add basic snippet support when language server does not
+local Helper = require "compe.helper"
+Helper.convert_lsp_orig = Helper.convert_lsp
+Helper.convert_lsp = function(args)
+    local response = args.response or {}
+    local items = response.items or response
+    for _, item in ipairs(items) do
+        -- 2: method
+        -- 3: function
+        -- 4: constructor
+        if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
+            item.insertText = item.label .. "(${1})"
+            item.insertTextFormat = 2
+        end
+    end
+    return Helper.convert_lsp_orig(args)
 end
 
 -------------------------------------------------------------------------------
