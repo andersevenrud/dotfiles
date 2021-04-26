@@ -485,6 +485,9 @@ vim.g.nvim_tree_gitignore = true
 vim.g.nvim_tree_auto_close = true
 vim.g.nvim_tree_add_trailing = true
 vim.g.nvim_tree_lsp_diagnostics = true
+vim.g.nvim_tree_git_hl = true
+vim.g.nvim_tree_add_trailing = true
+vim.g.nvim_tree_indent_markers = true
 
 -------------------------------------------------------------------------------
 -- plugin: lazygit
