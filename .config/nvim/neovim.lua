@@ -30,9 +30,6 @@ nvim_lsp.yamlls.setup{
 nvim_lsp.pyls.setup{
     capabilities = capabilities;
 }
-nvim_lsp.vuels.setup{
-    capabilities = capabilities;
-}
 nvim_lsp.cssls.setup{
     capabilities = capabilities;
 }
