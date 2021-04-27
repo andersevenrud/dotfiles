@@ -21,6 +21,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
+nvim_lsp.jsonls.setup{}
 nvim_lsp.dockerls.setup{
     capabilities = capabilities;
 }

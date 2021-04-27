@@ -17,6 +17,7 @@ Configured language servers:
 
 * Docker
 * YAML
+* JSON
 * Python
 * Rust
 * Dart
