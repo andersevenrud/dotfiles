@@ -25,7 +25,6 @@ call plug#begin('~/.config/nvim/plugins')
 
   " Themes
   Plug 'maaslalani/nordbuddy'
-  "Plug 'folke/lsp-colors.nvim'
 
   " Editing
   Plug 'windwp/nvim-autopairs'
@@ -46,8 +45,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'mfussenegger/nvim-dap'
   Plug 'theHamsta/nvim-dap-virtual-text'
   Plug 'kdheepak/lazygit.nvim'
-
-  " Misc language support
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'editorconfig/editorconfig-vim'
 
