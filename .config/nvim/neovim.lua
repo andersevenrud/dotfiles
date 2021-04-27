@@ -461,6 +461,7 @@ require'colorizer'.setup({
     'vue';
     'svelte';
     'twig';
+    'lua';
 }, {
     css = true;
 })
