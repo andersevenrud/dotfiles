@@ -12,7 +12,6 @@ zplug "zsh-users/zsh-autosuggestions"
 
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
-alias lsl="ls -l"
 alias pacman-clean="sudo pacman -Sc"
 alias pacman-remove="sudo pacman -Rs"
 alias pacman-search="pacman -Ss"
@@ -21,7 +20,7 @@ alias pacman-ugrade="sudo pacman -Syu"
 alias pacman-aur="makepkg -sri ?"
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias ls='ls --color -h --group-directories-first -l --time-style="+%m-%d-%y %H:%m:%S" -p -a'
+alias ll='ls --color -h --group-directories-first -l --time-style="+%m-%d-%y %H:%m:%S" -p -a'
 
 export LESS='-R '
 export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" # 'source-highlight' package
