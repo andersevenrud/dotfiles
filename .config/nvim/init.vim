@@ -60,6 +60,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'arkav/lualine-lsp-progress'
   Plug 'akinsho/flutter-tools.nvim'
   Plug 'haringsrob/nvim_context_vt'
+  Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
