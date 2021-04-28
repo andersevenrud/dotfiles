@@ -3,6 +3,7 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
+local vim = vim
 local secrets = require('secrets') -- ~/.config/nvim/lua/secrets.lua
 local nvim_lsp = require('lspconfig')
 local npairs = require('nvim-autopairs')
@@ -20,6 +21,9 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
         'additionalTextEdits';
     }
 }
+
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
 
 nvim_lsp.jsonls.setup{}
 nvim_lsp.dockerls.setup{
@@ -53,11 +57,15 @@ nvim_lsp.tsserver.setup{
     capabilities = capabilities,
 
     -- TS server plugins
-    on_attach = function(client, bufnr)
+    on_attach = function()
         require'nvim-lsp-ts-utils'.setup{}
     end
 }
 nvim_lsp.svelte.setup{
+    capabilities = capabilities,
+}
+nvim_lsp.sumneko_lua.setup{
+    cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
     capabilities = capabilities,
 }
 nvim_lsp.diagnosticls.setup{
@@ -210,7 +218,6 @@ vim.cmd [[autocmd CursorHoldI * silent! lua require'lspsaga.signaturehelp'.signa
 require'bufferline'.setup{
     options = {
         diagnostics = 'nvim_lsp';
-        show_buffer_close_icons = false;
         show_close_icon = false;
         show_buffer_close_icons = false;
         show_tab_indicators = false;

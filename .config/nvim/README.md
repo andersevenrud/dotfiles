@@ -19,6 +19,7 @@ Configured language servers:
 * YAML
 * JSON
 * Python
+* Lua
 * Rust
 * Dart
 * PHP
@@ -55,6 +56,7 @@ Additional language support:
 - `rust_analyzer` for rust language server
 - `ripgrep` for faster fuzzy searches
 - `lazygit` for git integration
+- `lua-language-server` for lua language server
 
 ### Secrets
 
