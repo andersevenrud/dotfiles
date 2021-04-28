@@ -10,6 +10,7 @@
 set shortmess+=c                        " Silence warnings
 set completeopt=menuone,noselect        " Always open popup and user selection
 set backspace=indent,eol,start          " Backspace context
+set pumheight=30                        " Limit height of autocomplete popup
 set signcolumn=yes                      " Use sign column in gutter to prevent jumping
 set numberwidth=4                       " Wide number gutter
 set number relativenumber               " Show number gutter as relative number
