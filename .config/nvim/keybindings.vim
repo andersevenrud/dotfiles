@@ -30,6 +30,9 @@ nnoremap <Down> <C-e>
 nnoremap <Right> gt
 nnoremap <Left>  gT
 
+" Close all buffers
+nnoremap <leader>bd <cmd>%bd<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
