@@ -55,8 +55,6 @@ nvim_lsp.intelephense.setup{
 }
 nvim_lsp.tsserver.setup{
     capabilities = capabilities,
-
-    -- TS server plugins
     on_attach = function()
         require'nvim-lsp-ts-utils'.setup{}
     end
@@ -149,18 +147,15 @@ nvim_lsp.diagnosticls.setup{
     }
 }
 
---nvim_lsp.dartls.setup{
---    capabilities = capabilities,
---    cmd = {
---        'dart',
---        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
---        '--lsp'
---    }
---}
-require'flutter-tools'.setup{
+require'flutter-tools'.setup{ -- This also intializes dartls
     flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
     lsp = {
         capabilities = capabilities,
+--        cmd = {
+--            'dart',
+--            '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+--            '--lsp'
+--        }
     }
 }
 
@@ -174,12 +169,14 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 -------------------------------------------------------------------------------
--- plugin: Misc
+-- plugin: lspkind
 -------------------------------------------------------------------------------
 
 require'lspkind'.init{}
 
---require'neogit'.setup{}
+-------------------------------------------------------------------------------
+-- plugin: symbols-outline
+-------------------------------------------------------------------------------
 
 require'symbols-outline'.setup{}
 
@@ -299,8 +296,8 @@ require'compe'.setup{
     max_menu_width = 100;
     documentation = true;
     source = {
-        -- calc = true;
-        -- treesitter = true;
+        calc = false;
+        treesitter = false;
         path = true;
         buffer = true;
         nvim_lsp = true;
