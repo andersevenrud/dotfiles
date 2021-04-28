@@ -432,11 +432,15 @@ require'nvim-treesitter.configs'.setup{
 -- plugin: telescope
 -------------------------------------------------------------------------------
 
-require'telescope'.setup{
+local telescope = require'telescope'
+
+telescope.setup{
     builtin = {
         treesitter = true;
     },
 }
+
+telescope.load_extension('flutter')
 
 -------------------------------------------------------------------------------
 -- plugin: numb
