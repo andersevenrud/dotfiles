@@ -22,6 +22,14 @@ nnoremap <leader>- <C-W>4<
 nnoremap <leader>? <C-W>4+
 nnoremap <leader>_ <C-W>4-
 
+" Rebind vertical arrows to scrolling
+nnoremap <Up> <C-y>
+nnoremap <Down> <C-e>
+
+" Rebind vertical arrows to tab switching
+nnoremap <Right> gt
+nnoremap <Left>  gT
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
