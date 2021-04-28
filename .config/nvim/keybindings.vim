@@ -14,6 +14,14 @@ inoremap <C-c> <ESC>
 nnoremap * *``
 nnoremap * :keepjumps normal! mi*`i<CR>
 
+" Horizontal split resizing
+nnoremap <leader>+ <C-W>4>
+nnoremap <leader>- <C-W>4<
+
+" Vertical split resizing
+nnoremap <leader>? <C-W>4+
+nnoremap <leader>_ <C-W>4-
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
