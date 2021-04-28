@@ -4,7 +4,7 @@
 "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim general settings
+" general settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set shortmess+=c                        " Silence warnings
@@ -38,6 +38,9 @@ set updatetime=300                      " Lower CursorHold update times
 set foldmethod=expr                     " Use custom folding
 set foldexpr=nvim_treesitter#foldexpr() " Use tree-sitter for folding
 
+" Make non-breaking spaces visible
+set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+
 " Ignore these files and directories
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
 set wildignore+=*.*.swp,.tern-port,*.tmp
@@ -46,7 +49,7 @@ set wildignore+=.git,.svn,CVS
 set wildignore+=*/DS_Store/**
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim auto commands
+" auto commands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Custom filetypes
@@ -57,6 +60,10 @@ autocmd FileType lua    setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 autocmd Filetype php    setlocal tabstop=4 softtabstop=4 shiftwidth=4
 
+" Highlight group for trailing whitespaces
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+
 " Tmux window titles
 if exists('$TMUX')
   autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
@@ -66,20 +73,13 @@ if exists('$TMUX')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim theme
+" theme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 colorscheme nordbuddy
 
-" Override certain styles
 highlight link LspDiagnosticsUnderlineError DiffDelete
 highlight link LspDiagnosticsUnderlineWarning DiffChange
 highlight link GitSignsCurrentLineBlame tscomment
-hi LineNr ctermbg=NONE guibg=NONE
-
-" Highlight trailing characters
-highlight ExtraWhitespace ctermbg=red guibg=red
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+highlight link ExtraWhitespace RedrawDebugRecompose
+highlight LineNr ctermbg=NONE guibg=NONE
