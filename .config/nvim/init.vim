@@ -59,6 +59,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'folke/lsp-trouble.nvim'
   Plug 'arkav/lualine-lsp-progress'
   Plug 'akinsho/flutter-tools.nvim'
+  Plug 'haringsrob/nvim_context_vt'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
