@@ -1,11 +1,9 @@
 source ~/.zplug/init.zsh
 
 zplug "supercrabtree/k"
-#zplug "olivierverdier/zsh-git-prompt", use:zshrc.sh, hook-build:"zplug clear"
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "lukechilds/zsh-nvm"
 zplug "twang817/zsh-ssh-agent"
-#zplug "chrissicool/zsh-256color"
 zplug "akoenig/npm-run.plugin.zsh"
 zplug "MikeDacre/tmux-zsh-vim-titles"
 zplug "zsh-users/zsh-autosuggestions"
