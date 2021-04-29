@@ -61,4 +61,4 @@ SPACESHIP_GCLOUD_SHOW=false
 export DENO_INSTALL="/home/anders/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-zplug load --verbose
+zplug load
