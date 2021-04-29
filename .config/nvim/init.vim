@@ -31,6 +31,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'
   Plug 'tpope/vim-commentary'
   Plug 'windwp/nvim-ts-autotag'
+  Plug 'matze/vim-move'
 
   " Navigation
   Plug 'yamatsum/nvim-cursorline'
