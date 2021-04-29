@@ -436,9 +436,14 @@ telescope.setup{
     builtin = {
         treesitter = true;
     },
+    media_files = {
+        filetypes = { 'png', 'webp', 'jpeg', 'jpg' };
+        find_cmd = 'rg';
+    }
 }
 
 telescope.load_extension('flutter')
+telescope.load_extension('media_files')
 
 -------------------------------------------------------------------------------
 -- plugin: numb

@@ -47,6 +47,7 @@ Additional language support:
 
 - `neovim >= 0.5` compiled with `tree-sitter`, `lua` and `python`
 - [`vim-plug`](https://github.com/junegunn/vim-plug#neovim) for plugin management
+- `ripgrep`
 
 ### Optional
 
@@ -54,9 +55,9 @@ Additional language support:
 - `nodejs` for language misc servers
 - `rust` for certain plugins
 - `rust_analyzer` for rust language server
-- `ripgrep` for faster fuzzy searches
 - `lazygit` for git integration
 - `lua-language-server` for lua language server
+- `überzug` for image previews in telescope
 
 ### Secrets
 
