@@ -30,6 +30,10 @@ local phpcs = require 'diagnosticls-nvim.linters.phpcs'
 local eslint = vim.tbl_extend('keep', {
     command = 'node_modules/.bin/eslint',
     rootPatterns = { 'package.json' },
+    securities = {
+        [1] = 'error',
+        [2] = 'warning'
+    },
     requiredFiles = {
         '.eslintrc',
         'package.json'
@@ -39,16 +43,11 @@ local eslint = vim.tbl_extend('keep', {
 local stylelint = vim.tbl_extend('keep', {
     command = 'node_modules/.bin/stylelint',
     rootPatterns = { 'package.json' },
-    securities = {
-        [1] = 'error',
-        [2] = 'warning'
-    },
     requiredFiles = {
-        '.eslintrc',
+        '.stylelintrc',
         'package.json'
     }
 }, require 'diagnosticls-nvim.linters.stylelint')
-
 
 nvim_lsp.jsonls.setup{}
 nvim_lsp.dockerls.setup{
@@ -92,8 +91,8 @@ nvim_lsp.sumneko_lua.setup{
     capabilities = capabilities,
 }
 
-require 'diagnosticls-nvim'.init{}
-require 'diagnosticls-nvim'.setup{
+require'diagnosticls-nvim'.init{}
+require'diagnosticls-nvim'.setup{
     ['javascript'] = {
         linter = eslint
     },
