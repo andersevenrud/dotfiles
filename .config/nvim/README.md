@@ -34,6 +34,7 @@ Configured additional diagnostics:
 
 * eslint
 * stylelint
+* phpcs
 
 Additional language support:
 
