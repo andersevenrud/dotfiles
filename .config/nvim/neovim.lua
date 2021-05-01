@@ -12,6 +12,9 @@ local npairs = require('nvim-autopairs')
 -- LSP
 -------------------------------------------------------------------------------
 
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -21,33 +24,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
         'additionalTextEdits';
     }
 }
-
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
-
-local phpcs = require 'diagnosticls-nvim.linters.phpcs'
-
-local eslint = vim.tbl_extend('keep', {
-    command = 'node_modules/.bin/eslint',
-    rootPatterns = { 'package.json' },
-    securities = {
-        [1] = 'error',
-        [2] = 'warning'
-    },
-    requiredFiles = {
-        '.eslintrc',
-        'package.json'
-    }
-}, require 'diagnosticls-nvim.linters.eslint')
-
-local stylelint = vim.tbl_extend('keep', {
-    command = 'node_modules/.bin/stylelint',
-    rootPatterns = { 'package.json' },
-    requiredFiles = {
-        '.stylelintrc',
-        'package.json'
-    }
-}, require 'diagnosticls-nvim.linters.stylelint')
 
 nvim_lsp.jsonls.setup{}
 nvim_lsp.dockerls.setup{
@@ -91,41 +67,20 @@ nvim_lsp.sumneko_lua.setup{
     capabilities = capabilities,
 }
 
-require'diagnosticls-nvim'.init{}
-require'diagnosticls-nvim'.setup{
-    ['javascript'] = {
-        linter = eslint
-    },
-    ['javascriptreact'] = {
-        linter = eslint
-    },
-    ['typescript'] = {
-        linter = eslint
-    },
-    ['typescriptreact'] = {
-        linter = eslint
-    },
-    ['svelte'] = {
-        linter = eslint
-    },
-    ['vue'] = {
-        linter = eslint
-    },
-    ['scss'] = {
-        linter = stylelint
-    },
-    ['less'] = {
-        linter = stylelint
-    },
-    ['css'] = {
-        linter = stylelint
-    },
-    ['php'] = {
-        linter = phpcs
+-- Hide the inline diagnostics
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false;
+        underline = true;
+        signs = true;
     }
-}
+)
 
-require'flutter-tools'.setup{ -- This also intializes dartls
+-------------------------------------------------------------------------------
+-- plugin: flutter-tools Flutter
+-------------------------------------------------------------------------------
+
+require'flutter-tools'.setup{ -- This also intializes dartls LSP
     flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
     lsp = {
         capabilities = capabilities,
@@ -137,14 +92,54 @@ require'flutter-tools'.setup{ -- This also intializes dartls
     }
 }
 
--- Hide the inline diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false;
-        underline = true;
-        signs = true;
+-------------------------------------------------------------------------------
+-- plugin: diagnosticls-nvim
+-------------------------------------------------------------------------------
+
+local phpcs = require 'diagnosticls-nvim.linters.phpcs'
+
+local eslint = vim.tbl_extend('keep', {
+    command = 'node_modules/.bin/eslint',
+    rootPatterns = { 'package.json' },
+    securities = {
+        [1] = 'error',
+        [2] = 'warning'
+    },
+    requiredFiles = {
+        '.eslintrc',
+        'package.json'
     }
-)
+}, require 'diagnosticls-nvim.linters.eslint')
+
+local stylelint = vim.tbl_extend('keep', {
+    command = 'node_modules/.bin/stylelint',
+    rootPatterns = { 'package.json' },
+    requiredFiles = {
+        '.stylelintrc',
+        'package.json'
+    }
+}, require 'diagnosticls-nvim.linters.stylelint')
+
+local diagnostic_groups = {
+    eslint = {
+        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' };
+        options = { linter = eslint }
+    },
+    stylelint = {
+        filetypes = { 'scss', 'less', 'css' };
+        options = { linter = stylelint }
+    }
+}
+
+local diagnostics = {}
+for k, v in pairs(diagnostic_groups) do
+    for _, ft in ipairs(v.filetypes) do
+        diagnostics[ft] = v.options
+    end
+end
+
+require'diagnosticls-nvim'.init{}
+require'diagnosticls-nvim'.setup(diagnostics) -- This also initializes diagnostcls LSP
 
 -------------------------------------------------------------------------------
 -- plugin: lspkind
