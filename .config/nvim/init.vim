@@ -47,6 +47,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'kdheepak/lazygit.nvim'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'editorconfig/editorconfig-vim'
+  Plug 'creativenull/diagnosticls-nvim'
 
   " LSP
   Plug 'glepnir/lspsaga.nvim'

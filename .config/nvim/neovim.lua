@@ -25,6 +25,31 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
 
+local phpcs = require 'diagnosticls-nvim.linters.phpcs'
+
+local eslint = vim.tbl_extend('keep', {
+    command = 'node_modules/.bin/eslint',
+    rootPatterns = { 'package.json' },
+    requiredFiles = {
+        '.eslintrc',
+        'package.json'
+    }
+}, require 'diagnosticls-nvim.linters.eslint')
+
+local stylelint = vim.tbl_extend('keep', {
+    command = 'node_modules/.bin/stylelint',
+    rootPatterns = { 'package.json' },
+    securities = {
+        [1] = 'error',
+        [2] = 'warning'
+    },
+    requiredFiles = {
+        '.eslintrc',
+        'package.json'
+    }
+}, require 'diagnosticls-nvim.linters.stylelint')
+
+
 nvim_lsp.jsonls.setup{}
 nvim_lsp.dockerls.setup{
     capabilities = capabilities;
@@ -66,84 +91,38 @@ nvim_lsp.sumneko_lua.setup{
     cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
     capabilities = capabilities,
 }
-nvim_lsp.diagnosticls.setup{
-    root_dir = nvim_lsp.util.root_pattern('package.json'),
-    filetypes = {
-        'javascript',
-        'javascriptreact',
-        'typescript',
-        'typescriptreact',
-        'scss',
-        'less',
-        'css',
-        'svelte',
-        'vue'
+
+require 'diagnosticls-nvim'.init{}
+require 'diagnosticls-nvim'.setup{
+    ['javascript'] = {
+        linter = eslint
     },
-    init_options = {
-        linters = {
-            eslint = {
-                command = 'node_modules/.bin/eslint',
-                rootPatterns = { 'package.json' },
-                debounce = 100,
-                args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-                sourceName = 'eslint',
-                parseJson = {
-                    errorsRoot = '[0].messages',
-                    line = 'line',
-                    column = 'column',
-                    endLine = 'endLine',
-                    endColumn = 'endColumn',
-                    message = '[eslint] ${message} [${ruleId}]',
-                    security = 'severity'
-                },
-                securities = {
-                    [1] = 'error',
-                    [2] = 'warning'
-                },
-                requiredFiles = {
-                    '.eslintrc',
-                    'package.json'
-                }
-            },
-            stylelint = {
-                command = 'node_modules/.bin/stylelint',
-                rootPatterns = { 'package.json' },
-                debounce = 100,
-                args = { '--formatter', 'unix', '--stdin-filename', '%filename' },
-                sourceName = 'stylelint',
-                isStdout = true,
-                isStderr = false,
-                offsetLine = 0,
-                offsetColumn = 0,
-                formatLines = 1,
-                formatPattern = {
-                    '^[^:]+:(\\d+):(\\d+):\\s(.+)\\s\\[(\\w+)\\]$',
-                    {
-                        line = 1,
-                        column = 2,
-                        message = 3,
-                        security = 4
-                    }
-                },
-                securities = {
-                    [1] = 'error',
-                    [2] = 'warning'
-                },
-                requiredFiles = {
-                    '.stylelintrc',
-                    'package.json'
-                }
-            }
-        },
-        filetypes = {
-            javascript = 'eslint',
-            javascriptreact = 'eslint',
-            typescript = 'eslint',
-            typescriptreact = 'eslint',
-            css = 'stylelint',
-            scss = 'stylelint',
-            less = 'stylelint'
-        }
+    ['javascriptreact'] = {
+        linter = eslint
+    },
+    ['typescript'] = {
+        linter = eslint
+    },
+    ['typescriptreact'] = {
+        linter = eslint
+    },
+    ['svelte'] = {
+        linter = eslint
+    },
+    ['vue'] = {
+        linter = eslint
+    },
+    ['scss'] = {
+        linter = stylelint
+    },
+    ['less'] = {
+        linter = stylelint
+    },
+    ['css'] = {
+        linter = stylelint
+    },
+    ['php'] = {
+        linter = phpcs
     }
 }
 
