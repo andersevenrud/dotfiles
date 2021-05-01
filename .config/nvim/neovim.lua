@@ -128,6 +128,10 @@ local diagnostic_groups = {
     stylelint = {
         filetypes = { 'scss', 'less', 'css' };
         options = { linter = stylelint }
+    },
+    phpcs = {
+        filetypes = { 'php' };
+        options = { linter = phpcs }
     }
 }
 
