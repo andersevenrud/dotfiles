@@ -17,7 +17,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
   Plug 'hoob3rt/lualine.nvim'
-  Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+  "Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
   Plug 'onsails/lspkind-nvim'
   Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
