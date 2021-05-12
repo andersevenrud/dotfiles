@@ -153,6 +153,9 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
+# toggle polybar
+bindsym Mod4+p exec "polybar-msg cmd toggle"
+
 ###############################################################################
 # Themes
 ###############################################################################
