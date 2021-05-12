@@ -274,7 +274,9 @@ require'compe'.setup{
         nvim_lsp = true;
         nvim_lua = true;
         vsnip = true;
-        tmux = true;
+        tmux = {
+            all_panes =  true;
+        },
         tabnine = {
             max_num_results = 6;
             priority = 0;
