@@ -40,6 +40,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'nvim-telescope/telescope-media-files.nvim'
   Plug 'simrat39/symbols-outline.nvim'
+  Plug 'folke/todo-comments.nvim'
 
   " Utilities
   Plug 'mfussenegger/nvim-dap'
