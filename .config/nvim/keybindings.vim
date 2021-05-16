@@ -144,8 +144,8 @@ nnoremap <silent><leader>fs :SymbolsOutline<CR>
 
 augroup tsbindings
   autocmd! tsbindings
-  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer> <silent> Lo :TSLspOrganize<CR>
-  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer> <silent> Lf :TSLspFixCurrent<CR>
-  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer> <silent> Lr :TSLspRenameFile<CR>
-  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer> <silent> Li :TSLspImportAll<CR>
+  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>lo :TSLspOrganize<CR>
+  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>lf :TSLspFixCurrent<CR>
+  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>lr :TSLspRenameFile<CR>
+  autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>li :TSLspImportAll<CR>
 augroup end
