@@ -202,7 +202,7 @@ require'bufferline'.setup{
 -- vim.g.indent_blankline_buftype_exclude = { 'help', 'terminal' }
 -- vim.g.indent_blankline_use_treesitter = true
 -- vim.g.indent_blankline_show_first_indent_level = false
--- 
+--
 -- vim.cmd [[autocmd FileType markdown let g:indent_blankline_enabled=v:false]]
 
 -------------------------------------------------------------------------------
@@ -210,12 +210,6 @@ require'bufferline'.setup{
 -------------------------------------------------------------------------------
 
 vim.g.markdown_composer_autostart = 0
-
--------------------------------------------------------------------------------
--- plugin: nvcode-color-schemes
--------------------------------------------------------------------------------
-
-vim.g.nvcode_termcolors = 256
 
 -------------------------------------------------------------------------------
 -- plugin: nvim-dap-virtual-text
