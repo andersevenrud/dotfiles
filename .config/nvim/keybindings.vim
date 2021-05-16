@@ -59,15 +59,15 @@ nnoremap <leader>fh <cmd>lua require'telescope.builtin'.help_tags()<cr>
 " lazygit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <F10> :LazyGit<CR>
+nnoremap <silent><leader>go :LazyGit<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Tree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <F36> :NvimTreeRefresh<CR>
-nnoremap <F12> :NvimTreeFindFile<CR>
-nnoremap <F11> :NvimTreeToggle<CR>
+nnoremap <leader>fr :NvimTreeRefresh<CR>
+nnoremap <leader>fo :NvimTreeFindFile<CR>
+nnoremap <leader>ft :NvimTreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compe
@@ -130,13 +130,13 @@ tnoremap <silent> <A-d>      <C-\><C-n>:lua require'lspsaga.floaterm'.close_floa
 " trouble
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>xx <cmd>LspTroubleToggle<cr>
+nnoremap <silent><leader>fd <cmd>LspTroubleToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " symbols-outline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <F9> :SymbolsOutline<CR>
+nnoremap <silent><leader>fs :SymbolsOutline<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nvim-lsp-ts-utils
