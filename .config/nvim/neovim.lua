@@ -26,7 +26,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local servers = {
-    --dartls = {}; -- See flutter-tools
     jsonls = {};
     dockerls = {};
     yamlls = {};
@@ -49,6 +48,13 @@ local servers = {
     sumneko_lua = {
         cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
     };
+    --dartls = { -- See flutter-tools
+    --    cmd = {
+    --        'dart',
+    --        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
+    --        '--lsp'
+    --    }
+    --};
 }
 
 -- Initialize language server with options
@@ -77,11 +83,6 @@ require'flutter-tools'.setup{ -- This also intializes dartls LSP
     flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
     lsp = {
         capabilities = capabilities,
---        cmd = {
---            'dart',
---            '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
---            '--lsp'
---        }
     }
 }
 
@@ -367,7 +368,13 @@ require'nvim-treesitter.configs'.setup{
         'rust',
         'svelte',
         'jsdoc',
-        'tsx'
+        'tsx',
+        'yaml',
+        'ruby',
+        'jsonc',
+        'graphql',
+        'dockerfile',
+        'commonlisp',
     },
     highlight = {
         enable = true;
