@@ -25,47 +25,40 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
-nvim_lsp.jsonls.setup{}
-nvim_lsp.dockerls.setup{
-    capabilities = capabilities;
+local servers = {
+    --dartls = {}; -- See flutter-tools
+    jsonls = {};
+    dockerls = {};
+    yamlls = {};
+    pyls = {};
+    cssls = {};
+    vuels = {};
+    html = {};
+    rust_analyzer = {};
+    svelte = {};
+    intelephense = {
+        init_options = {
+            licenceKey = secrets.intelephense.licenceKey;
+        },
+    };
+    tsserver = {
+        on_attach = function()
+            require'nvim-lsp-ts-utils'.setup{}
+        end
+    };
+    sumneko_lua = {
+        cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+    };
 }
-nvim_lsp.yamlls.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.pyls.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.cssls.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.vuels.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.html.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.rust_analyzer.setup{
-    capabilities = capabilities;
-}
-nvim_lsp.intelephense.setup{
-    capabilities = capabilities;
-    init_options = {
-        licenceKey = secrets.intelephense.licenceKey;
-    },
-}
-nvim_lsp.tsserver.setup{
-    capabilities = capabilities,
-    on_attach = function()
-        require'nvim-lsp-ts-utils'.setup{}
-    end
-}
-nvim_lsp.svelte.setup{
-    capabilities = capabilities,
-}
-nvim_lsp.sumneko_lua.setup{
-    cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-    capabilities = capabilities,
-}
+
+-- Initialize language server with options
+for k, v in ipairs(servers) do
+    local options = vim.tbl_extend('keep', {
+      capabilities = capabilities;
+    }, v)
+
+    nvim_lsp[k].setup(options)
+end
 
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
