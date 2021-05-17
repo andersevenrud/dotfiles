@@ -62,6 +62,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'akinsho/flutter-tools.nvim'
   Plug 'haringsrob/nvim_context_vt'
   Plug 'rafamadriz/friendly-snippets'
+  Plug 'ray-x/lsp_signature.nvim'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim

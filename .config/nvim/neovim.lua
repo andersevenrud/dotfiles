@@ -176,8 +176,14 @@ require'lspsaga'.init_lsp_saga{
     }
 }
 
-vim.cmd [[autocmd CursorHold * lua require'lspsaga.diagnostic'.show_cursor_diagnostics()]]
-vim.cmd [[autocmd CursorHoldI * silent! lua require'lspsaga.signaturehelp'.signature_help()]]
+-------------------------------------------------------------------------------
+-- plugin: lsp_signature
+-------------------------------------------------------------------------------
+
+require'lsp_signature'.on_attach{
+    bind = false;
+    use_lspsaga = true;
+}
 
 -------------------------------------------------------------------------------
 -- plugin: nvim-bufferline
