@@ -454,10 +454,10 @@ vim.g.nvim_tree_add_trailing = true
 vim.g.nvim_tree_indent_markers = true
 
 -------------------------------------------------------------------------------
--- plugin: lazygit
+-- plugin: neogit
 -------------------------------------------------------------------------------
 
-vim.g.lazygit_floating_window_use_plenary = true
+require'neogit'.setup{}
 
 -------------------------------------------------------------------------------
 -- plugin: cursorline

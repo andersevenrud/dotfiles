@@ -44,7 +44,7 @@ call plug#begin('~/.config/nvim/plugins')
   " Utilities
   Plug 'mfussenegger/nvim-dap'
   Plug 'theHamsta/nvim-dap-virtual-text'
-  Plug 'kdheepak/lazygit.nvim'
+  Plug 'TimUntersberger/neogit'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
   Plug 'editorconfig/editorconfig-vim'
   Plug 'creativenull/diagnosticls-nvim'
