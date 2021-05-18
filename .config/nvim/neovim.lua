@@ -41,8 +41,10 @@ local servers = {
         },
     };
     tsserver = {
-        on_attach = function()
-            require'nvim-lsp-ts-utils'.setup{}
+        on_attach = function(client, bufnr)
+            local ts_utils = require'nvim-lsp-ts-utils'
+            ts_utils.setup{}
+            ts_utils.setup_client(client)
         end
     };
     sumneko_lua = {
