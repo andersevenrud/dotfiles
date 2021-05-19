@@ -60,7 +60,7 @@ local servers = {
 }
 
 -- Initialize language server with options
-for k, v in ipairs(servers) do
+for k, v in pairs(servers) do
     local options = vim.tbl_extend('keep', {
       capabilities = capabilities;
     }, v)
