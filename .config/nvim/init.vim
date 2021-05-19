@@ -21,7 +21,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
   Plug 'norcalli/nvim-colorizer.lua'
-  Plug 'sunjon/shade.nvim'
 
   " Themes
   Plug 'maaslalani/nordbuddy'

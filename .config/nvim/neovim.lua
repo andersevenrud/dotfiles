@@ -78,7 +78,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 -------------------------------------------------------------------------------
--- plugin: flutter-tools
+-- plugin: flutter-tools Flutter
 -------------------------------------------------------------------------------
 
 require'flutter-tools'.setup{ -- This also intializes dartls LSP
@@ -479,11 +479,3 @@ vim.g.cursorword_cursorline_timeout = 300
 -------------------------------------------------------------------------------
 
 require'todo-comments'.setup{}
-
--------------------------------------------------------------------------------
--- plugin: shade
--------------------------------------------------------------------------------
-
-require'shade'.setup{
-    overlay_opacity = 60;
-}
