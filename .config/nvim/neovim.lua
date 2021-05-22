@@ -259,14 +259,14 @@ require'compe'.setup{
         nvim_lua = true;
         vsnip = true;
         tmux = {
-            all_panes =  true;
+            all_panes = false;
         },
         tabnine = {
             max_num_results = 6;
             priority = 0;
             max_line = 1000;
             show_prediction_strength = true;
-            ignore_pattern = '[(]'
+            ignore_pattern = '[(]';
         },
     },
 }
