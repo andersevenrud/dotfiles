@@ -348,9 +348,9 @@ end
 
 require'nvim-treesitter.configs'.setup{
     ensure_installed = {
+        --'jsdoc', -- Seems to slow things down at the moment (issue #1313)
         'typescript',
         'javascript',
-        'jsdoc',
         'dart',
         'c',
         'cpp',
@@ -369,9 +369,9 @@ require'nvim-treesitter.configs'.setup{
         'php',
         'rust',
         'svelte',
-        'jsdoc',
         'tsx',
         'yaml',
+        'toml',
         'ruby',
         'jsonc',
         'graphql',
