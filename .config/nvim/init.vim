@@ -4,25 +4,21 @@
 "
 
 call plug#begin('~/.config/nvim/plugins')
-  " Libraries
+  " Dependencies
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'wincent/terminus'
-  Plug 'alexaandru/nvim-lspupdate'
   Plug 'tjdevries/colorbuddy.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ryanoasis/vim-devicons'
 
   " UI
   Plug 'lewis6991/gitsigns.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'hoob3rt/lualine.nvim'
-  Plug 'onsails/lspkind-nvim'
   Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
+  Plug 'yamatsum/nvim-cursorline'
   Plug 'norcalli/nvim-colorizer.lua'
-
-  " Themes
   Plug 'maaslalani/nordbuddy'
 
   " Editing
@@ -33,7 +29,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'matze/vim-move'
 
   " Navigation
-  Plug 'yamatsum/nvim-cursorline'
   Plug 'nacro90/numb.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
@@ -41,28 +36,35 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'simrat39/symbols-outline.nvim'
   Plug 'folke/todo-comments.nvim'
 
-  " Utilities
+  " Debugging
   Plug 'mfussenegger/nvim-dap'
   Plug 'theHamsta/nvim-dap-virtual-text'
-  Plug 'TimUntersberger/neogit'
-  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'creativenull/diagnosticls-nvim'
 
-  " LSP
-  Plug 'glepnir/lspsaga.nvim'
+  " Utilities
+  Plug 'wincent/terminus'
+  Plug 'TimUntersberger/neogit'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
+
+  " Autocomplete
   Plug 'hrsh7th/nvim-compe'
   Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
   Plug 'andersevenrud/compe-tmux'
-  Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/vim-vsnip'
+  Plug 'rafamadriz/friendly-snippets'
+
+  " LSP
+  Plug 'glepnir/lspsaga.nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'alexaandru/nvim-lspupdate'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'folke/lsp-trouble.nvim'
-  Plug 'arkav/lualine-lsp-progress'
   Plug 'akinsho/flutter-tools.nvim'
   Plug 'haringsrob/nvim_context_vt'
-  Plug 'rafamadriz/friendly-snippets'
   Plug 'ray-x/lsp_signature.nvim'
+  Plug 'creativenull/diagnosticls-nvim'
+  Plug 'arkav/lualine-lsp-progress'
+  Plug 'onsails/lspkind-nvim'
 call plug#end()
 
 source ~/.config/nvim/neovim.vim
