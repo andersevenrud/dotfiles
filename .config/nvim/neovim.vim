@@ -39,8 +39,8 @@ set updatetime=300                      " Lower CursorHold update times
 set foldmethod=expr                     " Use custom folding
 set foldexpr=nvim_treesitter#foldexpr() " Use tree-sitter for folding
 
-" Make non-breaking spaces visible
-set list listchars=nbsp:¬,tab:>-,trail:.,precedes:<,extends:>
+" Show symbols for certain special characters
+set list listchars=nbsp:¬,tab:·\ ,trail:.,precedes:<,extends:>
 
 " Ignore these files and directories
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
