@@ -274,22 +274,9 @@ require'compe'.setup{
 -- Use Saga to show signature help
 vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 
--- Enter keybidinging with autopairs
-vim.g.completion_confirm_key = ''
-
-_G.completion_confirm = function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()['selected'] ~= -1 then
-      return vim.fn['compe#confirm'](npairs.esc('<cr>'))
-    else
-      return npairs.esc('<cr>')
-    end
-  else
-    return npairs.autopairs_cr()
-  end
-end
-
 -- Add basic snippet support when language server does not
+-- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
+-- Ref: https://github.com/hrsh7th/nvim-compe/issues/302
 local Helper = require "compe.helper"
 Helper.convert_lsp_orig = Helper.convert_lsp
 Helper.convert_lsp = function(args)
