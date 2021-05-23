@@ -255,11 +255,13 @@ require'compe'.setup{
     source = {
         calc = false;
         treesitter = false;
-        path = true;
         buffer = true;
         nvim_lsp = true;
         nvim_lua = true;
         vsnip = true;
+        path = {
+            priority = 40;
+        },
         tmux = {
             all_panes = false;
         },
