@@ -35,7 +35,7 @@ set tabstop=2                           " Default spacing
 set softtabstop=2                       " Default spacing
 set shiftwidth=2                        " Default spacing
 set foldlevel=999                       " Expand all folds by default
-set updatetime=300                      " Lower CursorHold update times
+set updatetime=1000                     " Lower CursorHold update times
 set foldmethod=expr                     " Use custom folding
 set foldexpr=nvim_treesitter#foldexpr() " Use tree-sitter for folding
 
