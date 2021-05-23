@@ -4,9 +4,9 @@
 --
 
 local vim = vim
-local secrets = require('secrets') -- ~/.config/nvim/lua/secrets.lua
-local nvim_lsp = require('lspconfig')
-local npairs = require('nvim-autopairs')
+local secrets = require'secrets' -- ~/.config/nvim/lua/secrets.lua
+local nvim_lsp = require'lspconfig'
+local npairs = require'nvim-autopairs'
 
 -------------------------------------------------------------------------------
 -- LSP
@@ -19,34 +19,34 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
-        'documentation';
-        'detail';
-        'additionalTextEdits';
+        'documentation',
+        'detail',
+        'additionalTextEdits',
     }
 }
 
 local servers = {
-    jsonls = {};
-    dockerls = {};
-    yamlls = {};
-    pyls = {};
-    cssls = {};
-    vuels = {};
-    html = {};
-    rust_analyzer = {};
-    svelte = {};
+    jsonls = {},
+    dockerls = {},
+    yamlls = {},
+    pyls = {},
+    cssls = {},
+    vuels = {},
+    html = {},
+    rust_analyzer = {},
+    svelte = {},
     intelephense = {
         init_options = {
-            licenceKey = secrets.intelephense.licenceKey;
+            licenceKey = secrets.intelephense.licenceKey,
         },
-    };
+    },
     tsserver = {
-        on_attach = function(client, bufnr)
+        on_attach = function(client)
             local ts_utils = require'nvim-lsp-ts-utils'
             ts_utils.setup{}
             ts_utils.setup_client(client)
         end
-    };
+    },
     sumneko_lua = {
         cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
         -- TODO: Find a way to customize this on a per-project level
@@ -54,7 +54,7 @@ local servers = {
             Lua = {
                 runtime = {
                     version = 'LuaJIT',
-                    path = vim.split(package.path, ';'),
+                    path = vim.split(package.path, ','),
                 },
                 diagnostics = {
                     globals = {'vim'},
@@ -70,20 +70,20 @@ local servers = {
                 },
             },
         },
-    };
+    },
     --dartls = { -- See flutter-tools
     --    cmd = {
     --        'dart',
     --        '/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot',
     --        '--lsp'
     --    }
-    --};
+    --},
 }
 
 -- Initialize language server with options
 for k, v in pairs(servers) do
     local options = vim.tbl_extend('keep', {
-      capabilities = capabilities;
+      capabilities = capabilities,
     }, v)
 
     nvim_lsp[k].setup(options)
@@ -92,9 +92,9 @@ end
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false;
-        underline = true;
-        signs = true;
+        virtual_text = false,
+        underline = true,
+        signs = true,
     }
 )
 
@@ -142,21 +142,21 @@ local stylelint = vim.tbl_extend('keep', {
 
 local diagnostic_groups = {
     eslint = {
-        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' };
+        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
         options = { linter = eslint }
     },
     stylelint = {
-        filetypes = { 'scss', 'less', 'css' };
+        filetypes = { 'scss', 'less', 'css' },
         options = { linter = stylelint }
     },
     phpcs = {
-        filetypes = { 'php' };
+        filetypes = { 'php' },
         options = { linter = phpcs }
     }
 }
 
 local diagnostics = {}
-for k, v in pairs(diagnostic_groups) do
+for _, v in pairs(diagnostic_groups) do
     for _, ft in ipairs(v.filetypes) do
         diagnostics[ft] = v.options
     end
@@ -185,12 +185,12 @@ npairs.setup{
 -------------------------------------------------------------------------------
 
 require'lspsaga'.init_lsp_saga{
-    error_sign = '';
-    warn_sign = '';
-    hint_sign = '';
-    infor_sign = '';
-    dianostic_header_icon = '   ';
-    code_action_icon = ' ';
+    error_sign = '',
+    warn_sign = '',
+    hint_sign = '',
+    infor_sign = '',
+    dianostic_header_icon = '   ',
+    code_action_icon = ' ',
     code_action_prompt = {
         virtual_text = false
     }
@@ -201,8 +201,8 @@ require'lspsaga'.init_lsp_saga{
 -------------------------------------------------------------------------------
 
 require'lsp_signature'.on_attach{
-    bind = false;
-    use_lspsaga = true;
+    bind = false,
+    use_lspsaga = true,
 }
 
 -------------------------------------------------------------------------------
@@ -211,11 +211,11 @@ require'lsp_signature'.on_attach{
 
 require'bufferline'.setup{
     options = {
-        diagnostics = 'nvim_lsp';
-        show_close_icon = false;
-        show_buffer_close_icons = false;
-        show_tab_indicators = false;
-        always_show_bufferline = false;
+        diagnostics = 'nvim_lsp',
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        show_tab_indicators = false,
+        always_show_bufferline = false,
     }
 }
 
@@ -236,7 +236,7 @@ vim.g.dap_virtual_text = true
 -------------------------------------------------------------------------------
 
 require'gitsigns'.setup{
-    current_line_blame = true;
+    current_line_blame = true,
 }
 
 -------------------------------------------------------------------------------
@@ -245,15 +245,15 @@ require'gitsigns'.setup{
 
 require'lualine'.setup{
     options = {
-        theme = 'nord';
+        theme = 'nord',
     },
     sections = {
-        lualine_a = { { 'mode', upper = true } };
-        lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } };
-        lualine_c = { { 'filename', file_status = true }, 'lsp_progress' };
-        lualine_x = { 'encoding', 'fileformat', 'filetype' };
-        lualine_y = { 'progress' };
-        lualine_z = { 'location' };
+        lualine_a = { { 'mode', upper = true } },
+        lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } },
+        lualine_c = { { 'filename', file_status = true }, 'lsp_progress' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
     },
 }
 
@@ -262,37 +262,37 @@ require'lualine'.setup{
 -------------------------------------------------------------------------------
 
 require'compe'.setup{
-    enabled = true;
-    autocomplete = false;
-    debug = false;
-    min_length = 2;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
-    documentation = true;
+    enabled = true,
+    autocomplete = false,
+    debug = false,
+    min_length = 2,
+    preselect = 'enable',
+    throttle_time = 80,
+    source_timeout = 200,
+    incomplete_delay = 400,
+    max_abbr_width = 100,
+    max_kind_width = 100,
+    max_menu_width = 100,
+    documentation = true,
     source = {
-        calc = false;
-        treesitter = false;
-        buffer = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = true;
+        calc = false,
+        treesitter = false,
+        buffer = true,
+        nvim_lsp = true,
+        nvim_lua = true,
+        vsnip = true,
         path = {
-            priority = 40;
+            priority = 40,
         },
         tmux = {
-            all_panes = false;
+            all_panes = false,
         },
         tabnine = {
-            max_num_results = 6;
-            priority = 0;
-            max_line = 1000;
-            show_prediction_strength = true;
-            ignore_pattern = '[(]';
+            max_num_results = 6,
+            priority = 0,
+            max_line = 1000,
+            show_prediction_strength = true,
+            ignore_pattern = '[(]',
         },
     },
 }
@@ -303,7 +303,7 @@ vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 -- Add basic snippet support when language server does not
 -- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
 -- Ref: https://github.com/hrsh7th/nvim-compe/issues/302
-local Helper = require "compe.helper"
+local Helper = require 'compe.helper'
 Helper.convert_lsp_orig = Helper.convert_lsp
 Helper.convert_lsp = function(args)
     local response = args.response or {}
@@ -313,7 +313,7 @@ Helper.convert_lsp = function(args)
         -- 3: function
         -- 4: constructor
         if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
-            item.insertText = item.label .. "(${1})"
+            item.insertText = item.label .. '(${1})'
             item.insertTextFormat = 2
         end
     end
@@ -357,19 +357,18 @@ require'nvim-treesitter.configs'.setup{
         'commonlisp',
     },
     highlight = {
-        enable = true;
+        enable = true,
     },
     indent = {
-        enable = true;
+        enable = true,
     },
 
     -- Plugins
-
     context_commentstring = {
-        enable = true;
+        enable = true,
     },
     autotag = {
-        enable = true;
+        enable = true,
     }
 }
 
@@ -381,11 +380,11 @@ local telescope = require'telescope'
 
 telescope.setup{
     builtin = {
-        treesitter = true;
+        treesitter = true,
     },
     media_files = {
-        filetypes = { 'png', 'webp', 'jpeg', 'jpg' };
-        find_cmd = 'rg';
+        filetypes = { 'png', 'webp', 'jpeg', 'jpg' },
+        find_cmd = 'rg',
     }
 }
 
@@ -397,8 +396,8 @@ telescope.load_extension('media_files')
 -------------------------------------------------------------------------------
 
 require'numb'.setup{
-   show_numbers = true;
-   show_cursorline = true;
+   show_numbers = true,
+   show_cursorline = true,
 }
 
 -------------------------------------------------------------------------------
@@ -406,19 +405,19 @@ require'numb'.setup{
 -------------------------------------------------------------------------------
 
 require'colorizer'.setup({
-    'html';
-    'css';
-    'scss';
-    'javascript';
-    'typescript';
-    'javascriptreact';
-    'typescriptreact';
-    'vue';
-    'svelte';
-    'twig';
-    'lua';
+    'html',
+    'css',
+    'scss',
+    'javascript',
+    'typescript',
+    'javascriptreact',
+    'typescriptreact',
+    'vue',
+    'svelte',
+    'twig',
+    'lua',
 }, {
-    css = true;
+    css = true,
 })
 
 -------------------------------------------------------------------------------
