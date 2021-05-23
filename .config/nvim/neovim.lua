@@ -49,6 +49,27 @@ local servers = {
     };
     sumneko_lua = {
         cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+        -- TODO: Find a way to customize this on a per-project level
+        settings = {
+            Lua = {
+                runtime = {
+                    version = 'LuaJIT',
+                    path = vim.split(package.path, ';'),
+                },
+                diagnostics = {
+                    globals = {'vim'},
+                },
+                workspace = {
+                    library = {
+                        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                    },
+                },
+                telemetry = {
+                    enable = false,
+                },
+            },
+        },
     };
     --dartls = { -- See flutter-tools
     --    cmd = {
