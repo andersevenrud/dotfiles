@@ -92,8 +92,9 @@ require'flutter-tools'.setup{ -- This also intializes dartls LSP
 -- plugin: diagnosticls-nvim
 -------------------------------------------------------------------------------
 
-local phpcs = require 'diagnosticls-nvim.linters.phpcs'
-
+local phpcs = require'diagnosticls-nvim.linters.phpcs'
+local eslintDefaults = require'diagnosticls-nvim.linters.eslint'
+local stylelintDefaults = require'diagnosticls-nvim.linters.stylelint'
 local linterDefaults = { debounce = 1000 }
 
 local eslint = vim.tbl_extend('keep', {
@@ -103,20 +104,20 @@ local eslint = vim.tbl_extend('keep', {
         [1] = 'error',
         [2] = 'warning'
     },
-    requiredFiles = {
-        '.eslintrc',
+    requiredFiles = vim.tbl_extend('keep', {
         'package.json'
-    }
-}, linterDefaults, require 'diagnosticls-nvim.linters.eslint')
+    }, eslintDefaults.rootPatterns)
+}, linterDefaults, eslintDefaults)
 
 local stylelint = vim.tbl_extend('keep', {
     command = 'node_modules/.bin/stylelint',
     rootPatterns = { 'package.json' },
-    requiredFiles = {
+    requiredFiles = vim.tbl_extend('keep', {
+        'package.json',
         '.stylelintrc',
-        'package.json'
-    }
-}, linterDefaults, require 'diagnosticls-nvim.linters.stylelint')
+        'stylelint.config.js'
+    }, stylelintDefaults.rootPatterns)
+}, linterDefaults, stylelintDefaults)
 
 local diagnostic_groups = {
     eslint = {
