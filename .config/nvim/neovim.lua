@@ -216,6 +216,14 @@ require'bufferline'.setup{
         show_buffer_close_icons = false,
         show_tab_indicators = false,
         always_show_bufferline = false,
+        offsets = {
+            {
+                filetype = 'NvimTree',
+                text = 'File Explorer',
+                highlight = 'Directory',
+                text_align = 'left'
+            }
+        }
     }
 }
 
