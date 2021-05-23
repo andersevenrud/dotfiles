@@ -13,8 +13,7 @@ set backspace=indent,eol,start          " Backspace context
 set pumheight=30                        " Limit height of autocomplete popup
 set signcolumn=yes                      " Use sign column in gutter to prevent jumping
 set numberwidth=4                       " Wide number gutter
-set number relativenumber               " Show number gutter as relative number
-set nu rnu                              " Show active line as current number and not relative zero
+set number rnu                          " Show number gutter as relative number
 set termguicolors                       " Respect terminal colors
 set hidden                              " Allow jumping between unsaved buffers
 set smartcase                           " Smart case handling in search
