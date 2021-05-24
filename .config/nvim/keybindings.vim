@@ -10,6 +10,9 @@
 " Make C-c behave like ESC
 inoremap <C-c> <ESC>
 
+" Destroy buffer with C-w on leader
+nnoremap <leader><C-w> :bd<CR>
+
 " Don't increment search on '*'
 nnoremap * *``
 nnoremap * :keepjumps normal! mi*`i<CR>
