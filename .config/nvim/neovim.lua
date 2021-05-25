@@ -446,6 +446,7 @@ vim.g.nvim_tree_lsp_diagnostics = true
 vim.g.nvim_tree_git_hl = true
 vim.g.nvim_tree_add_trailing = true
 vim.g.nvim_tree_indent_markers = true
+vim.g.nvim_tree_quit_on_open = true
 
 -------------------------------------------------------------------------------
 -- plugin: neogit
