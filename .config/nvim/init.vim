@@ -43,6 +43,7 @@ call plug#begin('~/.config/nvim/plugins')
   " Utilities
   Plug 'wincent/terminus'
   Plug 'TimUntersberger/neogit'
+  Plug 'sindrets/diffview.nvim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'euclio/vim-markdown-composer', { 'do': 'cargo build --release' }
 
