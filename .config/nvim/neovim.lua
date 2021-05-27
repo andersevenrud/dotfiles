@@ -283,8 +283,6 @@ require'compe'.setup{
     max_menu_width = 100,
     documentation = true,
     source = {
-        calc = false,
-        treesitter = false,
         buffer = true,
         nvim_lsp = true,
         nvim_lua = true,
