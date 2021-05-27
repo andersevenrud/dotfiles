@@ -469,3 +469,12 @@ require'todo-comments'.setup{}
 -------------------------------------------------------------------------------
 
 require'diffview'.setup{}
+
+-------------------------------------------------------------------------------
+-- plugin: vsnip
+-------------------------------------------------------------------------------
+
+-- Run vsnip on startup and not on demand to reduce latency on initial completion
+vim.api.nvim_exec([[
+    autocmd FileType * call vsnip#get_complete_items(bufnr())
+]], false)
