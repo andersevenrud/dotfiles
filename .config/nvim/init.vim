@@ -59,7 +59,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'neovim/nvim-lspconfig'
   Plug 'alexaandru/nvim-lspupdate'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-  Plug 'folke/lsp-trouble.nvim'
+  Plug 'folke/trouble.nvim'
   Plug 'akinsho/flutter-tools.nvim'
   Plug 'haringsrob/nvim_context_vt'
   Plug 'ray-x/lsp_signature.nvim'
