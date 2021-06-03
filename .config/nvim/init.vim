@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/plugins')
   " Debugging
   Plug 'mfussenegger/nvim-dap'
   Plug 'theHamsta/nvim-dap-virtual-text'
+  Plug 'Pocco81/DAPInstall.nvim'
 
   " Utilities
   Plug 'wincent/terminus'

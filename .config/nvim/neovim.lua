@@ -240,6 +240,19 @@ vim.g.markdown_composer_autostart = 0
 vim.g.dap_virtual_text = true
 
 -------------------------------------------------------------------------------
+-- plugin: dapinstall
+-------------------------------------------------------------------------------
+
+local dap_install = require'dap-install'
+local dbg_list = { 'php_dbg', 'jsnode_dbg', 'dart_dbg' }
+
+dap_install.setup{}
+
+for _, debugger in ipairs(dbg_list) do
+    dap_install.config(debugger, {})
+end
+
+-------------------------------------------------------------------------------
 -- plugin: gitsigns
 -------------------------------------------------------------------------------
 
@@ -291,7 +304,7 @@ require'compe'.setup{
             priority = 40,
         },
         tmux = {
-            all_panes = false,
+            all_panes = true,
         },
         tabnine = {
             max_num_results = 6,
