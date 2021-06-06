@@ -55,6 +55,7 @@ set wildignore+=*/DS_Store/**
 " Custom filetypes
 autocmd BufNewFile,BufRead *.heml set ft=html
 autocmd BufNewFile,BufRead *.rasi set ft=css
+autocmd BufNewFile,BufRead *.tl set ft=teal
 
 " Language rules
 autocmd FileType lua    setlocal tabstop=4 softtabstop=4 shiftwidth=4

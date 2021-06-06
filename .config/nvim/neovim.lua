@@ -358,6 +358,7 @@ require'nvim-treesitter.configs'.setup{
         'html',
         'json',
         'lua',
+        'teal',
         'python',
         'c',
         'cpp',
