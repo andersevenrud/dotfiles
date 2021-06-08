@@ -1,5 +1,5 @@
 [submodule ".tmux/plugins/tpm"]
-	path = .tmux/plugins/tpm
+	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule ".bash/git-aware-prompt"]
 	path = .bash/git-aware-prompt
