@@ -1,13 +1,6 @@
-
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
 PATH=$PATH:$HOME/.local/bin:~/.gem/ruby/2.3.0/bin
-
-
-# Git aware command prompt
-#export GITAWAREPROMPT=~/.bash/git-aware-prompt
-#source "${GITAWAREPROMPT}/main.sh"
-#export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
 
 # Commands
 alias gitc-ammend="git commit --amend"
@@ -22,7 +15,6 @@ alias pacman-aur="makepkg -sri ?"
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ls='ls --color -h --group-directories-first -l --time-style="+%m-%d-%y %H:%m:%S" -p -a'
-
 
 # 'less' colors
 export LESS='-R '
@@ -45,6 +37,7 @@ if [ -n "$DESKTOP_SESSION" ];then
     export SSH_AUTH_SOCK
 fi
 
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
