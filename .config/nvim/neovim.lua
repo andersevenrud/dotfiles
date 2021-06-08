@@ -9,8 +9,11 @@ local nvim_lsp = require'lspconfig'
 local npairs = require'nvim-autopairs'
 
 -------------------------------------------------------------------------------
--- LSP
+-- Globals
 -------------------------------------------------------------------------------
+
+local telescope_extensions = {}
+local telescope_options = {}
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
@@ -24,6 +27,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
         'additionalTextEdits',
     }
 }
+
+-------------------------------------------------------------------------------
+-- LSP
+-------------------------------------------------------------------------------
 
 local servers = {
     jsonls = {},
@@ -108,6 +115,8 @@ require'flutter-tools'.setup{ -- This also intializes dartls LSP
         capabilities = capabilities,
     }
 }
+
+table.insert(telescope_extensions, 'flutter')
 
 -------------------------------------------------------------------------------
 -- plugin: diagnosticls-nvim
@@ -394,23 +403,33 @@ require'nvim-treesitter.configs'.setup{
 }
 
 -------------------------------------------------------------------------------
+-- plugin: telescope-media-files
+-------------------------------------------------------------------------------
+
+table.insert(telescope_extensions, 'media_files')
+
+telescope_options = vim.tbl_extend('force', telescope_options, {
+    media_files = {
+        filetypes = { 'png', 'webp', 'jpeg', 'jpg' },
+        find_cmd = 'rg',
+    }
+})
+
+-------------------------------------------------------------------------------
 -- plugin: telescope
 -------------------------------------------------------------------------------
 
 local telescope = require'telescope'
 
-telescope.setup{
+telescope.setup(vim.tbl_extend('keep', {
     builtin = {
         treesitter = true,
-    },
-    media_files = {
-        filetypes = { 'png', 'webp', 'jpeg', 'jpg' },
-        find_cmd = 'rg',
     }
-}
+}, telescope_options))
 
-telescope.load_extension('flutter')
-telescope.load_extension('media_files')
+for _, v in ipairs(telescope_extensions) do
+    telescope.load_extension(v)
+end
 
 -------------------------------------------------------------------------------
 -- plugin: numb
