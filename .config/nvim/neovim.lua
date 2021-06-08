@@ -260,6 +260,8 @@ end
 
 require'gitsigns'.setup{
     current_line_blame = true,
+    current_line_blame_timeout = 1000,
+    --current_line_blame_position = 'right_align',
 }
 
 -------------------------------------------------------------------------------
@@ -324,15 +326,12 @@ vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 -- Add basic snippet support when language server does not
 -- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
 -- Ref: https://github.com/hrsh7th/nvim-compe/issues/302
-local Helper = require 'compe.helper'
+local Helper = require'compe.helper'
 Helper.convert_lsp_orig = Helper.convert_lsp
 Helper.convert_lsp = function(args)
     local response = args.response or {}
     local items = response.items or response
     for _, item in ipairs(items) do
-        -- 2: method
-        -- 3: function
-        -- 4: constructor
         if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
             item.insertText = item.label .. '(${1})'
             item.insertTextFormat = 2
