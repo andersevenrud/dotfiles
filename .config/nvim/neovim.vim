@@ -78,6 +78,8 @@ endif
 " theme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:nord_italic_comments = v:true
+
 colorscheme nordbuddy
 
 highlight link LspDiagnosticsUnderlineError DiffDelete
