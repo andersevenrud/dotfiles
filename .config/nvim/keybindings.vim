@@ -29,7 +29,7 @@ nnoremap <leader>_ <C-W>4-
 nnoremap <Up> <C-y>
 nnoremap <Down> <C-e>
 
-" Rebind vertical arrows to tab switching
+" Rebind horizontal arrows to tab switching
 nnoremap <Right> gt
 nnoremap <Left>  gT
 
