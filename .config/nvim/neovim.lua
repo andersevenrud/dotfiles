@@ -269,8 +269,7 @@ end
 
 require'gitsigns'.setup{
     current_line_blame = true,
-    current_line_blame_timeout = 1000,
-    --current_line_blame_position = 'right_align',
+    current_line_blame_delay = 500
 }
 
 -------------------------------------------------------------------------------
