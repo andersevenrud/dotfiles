@@ -33,6 +33,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -------------------------------------------------------------------------------
 
 local servers = {
+    tailwindcss = {
+        -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
+        cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
+    },
     jsonls = {},
     dockerls = {},
     yamlls = {},
