@@ -20,6 +20,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'yamatsum/nvim-cursorline'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'maaslalani/nordbuddy'
+  Plug 'haringsrob/nvim_context_vt'
 
   " Editing
   Plug 'windwp/nvim-autopairs'
@@ -62,7 +63,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'folke/trouble.nvim'
   Plug 'akinsho/flutter-tools.nvim'
-  Plug 'haringsrob/nvim_context_vt'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'creativenull/diagnosticls-nvim'
   Plug 'arkav/lualine-lsp-progress'
