@@ -103,8 +103,8 @@ nnoremap <silent> gs         <cmd>lua require'lspsaga.signaturehelp'.signature_h
 inoremap <silent> <C-k>      <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
 nnoremap <silent> gr         <cmd>lua require'lspsaga.rename'.rename()<CR>
 nnoremap <silent> gd         <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent><leader>cd  <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
-nnoremap <silent><leader>cc  <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
+nnoremap <silent><leader>dl  <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
+nnoremap <silent><leader>dc  <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
 nnoremap <silent> [e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
 nnoremap <silent> <A-d>      <cmd>lua require'lspsaga.floaterm'.open_float_terminal()<CR>

@@ -209,8 +209,6 @@ require'lspsaga'.init_lsp_saga{
     }
 }
 
-vim.api.nvim_exec('autocmd CursorHold * lua require\'lspsaga.diagnostic\'.show_line_diagnostics()', false)
-
 -------------------------------------------------------------------------------
 -- plugin: lsp_signature
 -------------------------------------------------------------------------------
