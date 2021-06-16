@@ -215,7 +215,10 @@ require'lspsaga'.init_lsp_saga{
 
 require'lsp_signature'.on_attach{
     bind = false,
-    use_lspsaga = true,
+    floating_window = true,
+    handler_opts = {
+        border = 'single'
+    }
 }
 
 -------------------------------------------------------------------------------
