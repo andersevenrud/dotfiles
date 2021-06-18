@@ -103,11 +103,28 @@ end
 -- Hide the inline diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        underline = true,
-        signs = true,
+        virtual_text = false
     }
 )
+
+-- Sets up borders around certain popups
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+    vim.lsp.handlers.hover, {
+        border = 'single'
+    }
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, {
+        border = 'single'
+    }
+)
+
+-- Assign icons
+vim.fn.sign_define('LspDiagnosticsSignError', { text = '' })
+vim.fn.sign_define('LspDiagnosticsSignWarning', { text = '' })
+vim.fn.sign_define('LspDiagnosticsSignInformation', { text = '' })
+vim.fn.sign_define('LspDiagnosticsSignHint', { text = '' })
 
 -------------------------------------------------------------------------------
 -- plugin: flutter-tools
@@ -191,22 +208,6 @@ require'lspkind'.init{}
 npairs.setup{
     disable_filetype = { 'TelescopePrompt' },
     check_ts = true,
-}
-
--------------------------------------------------------------------------------
--- plugin: saga
--------------------------------------------------------------------------------
-
-require'lspsaga'.init_lsp_saga{
-    error_sign = '',
-    warn_sign = '',
-    hint_sign = '',
-    infor_sign = '',
-    dianostic_header_icon = '   ',
-    code_action_icon = ' ',
-    code_action_prompt = {
-        virtual_text = false
-    }
 }
 
 -------------------------------------------------------------------------------
@@ -332,9 +333,6 @@ require'compe'.setup{
         },
     },
 }
-
--- Use Saga to show signature help
-vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 
 -- Add basic snippet support when language server does not
 -- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe

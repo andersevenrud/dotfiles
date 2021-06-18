@@ -57,7 +57,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'rafamadriz/friendly-snippets'
 
   " LSP
-  Plug 'glepnir/lspsaga.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'alexaandru/nvim-lspupdate'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'

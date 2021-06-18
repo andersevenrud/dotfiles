@@ -41,13 +41,22 @@ nnoremap <leader>bd <cmd>%bd<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <silent> gD        <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd        <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <space>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gr        <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <C-k>     <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <space>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
 nnoremap <silent> <space>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
 nnoremap <silent> <space>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
 nnoremap <silent> <space>D  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> <space>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <space>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <space>f  <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <space>q  <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> <space>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> [d        <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d        <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Telescope
@@ -88,27 +97,6 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Saga
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <silent><leader>gd  <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-nnoremap <silent><leader>ca  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
-vnoremap <silent><leader>ca :<C-U>lua require'lspsaga.codeaction'.range_code_action()<CR>
-nnoremap <silent> K          <cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>
-nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(1)<CR>
-nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.action'.smart_scroll_with_saga(-1)<CR>
-nnoremap <silent> gs         <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
-inoremap <silent> <C-k>      <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
-nnoremap <silent> gr         <cmd>lua require'lspsaga.rename'.rename()<CR>
-nnoremap <silent> gd         <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent><leader>dl  <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
-nnoremap <silent><leader>dc  <cmd>lua require'lspsaga.diagnostic'.show_cursor_diagnostics()<CR>
-nnoremap <silent> [e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
-nnoremap <silent> ]e         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent> <A-d>      <cmd>lua require'lspsaga.floaterm'.open_float_terminal()<CR>
-tnoremap <silent> <A-d>      <C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " trouble
