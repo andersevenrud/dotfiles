@@ -87,3 +87,5 @@ highlight link LspDiagnosticsUnderlineWarning DiffChange
 highlight link GitSignsCurrentLineBlame tscomment
 highlight link ExtraWhitespace RedrawDebugRecompose
 highlight LineNr ctermbg=NONE guibg=NONE
+highlight CurrentWordTwins gui=underline
+highlight CurrentWord gui=underline
