@@ -383,19 +383,6 @@ require'nvim-treesitter.configs'.setup{
 }
 
 -------------------------------------------------------------------------------
--- plugin: telescope-media-files
--------------------------------------------------------------------------------
-
-table.insert(telescope_extensions, 'media_files')
-
-telescope_options = vim.tbl_extend('force', telescope_options, {
-    media_files = {
-        filetypes = { 'png', 'webp', 'jpeg', 'jpg' },
-        find_cmd = 'rg',
-    }
-})
-
--------------------------------------------------------------------------------
 -- plugin: telescope
 -------------------------------------------------------------------------------
 

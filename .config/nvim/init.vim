@@ -32,7 +32,6 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'nacro90/numb.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'nvim-telescope/telescope-media-files.nvim'
   Plug 'simrat39/symbols-outline.nvim'
   Plug 'folke/todo-comments.nvim'
 
