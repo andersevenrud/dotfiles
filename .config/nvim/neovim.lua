@@ -148,6 +148,7 @@ table.insert(telescope_extensions, 'flutter')
 local phpcs = require'diagnosticls-nvim.linters.phpcs'
 local eslintDefaults = require'diagnosticls-nvim.linters.eslint'
 local stylelintDefaults = require'diagnosticls-nvim.linters.stylelint'
+local prettierDefaults = require 'diagnosticls-nvim.formatters.prettier'
 local linterDefaults = { debounce = 1000 }
 
 local eslint = vim.tbl_extend('keep', {
@@ -172,10 +173,18 @@ local stylelint = vim.tbl_extend('keep', {
     }, stylelintDefaults.rootPatterns)
 }, linterDefaults, stylelintDefaults)
 
+local prettier = vim.tbl_extend('keep', {
+    command = 'node_modules/.bin/prettier',
+    rootPatterns = { 'package.json' },
+    requiredFiles = vim.tbl_extend('keep', {
+        'package.json'
+    }, prettierDefaults.rootPatterns)
+}, prettierDefaults)
+
 local diagnostic_groups = {
     eslint = {
         filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
-        options = { linter = eslint }
+        options = { linter = eslint, formatter = prettier }
     },
     stylelint = {
         filetypes = { 'scss', 'less', 'css' },
