@@ -12,6 +12,8 @@ local npairs = require'nvim-autopairs'
 -- Globals
 -------------------------------------------------------------------------------
 
+local border_style = 'single'
+
 local telescope_extensions = {}
 local telescope_options = {}
 
@@ -110,13 +112,13 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 -- Sets up borders around certain popups
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     vim.lsp.handlers.hover, {
-        border = 'single'
+        border = border_style
     }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help, {
-        border = 'single'
+        border = border_style
     }
 )
 
@@ -218,7 +220,7 @@ require'lsp_signature'.on_attach{
     bind = false,
     floating_window = true,
     handler_opts = {
-        border = 'single'
+        border = border_style
     }
 }
 
