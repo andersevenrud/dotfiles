@@ -400,10 +400,24 @@ telescope_options = vim.tbl_extend('force', telescope_options, {
 -------------------------------------------------------------------------------
 
 local telescope = require'telescope'
+local file_ignore_patterns = {
+    'package-lock.json',
+    'yarn.lock',
+    'composer.lock'
+}
+
+for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
+    -- A very crude way to use wildignore list
+    local p = v:gsub('^*.(%a+)$', '%%.%1')
+    table.insert(file_ignore_patterns, p)
+end
 
 telescope.setup(vim.tbl_extend('keep', {
     builtin = {
         treesitter = true,
+    },
+    defaults = {
+        file_ignore_patterns = file_ignore_patterns
     }
 }, telescope_options))
 

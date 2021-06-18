@@ -43,10 +43,10 @@ set list listchars=nbsp:¬,tab:·\ ,trail:.,precedes:<,extends:>
 
 " Ignore these files and directories
 set wildignore+=*.o,*.a,*.class,*.mo,*.la,*.so,*.obj
-set wildignore+=*.*.swp,.tern-port,*.tmp
-set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp
+set wildignore+=*.swp,.tern-port,*.tmp
+set wildignore+=*.jpg,*.jpeg,*.png,*.xpm,*.gif,*.bmp,*.ico
 set wildignore+=.git,.svn,CVS
-set wildignore+=*/DS_Store/**
+set wildignore+=DS_Store
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto commands
