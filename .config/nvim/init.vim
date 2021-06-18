@@ -16,7 +16,7 @@ call plug#begin('~/.config/nvim/plugins')
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'hoob3rt/lualine.nvim'
   Plug 'romgrk/nvim-treesitter-context'
-  Plug 'yamatsum/nvim-cursorline'
+  Plug 'dominikduda/vim_current_word' " vimscript
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'maaslalani/nordbuddy'
   Plug 'haringsrob/nvim_context_vt'
