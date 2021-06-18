@@ -223,28 +223,6 @@ require'lsp_signature'.on_attach{
 }
 
 -------------------------------------------------------------------------------
--- plugin: nvim-bufferline
--------------------------------------------------------------------------------
-
-require'bufferline'.setup{
-    options = {
-        diagnostics = 'nvim_lsp',
-        show_close_icon = false,
-        show_buffer_close_icons = false,
-        show_tab_indicators = false,
-        always_show_bufferline = false,
-        offsets = {
-            {
-                filetype = 'NvimTree',
-                text = 'File Explorer',
-                highlight = 'Directory',
-                text_align = 'left'
-            }
-        }
-    }
-}
-
--------------------------------------------------------------------------------
 -- plugin: markdown-composer
 -------------------------------------------------------------------------------
 

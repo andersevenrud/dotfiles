@@ -15,7 +15,6 @@ call plug#begin('~/.config/nvim/plugins')
   " UI
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'hoob3rt/lualine.nvim'
-  Plug 'akinsho/nvim-bufferline.lua'
   Plug 'romgrk/nvim-treesitter-context'
   Plug 'yamatsum/nvim-cursorline'
   Plug 'norcalli/nvim-colorizer.lua'
