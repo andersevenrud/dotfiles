@@ -34,6 +34,7 @@ Configured additional diagnostics:
 
 * eslint
 * stylelint
+* prettier
 * phpcs
 
 Additional language support:
@@ -74,10 +75,9 @@ return {
 
 ## Structure
 
-* `init.vim` - Entrypoint w/plugin list
-* `neovim.lua` - Plugin settings
-* `neovim.vim` - General settings
-* `keybindings.vim` - Keybindings
+* `init.vim` - Plugins, options and keybindings
+* `lua/config.lua` - Configuration
+* `lua/neovim.lua` - Bootstrapping
 
 ## Setup
 
