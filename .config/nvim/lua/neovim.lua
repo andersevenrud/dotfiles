@@ -13,12 +13,7 @@ local nvim_lsp = require'lspconfig'
 -- Initialize language server with options
 for k, v in pairs(config.lsp_config) do
     local options = vim.tbl_extend('keep', {
-        capabilities = config.lsp.capabilities,
-        on_attach = function(...)
-            if v.on_attach then
-                v.on_attach(...)
-            end
-        end
+        capabilities = config.lsp.capabilities
     }, v)
 
     nvim_lsp[k].setup(options)
@@ -42,9 +37,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 )
 
 -- Assign icons
-for k, v in pairs(config.signs) do
-    vim.fn.sign_define(k, v)
-end
+for k, v in pairs(config.signs) do vim.fn.sign_define(k, v) end
 
 ------------------------------------------------------------------------------
 -- Plugins

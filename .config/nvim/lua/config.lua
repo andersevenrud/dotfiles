@@ -4,10 +4,6 @@
 --
 
 local secrets = require'secrets' -- ~/.config/nvim/lua/secrets.lua
-local phpcs = require'diagnosticls-nvim.linters.phpcs'
-local eslintDefaults = require'diagnosticls-nvim.linters.eslint'
-local stylelintDefaults = require'diagnosticls-nvim.linters.stylelint'
-local prettierDefaults = require 'diagnosticls-nvim.formatters.prettier'
 
 -------------------------------------------------------------------------------
 -- LSP
@@ -48,9 +44,13 @@ end
 -- Diagnostics
 -------------------------------------------------------------------------------
 
-local linterDefaults = { debounce = 1000 }
+local phpcs = require'diagnosticls-nvim.linters.phpcs'
+local eslintDefaults = require'diagnosticls-nvim.linters.eslint'
+local stylelintDefaults = require'diagnosticls-nvim.linters.stylelint'
+local prettierDefaults = require 'diagnosticls-nvim.formatters.prettier'
 
 local eslint = vim.tbl_extend('keep', {
+    debounce = 1000,
     command = 'node_modules/.bin/eslint',
     rootPatterns = { 'package.json' },
     securities = {
@@ -60,9 +60,10 @@ local eslint = vim.tbl_extend('keep', {
     requiredFiles = vim.tbl_extend('keep', {
         'package.json'
     }, eslintDefaults.rootPatterns)
-}, linterDefaults, eslintDefaults)
+}, eslintDefaults)
 
 local stylelint = vim.tbl_extend('keep', {
+    debounce = 1000,
     command = 'node_modules/.bin/stylelint',
     rootPatterns = { 'package.json' },
     requiredFiles = vim.tbl_extend('keep', {
@@ -70,7 +71,7 @@ local stylelint = vim.tbl_extend('keep', {
         '.stylelintrc',
         'stylelint.config.js'
     }, stylelintDefaults.rootPatterns)
-}, linterDefaults, stylelintDefaults)
+}, stylelintDefaults)
 
 local prettier = vim.tbl_extend('keep', {
     command = 'node_modules/.bin/prettier',
