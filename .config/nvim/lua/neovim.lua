@@ -4,50 +4,51 @@
 --
 
 local config = require'config'
-local opt = vim.opt
 
 ------------------------------------------------------------------------------
 -- Options
 ------------------------------------------------------------------------------
 
-opt.shortmess = opt.shortmess + 'c'            -- Silence warnings
-opt.completeopt = { 'menuone', 'noselect' }    -- Always open popup and user selection
-opt.backspace = { 'indent', 'eol', 'start' }   -- Backspace context
-opt.pumheight = 30                             -- Limit height of autocomplete popup
-opt.signcolumn = 'yes'                         -- Use sign column in gutter to prevent jumping
-opt.numberwidth = 4                            -- Wide number gutter
-opt.relativenumber = true                      -- Show number gutter as relative number
-opt.termguicolors = true                       -- Respect terminal colors
-opt.hidden = true                              -- Allow jumping between unsaved buffers
-opt.smartcase = true                           -- Smart case handling in search
-opt.ignorecase = true                          -- Ignore casing in highlights etc
-opt.incsearch = true                           -- Incremental searches
-opt.showmode = false                           -- No show mode
-opt.belloff = 'all'                            -- No error bells
-opt.wrap = false                               -- No text wrapping
-opt.hlsearch = true                            -- Highlight searches
-opt.showmatch = true                           -- Show matching brackets, etc
-opt.ruler = true                               -- Show ruler in status
-opt.cursorline = true                          -- Show cursor line hightlight
-opt.title = true                               -- Use window title
-opt.ai = true                                  -- Use autoindent
-opt.expandtab = true                           -- Spaces, not tabs
-opt.tabstop = 2                                -- Default spacing
-opt.softtabstop = 2                            -- Default spacing
-opt.shiftwidth = 2                             -- Default spacing
-opt.foldlevel = 999                            -- Expand all folds by default
-opt.updatetime = 1000                          -- Lower CursorHold update times
-opt.foldmethod = 'expr'                        -- Use custom folding
-opt.foldexpr = 'nvim_treesitter#foldexpr()'    -- Use tree-sitter for folding
+-- Options
+for k, v in pairs(config.vim.options) do
+    vim.opt[k] = v
+end
 
--- Show symbols for certain special characters
-opt.listchars = { nbsp = '¬', tab = '·\\', trail = '.', precedes = '<', extends = '>' }
+-- Highlights
+for k, v in pairs(config.vim.highlights) do
+    if v.link then
+        vim.highlight.link(k, v.link)
+    else
+        vim.highlight.create(k, v)
+    end
+end
 
-opt.wildignore = opt.wildignore + { '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj' }
-opt.wildignore = opt.wildignore + { '*.swp', '.tern-port', '*.tmp' }
-opt.wildignore = opt.wildignore + { '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico' }
-opt.wildignore = opt.wildignore + { '.git', '.svn', 'CVS' }
-opt.wildignore = opt.wildignore + { 'DS_Store' }
+-- Highlight group for trailing whitespaces
+vim.cmd [[autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/]]
+vim.cmd [[autocmd InsertLeave * match ExtraWhitespace /\s\+$/]]
+
+-- Custom filetypes
+for k, v in pairs(config.vim.aliases) do
+    vim.cmd('autocmd BufNewFile,BufRead ' .. k .. ' set ft=' .. v)
+end
+
+
+-- Custom rules per filetype
+for k, v in pairs(config.vim.rules) do
+    local locals = {}
+    for a, b in pairs(v) do
+        table.insert(locals, string.format('%s=%s', a, b))
+    end
+    vim.cmd('autocmd FileType ' .. k .. ' setlocal ' .. table.concat(locals, ' '))
+end
+
+-- Tmux widow titles
+if os.getenv('TMUX') then
+  vim.cmd [[autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")]]
+  vim.cmd [[autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))]]
+  vim.cmd [[autocmd VimLeave * call system("tmux rename-window bash")]]
+  vim.cmd [[autocmd BufEnter * let &titlestring = ' ' . expand("%:t")]]
+end
 
 ------------------------------------------------------------------------------
 -- LSP

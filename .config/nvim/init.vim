@@ -3,43 +3,8 @@
 " Anders Evenrud <andersevenrud@gmail.com>
 "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" auto commands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Custom filetypes
-autocmd BufNewFile,BufRead *.heml set ft=html
-autocmd BufNewFile,BufRead *.rasi set ft=css
-autocmd BufNewFile,BufRead *.tl set ft=teal
-
-" Language rules
-autocmd FileType lua    setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
-autocmd Filetype php    setlocal tabstop=4 softtabstop=4 shiftwidth=4
-
-" Highlight group for trailing whitespaces
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Tmux window titles
-if exists('$TMUX')
-  autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
-  autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))
-  autocmd VimLeave * call system("tmux rename-window bash")
-  autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" theme
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-highlight link LspDiagnosticsUnderlineError DiffDelete
-highlight link LspDiagnosticsUnderlineWarning DiffChange
-highlight link GitSignsCurrentLineBlame tscomment
-highlight link ExtraWhitespace RedrawDebugRecompose
-highlight LineNr ctermbg=NONE guibg=NONE
-highlight CurrentWordTwins gui=underline
-highlight CurrentWord gui=underline
+lua require('plugins')
+lua require('neovim')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc Keybindings
@@ -159,10 +124,3 @@ augroup tsbindings
   autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>lr :TSLspRenameFile<CR>
   autocmd Filetype typescript,javascript,typescriptreact,javascriptreact nmap <buffer><silent><leader>li :TSLspImportAll<CR>
 augroup end
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lua stuff
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-lua require('plugins')
-lua require('neovim')

@@ -29,6 +29,74 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 return {
+    vim = {
+        options = {
+            shortmess = 'filnxtToOFc',                  -- Silence warnings and abbreviate stuff
+            completeopt = { 'menuone', 'noselect' },    -- Always open popup and user selection
+            backspace = { 'indent', 'eol', 'start' },   -- Backspace context
+            pumheight = 30,                             -- Limit height of autocomplete popup
+            signcolumn = 'yes',                         -- Use sign column in gutter to prevent jumping
+            numberwidth = 4,                            -- Wide number gutter
+            relativenumber = true,                      -- Show number gutter as relative number
+            termguicolors = true,                       -- Respect terminal colors
+            hidden = true,                              -- Allow jumping between unsaved buffers
+            smartcase = true,                           -- Smart case handling in search
+            ignorecase = true,                          -- Ignore casing in highlights etc
+            incsearch = true,                           -- Incremental searches
+            showmode = false,                           -- No show mode
+            belloff = 'all',                            -- No error bells
+            wrap = false,                               -- No text wrapping
+            hlsearch = true,                            -- Highlight searches
+            showmatch = true,                           -- Show matching brackets, etc
+            ruler = true,                               -- Show ruler in status
+            cursorline = true,                          -- Show cursor line hightlight
+            title = true,                               -- Use window title
+            ai = true,                                  -- Use autoindent
+            expandtab = true,                           -- Spaces, not tabs
+            tabstop = 2,                                -- Default spacing
+            softtabstop = 2,                            -- Default spacing
+            shiftwidth = 2,                             -- Default spacing
+            foldlevel = 999,                            -- Expand all folds by default
+            updatetime = 1000,                          -- Lower CursorHold update times
+            foldmethod = 'expr',                        -- Use custom folding
+            foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
+            listchars = {                               -- Show symbols for certain special characters
+                nbsp = '¬',
+                tab = '·\\',
+                trail = '.',
+                precedes = '<',
+                extends = '>'
+            },
+
+            wildignore = {                               -- Ignore these file types
+                '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj',
+                '*.swp', '.tern-port', '*.tmp',
+                '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
+                '.git', '.svn', 'CVS',
+                'DS_Store'
+            }
+        },
+        highlights = {
+            LspDiagnosticsUnderlineError = { link = 'DiffDelete' },
+            LspDiagnosticsUnderlineWarning = { link = 'DiffChange' },
+            GitSignsCurrentLineBlame = { link = 'tscomment' },
+            ExtraWhitespace = { link = 'RedrawDebugRecompose' },
+            LineNr = { ctermbg = 'NONE', guibg = 'NONE' },
+            CurrentWordTwins = { gui = 'underline' },
+            CurrentWord = { gui = 'underline' }
+        },
+        aliases = {
+            ['*.heml'] = 'html',
+            ['*.rasi'] = 'css',
+            ['*.tl'] = 'teal'
+        },
+        rules = {
+            lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
+            python = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
+            php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
+        }
+    },
+
     lsp = {
         capabilities = capabilities,
         on_publish_diagnostics = {
