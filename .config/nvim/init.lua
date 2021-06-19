@@ -13,6 +13,7 @@ neovim.set_highlights(config.vim.highlights)
 neovim.set_aliases(config.vim.aliases)
 neovim.set_rules(config.vim.rules)
 neovim.set_keymaps(config.vim.keybindings)
+neovim.set_lsp_signs(config.lsp.signs)
 
 -- Highlight group for trailing whitespaces
 vim.cmd [[autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/]]
@@ -39,9 +40,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
     config.lsp.signature_help
 )
-
--- Assign icons
-for k, v in pairs(config.lsp.signs) do vim.fn.sign_define(k, v) end
 
 -- Plugins
 plugins.load()

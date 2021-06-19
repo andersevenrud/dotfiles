@@ -48,6 +48,13 @@ M.set_keymaps = function(keymaps)
     end
 end
 
+-- Signs
+M.set_lsp_signs = function(signs)
+    for k, v in pairs(signs) do
+        vim.fn.sign_define(k, v)
+    end
+end
+
 -- Converts wildcard options to a table
 M.wildcars_to_table = function(defaults)
     local result = {}
