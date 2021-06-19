@@ -33,4 +33,20 @@ M.collapse_tuple_array = function(a)
     return result
 end
 
+-- Extended LSP capabilities
+M.get_lsp_capabilities = function(extended)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    if extended then
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        capabilities.textDocument.completion.completionItem.resolveSupport = {
+            properties = {
+                'documentation',
+                'detail',
+                'additionalTextEdits',
+            }
+        }
+    end
+    return capabilities
+end
+
 return M

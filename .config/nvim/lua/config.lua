@@ -3,70 +3,15 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local secrets = require'secrets' -- ~/.config/nvim/lua/secrets.lua
+local secrets = require'secrets'
 local utils = require'utils'
 
 local border_style = 'single'
-
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
-    }
-}
+local capabilities = utils.get_lsp_capabilities(true)
 
 return {
-    diagnosticls = utils.collapse_tuple_array({
-        {
-            { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
-            {
-                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.eslint', {
-                    debounce = 1000,
-                    command = 'node_modules/.bin/eslint',
-                    rootPatterns = { 'package.json' },
-                    securities = {
-                        [1] = 'error',
-                        [2] = 'warning'
-                    }
-                }, { 'package.json' }),
-
-                formatter = utils.compose_diagnostic_config(require 'diagnosticls-nvim.formatters.prettier', {
-                    command = 'node_modules/.bin/prettier',
-                    rootPatterns = { 'package.json' },
-                }, { 'package.json' })
-            }
-        },
-        {
-            { 'scss', 'less', 'css' },
-            {
-                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.stylelint', {
-                    debounce = 1000,
-                    command = 'node_modules/.bin/stylelint',
-                    rootPatterns = { 'package.json' },
-                }, { 'package.json', '.stylelintrc', 'stylelint.config.js' })
-            }
-        },
-        {
-            { 'php' },
-            {
-                linter = require'diagnosticls-nvim.linters.phpcs'
-            }
-        }
-    }),
-
-    signs = {
-        LspDiagnosticsSignError = { text = '' },
-        LspDiagnosticsSignWarning = { text = '' },
-        LspDiagnosticsSignInformation = { text = '' },
-        LspDiagnosticsSignHint = { text = '' }
-    },
-
     lsp = {
         capabilities = capabilities,
         on_publish_diagnostics = {
@@ -77,7 +22,13 @@ return {
         },
         signature_help = {
             border = border_style
-        }
+        },
+        signs = {
+            LspDiagnosticsSignError = { text = '' },
+            LspDiagnosticsSignWarning = { text = '' },
+            LspDiagnosticsSignInformation = { text = '' },
+            LspDiagnosticsSignHint = { text = '' }
+        },
     },
 
     lsp_config = {
@@ -133,6 +84,44 @@ return {
             },
         },
     },
+
+    diagnosticls = utils.collapse_tuple_array({
+        {
+            { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
+            {
+                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.eslint', {
+                    debounce = 1000,
+                    command = 'node_modules/.bin/eslint',
+                    rootPatterns = { 'package.json' },
+                    securities = {
+                        [1] = 'error',
+                        [2] = 'warning'
+                    }
+                }, { 'package.json' }),
+
+                formatter = utils.compose_diagnostic_config(require 'diagnosticls-nvim.formatters.prettier', {
+                    command = 'node_modules/.bin/prettier',
+                    rootPatterns = { 'package.json' },
+                }, { 'package.json' })
+            }
+        },
+        {
+            { 'scss', 'less', 'css' },
+            {
+                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.stylelint', {
+                    debounce = 1000,
+                    command = 'node_modules/.bin/stylelint',
+                    rootPatterns = { 'package.json' },
+                }, { 'package.json', '.stylelintrc', 'stylelint.config.js' })
+            }
+        },
+        {
+            { 'php' },
+            {
+                linter = require'diagnosticls-nvim.linters.phpcs'
+            }
+        }
+    }),
 
     flutter_tools = {
         flutter_path = '/mnt/ssd-data/flutter/bin/flutter',

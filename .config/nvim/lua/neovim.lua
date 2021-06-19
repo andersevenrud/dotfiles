@@ -38,7 +38,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 )
 
 -- Assign icons
-for k, v in pairs(config.signs) do vim.fn.sign_define(k, v) end
+for k, v in pairs(config.lsp.signs) do vim.fn.sign_define(k, v) end
 
 ------------------------------------------------------------------------------
 -- Plugins
