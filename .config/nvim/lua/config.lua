@@ -4,12 +4,29 @@
 --
 
 local secrets = require'secrets'
-local utils = require'utils'
+
+local wildcars_to_table = function(defaults)
+    local result = {}
+    for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
+        local p = v:gsub('^*.(%a+)$', '%%.%1')
+        table.insert(result, p)
+    end
+    return vim.tbl_extend('keep', defaults, result)
+end
 
 local border_style = 'single'
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
-local capabilities = utils.get_lsp_capabilities(true)
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
+}
 
 return {
     lsp = {
@@ -84,44 +101,6 @@ return {
             },
         },
     },
-
-    diagnosticls = utils.collapse_tuple_array({
-        {
-            { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
-            {
-                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.eslint', {
-                    debounce = 1000,
-                    command = 'node_modules/.bin/eslint',
-                    rootPatterns = { 'package.json' },
-                    securities = {
-                        [1] = 'error',
-                        [2] = 'warning'
-                    }
-                }, { 'package.json' }),
-
-                formatter = utils.compose_diagnostic_config(require 'diagnosticls-nvim.formatters.prettier', {
-                    command = 'node_modules/.bin/prettier',
-                    rootPatterns = { 'package.json' },
-                }, { 'package.json' })
-            }
-        },
-        {
-            { 'scss', 'less', 'css' },
-            {
-                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.stylelint', {
-                    debounce = 1000,
-                    command = 'node_modules/.bin/stylelint',
-                    rootPatterns = { 'package.json' },
-                }, { 'package.json', '.stylelintrc', 'stylelint.config.js' })
-            }
-        },
-        {
-            { 'php' },
-            {
-                linter = require'diagnosticls-nvim.linters.phpcs'
-            }
-        }
-    }),
 
     flutter_tools = {
         flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
@@ -262,7 +241,7 @@ return {
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = utils.wildcars_to_table({
+                file_ignore_patterns = wildcars_to_table({
                     'package-lock.json',
                     'yarn.lock',
                     'composer.lock'

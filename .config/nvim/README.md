@@ -48,7 +48,7 @@ Additional language support:
 ### Requirements
 
 - `neovim >= 0.5` compiled with `tree-sitter`, `lua` and `python`
-- [`vim-plug`](https://github.com/junegunn/vim-plug#neovim) for plugin management
+- [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
 - `ripgrep`
 - `git`
 
@@ -75,14 +75,15 @@ return {
 
 ## Structure
 
-* `init.vim` - Plugins, options and keybindings
-* `lua/config.lua` - Configuration
-* `lua/neovim.lua` - Bootstrapping
-* `lua/utils.lua` - Utilities
+* `init.vim` - Vim setup
+* `lua/neovim.lua` - Neovim setup
+* `lua/config.lua` - General Configurations
+* `lua/diagnostics.lua` - Diagnostic configurations
+* `lua/plugins.lua` - Plugins
 
 ## Setup
 
-1. Use `:PlugInstall` to install plugins and everything else is set up the next time neovim is started.
+1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
 2. Use `:LspUpdate` to install language servers.
 
 ## Notes
