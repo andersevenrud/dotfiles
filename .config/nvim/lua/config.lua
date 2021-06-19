@@ -4,10 +4,7 @@
 --
 
 local secrets = require'secrets' -- ~/.config/nvim/lua/secrets.lua
-
--------------------------------------------------------------------------------
--- LSP
--------------------------------------------------------------------------------
+local utils = require'utils'
 
 local border_style = 'single'
 
@@ -24,91 +21,44 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
--------------------------------------------------------------------------------
--- Telescope
--------------------------------------------------------------------------------
+return {
+    diagnosticls = utils.collapse_tuple_array({
+        {
+            { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
+            {
+                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.eslint', {
+                    debounce = 1000,
+                    command = 'node_modules/.bin/eslint',
+                    rootPatterns = { 'package.json' },
+                    securities = {
+                        [1] = 'error',
+                        [2] = 'warning'
+                    }
+                }, { 'package.json' }),
 
-local file_ignore_patterns = {
-    'package-lock.json',
-    'yarn.lock',
-    'composer.lock'
-}
-
-for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
-    -- A very crude way to use wildignore list
-    local p = v:gsub('^*.(%a+)$', '%%.%1')
-    table.insert(file_ignore_patterns, p)
-end
-
--------------------------------------------------------------------------------
--- Diagnostics
--------------------------------------------------------------------------------
-
-local phpcs = require'diagnosticls-nvim.linters.phpcs'
-local eslintDefaults = require'diagnosticls-nvim.linters.eslint'
-local stylelintDefaults = require'diagnosticls-nvim.linters.stylelint'
-local prettierDefaults = require 'diagnosticls-nvim.formatters.prettier'
-
-local eslint = vim.tbl_extend('keep', {
-    debounce = 1000,
-    command = 'node_modules/.bin/eslint',
-    rootPatterns = { 'package.json' },
-    securities = {
-        [1] = 'error',
-        [2] = 'warning'
-    },
-    requiredFiles = vim.tbl_extend('keep', {
-        'package.json'
-    }, eslintDefaults.rootPatterns)
-}, eslintDefaults)
-
-local stylelint = vim.tbl_extend('keep', {
-    debounce = 1000,
-    command = 'node_modules/.bin/stylelint',
-    rootPatterns = { 'package.json' },
-    requiredFiles = vim.tbl_extend('keep', {
-        'package.json',
-        '.stylelintrc',
-        'stylelint.config.js'
-    }, stylelintDefaults.rootPatterns)
-}, stylelintDefaults)
-
-local prettier = vim.tbl_extend('keep', {
-    command = 'node_modules/.bin/prettier',
-    rootPatterns = { 'package.json' },
-    requiredFiles = vim.tbl_extend('keep', {
-        'package.json'
-    }, prettierDefaults.rootPatterns)
-}, prettierDefaults)
-
-local diagnostics = {
-    {
-        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
-        options = { linter = eslint, formatter = prettier }
-    },
-    {
-        filetypes = { 'scss', 'less', 'css' },
-        options = { linter = stylelint }
-    },
-    {
-        filetypes = { 'php' },
-        options = { linter = phpcs }
-    }
-}
-
-local diagnosticls = {}
-for _, v in ipairs(diagnostics) do
-    for _, ft in ipairs(v.filetypes) do
-        diagnosticls[ft] = v.options
-    end
-end
-
--------------------------------------------------------------------------------
--- Export
--------------------------------------------------------------------------------
-
-local M = {
-    diagnosticls = diagnosticls,
+                formatter = utils.compose_diagnostic_config(require 'diagnosticls-nvim.formatters.prettier', {
+                    command = 'node_modules/.bin/prettier',
+                    rootPatterns = { 'package.json' },
+                }, { 'package.json' })
+            }
+        },
+        {
+            { 'scss', 'less', 'css' },
+            {
+                linter = utils.compose_diagnostic_config(require'diagnosticls-nvim.linters.stylelint', {
+                    debounce = 1000,
+                    command = 'node_modules/.bin/stylelint',
+                    rootPatterns = { 'package.json' },
+                }, { 'package.json', '.stylelintrc', 'stylelint.config.js' })
+            }
+        },
+        {
+            { 'php' },
+            {
+                linter = require'diagnosticls-nvim.linters.phpcs'
+            }
+        }
+    }),
 
     signs = {
         LspDiagnosticsSignError = { text = '' },
@@ -323,7 +273,11 @@ local M = {
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = file_ignore_patterns
+                file_ignore_patterns = utils.wildcars_to_table({
+                    'package-lock.json',
+                    'yarn.lock',
+                    'composer.lock'
+                })
             }
         },
         extensions = {
@@ -374,5 +328,3 @@ local M = {
         colorscheme = 'nordbuddy'
     }
 }
-
-return M

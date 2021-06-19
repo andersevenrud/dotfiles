@@ -78,6 +78,7 @@ return {
 * `init.vim` - Plugins, options and keybindings
 * `lua/config.lua` - Configuration
 * `lua/neovim.lua` - Bootstrapping
+* `lua/utils.lua` - Utilities
 
 ## Setup
 

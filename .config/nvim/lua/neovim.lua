@@ -4,6 +4,7 @@
 --
 
 local config = require'config'
+local utils = require'utils'
 local nvim_lsp = require'lspconfig'
 
 ------------------------------------------------------------------------------
