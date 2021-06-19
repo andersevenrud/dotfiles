@@ -3,87 +3,59 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local config = require'config'
+local M = {}
 
-------------------------------------------------------------------------------
 -- Options
-------------------------------------------------------------------------------
-
-for k, v in pairs(config.vim.options) do
-    vim.opt[k] = v
-end
-
-------------------------------------------------------------------------------
--- Highlights
-------------------------------------------------------------------------------
-
-for k, v in pairs(config.vim.highlights) do
-    if v.link then
-        vim.highlight.link(k, v.link)
-    else
-        vim.highlight.create(k, v)
+M.set_options = function(options)
+    for k, v in pairs(options) do
+        vim.opt[k] = v
     end
 end
 
-------------------------------------------------------------------------------
--- Autocommands
-------------------------------------------------------------------------------
-
--- Highlight group for trailing whitespaces
-vim.cmd [[autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/]]
-vim.cmd [[autocmd InsertLeave * match ExtraWhitespace /\s\+$/]]
+-- Highlights
+M.set_highlights = function(highlights)
+    for k, v in pairs(highlights) do
+        if v.link then
+            vim.highlight.link(k, v.link)
+        else
+            vim.highlight.create(k, v)
+        end
+    end
+end
 
 -- Custom filetypes
-for k, v in pairs(config.vim.aliases) do
-    vim.cmd('autocmd BufNewFile,BufRead ' .. k .. ' set ft=' .. v)
+M.set_aliases = function(aliases)
+    for k, v in pairs(aliases) do
+        vim.cmd('autocmd BufNewFile,BufRead ' .. k .. ' set ft=' .. v)
+    end
 end
-
 
 -- Custom rules per filetype
-for k, v in pairs(config.vim.rules) do
-    local locals = {}
-    for a, b in pairs(v) do
-        table.insert(locals, string.format('%s=%s', a, b))
+M.set_rules = function(rules)
+    for k, v in pairs(rules) do
+        local locals = {}
+        for a, b in pairs(v) do
+            table.insert(locals, string.format('%s=%s', a, b))
+        end
+        vim.cmd('autocmd FileType ' .. k .. ' setlocal ' .. table.concat(locals, ' '))
     end
-    vim.cmd('autocmd FileType ' .. k .. ' setlocal ' .. table.concat(locals, ' '))
 end
 
--- Tmux widow titles
-if os.getenv('TMUX') then
-  vim.cmd [[autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")]]
-  vim.cmd [[autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))]]
-  vim.cmd [[autocmd VimLeave * call system("tmux rename-window bash")]]
-  vim.cmd [[autocmd BufEnter * let &titlestring = ' ' . expand("%:t")]]
-end
-
-------------------------------------------------------------------------------
 -- Keymaps
-------------------------------------------------------------------------------
-
-for _, v in ipairs(config.vim.keybindings) do
-    vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+M.set_keymaps = function(keymaps)
+    for _, v in ipairs(keymaps) do
+        vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+    end
 end
 
-------------------------------------------------------------------------------
--- LSP
-------------------------------------------------------------------------------
+-- Converts wildcard options to a table
+M.wildcars_to_table = function(defaults)
+    local result = {}
+    for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
+        local p = v:gsub('^*.(%a+)$', '%%.%1')
+        table.insert(result, p)
+    end
+    return vim.tbl_extend('keep', defaults, result)
+end
 
--- Hide the inline diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    config.lsp.on_publish_diagnostics
-)
-
--- Sets up borders around certain popups
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    config.lsp.hover
-)
-
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    config.lsp.signature_help
-)
-
--- Assign icons
-for k, v in pairs(config.lsp.signs) do vim.fn.sign_define(k, v) end
+return M

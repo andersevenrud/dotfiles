@@ -75,10 +75,10 @@ return {
 
 ## Structure
 
-* `init.vim` - Root file
-* `lua/neovim.lua` - Neovim setup
-* `lua/config.lua` - General Configurations
-* `lua/diagnostics.lua` - Diagnostic configurations
+* `init.lua` - Setup
+* `lua/neovim.lua` - Utilities
+* `lua/config.lua` - Configurations
+* `lua/diagnostics.lua` - Diagnostics
 * `lua/plugins.lua` - Plugins
 
 ## Setup

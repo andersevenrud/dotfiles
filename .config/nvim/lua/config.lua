@@ -4,15 +4,7 @@
 --
 
 local secrets = require'secrets'
-
-local wildcars_to_table = function(defaults)
-    local result = {}
-    for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
-        local p = v:gsub('^*.(%a+)$', '%%.%1')
-        table.insert(result, p)
-    end
-    return vim.tbl_extend('keep', defaults, result)
-end
+local neovim = require'neovim'
 
 local border_style = 'single'
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
@@ -394,7 +386,7 @@ return {
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = wildcars_to_table({
+                file_ignore_patterns = neovim.wildcars_to_table({
                     'package-lock.json',
                     'yarn.lock',
                     'composer.lock'
