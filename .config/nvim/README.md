@@ -75,7 +75,7 @@ return {
 
 ## Structure
 
-* `init.vim` - Vim setup
+* `init.vim` - Root file
 * `lua/neovim.lua` - Neovim setup
 * `lua/config.lua` - General Configurations
 * `lua/diagnostics.lua` - Diagnostic configurations
@@ -128,7 +128,3 @@ Disable tree-sitter integration.
 
 This setup relies on tree-sitter. So syntax is either not installed,
 is not an option at this moment.
-
-## TODO
-
-* Convert everything to Lua ?

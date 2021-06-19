@@ -94,6 +94,86 @@ return {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
             python = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
             php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
+        },
+        keybindings = {
+            -- Make C-c behave like ESC
+            { 'i', '<C-c>', '<ESC>', { noremap = true } },
+
+            -- Destroy buffer with C-w on leader
+            { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true } },
+
+            -- Don't increment search on '*'
+            { 'n', '*', '*``', { noremap = true } },
+            { 'n', '*', ':keepjumps normal! mi*`i<CR>', { noremap = true } },
+
+            -- Horizontal split resizing
+            { 'n',  '<leader>+', '<C-W>4>', { noremap = true } },
+            { 'n',  '<leader>-', '<C-W>4<', { noremap = true } },
+
+            -- Vertical split resizing
+            { 'n',  '<leader>?', '<C-W>4+', { noremap = true } },
+            { 'n',  '<leader>_', '<C-W>4-', { noremap = true } },
+
+            -- Rebind vertical arrows to scrolling
+            { 'n',  '<Up>', '<C-y>', { noremap = true } },
+            { 'n',  '<Down>', '<C-e>', { noremap = true } },
+
+            -- Rebind horizontal arrows to tab switching
+            { 'n',  '<Right>', 'gt', { noremap = true } },
+            { 'n',  '<Left>', 'gT', { noremap = true } },
+
+            -- Close all buffers
+            { 'n', '<leader>bd', '<cmd>%bd<cr>', { noremap = true } },
+
+            -- LSP
+            { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true } },
+            { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true } },
+            { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true } },
+            { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true } },
+            { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true } },
+            { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true } },
+            { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', { noremap = true, silent = true } },
+            { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true } },
+            { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true } },
+
+            -- Telescope
+            { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true } },
+            { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true } },
+            { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true } },
+            { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true } },
+
+            -- neogit keybindings
+            { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true } },
+
+            -- Vim Tree keybindings
+            { 'n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true } },
+            { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true } },
+            { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
+
+            -- Compe keybindings
+            { 'i', '<expr> <C-Space>', [[compe#complete()]], { noremap = true, silent = true } },
+            { 'i', '<expr> <CR>', [[compe#confirm('<CR>')]], { noremap = true, silent = true } },
+            { 'i', '<expr> <C-e>', [[compe#close('<C-e>')]], { noremap = true, silent = true } },
+            { 'i', '<expr> <C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap = true, silent = true } },
+            { 'i', '<expr> <C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap = true, silent = true } },
+
+            -- vim snip keybindings
+            { 'i', '<expr> <C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']] },
+            { 's', '<expr> <C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']] },
+
+            -- trouble keybindings
+            { 'n', '<leader>fd', '<cmd>LspTroubleToggle<cr>', { noremap = true, silent = true } },
+
+            -- symbols-outline keybindings
+            { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
         }
     },
 
@@ -138,10 +218,15 @@ return {
             },
         },
         tsserver = {
-            on_attach = function(client)
+            on_attach = function(client, bufnr)
                 local ts_utils = require'nvim-lsp-ts-utils'
                 ts_utils.setup{}
                 ts_utils.setup_client(client)
+
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', ':TSLspOrganize<CR>', { silent = true })
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'qq', ':TSLspFixCurrent<CR>', { silent = true })
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', ':TSLspRenameFile<CR>', { silent = true })
+                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', ':TSLspImportAll<CR>', { silent = true })
             end
         },
         sumneko_lua = {

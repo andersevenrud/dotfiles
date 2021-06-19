@@ -9,12 +9,14 @@ local config = require'config'
 -- Options
 ------------------------------------------------------------------------------
 
--- Options
 for k, v in pairs(config.vim.options) do
     vim.opt[k] = v
 end
 
+------------------------------------------------------------------------------
 -- Highlights
+------------------------------------------------------------------------------
+
 for k, v in pairs(config.vim.highlights) do
     if v.link then
         vim.highlight.link(k, v.link)
@@ -22,6 +24,10 @@ for k, v in pairs(config.vim.highlights) do
         vim.highlight.create(k, v)
     end
 end
+
+------------------------------------------------------------------------------
+-- Autocommands
+------------------------------------------------------------------------------
 
 -- Highlight group for trailing whitespaces
 vim.cmd [[autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/]]
@@ -48,6 +54,14 @@ if os.getenv('TMUX') then
   vim.cmd [[autocmd BufEnter * call system("tmux rename-window " . expand("%:t"))]]
   vim.cmd [[autocmd VimLeave * call system("tmux rename-window bash")]]
   vim.cmd [[autocmd BufEnter * let &titlestring = ' ' . expand("%:t")]]
+end
+
+------------------------------------------------------------------------------
+-- Keymaps
+------------------------------------------------------------------------------
+
+for _, v in ipairs(config.vim.keybindings) do
+    vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
 end
 
 ------------------------------------------------------------------------------
