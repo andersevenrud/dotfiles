@@ -186,10 +186,23 @@ require('packer').startup(function(use)
     use 'rafamadriz/friendly-snippets'
 
     -- LSP
-    use 'neovim/nvim-lspconfig'
     use 'alexaandru/nvim-lspupdate'
     use 'jose-elias-alvarez/nvim-lsp-ts-utils'
     use 'arkav/lualine-lsp-progress'
+    use {
+        'neovim/nvim-lspconfig',
+        config = function()
+            local config = require'config'
+            local nvim_lsp = require'lspconfig'
+            for k, v in pairs(config.lsp_config) do
+                local options = vim.tbl_extend('keep', {
+                    capabilities = config.lsp.capabilities
+                }, v)
+
+                nvim_lsp[k].setup(options)
+            end
+        end
+    }
     use {
         'onsails/lspkind-nvim',
         config = function()
