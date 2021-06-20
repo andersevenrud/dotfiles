@@ -166,6 +166,18 @@ return {
 
             -- symbols-outline keybindings
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
+
+            -- nvim-lsp-ts-utils
+            {
+                lsp = 'tsserver',
+                keybindings = {
+                    { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true } },
+                    { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true } },
+                    { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true } },
+                    { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true } }
+                }
+            }
+
         }
     },
 
@@ -234,15 +246,6 @@ return {
                 },
             },
         },
-    },
-
-    nvim_lsp_ts_utils = {
-        keybindings = {
-            { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true } },
-            { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true } },
-            { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true } },
-            { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true } }
-        }
     },
 
     flutter_tools = {

@@ -46,10 +46,16 @@ end
 -- Keymaps
 M.set_keymaps = function(keymaps, bufnr)
     for _, v in ipairs(keymaps) do
-        if bufnr ~= nil then
-            vim.api.nvim_buf_set_keymap(bufnr, v[1], v[2], v[3], v[4] and v[4] or {})
+        if v.lsp ~= nil then
+            M.add_on_attach(v.lsp, function(_, bnr)
+                M.set_keymaps(v.keybindings, bnr)
+            end)
         else
-            vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+            if bufnr ~= nil then
+                vim.api.nvim_buf_set_keymap(bufnr, v[1], v[2], v[3], v[4] and v[4] or {})
+            else
+                vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+            end
         end
     end
 end

@@ -186,11 +186,10 @@ M.load = function()
         use {
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             config = hoc(function(config, neovim)
-                neovim.add_on_attach('tsserver', function(client, bufnr)
+                neovim.add_on_attach('tsserver', function(client)
                     local ts_utils = require'nvim-lsp-ts-utils'
                     ts_utils.setup{}
                     ts_utils.setup_client(client)
-                    neovim.set_keymaps(config.nvim_lsp_ts_utils.keybindings, bufnr)
                 end)
             end)
         }
