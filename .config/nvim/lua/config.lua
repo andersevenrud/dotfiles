@@ -250,6 +250,12 @@ return {
         }
     },
 
+    packer = {
+        profile = {
+            enable = false
+        }
+    },
+
     flutter_tools = {
         flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
         lsp = {

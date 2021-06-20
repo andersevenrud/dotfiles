@@ -4,13 +4,13 @@
 --
 
 local M = {}
+local config = require'config'
+local neovim = require'neovim'
 
-local hoc = function(fn)
-    fn(require'config', require'neovim')
-end
+local hoc = function(fn) fn(config, neovim) end
 
 M.load = function()
-    require('packer').startup(function(use)
+    local startup = function(use)
         -- Dependencies
         use 'wbthomason/packer.nvim'
         use 'nvim-lua/popup.nvim'
@@ -240,7 +240,12 @@ M.load = function()
                 require'flutter-tools'.setup(config.flutter_tools)
             end)
         }
-    end)
+    end
+
+    require('packer').startup({
+        startup,
+        config = config.packer
+    })
 end
 
 return M
