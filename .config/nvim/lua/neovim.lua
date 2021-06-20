@@ -105,6 +105,13 @@ M.autocmds_ns = function(ns, cmds)
     vim.cmd('augroup END')
 end
 
+-- Wrapper for autocmds_ns over entries
+M.set_auto_commands = function(entries)
+    for ns, cmds in pairs(entries) do
+        M.autocmds_ns(ns, cmds)
+    end
+end
+
 -- Converts wildcard options to a table
 M.wildcars_to_table = function()
     local result = {}
@@ -145,9 +152,9 @@ M.run_on_attach = function(ns, ...)
 end
 
 -- Packer.nvim plugin loader wrapper
-M.packer_load = function(list, config, shims)
+M.packer_load = function(config, shims)
     local startup = function(use)
-        for _, v in ipairs(list) do
+        for _, v in ipairs(config.load) do
             if type(v) == 'string' and shims[v] then
                 use(shims[v])
             else
@@ -158,8 +165,21 @@ M.packer_load = function(list, config, shims)
 
     require'packer'.startup({
         startup,
-        config = config
+        config = config.options
     })
+end
+
+-- Initialization wrapper
+M.load = function(config, shims)
+    M.set_options(config.vim.options)
+    M.set_highlights(config.vim.highlights)
+    M.set_aliases(config.vim.aliases)
+    M.set_rules(config.vim.rules)
+    M.set_keymaps(config.vim.keybindings)
+    M.set_lsp_signs(config.lsp.signs)
+    M.set_lsp_options(config.lsp.options)
+    M.set_auto_commands(config.vim.autocommands)
+    M.packer_load(config.packer, shims(config, M))
 end
 
 return M

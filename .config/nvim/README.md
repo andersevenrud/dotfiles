@@ -75,9 +75,8 @@ return {
 
 ## Structure
 
-* `init.lua` - Setup
-* `lua/neovim.lua` - Utilities
-* `lua/config.lua` - Configurations
+* `init.lua` - Bootstrap and configuration
+* `lua/neovim.lua` - Abstractions
 * `lua/diagnostics.lua` - Diagnostics
 * `lua/shims.lua` - Plugin shims
 
