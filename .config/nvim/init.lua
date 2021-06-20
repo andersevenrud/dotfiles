@@ -82,7 +82,6 @@ neovim.load({
                 precedes = '<',
                 extends = '>'
             },
-
             wildignore = {                               -- Ignore these file types
                 '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj',
                 '*.swp', '.tern-port', '*.tmp',
@@ -220,10 +219,6 @@ neovim.load({
         servers = {
             --diagnosticls = {}, -- see diagnosticls-nvim
             --dartls = {}, -- See flutter-tools
-            tailwindcss = {
-                -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
-                cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
-            },
             jsonls = {},
             dockerls = {},
             yamlls = {},
@@ -234,6 +229,10 @@ neovim.load({
             rust_analyzer = {},
             svelte = {},
             tsserver = {},
+            tailwindcss = {
+                -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
+                cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
+            },
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
