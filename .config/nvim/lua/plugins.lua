@@ -50,8 +50,8 @@ M.load = function()
         use {
             'maaslalani/nordbuddy',
             requires = { 'tjdevries/colorbuddy.nvim' },
-            config = hoc(function(config)
-                for k, v in pairs(config.nordbuddy) do vim.g['nord_' .. k] = v end
+            config = hoc(function(config, neovim)
+                neovim.apply_globals(config.nordbuddy, 'nord_')
                 require'colorbuddy'.colorscheme(config.colorbuddy.colorscheme)
             end)
         }
@@ -179,17 +179,29 @@ M.load = function()
 
         -- LSP
         use 'alexaandru/nvim-lspupdate'
-        use 'jose-elias-alvarez/nvim-lsp-ts-utils'
         use 'arkav/lualine-lsp-progress'
         use {
+            'jose-elias-alvarez/nvim-lsp-ts-utils',
+            config = hoc(function(config, neovim)
+                neovim.add_on_attach('tsserver', function(client, bufnr)
+                    local ts_utils = require'nvim-lsp-ts-utils'
+                    ts_utils.setup{}
+                    ts_utils.setup_client(client)
+                    neovim.set_keymaps(config.nvim_lsp_ts_utils.keybindings, bufnr)
+                end)
+            end)
+        }
+        use {
             'neovim/nvim-lspconfig',
-            config = hoc(function(config)
+            config = hoc(function(config, neovim)
                 local nvim_lsp = require'lspconfig'
                 for k, v in pairs(config.lsp_config) do
                     local options = vim.tbl_extend('keep', {
-                        capabilities = config.lsp.capabilities
+                        capabilities = config.lsp.capabilities,
+                        on_attach = function(...)
+                            neovim.run_on_attach(k, ...)
+                        end
                     }, v)
-
                     nvim_lsp[k].setup(options)
                 end
             end)

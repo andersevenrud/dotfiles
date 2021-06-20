@@ -5,6 +5,8 @@
 
 local M = {}
 
+local on_attach_list = {}
+
 -- Options
 M.set_options = function(options)
     for k, v in pairs(options) do
@@ -42,9 +44,13 @@ M.set_rules = function(rules)
 end
 
 -- Keymaps
-M.set_keymaps = function(keymaps)
+M.set_keymaps = function(keymaps, bufnr)
     for _, v in ipairs(keymaps) do
-        vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+        if bufnr ~= nil then
+            vim.api.nvim_buf_set_keymap(bufnr, v[1], v[2], v[3], v[4] and v[4] or {})
+        else
+            vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
+        end
     end
 end
 
@@ -83,6 +89,27 @@ M.apply_globals = function(list, prefix)
     prefix = prefix and prefix or ''
     for k, v in pairs(list) do
         vim.g[prefix .. k] = v
+    end
+end
+
+-- Creates a binding used for lsp on_attach
+M.add_on_attach = function(ns, fn)
+    if on_attach_list[ns] == nil then
+        on_attach_list[ns] = {}
+    end
+
+    table.insert(on_attach_list[ns], fn)
+end
+
+-- Runs all bindings used for lsp on_attach
+M.run_on_attach = function(ns, ...)
+    local list = on_attach_list[ns]
+    if list == nil then
+        return
+    end
+
+    for _, fn in ipairs(list) do
+        fn(...)
     end
 end
 

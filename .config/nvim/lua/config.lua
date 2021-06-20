@@ -204,22 +204,11 @@ return {
         html = {},
         rust_analyzer = {},
         svelte = {},
+        tsserver = {},
         intelephense = {
             init_options = {
                 licenceKey = secrets.intelephense.licenceKey,
             },
-        },
-        tsserver = {
-            on_attach = function(client, bufnr)
-                local ts_utils = require'nvim-lsp-ts-utils'
-                ts_utils.setup{}
-                ts_utils.setup_client(client)
-
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', ':TSLspOrganize<CR>', { silent = true })
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'qq', ':TSLspFixCurrent<CR>', { silent = true })
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', ':TSLspRenameFile<CR>', { silent = true })
-                vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', ':TSLspImportAll<CR>', { silent = true })
-            end
         },
         sumneko_lua = {
             cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
@@ -245,6 +234,15 @@ return {
                 },
             },
         },
+    },
+
+    nvim_lsp_ts_utils = {
+        keybindings = {
+            { 'n', 'gs', ':TSLspOrganize<CR>', { silent = true } },
+            { 'n', 'qq', ':TSLspFixCurrent<CR>', { silent = true } },
+            { 'n', 'gr', ':TSLspRenameFile<CR>', { silent = true } },
+            { 'n', 'gi', ':TSLspImportAll<CR>', { silent = true } }
+        }
     },
 
     flutter_tools = {
