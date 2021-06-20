@@ -51,7 +51,6 @@ return {
         config = function()
             require'todo-comments'.setup{}
         end
-
     },
     ['nacro90/numb.nvim'] = {
         config = function()

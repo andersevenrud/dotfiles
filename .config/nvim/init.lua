@@ -171,29 +171,29 @@ neovim.load({
             { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true } },
             { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true } },
 
-            -- neogit keybindings
+            -- neogit
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true } },
 
-            -- Vim Tree keybindings
+            -- nvim-tree
             { 'n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true } },
             { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true } },
             { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
 
-            -- Compe keybindings
+            -- compe
             { 'i', '<C-Space>', [[compe#complete()]], { noremap = true, silent = true, expr = true } },
             { 'i', '<CR>', [[compe#confirm('<CR>')]], { noremap = true, silent = true, expr = true } },
             { 'i', '<C-e>', [[compe#close('<C-e>')]], { noremap = true, silent = true, expr = true } },
             { 'i', '<C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap = true, silent = true, expr = true } },
             { 'i', '<C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap = true, silent = true, expr = true } },
 
-            -- vim snip keybindings
+            -- vsnip
             { 'i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
             { 's', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
 
-            -- trouble keybindings
+            -- trouble
             { 'n', '<leader>fd', '<cmd>LspTroubleToggle<cr>', { noremap = true, silent = true } },
 
-            -- symbols-outline keybindings
+            -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
 
             -- nvim-lsp-ts-utils
@@ -206,7 +206,6 @@ neovim.load({
                     { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true } }
                 }
             }
-
         }
     },
 
@@ -277,6 +276,10 @@ neovim.load({
             }
         }
     },
+
+    --
+    -- Plugins
+    --
 
     packer = {
         options = {

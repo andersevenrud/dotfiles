@@ -2,6 +2,9 @@
 
 My **neovim 0.5+** configuration.
 
+This setup is built on custom abstractions that provides a single point of
+configuration and shims in an attempt to make customization less spaghetti.
+
 ## Features
 
 * Auto tags, indentation, parentheses, etc.
