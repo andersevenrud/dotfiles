@@ -5,6 +5,10 @@
 
 local M = {}
 
+local hoc = function(fn)
+    fn(require'config', require'neovim')
+end
+
 M.load = function()
     require('packer').startup(function(use)
         -- Dependencies
@@ -16,10 +20,9 @@ M.load = function()
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'nvim-treesitter.configs'.setup(config.treesitter)
-            end
+            end)
         }
 
         -- UI
@@ -28,33 +31,29 @@ M.load = function()
         use 'haringsrob/nvim_context_vt'
         use {
             'norcalli/nvim-colorizer.lua',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'colorizer'.setup(config.colorizer.filetypes, config.colorizer.options)
-            end
+            end)
         }
         use {
             'hoob3rt/lualine.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'lualine'.setup(config.lualine)
-            end
+            end)
         }
         use {
             'lewis6991/gitsigns.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'gitsigns'.setup(config.gitsigns)
-            end
+            end)
         }
         use {
             'maaslalani/nordbuddy',
             requires = { 'tjdevries/colorbuddy.nvim' },
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 for k, v in pairs(config.nordbuddy) do vim.g['nord_' .. k] = v end
                 require'colorbuddy'.colorscheme(config.colorbuddy.colorscheme)
-            end
+            end)
         }
 
         -- Editing
@@ -64,10 +63,9 @@ M.load = function()
         use 'matze/vim-move'
         use {
             'windwp/nvim-autopairs',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'nvim-autopairs'.setup(config.npairs)
-            end
+            end)
         }
 
         -- Navigation
@@ -80,45 +78,40 @@ M.load = function()
         }
         use {
             'nacro90/numb.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'numb'.setup(config.numb)
-            end
+            end)
         }
         use {
             'nvim-telescope/telescope.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 local telescope = require'telescope'
                 telescope.setup(config.telescope.setup)
                 for _, v in ipairs(config.telescope.extensions) do telescope.load_extension(v) end
-            end
+            end)
         }
         use {
             'kyazdani42/nvim-tree.lua';
-            config = function()
-                local config = require'config'
-                for k, v in pairs(config.nvim_tree) do vim.g['nvim_tree_' .. k] = v end
-            end
+            config = hoc(function(config, neovim)
+                neovim.apply_globals(config.nvim_tree, 'nvim_tree_')
+            end)
         }
 
         -- Debugging
         use 'mfussenegger/nvim-dap'
         use {
             'theHamsta/nvim-dap-virtual-text',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 vim.g.dap_virtual_text = config.dap_virtual_text.enabled
-            end
+            end)
         }
         use {
             'Pocco81/DAPInstall.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 local dap = require'dap-install'
                 dap.setup(config.dap_install.setup)
                 for _, v in ipairs(config.dap_install.install) do dap.config(v, {}) end
-            end
+            end)
         }
 
         -- Utilities
@@ -132,25 +125,22 @@ M.load = function()
         }
         use {
             'TimUntersberger/neogit',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'neogit'.setup(config.neogit)
-            end
+            end)
         }
         use {
             'euclio/vim-markdown-composer',
             run = 'cargo build --release',
-            config = function()
-                local config = require'config'
-                for k, v in pairs(config.markdown_composer) do vim.g['markdown_composer_' .. k] = v end
-            end
+            config = hoc(function(config, neovim)
+                neovim.apply_globals(config.markdown_composer, 'markdown_composer_')
+            end)
         }
 
         -- Autocomplete
         use {
             'hrsh7th/nvim-compe',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'compe'.setup(config.compe)
 
                 -- Add basic snippet support when language server does not
@@ -172,7 +162,7 @@ M.load = function()
 
                 -- Run vsnip on startup and not on demand to reduce latency on initial completion
                 vim.api.nvim_exec('autocmd FileType * call vsnip#get_complete_items(bufnr())', false)
-            end
+            end)
         }
         use {
             'tzachar/compe-tabnine',
@@ -193,8 +183,7 @@ M.load = function()
         use 'arkav/lualine-lsp-progress'
         use {
             'neovim/nvim-lspconfig',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 local nvim_lsp = require'lspconfig'
                 for k, v in pairs(config.lsp_config) do
                     local options = vim.tbl_extend('keep', {
@@ -203,7 +192,7 @@ M.load = function()
 
                     nvim_lsp[k].setup(options)
                 end
-            end
+            end)
         }
         use {
             'onsails/lspkind-nvim',
@@ -219,10 +208,9 @@ M.load = function()
         }
         use {
             'ray-x/lsp_signature.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'lsp_signature'.on_attach(config.lsp_signature)
-            end
+            end)
         }
         use {
             'creativenull/diagnosticls-nvim',
@@ -234,10 +222,9 @@ M.load = function()
         }
         use {
             'akinsho/flutter-tools.nvim',
-            config = function()
-                local config = require'config'
+            config = hoc(function(config)
                 require'flutter-tools'.setup(config.flutter_tools)
-            end
+            end)
         }
     end)
 end

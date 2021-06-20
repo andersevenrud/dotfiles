@@ -78,4 +78,12 @@ M.wildcars_to_table = function(defaults)
     return vim.tbl_extend('keep', defaults, result)
 end
 
+-- Wrapper for applying globals
+M.apply_globals = function(list, prefix)
+    prefix = prefix and prefix or ''
+    for k, v in pairs(list) do
+        vim.g[prefix .. k] = v
+    end
+end
+
 return M
