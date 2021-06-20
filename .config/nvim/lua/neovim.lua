@@ -3,7 +3,9 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local M = {}
+local M = {
+    c = {}
+}
 
 local on_attach_list = {}
 
@@ -156,7 +158,8 @@ M.packer_load = function(config, shims)
     local startup = function(use)
         for _, v in ipairs(config.load) do
             if type(v) == 'string' and shims[v] then
-                use(shims[v])
+                local s = vim.tbl_deep_extend('keep', { v }, shims[v])
+                use(s)
             else
                 use(v)
             end
@@ -171,6 +174,8 @@ end
 
 -- Initialization wrapper
 M.load = function(config, shims)
+    M.c = config
+
     M.set_options(config.vim.options)
     M.set_highlights(config.vim.highlights)
     M.set_aliases(config.vim.aliases)
@@ -179,7 +184,7 @@ M.load = function(config, shims)
     M.set_lsp_signs(config.lsp.signs)
     M.set_lsp_options(config.lsp.options)
     M.set_auto_commands(config.vim.autocommands)
-    M.packer_load(config.packer, shims(config, M))
+    M.packer_load(config.packer, shims)
 end
 
 return M
