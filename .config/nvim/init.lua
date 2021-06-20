@@ -14,6 +14,7 @@ neovim.set_aliases(config.vim.aliases)
 neovim.set_rules(config.vim.rules)
 neovim.set_keymaps(config.vim.keybindings)
 neovim.set_lsp_signs(config.lsp.signs)
+neovim.set_lsp_options(config.lsp.options)
 
 -- Highlight group for trailing whitespaces
 neovim.autocmds{
@@ -30,20 +31,6 @@ if os.getenv('TMUX') then
         { { 'BufEnter' }, '*', [[let &titlestring = ' ' . expand("%:t")]] }
     }
 end
-
--- Customize LSP handlers
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    config.lsp.on_publish_diagnostics
-)
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    config.lsp.hover
-)
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    config.lsp.signature_help
-)
 
 -- Plugins
 plugins.load()

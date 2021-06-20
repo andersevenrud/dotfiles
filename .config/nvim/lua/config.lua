@@ -184,15 +184,6 @@ return {
 
     lsp = {
         capabilities = capabilities,
-        on_publish_diagnostics = {
-            virtual_text = false
-        },
-        hover = {
-            border = border_style
-        },
-        signature_help = {
-            border = border_style
-        },
         signs = {
             LspDiagnosticsSignError = { text = '' },
             LspDiagnosticsSignWarning = { text = '' },
@@ -246,6 +237,17 @@ return {
                 },
             },
         },
+        options = {
+            ['textDocument/publishDiagnostics'] = {
+                virtual_text = false
+            },
+            ['textDocument/hover'] = {
+                border = border_style
+            },
+            ['textDocument/signatureHelp'] = {
+                border = border_style
+            }
+        }
     },
 
     flutter_tools = {

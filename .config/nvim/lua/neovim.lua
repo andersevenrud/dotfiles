@@ -7,6 +7,12 @@ local M = {}
 
 local on_attach_list = {}
 
+local lsp_handlers = {
+    ['textDocument/publishDiagnostics'] = vim.lsp.diagnostic.on_publish_diagnostics,
+    ['textDocument/hover'] = vim.lsp.handlers.hover,
+    ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
+}
+
 -- Options
 M.set_options = function(options)
     for k, v in pairs(options) do
@@ -60,10 +66,21 @@ M.set_keymaps = function(keymaps, bufnr)
     end
 end
 
--- Signs
+-- LSP Signs
 M.set_lsp_signs = function(signs)
     for k, v in pairs(signs) do
         vim.fn.sign_define(k, v)
+    end
+end
+
+-- LSP Handler options
+M.set_lsp_options = function(options)
+    for k, v in pairs(options) do
+
+        vim.lsp.handlers[k] = vim.lsp.with(
+            lsp_handlers[k],
+            v
+        )
     end
 end
 
