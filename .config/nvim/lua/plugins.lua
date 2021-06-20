@@ -139,43 +139,46 @@ M.load = function()
 
         -- Autocomplete
         use {
-            'hrsh7th/nvim-compe',
-            config = hoc(function(config)
-                require'compe'.setup(config.compe)
+            {
+                'hrsh7th/nvim-compe',
+                config = hoc(function(config)
+                    require'compe'.setup(config.compe)
 
-                -- Add basic snippet support when language server does not
-                -- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
-                -- Ref: https://github.com/hrsh7th/nvim-compe/issues/302
-                local Helper = require'compe.helper'
-                Helper.convert_lsp_orig = Helper.convert_lsp
-                Helper.convert_lsp = function(args)
-                    local response = args.response or {}
-                    local items = response.items or response
-                    for _, item in ipairs(items) do
-                        if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
-                            item.insertText = item.label .. '(${1})'
-                            item.insertTextFormat = 2
+                    -- Add basic snippet support when language server does not
+                    -- Replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
+                    -- Ref: https://github.com/hrsh7th/nvim-compe/issues/302
+                    local Helper = require'compe.helper'
+                    Helper.convert_lsp_orig = Helper.convert_lsp
+                    Helper.convert_lsp = function(args)
+                        local response = args.response or {}
+                        local items = response.items or response
+                        for _, item in ipairs(items) do
+                            if item.insertText == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
+                                item.insertText = item.label .. '(${1})'
+                                item.insertTextFormat = 2
+                            end
                         end
+                        return Helper.convert_lsp_orig(args)
                     end
-                    return Helper.convert_lsp_orig(args)
-                end
 
-                -- Run vsnip on startup and not on demand to reduce latency on initial completion
-                vim.api.nvim_exec('autocmd FileType * call vsnip#get_complete_items(bufnr())', false)
-            end)
+                    -- Run vsnip on startup and not on demand to reduce latency on initial completion
+                    vim.api.nvim_exec('autocmd FileType * call vsnip#get_complete_items(bufnr())', false)
+                end),
+            },
+            {
+                'tzachar/compe-tabnine',
+                run = './install.sh'
+            },
+            {
+                'andersevenrud/compe-tmux',
+            },
+            {
+                'hrsh7th/vim-vsnip'
+            },
+            {
+                'rafamadriz/friendly-snippets'
+            }
         }
-        use {
-            'tzachar/compe-tabnine',
-            run = './install.sh',
-            requires = { 'hrsh7th/nvim-compe' }
-        }
-        use {
-            'andersevenrud/compe-tmux',
-            requires = { 'hrsh7th/nvim-compe' },
-            disabled = true
-        }
-        use 'hrsh7th/vim-vsnip'
-        use 'rafamadriz/friendly-snippets'
 
         -- LSP
         use 'alexaandru/nvim-lspupdate'
