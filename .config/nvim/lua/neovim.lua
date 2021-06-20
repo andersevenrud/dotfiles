@@ -97,6 +97,14 @@ M.autocmds = function(cmds)
     end
 end
 
+-- Wrapper for multiple commands with a namespace
+M.autocmds_ns = function(ns, cmds)
+    vim.cmd('augroup ' .. ns)
+    vim.cmd('autocmd!')
+    M.autocmds(cmds)
+    vim.cmd('augroup END')
+end
+
 -- Converts wildcard options to a table
 M.wildcars_to_table = function()
     local result = {}
