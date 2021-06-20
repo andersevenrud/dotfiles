@@ -55,6 +55,19 @@ M.set_lsp_signs = function(signs)
     end
 end
 
+-- Autocmd
+M.autocmd = function(cmd)
+    local group = table.concat(cmd[1], ',')
+    vim.cmd(string.format('autocmd %s %s %s', group, cmd[2], cmd[3]))
+end
+
+-- Wrapper for multiple commands
+M.autocmds = function(cmds)
+    for _, c in pairs(cmds) do
+        M.autocmd(c)
+    end
+end
+
 -- Converts wildcard options to a table
 M.wildcars_to_table = function(defaults)
     local result = {}
