@@ -79,7 +79,7 @@ return {
 * `lua/neovim.lua` - Utilities
 * `lua/config.lua` - Configurations
 * `lua/diagnostics.lua` - Diagnostics
-* `lua/plugins.lua` - Plugins
+* `lua/shims.lua` - Plugin shims
 
 ## Setup
 

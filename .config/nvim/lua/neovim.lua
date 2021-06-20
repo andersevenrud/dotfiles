@@ -144,4 +144,22 @@ M.run_on_attach = function(ns, ...)
     end
 end
 
+-- Packer.nvim plugin loader wrapper
+M.packer_load = function(list, config, shims)
+    local startup = function(use)
+        for _, v in ipairs(list) do
+            if type(v) == 'string' and shims[v] then
+                use(shims[v])
+            else
+                use(v)
+            end
+        end
+    end
+
+    require'packer'.startup({
+        startup,
+        config = config
+    })
+end
+
 return M
