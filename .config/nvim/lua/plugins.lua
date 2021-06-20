@@ -37,10 +37,15 @@ M.load = function()
             end)
         }
         use {
-            'hoob3rt/lualine.nvim',
-            config = hoc(function(c)
-                require'lualine'.setup(c.lualine)
-            end)
+            {
+                'hoob3rt/lualine.nvim',
+                config = hoc(function(c)
+                    require'lualine'.setup(c.lualine)
+                end)
+            },
+            {
+                'arkav/lualine-lsp-progress'
+            }
         }
         use {
             'lewis6991/gitsigns.nvim',
@@ -99,20 +104,22 @@ M.load = function()
         }
 
         -- Debugging
-        use 'mfussenegger/nvim-dap'
         use {
-            'theHamsta/nvim-dap-virtual-text',
-            config = hoc(function(c)
-                vim.g.dap_virtual_text = c.dap_virtual_text.enabled
-            end)
-        }
-        use {
-            'Pocco81/DAPInstall.nvim',
-            config = hoc(function(c)
-                local dap = require'dap-install'
-                dap.setup(c.dap_install.setup)
-                for _, v in ipairs(c.dap_install.install) do dap.config(v, {}) end
-            end)
+            { 'mfussenegger/nvim-dap' },
+            {
+                'theHamsta/nvim-dap-virtual-text',
+                config = hoc(function(c)
+                    vim.g.dap_virtual_text = c.dap_virtual_text.enabled
+                end)
+            },
+            {
+                'Pocco81/DAPInstall.nvim',
+                config = hoc(function(c)
+                    local dap = require'dap-install'
+                    dap.setup(c.dap_install.setup)
+                    for _, v in ipairs(c.dap_install.install) do dap.config(v, {}) end
+                end)
+            }
         }
 
         -- Utilities
@@ -182,8 +189,6 @@ M.load = function()
         }
 
         -- LSP
-        use 'alexaandru/nvim-lspupdate'
-        use 'arkav/lualine-lsp-progress'
         use {
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             config = hoc(function(c, n)
@@ -195,19 +200,22 @@ M.load = function()
             end)
         }
         use {
-            'n/nvim-lspconfig',
-            config = hoc(function(c, n)
-                local nvim_lsp = require'lspconfig'
-                for k, v in pairs(c.lsp.servers) do
-                    local options = vim.tbl_extend('keep', {
-                        capabilities = c.lsp.capabilities,
-                        on_attach = function(...)
-                            n.run_on_attach(k, ...)
-                        end
-                    }, v)
-                    nvim_lsp[k].setup(options)
-                end
-            end)
+            {
+                'neovim/nvim-lspconfig',
+                config = hoc(function(c, n)
+                    local nvim_lsp = require'lspconfig'
+                    for k, v in pairs(c.lsp.servers) do
+                        local options = vim.tbl_extend('keep', {
+                            capabilities = c.lsp.capabilities,
+                            on_attach = function(...)
+                                n.run_on_attach(k, ...)
+                            end
+                        }, v)
+                        nvim_lsp[k].setup(options)
+                    end
+                end)
+            },
+            { 'alexaandru/nvim-lspupdate' }
         }
         use {
             'onsails/lspkind-nvim',
