@@ -25,6 +25,12 @@ M.load = function()
                 require'nvim-treesitter.configs'.setup(c.treesitter)
             end)
         }
+        use {
+            'tjdevries/colorbuddy.nvim',
+            config = hoc(function(c)
+                require'colorbuddy'.colorscheme(c.colorbuddy.colorscheme)
+            end)
+        }
 
         -- UI
         use 'romgrk/nvim-treesitter-context'
@@ -58,7 +64,6 @@ M.load = function()
             requires = { 'tjdevries/colorbuddy.nvim' },
             config = hoc(function(c, n)
                 n.apply_globals(c.nordbuddy, 'nord_')
-                require'colorbuddy'.colorscheme(c.colorbuddy.colorscheme)
             end)
         }
 
