@@ -81,13 +81,13 @@ M.autocmds = function(cmds)
 end
 
 -- Converts wildcard options to a table
-M.wildcars_to_table = function(defaults)
+M.wildcars_to_table = function()
     local result = {}
     for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
         local p = v:gsub('^*.(%a+)$', '%%.%1')
         table.insert(result, p)
     end
-    return vim.tbl_extend('keep', defaults, result)
+    return result
 end
 
 -- Wrapper for applying globals

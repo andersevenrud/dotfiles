@@ -65,6 +65,7 @@ return {
                 '*.swp', '.tern-port', '*.tmp',
                 '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
                 '.git', '.svn', 'CVS',
+                'package-lock.json', 'yarn.lock', 'composer.lock',
                 'DS_Store'
             }
         },
@@ -386,11 +387,7 @@ return {
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = neovim.wildcars_to_table({
-                    'package-lock.json',
-                    'yarn.lock',
-                    'composer.lock'
-                })
+                file_ignore_patterns = neovim.wildcars_to_table()
             }
         },
         extensions = {
