@@ -62,7 +62,6 @@ Additional language support:
 - `rust` for certain plugins
 - `rust_analyzer` for rust language server
 - `lua-language-server` for lua language server
-- `überzug` for image previews in telescope
 
 ### Secrets
 
