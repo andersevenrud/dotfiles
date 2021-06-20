@@ -151,15 +151,15 @@ return {
             { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
 
             -- Compe keybindings
-            { 'i', '<expr> <C-Space>', [[compe#complete()]], { noremap = true, silent = true } },
-            { 'i', '<expr> <CR>', [[compe#confirm('<CR>')]], { noremap = true, silent = true } },
-            { 'i', '<expr> <C-e>', [[compe#close('<C-e>')]], { noremap = true, silent = true } },
-            { 'i', '<expr> <C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap = true, silent = true } },
-            { 'i', '<expr> <C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap = true, silent = true } },
+            { 'i', '<C-Space>', [[compe#complete()]], { noremap = true, silent = true, expr = true } },
+            { 'i', '<CR>', [[compe#confirm('<CR>')]], { noremap = true, silent = true, expr = true } },
+            { 'i', '<C-e>', [[compe#close('<C-e>')]], { noremap = true, silent = true, expr = true } },
+            { 'i', '<C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap = true, silent = true, expr = true } },
+            { 'i', '<C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap = true, silent = true, expr = true } },
 
             -- vim snip keybindings
-            { 'i', '<expr> <C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']] },
-            { 's', '<expr> <C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']] },
+            { 'i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
+            { 's', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
 
             -- trouble keybindings
             { 'n', '<leader>fd', '<cmd>LspTroubleToggle<cr>', { noremap = true, silent = true } },
@@ -238,10 +238,10 @@ return {
 
     nvim_lsp_ts_utils = {
         keybindings = {
-            { 'n', 'gs', ':TSLspOrganize<CR>', { silent = true } },
-            { 'n', 'qq', ':TSLspFixCurrent<CR>', { silent = true } },
-            { 'n', 'gr', ':TSLspRenameFile<CR>', { silent = true } },
-            { 'n', 'gi', ':TSLspImportAll<CR>', { silent = true } }
+            { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true } },
+            { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true } },
+            { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true } },
+            { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true } }
         }
     },
 
