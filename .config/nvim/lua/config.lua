@@ -198,50 +198,49 @@ return {
             LspDiagnosticsSignInformation = { text = '' },
             LspDiagnosticsSignHint = { text = '' }
         },
-    },
-
-    lsp_config = {
-        --diagnosticls = {}, -- see diagnosticls-nvim
-        --dartls = {}, -- See flutter-tools
-        tailwindcss = {
-            -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
-            cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
-        },
-        jsonls = {},
-        dockerls = {},
-        yamlls = {},
-        pyls = {},
-        cssls = {},
-        vuels = {},
-        html = {},
-        rust_analyzer = {},
-        svelte = {},
-        tsserver = {},
-        intelephense = {
-            init_options = {
-                licenceKey = secrets.intelephense.licenceKey,
+        servers = {
+            --diagnosticls = {}, -- see diagnosticls-nvim
+            --dartls = {}, -- See flutter-tools
+            tailwindcss = {
+                -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
+                cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
             },
-        },
-        sumneko_lua = {
-            cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-            -- TODO: Find a way to customize this on a per-project level
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT',
-                        path = vim.split(package.path, ','),
-                    },
-                    diagnostics = {
-                        globals = {'vim'},
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+            jsonls = {},
+            dockerls = {},
+            yamlls = {},
+            pyls = {},
+            cssls = {},
+            vuels = {},
+            html = {},
+            rust_analyzer = {},
+            svelte = {},
+            tsserver = {},
+            intelephense = {
+                init_options = {
+                    licenceKey = secrets.intelephense.licenceKey,
+                },
+            },
+            sumneko_lua = {
+                cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+                -- TODO: Find a way to customize this on a per-project level
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = 'LuaJIT',
+                            path = vim.split(package.path, ','),
                         },
-                    },
-                    telemetry = {
-                        enable = false,
+                        diagnostics = {
+                            globals = {'vim'},
+                        },
+                        workspace = {
+                            library = {
+                                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                            },
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
                     },
                 },
             },

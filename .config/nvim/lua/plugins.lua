@@ -197,7 +197,7 @@ M.load = function()
             'neovim/nvim-lspconfig',
             config = hoc(function(config, neovim)
                 local nvim_lsp = require'lspconfig'
-                for k, v in pairs(config.lsp_config) do
+                for k, v in pairs(config.lsp.servers) do
                     local options = vim.tbl_extend('keep', {
                         capabilities = config.lsp.capabilities,
                         on_attach = function(...)
