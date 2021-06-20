@@ -5,7 +5,12 @@
 
 local neovim = require'neovim'
 local shims = require'shims'
-local secrets = require'secrets'
+
+local secrets = neovim.prequire('secrets', {
+    intelephense = {
+        licenceKey = nil
+    }
+})
 
 local border_style = 'single'
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'

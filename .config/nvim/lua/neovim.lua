@@ -15,6 +15,15 @@ local lsp_handlers = {
     ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
 }
 
+-- protected require
+M.prequire = function(req, fallback)
+    local status, result = pcall(require, req)
+    if status == false then
+        return fallback
+    end
+    return result
+end
+
 -- Options
 M.set_options = function(options)
     for k, v in pairs(options) do
