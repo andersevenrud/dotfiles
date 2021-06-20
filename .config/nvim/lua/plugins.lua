@@ -209,6 +209,7 @@ M.load = function()
                             capabilities = c.lsp.capabilities,
                             on_attach = function(...)
                                 n.run_on_attach(k, ...)
+                                n.run_on_attach('*', ...)
                             end
                         }, v)
                         nvim_lsp[k].setup(options)
