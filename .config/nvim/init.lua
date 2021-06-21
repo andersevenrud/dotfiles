@@ -230,7 +230,6 @@ neovim.load({
             svelte = {},
             tsserver = {},
             tailwindcss = {
-                -- NOTES: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#tailwindcss
                 cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
             },
             intelephense = {
@@ -240,7 +239,6 @@ neovim.load({
             },
             sumneko_lua = {
                 cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-                -- TODO: Find a way to customize this on a per-project level
                 settings = {
                     Lua = {
                         runtime = {
