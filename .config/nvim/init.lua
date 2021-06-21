@@ -331,6 +331,7 @@ neovim.load({
             'sindrets/diffview.nvim',
             'TimUntersberger/neogit',
             'euclio/vim-markdown-composer',
+            'akinsho/nvim-toggleterm.lua',
 
             -- Autocomplete
             'hrsh7th/nvim-compe',
@@ -539,5 +540,10 @@ neovim.load({
 
     colorbuddy = {
         colorscheme = 'nordbuddy'
+    },
+
+    nvim_toggleterm = {
+      open_mapping = [[<leader>t]],
+      shell = 'bash'
     }
 }, shims)

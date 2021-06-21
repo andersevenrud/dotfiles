@@ -184,5 +184,11 @@ return {
             local n = require'neovim'
             require'flutter-tools'.setup(n.c.flutter_tools)
         end
+    },
+    ['akinsho/nvim-toggleterm.lua'] = {
+        config = function()
+            local n = require'neovim'
+            require'toggleterm'.setup(n.c.nvim_toggleterm)
+        end
     }
 }
