@@ -161,11 +161,6 @@ return {
             require'lspkind'.init{}
         end
     },
-    ['folke/trouble.nvim'] = {
-        config = function()
-            require'trouble'.setup{}
-        end
-    },
     ['ray-x/lsp_signature.nvim'] = {
         config = function()
             local n = require'neovim'

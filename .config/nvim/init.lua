@@ -171,6 +171,7 @@ neovim.load({
             { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true } },
             { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true } },
             { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true } },
+            { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.lsp_workspace_diagnostics()<cr>]], { noremap = true } },
 
             -- neogit
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true } },
@@ -190,9 +191,6 @@ neovim.load({
             -- vsnip
             { 'i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
             { 's', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
-
-            -- trouble
-            { 'n', '<leader>fd', '<cmd>LspTroubleToggle<cr>', { noremap = true, silent = true } },
 
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
@@ -303,6 +301,7 @@ neovim.load({
             'norcalli/nvim-colorizer.lua',
             'hoob3rt/lualine.nvim',
             'arkav/lualine-lsp-progress',
+            'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
             'maaslalani/nordbuddy',
 
@@ -344,8 +343,6 @@ neovim.load({
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
             'alexaandru/nvim-lspupdate',
-            'onsails/lspkind-nvim',
-            'folke/trouble.nvim',
             'ray-x/lsp_signature.nvim',
             'creativenull/diagnosticls-nvim',
             'akinsho/flutter-tools.nvim',
