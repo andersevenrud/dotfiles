@@ -42,6 +42,15 @@ if os.getenv('TMUX') then
     }
 end
 
+local wildignore = {
+    '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj',
+    '*.swp', '.tern-port', '*.tmp',
+    '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
+    '.git', '.svn', 'CVS',
+    'package-lock.json', 'yarn.lock', 'composer.lock',
+    'DS_Store'
+}
+
 neovim.load({
     vim = {
         autocommands = autocommands,
@@ -75,6 +84,7 @@ neovim.load({
             updatetime = 1000,                          -- Lower CursorHold update times
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
+            wildignore = wildignore,                    -- Ignore these file types
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
                 tab = '·\\',
@@ -82,14 +92,6 @@ neovim.load({
                 precedes = '<',
                 extends = '>'
             },
-            wildignore = {                               -- Ignore these file types
-                '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj',
-                '*.swp', '.tern-port', '*.tmp',
-                '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
-                '.git', '.svn', 'CVS',
-                'package-lock.json', 'yarn.lock', 'composer.lock',
-                'DS_Store'
-            }
         },
         highlights = {
             LspDiagnosticsUnderlineError = { link = 'DiffDelete' },
@@ -489,7 +491,7 @@ neovim.load({
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = neovim.wildcars_to_table()
+                file_ignore_patterns = neovim.wildcars_to_table(wildignore)
             }
         },
         extensions = {

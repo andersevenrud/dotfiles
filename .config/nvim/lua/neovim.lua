@@ -124,9 +124,9 @@ M.set_auto_commands = function(entries)
 end
 
 -- Converts wildcard options to a table
-M.wildcars_to_table = function()
+M.wildcars_to_table = function(wildignore)
     local result = {}
-    for _, v in pairs(vim.split(vim.o.wildignore, ',')) do
+    for _, v in ipairs(wildignore) do
         local p = v:gsub('^*.(%a+)$', '%%.%1')
         table.insert(result, p)
     end
