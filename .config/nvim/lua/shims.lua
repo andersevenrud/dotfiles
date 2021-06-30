@@ -141,6 +141,7 @@ return {
             for k, v in pairs(n.c.lsp.servers) do
                 local options = vim.tbl_extend('keep', {
                     capabilities = n.c.lsp.capabilities,
+                    flags = n.c.lsp.flags,
                     on_attach = function(...)
                         n.run_on_attach(k, ...)
                         n.run_on_attach('*', ...)

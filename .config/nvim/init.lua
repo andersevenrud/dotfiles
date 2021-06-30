@@ -210,6 +210,9 @@ neovim.load({
 
     lsp = {
         capabilities = capabilities,
+        flags = {
+            debounce_text_changes = 150,
+        },
         signs = {
             LspDiagnosticsSignError = { text = '' },
             LspDiagnosticsSignWarning = { text = '' },
