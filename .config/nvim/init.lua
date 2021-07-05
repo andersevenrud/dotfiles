@@ -295,7 +295,6 @@ neovim.load({
             'kyazdani42/nvim-web-devicons',
             'ryanoasis/vim-devicons',
             'nvim-treesitter/nvim-treesitter',
-            'tjdevries/colorbuddy.nvim',
 
             -- UI
             'romgrk/nvim-treesitter-context',
@@ -536,10 +535,6 @@ neovim.load({
 
     nordbuddy = {
         italic_comments = true
-    },
-
-    colorbuddy = {
-        colorscheme = 'nordbuddy'
     },
 
     nvim_toggleterm = {

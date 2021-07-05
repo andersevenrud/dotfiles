@@ -11,12 +11,6 @@ return {
             require'nvim-treesitter.configs'.setup(n.c.treesitter)
         end
     },
-    ['tjdevries/colorbuddy.nvim'] = {
-        config = function()
-            local n = require'neovim'
-            require'colorbuddy'.colorscheme(n.c.colorbuddy.colorscheme)
-        end
-    },
     ['norcalli/nvim-colorizer.lua'] = {
         config = function()
             local n = require'neovim'
@@ -39,6 +33,7 @@ return {
         config = function()
             local n = require'neovim'
             n.apply_globals(n.c.nordbuddy, 'nord_')
+            vim.cmd'colorscheme nordbuddy'
         end
     },
     ['windwp/nvim-autopairs'] = {
