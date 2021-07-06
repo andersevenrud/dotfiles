@@ -32,7 +32,7 @@ return {
     ['maaslalani/nordbuddy'] = {
         config = function()
             local n = require'neovim'
-            n.apply_globals(n.c.nordbuddy, 'nord_')
+            require'nordbuddy':colorscheme(n.c.nordbuddy)
             vim.cmd'colorscheme nordbuddy'
         end
     },
