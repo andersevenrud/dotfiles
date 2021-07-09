@@ -32,8 +32,7 @@ return {
     ['maaslalani/nordbuddy'] = {
         config = function()
             local n = require'neovim'
-            require'nordbuddy':colorscheme(n.c.nordbuddy)
-            vim.cmd'colorscheme nordbuddy'
+            require'nordbuddy'.colorscheme(n.c.nordbuddy)
         end
     },
     ['windwp/nvim-autopairs'] = {
