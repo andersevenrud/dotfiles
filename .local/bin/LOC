@@ -3,7 +3,7 @@
 # Author: Anders Evenrud <andersevenrud@gmail.com>
 #
 
-declare -a types=("ts" "js" "cjs" "ejs" "mjs" "css" "html" "php" "less" "json" "md" "scss" "less" "vue" "jsx" "tsx" "py" "yml" "yaml" "txt" "sql", "sh")
+declare -a types=("ts" "js" "cjs" "ejs" "mjs" "css" "html" "php" "less" "json" "md" "scss" "less" "vue" "jsx" "tsx" "py" "yml" "yaml" "txt" "sql", "sh", "lua")
 
 total=0
 count=0
