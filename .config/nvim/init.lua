@@ -160,7 +160,7 @@ neovim.load({
                     { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true } },
                     { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true } },
                     { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', { noremap = true, silent = true } },
+                    { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, show_header = false })<CR>', { noremap = true, silent = true } },
                     { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true } },
                     { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true } },
                 }
