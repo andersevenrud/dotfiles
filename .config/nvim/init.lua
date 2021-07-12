@@ -30,7 +30,10 @@ local autocommands = {
     ['ExtraWhitespaceCommands'] = {
         { { 'InsertEnter' }, '*', [[match ExtraWhitespace /\s\+\%#\@<!$/]] },
         { { 'InsertLeave' }, '*', [[match ExtraWhitespace /\s\+$/]] }
-    }
+    },
+    ['YankHighlighting'] = {
+        { { 'TextYankPost' }, '*', [[lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}]]}
+    },
 }
 
 if os.getenv('TMUX') then
