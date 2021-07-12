@@ -348,6 +348,7 @@ neovim.load({
             'ray-x/lsp_signature.nvim',
             'creativenull/diagnosticls-nvim',
             'akinsho/flutter-tools.nvim',
+            'RishabhRD/nvim-lsputils',
         }
     },
 
