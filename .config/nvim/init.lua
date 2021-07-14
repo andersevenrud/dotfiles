@@ -310,10 +310,13 @@ neovim.load({
             'lewis6991/gitsigns.nvim',
             'maaslalani/nordbuddy',
 
-            -- Editing
+            -- Treesitter
             'JoosepAlviste/nvim-ts-context-commentstring',
-            'tpope/vim-commentary',
+            'nvim-treesitter/nvim-treesitter-textobjects',
             'windwp/nvim-ts-autotag',
+
+            -- Editing
+            'tpope/vim-commentary',
             'matze/vim-move',
             'windwp/nvim-autopairs',
 
@@ -485,7 +488,48 @@ neovim.load({
         },
         autotag = { -- Plugin
             enable = true,
-        }
+        },
+        textobjects = { -- Plugin
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                },
+            },
+            swap = {
+                enable = true,
+                swap_next = {
+                    ["<leader>a"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["<leader>A"] = "@parameter.inner",
+                },
+            },
+            move = {
+                enable = true,
+                set_jumps = true,
+                goto_next_start = {
+                    ["]m"] = "@function.outer",
+                    ["]]"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]M"] = "@function.outer",
+                    ["]["] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[m"] = "@function.outer",
+                    ["[["] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[M"] = "@function.outer",
+                    ["[]"] = "@class.outer",
+                },
+            }
+        },
     },
 
     telescope = {
