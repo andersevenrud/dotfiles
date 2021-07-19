@@ -228,7 +228,7 @@ neovim.load({
             jsonls = {},
             dockerls = {},
             yamlls = {},
-            pyls = {},
+            pylsp = {},
             cssls = {},
             vuels = {},
             html = {},
