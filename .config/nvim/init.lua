@@ -225,6 +225,7 @@ neovim.load({
         servers = {
             --diagnosticls = {}, -- see diagnosticls-nvim
             --dartls = {}, -- See flutter-tools
+            ccls = {},
             jsonls = {},
             dockerls = {},
             yamlls = {},
@@ -447,6 +448,7 @@ neovim.load({
     treesitter = {
         ensure_installed = {
             --'jsdoc', -- Seems to slow things down at the moment (issue #1313)
+            --'comment', -- todo-comments replaces this
             'typescript',
             'javascript',
             'dart',
