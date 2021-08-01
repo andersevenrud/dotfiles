@@ -1,23 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Author: Anders Evenrud <andersevenrud@gmail.com>
 #
 
-declare -a types=("ts" "js" "cjs" "ejs" "mjs" "css" "html" "php" "less" "json" "md" "scss" "less" "vue" "jsx" "tsx" "py" "yml" "yaml" "txt" "sql", "sh", "lua")
+declare -A linecount
+declare -A filecount
 
+git_files=`git ls-files --exclude-standard`
+count=`echo $git_files | wc -l`
 total=0
-count=0
-for i in "${types[@]}"; do
-  num=$(git ls-files | grep -v package-lock.json | grep -ve "\.lock$" | grep -s "\.$i\$" | wc -l)
-  loc=$(git ls-files | grep -v package-lock.json | grep -ve "\.lock$" | grep -s "\.$i\$" | xargs cat 2>/dev/null | wc -l)
 
-  if [[ "$num" -gt 0 ]]; then
-    echo "${i}: ${loc} in ${num} file(s)"
+for f in $git_files; do
+  ext="${f##*.}"
+  filename="${f%.*}"
 
-    count=$(expr $count + $num)
+  if [[ "$filename" == "package-lock.json" || "$ext" =~ ^jpg|jpeg|png|bmp|ico|lock$ ]]; then
+    continue
   fi
 
-  total=$(expr $total + $loc)
+  if [[ "$ext" == "$filename" || "$filename" == "" ]]; then
+    ext="*"
+  fi
+
+  lines=`cat $f 2>/dev/null | wc -l`
+  linecount[$ext]=$(expr ${linecount[$ext]} + $lines)
+  filecount[$ext]=$(expr ${filecount[$ext]} + 1)
+  total=$(expr $total + $lines)
+done
+
+for k in "${!linecount[@]}"; do
+  echo "${k}: ${linecount[$k]} in ${filecount[$k]} file(s)"
 done
 
 echo -e "\n${total} in ${count} file(s)"
