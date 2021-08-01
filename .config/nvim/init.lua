@@ -116,9 +116,6 @@ neovim.load({
             php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
         },
         keybindings = {
-            -- Make C-c behave like ESC
-            { 'i', '<C-c>', '<ESC>', { noremap = true } },
-
             -- Destroy buffer with C-w on leader
             { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true } },
 
