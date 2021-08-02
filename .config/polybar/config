@@ -45,7 +45,7 @@ font-2 = "SauceCodePro Nerd Font Mono:pixelsize=10;1"
 font-3 = "SauceCodePro Nerd Font:pixelsize=12:weight=bold;2"
 
 #modules-left = bspwm
-modules-left = filesystem syslog
+modules-left = i3 filesystem syslog
 modules-center = date
 #modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 modules-right = title xkeyboard memory cpu eth temperature powermenu
@@ -60,8 +60,10 @@ tray-padding = 2
 
 ;override-redirect = true
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
+scroll-up = "#i3.prev"
+scroll-down = "#i3.next"
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -208,6 +210,25 @@ menu-1-2-exec = sudo poweroff
 type = internal/xwindow
 label-maxlen = 30
 label-font = 2
+
+[module/i3]
+type = internal/i3
+label-focused = %index%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 1
+label-unfocused = %index%
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-background = ${colors.background}
+label-unfocused-padding = 1
+label-visible = %index%
+label-visible-foreground = ${colors.background-alt}
+label-visible-background = ${colors.background}
+label-visible-padding = 1
+label-urgent = %index%
+label-urgent-foreground = ${colors.alert}
+label-urgent-background = ${colors.background-alt}
+label-urgent-padding = 1
 
 [settings]
 screenchange-reload = true
