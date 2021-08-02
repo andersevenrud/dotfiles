@@ -168,10 +168,10 @@ client.urgent           #BF616A #BF616A #FFFFFF #BF616A   #BF616A
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 client.background       #4C566A
 
-bar {
-  #status_command i3status
-  mode hide
-}
+#bar {
+#  #status_command i3status
+#  mode hide
+#}
 
 ###############################################################################
 # Behavior
