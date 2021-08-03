@@ -1,3 +1,36 @@
+# coreutils overrides
+export LESS='-R '
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" # 'source-highlight' package
+#export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+#export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+#export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+#export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+#export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+#export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+#export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+# XDG
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
+export TS3_CONFIG_DIR="$XDG_CONFIG_HOME"/ts3client
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+
+# Paths
+export DENO_INSTALL="/home/anders/.deno"
+export PATH="$DENO_INSTALL/bin:$HOME/.local/bin:$PATH"
+export PATH=$PATH:~/.gem/ruby/2.3.0/bin
+
 # Personal aliases
 alias gitc-ammend="git commit --amend"
 alias gitc-update-branches="git remote update origin --prune"
@@ -10,29 +43,3 @@ alias pacman-aur="makepkg -sri ?"
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls --color -h --group-directories-first -l --time-style="+%m-%d-%y %H:%m:%S" -p -a'
-
-# coreutils overrides
-export LESS='-R '
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" # 'source-highlight' package
-#export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
-#export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
-#export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-#export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
-#export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-#export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-#export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
-
-# Various paths
-export DENO_INSTALL="/home/anders/.deno"
-
-# XDG support
-export GTK_RC_FILES="$XDG_CONFIG_HOME"/gtk-1.0/gtkrc
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
-export TS3_CONFIG_DIR="$XDG_CONFIG_HOME/ts3client"
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
-
-# Paths
-export PATH="$DENO_INSTALL/bin:$HOME/.local/bin:$PATH"
-export PATH=$PATH:~/.gem/ruby/2.3.0/bin
