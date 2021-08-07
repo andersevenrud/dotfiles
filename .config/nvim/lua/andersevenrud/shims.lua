@@ -38,7 +38,14 @@ return {
     ['windwp/nvim-autopairs'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'nvim-autopairs'.setup(n.c.npairs)
+            local a = require'nvim-autopairs'
+            local Rule = require('nvim-autopairs.rule')
+
+            a.setup(n.c.npairs.options)
+
+            for _, v in pairs(n.c.npairs.rules) do
+                a.add_rule(Rule(unpack(v)))
+            end
         end
     },
     ['folke/todo-comments.nvim'] = {

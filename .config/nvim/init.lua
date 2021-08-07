@@ -364,8 +364,13 @@ neovim.load({
     },
 
     npairs = {
-        disable_filetype = { 'TelescopePrompt' },
-        check_ts = true,
+        options = {
+            disable_filetype = { 'TelescopePrompt' },
+            check_ts = true,
+        },
+        rules = {
+            { '``', '`' }
+        }
     },
 
     markdown_composer = {
