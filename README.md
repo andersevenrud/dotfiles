@@ -3,7 +3,7 @@
 My personal Linux dotfiles.
 
 * alacritty
-* zsh
+* zsh, bash
 * tmux
 * ranger
 * neovim
