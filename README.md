@@ -1,15 +1,18 @@
 # Dotfiles
 
-This is all of my personal developer computer dotfiles etc for Linux.
+My personal Linux dotfiles.
 
-* Neovim configurations and bundles
-* Zsh environment and aliases
-* Tmux configurations and plugins
-* Desktop setup (i3, polybar, etc)
-* Misc scripts and configurations
+* alacritty
+* zsh
+* tmux
+* ranger
+* neovim
+* i3, polybar, rofi
+* personal scripts
+* ...and some other configs
+* ...oh, and I love [Nord](https://www.nordtheme.com/)
 
-
-## Note-to-self
+## Notes
 
 * [True color support](https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6)
 * [Remove stupid chrome/chromium borders](https://stackoverflow.com/questions/11505767/how-can-i-set-chrome-to-use-system-titlebars-and-border-in-preferences-file)
