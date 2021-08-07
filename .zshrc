@@ -1,5 +1,5 @@
-source ~/.zplug/init.zsh
 source ~/.commonrc
+source ~/.zplug/init.zsh
 
 zplug "supercrabtree/k"
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
