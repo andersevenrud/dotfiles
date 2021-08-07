@@ -152,6 +152,7 @@ neovim.load({
                     { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true } },
                     { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true } },
                     { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true } },
+                    { 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true } },
                     { 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { noremap = true, silent = true } },
                     { 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { noremap = true, silent = true } },
                     { 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { noremap = true, silent = true } },
@@ -349,7 +350,6 @@ neovim.load({
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
             'alexaandru/nvim-lspupdate',
-            'ray-x/lsp_signature.nvim',
             'creativenull/diagnosticls-nvim',
             'akinsho/flutter-tools.nvim',
             'RishabhRD/nvim-lsputils',
@@ -366,14 +366,6 @@ neovim.load({
     npairs = {
         disable_filetype = { 'TelescopePrompt' },
         check_ts = true,
-    },
-
-    lsp_signature = {
-        bind = false,
-        floating_window = true,
-        handler_opts = {
-            border = border_style
-        }
     },
 
     markdown_composer = {

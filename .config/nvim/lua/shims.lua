@@ -156,12 +156,6 @@ return {
             require'lspkind'.init{}
         end
     },
-    ['ray-x/lsp_signature.nvim'] = {
-        config = function()
-            local n = require'neovim'
-            require'lsp_signature'.on_attach(n.c.lsp_signature)
-        end
-    },
     ['creativenull/diagnosticls-nvim'] = {
         config = function()
             local diagnosticls = require'diagnostics'
