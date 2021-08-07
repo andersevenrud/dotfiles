@@ -65,7 +65,7 @@ Additional language support:
 
 ### Secrets
 
-Set up a secrets file in `~/.config/nvim/lua/secrets.lua` with this template:
+Set up a secrets file in `~/.config/nvim/lua/andersevenrud/secrets.lua` with this template:
 
 ```lua
 return {

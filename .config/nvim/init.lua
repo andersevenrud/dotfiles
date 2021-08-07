@@ -3,10 +3,10 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local neovim = require'neovim'
-local shims = require'shims'
+local neovim = require'andersevenrud.neovim'
+local shims = require'andersevenrud.shims'
 
-local secrets = neovim.prequire('secrets', {
+local secrets = neovim.prequire('andersevenrud.secrets', {
     intelephense = {
         licenceKey = nil
     }

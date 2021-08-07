@@ -7,37 +7,37 @@ return {
     ['nvim-treesitter/nvim-treesitter'] = {
         run = ':TSUpdate',
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'nvim-treesitter.configs'.setup(n.c.treesitter)
         end
     },
     ['norcalli/nvim-colorizer.lua'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'colorizer'.setup(n.c.colorizer.filetypes, n.c.colorizer.options)
         end
     },
     ['hoob3rt/lualine.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'lualine'.setup(n.c.lualine)
         end
     },
     ['lewis6991/gitsigns.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'gitsigns'.setup(n.c.gitsigns)
         end
     },
     ['maaslalani/nordbuddy'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'nordbuddy'.colorscheme(n.c.nordbuddy)
         end
     },
     ['windwp/nvim-autopairs'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'nvim-autopairs'.setup(n.c.npairs)
         end
     },
@@ -48,13 +48,13 @@ return {
     },
     ['nacro90/numb.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'numb'.setup(n.c.numb)
         end
     },
     ['nvim-telescope/telescope.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             local telescope = require'telescope'
             telescope.setup(n.c.telescope.setup)
             for _, v in ipairs(n.c.telescope.extensions) do telescope.load_extension(v) end
@@ -62,19 +62,19 @@ return {
     },
     ['kyazdani42/nvim-tree.lua'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             n.apply_globals(n.c.nvim_tree, 'nvim_tree_')
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             vim.g.dap_virtual_text = n.c.dap_virtual_text.enabled
         end
     },
     ['Pocco81/DAPInstall.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             local dap = require'dap-install'
             dap.setup(n.c.dap_install.setup)
             for _, v in ipairs(n.c.dap_install.install) do dap.config(v, {}) end
@@ -88,13 +88,13 @@ return {
     ['euclio/vim-markdown-composer'] = {
         run = 'cargo build --release',
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             n.apply_globals(n.c.markdown_composer, 'markdown_composer_')
         end
     },
     ['hrsh7th/nvim-compe'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'compe'.setup(n.c.compe)
 
             -- add basic snippet support when language server does not
@@ -120,7 +120,7 @@ return {
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             n.add_on_attach('tsserver', function(client)
                 local ts_utils = require'nvim-lsp-ts-utils'
                 ts_utils.setup{}
@@ -130,7 +130,7 @@ return {
     },
     ['neovim/nvim-lspconfig'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             local nvim_lsp = require'lspconfig'
             for k, v in pairs(n.c.lsp.servers) do
                 local options = vim.tbl_extend('keep', {
@@ -158,20 +158,20 @@ return {
     },
     ['creativenull/diagnosticls-nvim'] = {
         config = function()
-            local diagnosticls = require'diagnostics'
+            local diagnosticls = require'andersevenrud.diagnostics'
             require'diagnosticls-nvim'.init{}
             require'diagnosticls-nvim'.setup(diagnosticls)
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'flutter-tools'.setup(n.c.flutter_tools)
         end
     },
     ['akinsho/nvim-toggleterm.lua'] = {
         config = function()
-            local n = require'neovim'
+            local n = require'andersevenrud.neovim'
             require'toggleterm'.setup(n.c.nvim_toggleterm)
         end
     },
