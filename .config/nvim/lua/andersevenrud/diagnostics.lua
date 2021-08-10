@@ -23,7 +23,7 @@ return collapse_tuple_array({
     {
         { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
         {
-            linter = compose_diagnostic_config(require'diagnosticls-nvim.linters.eslint', {
+            linter = compose_diagnostic_config(require'diagnosticls-configs.linters.eslint', {
                 debounce = 1000,
                 command = 'node_modules/.bin/eslint',
                 rootPatterns = { 'package.json' },
@@ -33,7 +33,7 @@ return collapse_tuple_array({
                 }
             }, { 'package.json' }),
 
-            formatter = compose_diagnostic_config(require 'diagnosticls-nvim.formatters.prettier', {
+            formatter = compose_diagnostic_config(require 'diagnosticls-configs.formatters.prettier', {
                 command = 'node_modules/.bin/prettier',
                 rootPatterns = { 'package.json' },
             }, { 'package.json' })
@@ -42,7 +42,7 @@ return collapse_tuple_array({
     {
         { 'scss', 'less', 'css' },
         {
-            linter = compose_diagnostic_config(require'diagnosticls-nvim.linters.stylelint', {
+            linter = compose_diagnostic_config(require'diagnosticls-configs.linters.stylelint', {
                 debounce = 1000,
                 command = 'node_modules/.bin/stylelint',
                 rootPatterns = { 'package.json' },
@@ -52,7 +52,7 @@ return collapse_tuple_array({
     {
         { 'php' },
         {
-            linter = require'diagnosticls-nvim.linters.phpcs'
+            linter = require'diagnosticls-configs.linters.phpcs'
         }
     }
 })

@@ -163,11 +163,11 @@ return {
             require'lspkind'.init{}
         end
     },
-    ['creativenull/diagnosticls-nvim'] = {
+    ['creativenull/diagnosticls-configs-nvim'] = {
         config = function()
             local diagnosticls = require'andersevenrud.diagnostics'
-            require'diagnosticls-nvim'.init{}
-            require'diagnosticls-nvim'.setup(diagnosticls)
+            require'diagnosticls-configs'.init{}
+            require'diagnosticls-configs'.setup(diagnosticls)
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
