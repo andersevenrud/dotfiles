@@ -152,6 +152,9 @@ return {
             end
         end
     },
+    ['alexaandru/nvim-lspupdate'] = {
+        run = 'make lua'
+    },
     ['hrsh7th/vim-vsnip'] = {
         config = function()
             -- run vsnip on startup and not on demand to reduce latency on initial completion
