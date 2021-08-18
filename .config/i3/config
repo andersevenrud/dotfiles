@@ -37,7 +37,7 @@ bindsym Mod4+Shift+q kill
 
 # start rofi (a program launcher)
 bindsym Mod4+Shift+d exec rofi -show-icons -show window
-bindsym Mod4+d  exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
+bindsym Mod4+d  exec "rofi -show-icons -modi combi -show combi -combi-modi drun,run"
 
 # change focus
 bindsym Mod4+$left focus left
