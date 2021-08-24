@@ -18,12 +18,18 @@ local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
-    }
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
 }
 
 local autocommands = {
@@ -183,11 +189,11 @@ neovim.load({
             { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
 
             -- compe
-            { 'i', '<C-Space>', [[compe#complete()]], { noremap = true, silent = true, expr = true } },
-            { 'i', '<CR>', [[compe#confirm('<CR>')]], { noremap = true, silent = true, expr = true } },
-            { 'i', '<C-e>', [[compe#close('<C-e>')]], { noremap = true, silent = true, expr = true } },
-            { 'i', '<C-f>', [[compe#scroll({ 'delta': +4 })]], { noremap = true, silent = true, expr = true } },
-            { 'i', '<C-d>', [[compe#scroll({ 'delta': -4 })]], { noremap = true, silent = true, expr = true } },
+            -- { 'i', '<C-Space>', [[<cmd>lua require'cmp'.mapping.complete()<cr>]], { noremap = true, silent = true } },
+            -- { 'i', '<CR>', [[<cmd>lua require'cmp'.mapping.confirm({ behavior = 'insert', select = true })<cr>]], { noremap = true, silent = true } },
+            -- { 'i', '<C-e>', [[<cmd>lua require'cmp'.mapping.close()<cr>]], { noremap = true, silent = true } },
+            -- { 'i', '<C-f>', [[<cmd>lua require'cmp'.mapping.scroll_docs(4)<cr>]], { noremap = true, silent = true } },
+            -- { 'i', '<C-d>', [[<cmd>lua require'cmp'.mapping.scroll_docs(-4)<cr>]], { noremap = true, silent = true } },
 
             -- vsnip
             { 'i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
@@ -340,8 +346,10 @@ neovim.load({
             'akinsho/nvim-toggleterm.lua',
 
             -- Autocomplete
-            'hrsh7th/nvim-compe',
-            'tzachar/compe-tabnine',
+            'hrsh7th/nvim-cmp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-nvim-lsp',
             'andersevenrud/compe-tmux',
             'hrsh7th/vim-vsnip',
             'rafamadriz/friendly-snippets',
@@ -405,37 +413,15 @@ neovim.load({
         },
     },
 
-    compe = {
-        enabled = true,
-        autocomplete = false,
-        debug = false,
-        min_length = 2,
-        preselect = 'enable',
-        throttle_time = 80,
-        source_timeout = 200,
-        incomplete_delay = 400,
-        max_abbr_width = 100,
-        max_kind_width = 100,
-        max_menu_width = 100,
-        documentation = true,
-        source = {
-            buffer = true,
-            nvim_lsp = true,
-            nvim_lua = true,
-            vsnip = true,
-            path = {
-                priority = 40,
-            },
-            tmux = {
-                all_panes = true,
-            },
-            tabnine = {
-                max_num_results = 6,
-                priority = 0,
-                max_line = 1000,
-                show_prediction_strength = true,
-                ignore_pattern = '[(]',
-            },
+    cmp = {
+        completion = {
+            autocomplete = { }
+        },
+        sources = {
+            { name = 'nvim_lua' },
+            { name = 'nvim_lsp' },
+            { name = 'buffer' },
+            { name = 'tmux', opts = { all_panes = true } }
         },
     },
 

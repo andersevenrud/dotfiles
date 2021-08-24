@@ -99,31 +99,41 @@ return {
             n.apply_globals(n.c.markdown_composer, 'markdown_composer_')
         end
     },
-    ['hrsh7th/nvim-compe'] = {
+    ['andersevenrud/compe-tmux'] = {
+        branch = 'refactor/nvim-cmp'
+    },
+    ['hrsh7th/nvim-cmp'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'compe'.setup(n.c.compe)
-
-            -- add basic snippet support when language server does not
-            -- replaces: https://github.com/windwp/nvim-autopairs#using-nvim-compe
-            -- ref: https://github.com/hrsh7th/nvim-compe/issues/302
-            local helper = require'compe.helper'
-            helper.convert_lsp_orig = helper.convert_lsp
-            helper.convert_lsp = function(args)
-                local response = args.response or {}
-                local items = response.items or response
-                for _, item in ipairs(items) do
-                    if item.inserttext == nil and (item.kind == 2 or item.kind == 3 or item.kind == 4) then
-                        item.inserttext = item.label .. '(${1})'
-                        item.inserttextformat = 2
+            local cmp = require'cmp'
+            cmp.setup(vim.tbl_extend('force', {
+                snippet = {
+                    expand = function(args)
+                        -- You must install `vim-vsnip` if you use the following as-is.
+                        vim.fn['vsnip#anonymous'](args.body)
                     end
-                end
-                return helper.convert_lsp_orig(args)
-            end
-        end,
-    },
-    ['tzachar/compe-tabnine'] = {
-        run = './install.sh'
+                },
+                formatting = {
+                    format = function(entry, vim_item)
+                        vim_item.kind = require'lspkind'.presets.default[vim_item.kind]
+                        return vim_item
+                    end
+                },
+                -- FIXME: Figure out a way to move this out
+                mapping = {
+                    ['<C-p>'] = cmp.mapping.select_prev_item(),
+                    ['<C-n>'] = cmp.mapping.select_next_item(),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.close(),
+                    ['<CR>'] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Insert,
+                        select = true,
+                    })
+                },
+            }, n.c.cmp))
+        end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
         config = function()
