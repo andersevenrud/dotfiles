@@ -305,7 +305,6 @@ neovim.load({
             'nvim-treesitter/nvim-treesitter',
 
             -- UI
-            'romgrk/nvim-treesitter-context',
             'dominikduda/vim_current_word', -- vimscript
             'haringsrob/nvim_context_vt',
             'norcalli/nvim-colorizer.lua',
