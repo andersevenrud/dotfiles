@@ -415,7 +415,7 @@ neovim.load({
 
     cmp = {
         completion = {
-            autocomplete = { }
+            autocomplete = false
         },
         sources = {
             { name = 'nvim_lua' },
