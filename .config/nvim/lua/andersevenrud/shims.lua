@@ -100,7 +100,7 @@ return {
         end
     },
     ['andersevenrud/compe-tmux'] = {
-        branch = 'refactor/nvim-cmp'
+        branch = 'cmp'
     },
     ['hrsh7th/nvim-cmp'] = {
         config = function()
