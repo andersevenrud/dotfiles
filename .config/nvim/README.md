@@ -46,6 +46,14 @@ Additional language support:
 * Flutter
 * Markdown
 
+## Structure
+
+* `init.lua` - Bootstrap and configuration
+* `lua/andersevenrud/neovim.lua` - Abstractions
+* `lua/andersevenrud/diagnostics.lua` - Diagnostics
+* `lua/andersevenrud/shims.lua` - Plugin shims
+* `lua/andersevenrud/secrets.lua` - Secrets (optional)
+
 ## Prerequisites
 
 ### Requirements
@@ -57,15 +65,19 @@ Additional language support:
 
 ### Optional
 
-- `nerd-fonts` for icons and symbols
 - `nodejs` for language misc servers
-- `rust` for certain plugins
-- `rust_analyzer` for rust language server
-- `lua-language-server` for lua language server
+- `cargo` for certain plugins depending on rust
+- [`lua-language-server`](https://github.com/sumneko/lua-language-server) for lua language server
+- [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
+
+## Setup
+
+1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
+2. Use `:LspUpdate` to install language servers.
 
 ### Secrets
 
-Set up a secrets file in `~/.config/nvim/lua/andersevenrud/secrets.lua` with this template:
+Example:
 
 ```lua
 return {
@@ -74,18 +86,6 @@ return {
   }
 }
 ```
-
-## Structure
-
-* `init.lua` - Bootstrap and configuration
-* `lua/neovim.lua` - Abstractions
-* `lua/diagnostics.lua` - Diagnostics
-* `lua/shims.lua` - Plugin shims
-
-## Setup
-
-1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
-2. Use `:LspUpdate` to install language servers.
 
 ## Notes
 
@@ -96,7 +96,7 @@ Some language servers implementations does not provide the following natively:
 
 There are also some bugs:
 
-* Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6)
+* Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6) for all grammars
 
 ## Troubleshooting
 
@@ -120,12 +120,3 @@ sudo make install CMAKE_INSTALL_CONFIG_NAME=Release
 * Nuke `~/.config/nvim/plugins/tree-sitter/parser/` directory
 * Start up neovim again and it will install the defined parsers
   * If this is not enabled, use `:TSInstallFromGrammar` command
-
-### Slow compe or telescope
-
-Disable tree-sitter integration.
-
-### Syntax does not seem to match colorscheme
-
-This setup relies on tree-sitter. So syntax is either not installed,
-is not an option at this moment.
