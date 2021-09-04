@@ -70,6 +70,7 @@ neovim.load({
             pumheight = 30,                             -- Limit height of autocomplete popup
             signcolumn = 'yes',                         -- Use sign column in gutter to prevent jumping
             numberwidth = 4,                            -- Wide number gutter
+            number = true,                              -- Show number gutter
             relativenumber = true,                      -- Show number gutter as relative number
             termguicolors = true,                       -- Respect terminal colors
             hidden = true,                              -- Allow jumping between unsaved buffers
