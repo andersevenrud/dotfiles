@@ -391,7 +391,11 @@ neovim.load({
 
     dap_install = {
         setup = {},
-        install = { 'php_dbg', 'jsnode_dbg', 'dart_dbg' }
+        install = {
+          -- 'php_dbg',
+          -- 'jsnode_dbg',
+          -- 'dart_dbg'
+        }
     },
 
     gitsigns = {
