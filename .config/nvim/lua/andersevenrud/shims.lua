@@ -106,33 +106,7 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local cmp = require'cmp'
-            cmp.setup(vim.tbl_extend('force', {
-                snippet = {
-                    expand = function(args)
-                        -- You must install `vim-vsnip` if you use the following as-is.
-                        vim.fn['vsnip#anonymous'](args.body)
-                    end
-                },
-                formatting = {
-                    format = function(entry, vim_item)
-                        vim_item.kind = require'lspkind'.presets.default[vim_item.kind]
-                        return vim_item
-                    end
-                },
-                -- FIXME: Figure out a way to move this out
-                mapping = {
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-e>'] = cmp.mapping.close(),
-                    ['<CR>'] = cmp.mapping.confirm({
-                        behavior = cmp.ConfirmBehavior.Insert,
-                        select = true,
-                    })
-                },
-            }, n.c.cmp))
+            cmp.setup(n.c.cmp(cmp))
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
