@@ -94,6 +94,7 @@ return {
     },
     ['euclio/vim-markdown-composer'] = {
         run = 'cargo build --release',
+        ft = { 'markdown' },
         config = function()
             local n = require'andersevenrud.neovim'
             n.apply_globals(n.c.markdown_composer, 'markdown_composer_')
@@ -110,6 +111,14 @@ return {
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
+        ft = {
+            'javascript',
+            'typescript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+            'svelte',
+        },
         config = function()
             local n = require'andersevenrud.neovim'
             n.add_on_attach('tsserver', function(client)
@@ -158,6 +167,7 @@ return {
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
+        ft = { 'flutter', 'dart' },
         config = function()
             local n = require'andersevenrud.neovim'
             require'flutter-tools'.setup(n.c.flutter_tools)
