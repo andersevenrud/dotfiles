@@ -42,10 +42,6 @@ return {
             local Rule = require('nvim-autopairs.rule')
 
             a.setup(n.c.npairs.options)
-
-            for _, v in pairs(n.c.npairs.rules) do
-                a.add_rule(Rule(unpack(v)))
-            end
         end
     },
     ['folke/todo-comments.nvim'] = {
