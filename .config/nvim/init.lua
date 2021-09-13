@@ -109,8 +109,6 @@ neovim.load({
             GitSignsCurrentLineBlame = { link = 'tscomment' },
             ExtraWhitespace = { link = 'RedrawDebugRecompose' },
             LineNr = { ctermbg = 'NONE', guibg = 'NONE' },
-            CurrentWordTwins = { gui = 'underline' },
-            CurrentWord = { gui = 'underline' }
         },
         aliases = {
             ['*.heml'] = 'html',
@@ -303,7 +301,7 @@ neovim.load({
             'nvim-treesitter/nvim-treesitter',
 
             -- UI
-            'dominikduda/vim_current_word', -- vimscript
+            'xiyaowong/nvim-cursorword',
             'haringsrob/nvim_context_vt',
             'norcalli/nvim-colorizer.lua',
             'hoob3rt/lualine.nvim',
