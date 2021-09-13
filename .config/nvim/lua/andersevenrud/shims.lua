@@ -148,12 +148,6 @@ return {
     ['alexaandru/nvim-lspupdate'] = {
         run = 'make lua'
     },
-    ['hrsh7th/vim-vsnip'] = {
-        config = function()
-            -- run vsnip on startup and not on demand to reduce latency on initial completion
-            vim.api.nvim_exec('autocmd filetype * call vsnip#get_complete_items(bufnr())', false)
-        end
-    },
     ['onsails/lspkind-nvim'] = {
         config = function()
             require'lspkind'.init{}

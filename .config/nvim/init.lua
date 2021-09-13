@@ -189,9 +189,13 @@ neovim.load({
             { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true } },
             { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
 
-            -- vsnip
-            { 'i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
-            { 's', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], { expr = true } },
+            -- luasnip
+            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { noremap = true, silent = true } },
+            { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true } },
+            { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true } },
+            { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true } },
+            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true } },
+            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true } },
 
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
@@ -344,7 +348,8 @@ neovim.load({
             'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-nvim-lsp',
             'andersevenrud/compe-tmux',
-            'hrsh7th/vim-vsnip',
+            'saadparwaiz1/cmp_luasnip',
+            'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
 
             -- LSP
@@ -421,12 +426,12 @@ neovim.load({
                 { name = 'nvim_lua' },
                 { name = 'nvim_lsp' },
                 { name = 'buffer' },
+                { name = 'luasnip' },
                 { name = 'tmux', opts = { all_panes = true } }
             },
             snippet = {
                 expand = function(args)
-                    -- You must install `vim-vsnip` if you use the following as-is.
-                    vim.fn['vsnip#anonymous'](args.body)
+                    require'luasnip'.lsp_expand(args.body)
                 end
             },
             formatting = {
