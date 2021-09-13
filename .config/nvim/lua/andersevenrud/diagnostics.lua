@@ -3,56 +3,81 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local compose_diagnostic_config = function(from, config, requiredFiles)
-    return vim.tbl_extend('keep', config, {
-        requiredFiles = vim.tbl_extend('keep', requiredFiles, from.rootPatterns)
-    }, from)
-end
+local nls = require'null-ls'
+local nlsh = require'null-ls.helpers'
+local nlsm = require'null-ls.methods'
 
-local collapse_tuple_array = function(a)
-    local result = {}
-    for _, v in ipairs(a) do
-        for _, ft in pairs(v[1]) do
-            result[ft] = v[2]
+-- TODO: Submit this as a PR
+local stylelint = nlsh.make_builtin({
+    factory = nlsh.generator_factory,
+    method = nlsm.internal.DIAGNOSTICS,
+    filetypes = { 'scss', 'less', 'css', 'sass' },
+    generator_opts = {
+        command = 'stylelint',
+        args = { '--formatter', 'json', '--stdin-filename', '$FILENAME' },
+        to_stdin = true,
+        format = 'json_raw',
+        on_output = function(params)
+            params.messages = params.output and params.output[1] and params.output[1].warnings or {}
+
+            if params.err then
+                for _, v in pairs(vim.fn.json_decode(params.err)) do
+                    for _, e in pairs(v.warnings) do
+                        table.insert(params.messages, e)
+                    end
+                end
+            end
+
+            local parser = nlsh.diagnostics.from_json({
+                attributes = {
+                    severity = 'severity',
+                    message = 'text',
+                },
+                severities = {
+                    nlsh.diagnostics.severities['warning'],
+                    nlsh.diagnostics.severities['error'],
+                },
+            })
+
+            return parser({ output = params.messages })
         end
-    end
-    return result
-end
-
-return collapse_tuple_array({
-    {
-        { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue' },
-        {
-            linter = compose_diagnostic_config(require'diagnosticls-configs.linters.eslint', {
-                debounce = 1000,
-                command = 'node_modules/.bin/eslint',
-                rootPatterns = { 'package.json' },
-                securities = {
-                    [1] = 'error',
-                    [2] = 'warning'
-                }
-            }, { 'package.json' }),
-
-            formatter = compose_diagnostic_config(require 'diagnosticls-configs.formatters.prettier', {
-                command = 'node_modules/.bin/prettier',
-                rootPatterns = { 'package.json' },
-            }, { 'package.json' })
-        }
-    },
-    {
-        { 'scss', 'less', 'css' },
-        {
-            linter = compose_diagnostic_config(require'diagnosticls-configs.linters.stylelint', {
-                debounce = 1000,
-                command = 'node_modules/.bin/stylelint',
-                rootPatterns = { 'package.json' },
-            }, { 'package.json', '.stylelintrc', 'stylelint.config.js' })
-        }
-    },
-    {
-        { 'php' },
-        {
-            linter = require'diagnosticls-configs.linters.phpcs'
-        }
     }
 })
+
+local null_with = function(root_file, prefix)
+    return function(cmd, builtin)
+        return nlsh.conditional(function(utils)
+            local project_local_bin = prefix .. cmd
+
+            return builtin.with({
+                command = utils.root_has_file(project_local_bin) and project_local_bin or cmd,
+                conditional = function()
+                    return utils.root_has_file(root_file)
+                end,
+            })
+        end)
+    end
+end
+
+local null_npx = null_with('package.json', 'node_modules/.bin/')
+local null_composer = null_with('composer.json', 'vendor/bin/')
+
+return function()
+    return {
+        sources = {
+            null_npx('eslint', nls.builtins.formatting.eslint),
+            null_npx('prettier', nls.builtins.formatting.prettier),
+            null_composer('php-cs-fixer', nls.builtins.formatting.phpcsfixer),
+            nls.builtins.formatting.stylua.with({
+                conditional = function(utils)
+                    return utils.root_has_file('stylua.toml')
+                end
+            }),
+
+            null_npx('eslint', nls.builtins.diagnostics.eslint),
+            null_npx('stylelint', stylelint),
+            null_composer('phpcs', nls.builtins.diagnostics.phpcs),
+            nls.builtins.diagnostics.luacheck,
+        }
+    }
+end

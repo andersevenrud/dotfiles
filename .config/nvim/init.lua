@@ -223,7 +223,6 @@ neovim.load({
             LspDiagnosticsSignHint = { text = '' }
         },
         servers = {
-            --diagnosticls = {}, -- see diagnosticls-configs-nvim
             --dartls = {}, -- See flutter-tools
             ccls = {},
             jsonls = {},
@@ -354,9 +353,9 @@ neovim.load({
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
             'alexaandru/nvim-lspupdate',
-            'creativenull/diagnosticls-configs-nvim',
             'akinsho/flutter-tools.nvim',
             'RishabhRD/nvim-lsputils',
+            'jose-elias-alvarez/null-ls.nvim',
         }
     },
 

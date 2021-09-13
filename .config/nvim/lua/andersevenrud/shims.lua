@@ -137,6 +137,7 @@ return {
                         n.run_on_attach('*', ...)
                     end
                 }, v)
+
                 nvim_lsp[k].setup(options)
             end
         end
@@ -149,11 +150,14 @@ return {
             require'lspkind'.init{}
         end
     },
-    ['creativenull/diagnosticls-configs-nvim'] = {
+    ['jose-elias-alvarez/null-ls.nvim'] = {
+        requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = function()
-            local diagnosticls = require'andersevenrud.diagnostics'
-            require'diagnosticls-configs'.init{}
-            require'diagnosticls-configs'.setup(diagnosticls)
+            local fn = require'andersevenrud.diagnostics'
+            local nls = require'null-ls'
+
+            nls.config(fn())
+            require('lspconfig')['null-ls'].setup{}
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
