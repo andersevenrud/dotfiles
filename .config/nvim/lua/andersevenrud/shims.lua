@@ -153,7 +153,6 @@ return {
     ['jose-elias-alvarez/null-ls.nvim'] = {
         requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = function()
-            local d = require'andersevenrud.diagnostics'
             local nlsh = require'null-ls.helpers'
             local nls = require'null-ls'
 
@@ -179,7 +178,6 @@ return {
                 sources = {
                     null_npx('eslint', nls.builtins.formatting.eslint),
                     null_npx('prettier', nls.builtins.formatting.prettier),
-                    null_npx('stylelint', d.formatting.stylelint),
                     null_composer('php-cs-fixer', nls.builtins.formatting.phpcsfixer),
                     nls.builtins.formatting.stylua.with({
                         conditional = function(utils)
@@ -188,7 +186,6 @@ return {
                     }),
 
                     null_npx('eslint', nls.builtins.diagnostics.eslint),
-                    null_npx('stylelint', d.diagnostics.stylelint),
                     null_composer('phpcs', nls.builtins.diagnostics.phpcs),
                     nls.builtins.diagnostics.luacheck,
                 }

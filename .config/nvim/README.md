@@ -50,7 +50,6 @@ Additional language support:
 
 * `init.lua` - Bootstrap and configuration
 * `lua/andersevenrud/neovim.lua` - Abstractions
-* `lua/andersevenrud/diagnostics.lua` - Diagnostics
 * `lua/andersevenrud/shims.lua` - Plugin shims
 * `lua/andersevenrud/secrets.lua` - Secrets (optional)
 

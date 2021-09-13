@@ -235,6 +235,7 @@ neovim.load({
             rust_analyzer = {},
             svelte = {},
             tsserver = {},
+            stylelint_lsp = {},
             tailwindcss = {
                 cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
             },
