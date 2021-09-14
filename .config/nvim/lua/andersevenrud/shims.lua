@@ -207,4 +207,10 @@ return {
             require'toggleterm'.setup(n.c.nvim_toggleterm)
         end
     },
+    ['sindrets/winshift.nvim'] = {
+        config = function()
+            local n = require'andersevenrud.neovim'
+            require("winshift").setup(n.c.winshift)
+        end
+    }
 }

@@ -109,6 +109,7 @@ neovim.load({
             GitSignsCurrentLineBlame = { link = 'tscomment' },
             ExtraWhitespace = { link = 'RedrawDebugRecompose' },
             LineNr = { ctermbg = 'NONE', guibg = 'NONE' },
+            WinShift = { guibg = '#3b4252' }
         },
         aliases = {
             ['*.heml'] = 'html',
@@ -197,6 +198,9 @@ neovim.load({
 
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
+
+            -- winshift
+            { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true } },
 
             -- nvim-lsp-ts-utils
             {
@@ -308,6 +312,7 @@ neovim.load({
             'arkav/lualine-lsp-progress',
             'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
+            'sindrets/winshift.nvim',
             'maaslalani/nordbuddy',
 
             -- Treesitter
@@ -594,5 +599,10 @@ neovim.load({
     nvim_toggleterm = {
       open_mapping = [[<leader>t]],
       shell = 'bash'
-    }
+    },
+
+    winshift = {
+        highlight_moving_win = true,
+        focused_hl_group = 'WinShift',
+    },
 }, shims)
