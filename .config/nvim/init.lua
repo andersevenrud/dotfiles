@@ -125,10 +125,6 @@ neovim.load({
             -- Destroy buffer with C-w on leader
             { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true } },
 
-            -- Don't increment search on '*'
-            { 'n', '*', '*``', { noremap = true } },
-            { 'n', '*', ':keepjumps normal! mi*`i<CR>', { noremap = true } },
-
             -- Horizontal split resizing
             { 'n',  '<leader>+', '<C-W>4>', { noremap = true } },
             { 'n',  '<leader>-', '<C-W>4<', { noremap = true } },
