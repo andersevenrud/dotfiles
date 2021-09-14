@@ -122,14 +122,15 @@ neovim.load({
             php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
         },
         keybindings = {
-            -- Destroy buffer with C-w on leader
+            -- Destroy buffer(s) shortcuts
             { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true } },
+            { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true } },
 
             -- Horizontal split resizing
             { 'n',  '<leader>+', '<C-W>4>', { noremap = true } },
             { 'n',  '<leader>-', '<C-W>4<', { noremap = true } },
 
-            -- Vertical split resizing
+            -- Vertical split resizing (same as horizontal, but with shift)
             { 'n',  '<leader>?', '<C-W>4+', { noremap = true } },
             { 'n',  '<leader>_', '<C-W>4-', { noremap = true } },
 
@@ -140,9 +141,6 @@ neovim.load({
             -- Rebind horizontal arrows to tab switching
             { 'n',  '<Right>', 'gt', { noremap = true } },
             { 'n',  '<Left>', 'gT', { noremap = true } },
-
-            -- Close all buffers
-            { 'n', '<leader>bd', '<cmd>%bd<cr>', { noremap = true } },
 
             -- LSP
             {
