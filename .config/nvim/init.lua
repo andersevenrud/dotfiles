@@ -426,7 +426,7 @@ neovim.load({
                 { name = 'nvim_lsp' },
                 { name = 'buffer' },
                 { name = 'luasnip' },
-                { name = 'tmux', opts = { all_panes = true } }
+                { name = 'tmux' }
             },
             snippet = {
                 expand = function(args)
