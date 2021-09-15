@@ -196,6 +196,11 @@ neovim.load({
             -- winshift
             { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true } },
 
+            -- goto-preview
+            { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true } },
+            { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true } },
+            { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true } },
+
             -- nvim-lsp-ts-utils
             {
                 lsp = 'tsserver',
@@ -307,6 +312,7 @@ neovim.load({
             'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
+            'rmagatti/goto-preview',
             'maaslalani/nordbuddy',
 
             -- Treesitter

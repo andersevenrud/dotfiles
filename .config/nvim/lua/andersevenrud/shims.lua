@@ -210,7 +210,13 @@ return {
     ['sindrets/winshift.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require("winshift").setup(n.c.winshift)
+            require'winshift'.setup(n.c.winshift)
+        end
+    },
+    ['rmagatti/goto-preview'] = {
+        config = function()
+            local gp = require'goto-preview'
+            gp.setup(gp.conf)
         end
     }
 }
