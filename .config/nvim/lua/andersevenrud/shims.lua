@@ -153,44 +153,11 @@ return {
     ['jose-elias-alvarez/null-ls.nvim'] = {
         requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = function()
+            local n = require'andersevenrud.neovim'
             local nlsh = require'null-ls.helpers'
             local nls = require'null-ls'
-
-            local null_with = function(root_file, prefix)
-                return function(cmd, builtin)
-                    return nlsh.conditional(function(utils)
-                        local project_local_bin = prefix .. cmd
-
-                        return builtin.with({
-                            command = utils.root_has_file(project_local_bin) and project_local_bin or cmd,
-                            conditional = function()
-                                return utils.root_has_file(root_file)
-                            end,
-                        })
-                    end)
-                end
-            end
-
-            local null_npx = null_with('package.json', 'node_modules/.bin/')
-            local null_composer = null_with('composer.json', 'vendor/bin/')
-
-            nls.config({
-                sources = {
-                    null_npx('eslint', nls.builtins.formatting.eslint),
-                    null_npx('prettier', nls.builtins.formatting.prettier),
-                    null_composer('php-cs-fixer', nls.builtins.formatting.phpcsfixer),
-                    nls.builtins.formatting.stylua.with({
-                        conditional = function(utils)
-                            return utils.root_has_file('stylua.toml')
-                        end
-                    }),
-
-                    null_npx('eslint', nls.builtins.diagnostics.eslint),
-                    null_composer('phpcs', nls.builtins.diagnostics.phpcs),
-                    nls.builtins.diagnostics.luacheck,
-                }
-            })
-
+            local sources = n.load_null_ls_sources(nls, nlsh, n.c.nullls)
+            nls.config({ sources = sources })
             require('lspconfig')['null-ls'].setup{}
         end
     },

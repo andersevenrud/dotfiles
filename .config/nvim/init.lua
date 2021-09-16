@@ -605,4 +605,22 @@ neovim.load({
         highlight_moving_win = true,
         focused_hl_group = 'WinShift',
     },
+
+    nullls = {
+        bin = {
+            ['package.json'] = 'node_modules/.bin/',
+            ['composer.json'] = 'vendor/bin/'
+        },
+        formatting = {
+            { 'eslint', 'package.json' },
+            { 'prettier', 'package.json' },
+            { 'phpcsfixer', 'composer.json' },
+            { 'stylua', 'stylua.toml' },
+        },
+        diagnostics = {
+            { 'eslint', 'package.json' },
+            { 'phpcs', 'composer.json' },
+            { 'luacheck' }
+        }
+    }
 }, shims)

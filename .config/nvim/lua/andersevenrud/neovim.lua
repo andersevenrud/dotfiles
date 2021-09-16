@@ -181,6 +181,43 @@ M.packer_load = function(config, shims)
     })
 end
 
+-- null-ls source loading abstraction
+M.load_null_ls_sources = function(nls, nlsh, config)
+    local sources = {}
+
+    for _, ns in pairs({ 'formatting', 'diagnostics' }) do
+        for _, t in pairs(config[ns]) do
+            local name, root_file = unpack(t)
+            local builtin = nls.builtins[ns][name]
+            local instance = builtin
+
+            if root_file then
+                local command = nil
+                local prefix = config.bin[root_file]
+
+                instance = nlsh.conditional(function(utils)
+                    if prefix then
+                        local cmd = builtin._opts.command
+                        local project_local_bin = prefix .. cmd
+                        command = utils.root_has_file(project_local_bin) and project_local_bin or cmd
+                    end
+
+                    return builtin.with({
+                        command = command,
+                        conditional = function(utils)
+                            return utils.root_has_file(root_file)
+                        end
+                    })
+                end)
+            end
+
+            table.insert(sources, instance)
+        end
+    end
+
+    return sources
+end
+
 -- Initialization wrapper
 M.load = function(config, shims)
     M.c = config
