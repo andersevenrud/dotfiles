@@ -182,33 +182,39 @@ M.packer_load = function(config, shims)
 end
 
 -- null-ls source loading abstraction
-M.load_null_ls_sources = function(nls, nlsh, config)
+M.load_null_ls_sources = function(nls, nlsh, nlsu, config)
     local sources = {}
+
+    local check_executable = function(cmd)
+        return vim.fn.executable(cmd) > 0
+    end
 
     for _, ns in pairs({ 'formatting', 'diagnostics' }) do
         for _, t in pairs(config[ns]) do
             local name, root_file = unpack(t)
             local builtin = nls.builtins[ns][name]
-            local instance = builtin
+            local instance = builtin.with({
+                condition = function()
+                    return check_executable(builtin._opts.command)
+                end
+            })
 
             if root_file then
-                local command = nil
+                local command = builtin._opts.command
                 local prefix = config.bin[root_file]
+                local utils = nlsu.make_conditional_utils()
 
-                instance = nlsh.conditional(function(utils)
-                    if prefix then
-                        local cmd = builtin._opts.command
-                        local project_local_bin = prefix .. cmd
-                        command = utils.root_has_file(project_local_bin) and project_local_bin or cmd
+                if prefix then
+                    local project_local_bin = prefix .. command
+                    command = utils.root_has_file(project_local_bin) and project_local_bin or command
+                end
+
+                instance = builtin.with({
+                    command = command,
+                    condition = function(utils)
+                        return utils.root_has_file(root_file) and check_executable(command)
                     end
-
-                    return builtin.with({
-                        command = command,
-                        conditional = function(utils)
-                            return utils.root_has_file(root_file)
-                        end
-                    })
-                end)
+                })
             end
 
             table.insert(sources, instance)

@@ -155,8 +155,9 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local nlsh = require'null-ls.helpers'
+            local nlsu = require'null-ls.utils'
             local nls = require'null-ls'
-            local sources = n.load_null_ls_sources(nls, nlsh, n.c.nullls)
+            local sources = n.load_null_ls_sources(nls, nlsh, nlsu, n.c.nullls)
             nls.config({ sources = sources })
             require('lspconfig')['null-ls'].setup{}
         end
