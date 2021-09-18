@@ -6,16 +6,6 @@
 local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 
-local secrets = neovim.prequire('andersevenrud.secrets', {
-    intelephense = {
-        licenceKey = nil
-    }
-})
-
-local border_style = 'single'
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -31,6 +21,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+
+local border_style = 'single'
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
+local secrets = neovim.prequire('andersevenrud.secrets', {
+    intelephense = {
+        licenceKey = nil
+    }
+})
 
 local autocommands = {
     ['ExtraWhitespaceCommands'] = {
@@ -242,11 +241,12 @@ neovim.load({
             arduino_language_server = {
                 cmd =  {
                     'arduino-language-server',
-                    '-cli-config', '$HOME/.arduino15/arduino-cli.yaml',
+                    '-cli-config',
+                    '$HOME/.arduino15/arduino-cli.yaml',
                 }
             },
             tailwindcss = {
-                cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
+                cmd = { '/usr/local/bin/tailwindcss-language-server', '--stdio' }
             },
             intelephense = {
                 init_options = {
@@ -295,11 +295,7 @@ neovim.load({
     --
 
     packer = {
-        options = {
-            profile = {
-                enable = false
-            }
-        },
+        options = {},
         load = {
             -- Dependencies
             'wbthomason/packer.nvim',
@@ -512,39 +508,39 @@ neovim.load({
                 enable = true,
                 lookahead = true,
                 keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
+                    ['af'] = '@function.outer',
+                    ['if'] = '@function.inner',
+                    ['ac'] = '@class.outer',
+                    ['ic'] = '@class.inner',
                 },
             },
             swap = {
                 enable = true,
                 swap_next = {
-                    ["<leader>a"] = "@parameter.inner",
+                    ['<leader>a'] = '@parameter.inner',
                 },
                 swap_previous = {
-                    ["<leader>A"] = "@parameter.inner",
+                    ['<leader>A'] = '@parameter.inner',
                 },
             },
             move = {
                 enable = true,
                 set_jumps = true,
                 goto_next_start = {
-                    ["]m"] = "@function.outer",
-                    ["]]"] = "@class.outer",
+                    [']m'] = '@function.outer',
+                    [']]'] = '@class.outer',
                 },
                 goto_next_end = {
-                    ["]M"] = "@function.outer",
-                    ["]["] = "@class.outer",
+                    [']M'] = '@function.outer',
+                    [']['] = '@class.outer',
                 },
                 goto_previous_start = {
-                    ["[m"] = "@function.outer",
-                    ["[["] = "@class.outer",
+                    ['[m'] = '@function.outer',
+                    ['[['] = '@class.outer',
                 },
                 goto_previous_end = {
-                    ["[M"] = "@function.outer",
-                    ["[]"] = "@class.outer",
+                    ['[M'] = '@function.outer',
+                    ['[]'] = '@class.outer',
                 },
             }
         },

@@ -3,16 +3,10 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local M = {
-    c = {}
-}
-
 local on_attach_list = {}
 
-local lsp_handlers = {
-    ['textDocument/publishDiagnostics'] = vim.lsp.diagnostic.on_publish_diagnostics,
-    ['textDocument/hover'] = vim.lsp.handlers.hover,
-    ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
+local M = {
+    config = {}
 }
 
 -- protected require
@@ -86,8 +80,13 @@ end
 
 -- LSP Handler options
 M.set_lsp_options = function(options)
-    for k, v in pairs(options) do
+    local lsp_handlers = {
+        ['textDocument/publishDiagnostics'] = vim.lsp.diagnostic.on_publish_diagnostics,
+        ['textDocument/hover'] = vim.lsp.handlers.hover,
+        ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
+    }
 
+    for k, v in pairs(options) do
         vim.lsp.handlers[k] = vim.lsp.with(
             lsp_handlers[k],
             v
@@ -250,8 +249,7 @@ end
 
 -- Initialization wrapper
 M.load = function(config, shims)
-    M.c = config
-
+    M.config = config
     M.set_options(config.vim.options)
     M.set_highlights(config.vim.highlights)
     M.set_aliases(config.vim.aliases)

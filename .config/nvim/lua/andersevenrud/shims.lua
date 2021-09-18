@@ -8,40 +8,38 @@ return {
         run = ':TSUpdate',
         config = function()
             local n = require'andersevenrud.neovim'
-            require'nvim-treesitter.configs'.setup(n.c.treesitter)
+            require'nvim-treesitter.configs'.setup(n.config.treesitter)
         end
     },
     ['norcalli/nvim-colorizer.lua'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'colorizer'.setup(n.c.colorizer.filetypes, n.c.colorizer.options)
+            require'colorizer'.setup(n.config.colorizer.filetypes, n.config.colorizer.options)
         end
     },
     ['hoob3rt/lualine.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'lualine'.setup(n.c.lualine)
+            require'lualine'.setup(n.config.lualine)
         end
     },
     ['lewis6991/gitsigns.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'gitsigns'.setup(n.c.gitsigns)
+            require'gitsigns'.setup(n.config.gitsigns)
         end
     },
     ['maaslalani/nordbuddy'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'nordbuddy'.colorscheme(n.c.nordbuddy)
+            require'nordbuddy'.colorscheme(n.config.nordbuddy)
         end
     },
     ['windwp/nvim-autopairs'] = {
         config = function()
             local n = require'andersevenrud.neovim'
             local a = require'nvim-autopairs'
-            local Rule = require('nvim-autopairs.rule')
-
-            a.setup(n.c.npairs.options)
+            a.setup(n.config.npairs.options)
         end
     },
     ['folke/todo-comments.nvim'] = {
@@ -52,35 +50,35 @@ return {
     ['nacro90/numb.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'numb'.setup(n.c.numb)
+            require'numb'.setup(n.config.numb)
         end
     },
     ['nvim-telescope/telescope.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
             local telescope = require'telescope'
-            telescope.setup(n.c.telescope.setup)
-            for _, v in ipairs(n.c.telescope.extensions) do telescope.load_extension(v) end
+            telescope.setup(n.config.telescope.setup)
+            for _, v in ipairs(n.config.telescope.extensions) do telescope.load_extension(v) end
         end
     },
     ['kyazdani42/nvim-tree.lua'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            n.apply_globals(n.c.nvim_tree, 'nvim_tree_')
+            n.apply_globals(n.config.nvim_tree, 'nvim_tree_')
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            vim.g.dap_virtual_text = n.c.dap_virtual_text.enabled
+            vim.g.dap_virtual_text = n.config.dap_virtual_text.enabled
         end
     },
     ['Pocco81/DAPInstall.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
             local dap = require'dap-install'
-            dap.setup(n.c.dap_install.setup)
-            for _, v in ipairs(n.c.dap_install.install) do dap.config(v, {}) end
+            dap.setup(n.config.dap_install.setup)
+            for _, v in ipairs(n.config.dap_install.install) do dap.config(v, {}) end
         end
     },
     ['sindrets/diffview.nvim'] = {
@@ -93,7 +91,7 @@ return {
         ft = { 'markdown' },
         config = function()
             local n = require'andersevenrud.neovim'
-            n.apply_globals(n.c.markdown_composer, 'markdown_composer_')
+            n.apply_globals(n.config.markdown_composer, 'markdown_composer_')
         end
     },
     ['andersevenrud/compe-tmux'] = {
@@ -103,7 +101,7 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local cmp = require'cmp'
-            cmp.setup(n.c.cmp(cmp))
+            cmp.setup(n.config.cmp(cmp))
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
@@ -128,10 +126,10 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local nvim_lsp = require'lspconfig'
-            for k, v in pairs(n.c.lsp.servers) do
+            for k, v in pairs(n.config.lsp.servers) do
                 local options = vim.tbl_extend('keep', {
-                    capabilities = n.c.lsp.capabilities,
-                    flags = n.c.lsp.flags,
+                    capabilities = n.config.lsp.capabilities,
+                    flags = n.config.lsp.flags,
                     on_attach = function(...)
                         n.run_on_attach(k, ...)
                         n.run_on_attach('*', ...)
@@ -157,7 +155,7 @@ return {
             local nlsh = require'null-ls.helpers'
             local nlsu = require'null-ls.utils'
             local nls = require'null-ls'
-            local sources = n.load_null_ls_sources(nls, nlsh, nlsu, n.c.nullls)
+            local sources = n.load_null_ls_sources(nls, nlsh, nlsu, n.config.nullls)
             nls.config({ sources = sources })
             require('lspconfig')['null-ls'].setup{}
         end
@@ -166,25 +164,24 @@ return {
         ft = { 'flutter', 'dart' },
         config = function()
             local n = require'andersevenrud.neovim'
-            require'flutter-tools'.setup(n.c.flutter_tools)
+            require'flutter-tools'.setup(n.config.flutter_tools)
         end
     },
     ['akinsho/nvim-toggleterm.lua'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'toggleterm'.setup(n.c.nvim_toggleterm)
+            require'toggleterm'.setup(n.config.nvim_toggleterm)
         end
     },
     ['sindrets/winshift.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'winshift'.setup(n.c.winshift)
+            require'winshift'.setup(n.config.winshift)
         end
     },
     ['rmagatti/goto-preview'] = {
         config = function()
-            local gp = require'goto-preview'
-            gp.setup(gp.conf)
+            require'goto-preview'.setup{}
         end
     }
 }
