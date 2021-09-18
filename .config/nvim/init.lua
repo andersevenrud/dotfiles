@@ -239,6 +239,12 @@ neovim.load({
             svelte = {},
             tsserver = {},
             stylelint_lsp = {},
+            arduino_language_server = {
+                cmd =  {
+                    'arduino-language-server',
+                    '-cli-config', '$HOME/.arduino15/arduino-cli.yaml',
+                }
+            },
             tailwindcss = {
                 cmd = { "/usr/local/bin/tailwindcss-language-server", "--stdio" }
             },

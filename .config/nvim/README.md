@@ -70,8 +70,9 @@ Hardware development:
 
 - `nodejs` for language misc servers
 - `cargo` for certain plugins depending on rust
-- [`lua-language-server`](https://github.com/sumneko/lua-language-server) for lua language server
 - [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
+- [`lua-language-server`](https://github.com/sumneko/lua-language-server)
+- [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
 
 ## Setup
 
