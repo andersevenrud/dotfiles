@@ -46,6 +46,10 @@ Additional language support:
 * Flutter
 * Markdown
 
+Hardware development:
+
+* Arduino
+
 ## Structure
 
 * `init.lua` - Bootstrap and configuration

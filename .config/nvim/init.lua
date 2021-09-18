@@ -344,6 +344,7 @@ neovim.load({
             'TimUntersberger/neogit',
             'euclio/vim-markdown-composer',
             'akinsho/nvim-toggleterm.lua',
+            'stevearc/vim-arduino',
 
             -- Autocomplete
             'hrsh7th/nvim-cmp',
@@ -409,7 +410,7 @@ neovim.load({
         sections = {
             lualine_a = { { 'mode', upper = true } },
             lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } },
-            lualine_c = { { 'filename', file_status = true }, 'lsp_progress' },
+            lualine_c = { { 'filename', file_status = true }, 'lsp_progress', neovim.lualine_arduino },
             lualine_x = { 'encoding', 'fileformat', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'location' },

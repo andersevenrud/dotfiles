@@ -224,6 +224,30 @@ M.load_null_ls_sources = function(nls, nlsh, nlsu, config)
     return sources
 end
 
+-- Returns another string if the input is empty
+M.empty_string_or = function(s, ors)
+    return (s == nil or #s == 0) and ors or s
+end
+
+-- Lualine source for vim-arduino
+M.lualine_arduino = function()
+    if vim.bo.filetype == 'arduino' then
+        local status, port = pcall(vim.call, 'arduino#GetPort')
+        if status == true then
+            local board = ' ' .. M.empty_string_or(vim.g.arduino_board, 'no board')
+            local programmer = ' ' .. M.empty_string_or(vim.g.arduino_programmer, 'no programmer')
+            local connection = ''
+            if port then
+                connection = ' ' .. port .. '  ' .. vim.g.arduino_serial_baud .. 'bps'
+            end
+
+            return board .. ' ' .. programmer .. ' ' .. connection
+        end
+    end
+
+    return nil
+end
+
 -- Initialization wrapper
 M.load = function(config, shims)
     M.c = config
