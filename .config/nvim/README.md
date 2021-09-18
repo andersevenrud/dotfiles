@@ -7,81 +7,57 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Features
 
-* Auto tags, indentation, parentheses, etc.
-* Autocompletion and auto-import
-* Full LSP integration w/diagnostics
-* Git integration
-* File browser
-* Fuzzy finder
-* Snippets
-* Debugger
+* Treesitter and auto pairs
+* Autocompletion and snippets
+* LSP and diagnostics integrations
+* File browser and fuzzy finder
+* Git integrations
 
-Configured language servers:
+Configured for:
 
-* Docker
-* YAML
-* JSON
-* Python
-* Lua
-* Rust
-* Dart
-* PHP
-* TypeScript
-* JavaScript
-* CSS
-* HTML
-* Vue
-* Svelte
+| Language         | Completion | Diagnostics | Formatting | Debugging |
+| ---------------- | ---------- | ----------- | ---------- | --------- |
+| Docker           | Y          | Y           |            |           |
+| YAML             | Y          | Y           |            |           |
+| JSON             |            | Y           | Y          |           |
+| Python           | Y          | Y           | Y          | Y         |
+| Lua              | Y          | Y           | Y          |           |
+| Rust             | Y          | Y           |            |           |
+| Dart (Flutter)   | Y          | Y           | Y          | Y         |
+| PHP              | Y          | Y           | Y          | Y         |
+| TypeScript       | Y          | Y           | Y          | Y         |
+| JavaScript       | Y          | Y           | Y          | Y         |
+| CSS              | Y          | Y           | Y          |           |
+| HTML             | Y          |             |            |           |
+| Vue              | Y          | Y           | Y          |           |
+| Svelte           | Y          | Y           | Y          |           |
+| Arduino          | Y          | Y           | Y          |           |
+| Mardown          |            |             |            | Y         |
 
-Configured additional diagnostics:
+## Dependencies
 
-* eslint
-* stylelint
-* prettier
-* phpcs
-
-Additional language support:
-
-* TypeScript
-* Flutter
-* Markdown
-
-Hardware development:
-
-* Arduino
-
-## Structure
-
-* `init.lua` - Bootstrap and configuration
-* `lua/andersevenrud/neovim.lua` - Abstractions
-* `lua/andersevenrud/shims.lua` - Plugin shims
-* `lua/andersevenrud/secrets.lua` - Secrets (optional)
-
-## Prerequisites
-
-### Requirements
-
-- `neovim >= 0.5` compiled with `tree-sitter`, `lua` and `python`
-- [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
+- `neovim >= 0.5`
 - `ripgrep`
 - `git`
+- [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
+- [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
 
 ### Optional
 
-- `nodejs` for language misc servers
-- `cargo` for certain plugins depending on rust
-- [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
+- `nodejs` for language servers
+- `rust` for language servers
 - [`lua-language-server`](https://github.com/sumneko/lua-language-server)
 - [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
+- [`stylua`](https://github.com/JohnnyMorganz/StyLua)
+- [`luacheck`](https://github.com/mpeterv/luacheck)
+- [`ccls`](https://github.com/MaskRay/ccls)
 
 ## Setup
 
 1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
-2. Use `:LspUpdate` to install language servers.
+2. Use `:LspUpdate` to install language servers (with exception of the optional dependencies above).
 
-### Secrets
-
-Example:
+Secrets are stored in the optional file `lua/andersevenrud/secrets.lua`:
 
 ```lua
 return {
@@ -91,32 +67,11 @@ return {
 }
 ```
 
-## Notes
+## Keybindings
 
-Some language servers implementations does not provide the following natively:
-
-* progress status updates
-* signature autocompletion via snippets
-
-There are also some bugs:
-
-* Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6) for all grammars
+TODO -- dump this from config table(s) and create markdown table
 
 ## Troubleshooting
-
-Build neovim from the official github repositories, not AUR etc.
-
-Neovim official ships with it's own third party dependencies and expects
-these versions, not from the system package manager.
-
-### Incorrect release version or dependencies
-
-Don't use CMake to bootstrap the source. Instead do the following:
-
-```bash
-make CMAKE_BUILD_TYPE=Release
-sudo make install CMAKE_INSTALL_CONFIG_NAME=Release
-```
 
 ### Treesitter ABI version conflicts
 
@@ -124,3 +79,7 @@ sudo make install CMAKE_INSTALL_CONFIG_NAME=Release
 * Nuke `~/.config/nvim/plugins/tree-sitter/parser/` directory
 * Start up neovim again and it will install the defined parsers
   * If this is not enabled, use `:TSInstallFromGrammar` command
+
+### Treesitter indentation issues
+
+Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6) for all grammars.
