@@ -220,10 +220,10 @@ neovim.load({
             debounce_text_changes = 150,
         },
         signs = {
-            LspDiagnosticsSignError = { text = '' },
-            LspDiagnosticsSignWarning = { text = '' },
-            LspDiagnosticsSignInformation = { text = '' },
-            LspDiagnosticsSignHint = { text = '' }
+            DiagnosticSignError = { text = '', texthl = 'DiagnosticError' },
+            DiagnosticSignWarning = { text = '', texthl = 'DiagnosticWarn' },
+            DiagnosticSignInformation = { text = '', texthl = 'DiagnosticInfo' },
+            DiagnosticSignHint = { text = '', texthl = 'DiagnosticHint' }
         },
         servers = {
             --dartls = {}, -- See flutter-tools
