@@ -10,3 +10,6 @@
 [submodule ".themes/Nordic"]
 	path = .themes/Nordic
 	url = https://github.com/EliverLara/Nordic.git
+[submodule ".local/src/nord-rofi"]
+	path = .local/src/nord-rofi
+	url = https://github.com/amayer5125/nord-rofi.git
