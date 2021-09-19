@@ -101,6 +101,10 @@ return {
 | n        | `*`          | `gpd`            | Go to definition (preview)             |
 | n        | `*`          | `gpi`            | Go to implementation (preview)         |
 | n        | `*`          | `gP`             | Close all previews                     |
+| n        | `tsserver`   | `<space>ri`      | Organize imports                       |
+| n        | `tsserver`   | `<space>cf`      | Fix current                            |
+| n        | `tsserver`   | `<space>rwn`     | Rename file across workspace           |
+| n        | `tsserver`   | `<space>ia`      | Import all used definitions            |
 | n        |              | `<leader>ff`     | Fuzzy find files                       |
 | n        |              | `<leader>fg`     | Fuzzy grep                             |
 | n        |              | `<leader>fb`     | Fuzzy buffers                          |
@@ -112,10 +116,6 @@ return {
 | n        |              | `<leader>ft`     | Toggle file browser                    |
 | n        |              | `<leader>fs`     | Show symbols outline                   |
 | n        |              | `<leader>ws`     | Toggle window shifter                  |
-| n        | `tsserver`   | `<leader>io`     | Organize imports                       |
-| n        | `tsserver`   | `<space>rf`      | Fix current                            |
-| n        | `tsserver`   | `<space>rn`      | Rename file across workspace           |
-| n        | `tsserver`   | `<leader>ia`     | Import all used definitions            |
 | n        |              | `<leader><C-w>`  | Destroy buffer                         |
 | n        |              | `<leader><C-q>`  | Destroy all buffers                    |
 | n        |              | `<leader>+`      | Increase horizontal split size         |

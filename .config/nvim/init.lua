@@ -164,6 +164,17 @@ neovim.load({
                 }
             },
 
+            -- nvim-lsp-ts-utils
+            {
+                lsp = 'tsserver',
+                keybindings = {
+                    { 'n', '<space>ri', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
+                    { 'n', '<space>cf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
+                    { 'n', '<space>rwn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
+                    { 'n', '<space>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
+                }
+            },
+
             -- Telescope
             { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true }, 'Fuzzy find files' },
             { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true }, 'Fuzzy grep' },
@@ -184,17 +195,6 @@ neovim.load({
 
             -- winshift
             { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true }, 'Toggle window shifter' },
-
-            -- nvim-lsp-ts-utils
-            {
-                lsp = 'tsserver',
-                keybindings = {
-                    { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
-                    { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
-                    { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
-                    { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
-                }
-            },
 
             -- Viewport manipulation
             { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true }, 'Destroy buffer' },
