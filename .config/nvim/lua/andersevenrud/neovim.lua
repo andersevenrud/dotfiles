@@ -54,6 +54,51 @@ M.set_rules = function(rules)
     end
 end
 
+-- Keymaps mardown output
+M.set_keymaps_dump = function(keymaps)
+    local paddings = { 8, 12, 16, 38 }
+
+    local pad = function(s, l, p)
+        return s .. string.rep(p or ' ', l - #s)
+    end
+
+    local tick = function(s)
+        return '`' .. s .. '`'
+    end
+
+    local printer = function(...)
+        local strings = {}
+
+        for i, v in ipairs({ ... }) do
+            if v == '-' then
+                table.insert(strings, pad(v, paddings[i], v))
+            else
+                table.insert(strings, pad(v, paddings[i]))
+            end
+        end
+
+        print(' | ' .. table.concat(strings, ' | ') .. ' |')
+    end
+
+    function iterate(k, lsp)
+        for _, v in ipairs(k) do
+            if v.lsp ~= nil then
+                iterate(v.keybindings, v.lsp)
+            else
+                local mode = v[1]
+                local submode = lsp and tick(lsp) or ''
+                local binding = tick(v[2])
+                local description = v[5] or v[3]
+                printer(mode, submode, binding, description)
+            end
+        end
+    end
+
+    printer('Mode', 'LSP', 'Binding', 'Description')
+    printer('-', '-', '-', '-')
+    iterate(keymaps)
+end
+
 -- Keymaps
 M.set_keymaps = function(keymaps, bufnr)
     for _, v in ipairs(keymaps) do
@@ -259,6 +304,8 @@ M.load = function(config, shims)
     M.set_lsp_options(config.lsp.options)
     M.set_auto_commands(config.vim.autocommands)
     M.packer_load(config.packer, shims)
+
+    -- M.set_keymaps_dump(config.vim.keybindings)
 end
 
 return M

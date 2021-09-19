@@ -69,7 +69,61 @@ return {
 
 ## Keybindings
 
-TODO -- dump this from config table(s) and create markdown table
+| Mode     | LSP          | Binding          | Description                            |
+| -------- | ------------ | ---------------- | -------------------------------------- |
+| n        |              | `<leader><C-w>`  | Destroy buffer                         |
+| n        |              | `<leader><C-q>`  | Destroy all buffers                    |
+| n        |              | `<leader>+`      | Increase horizontal split size         |
+| n        |              | `<leader>-`      | Decrease horizontal split size         |
+| n        |              | `<leader>?`      | Increase vertical split size           |
+| n        |              | `<leader>_`      | Decrease vertical split size           |
+| n        |              | `<Up>`           | Scroll up                              |
+| n        |              | `<Down>`         | Scroll down                            |
+| n        |              | `<Right>`        | Switch tab left                        |
+| n        |              | `<Left>`         | Swtich tab right                       |
+| n        | `*`          | `gD`             | Go to decleration                      |
+| n        | `*`          | `gd`             | Go to definition                       |
+| n        | `*`          | `K`              | Show documentation                     |
+| n        | `*`          | `gi`             | Go to implementation                   |
+| n        | `*`          | `gr`             | Go to reference(s)                     |
+| n        | `*`          | `<C-k>`          | Show signature help                    |
+| i        | `*`          | `<C-A-k>`        | Show signature help                    |
+| n        | `*`          | `<space>wa`      | Add workspace                          |
+| n        | `*`          | `<space>wr`      | Remove workspace                       |
+| n        | `*`          | `<space>wl`      | List workspaces                        |
+| n        | `*`          | `<space>D`       | Show type definition                   |
+| n        | `*`          | `<space>rn`      | Rename current                         |
+| n        | `*`          | `<space>ca`      | Show code actions                      |
+| n        | `*`          | `<space>f`       | Format document                        |
+| n        | `*`          | `<space>q`       | Set location list item                 |
+| n        | `*`          | `<space>e`       | Show lined diagnostics                 |
+| n        | `*`          | `[d`             | Go to prev diagnostic                  |
+| n        | `*`          | `]d`             | Go to next diagnostic                  |
+| n        |              | `<leader>ff`     | Fuzzy find files                       |
+| n        |              | `<leader>fg`     | Fuzzy grep                             |
+| n        |              | `<leader>fb`     | Fuzzy buffers                          |
+| n        |              | `<leader>fh`     | Fuzzy help                             |
+| n        |              | `<leader>fd`     | Fuzzy diagnostics                      |
+| n        |              | `<leader>go`     | Open neogit                            |
+| n        |              | `<leader>fr`     | Refresh file browser                   |
+| n        |              | `<leader>fo`     | Open file browser                      |
+| n        |              | `<leader>ft`     | Toggle file browser                    |
+| i        |              | `<Tab>`          | Jump to next in snippet                |
+| i        |              | `<S-Tab>`        | Jump to prev in snippet                |
+| s        |              | `<Tab>`          | Jump to next in snippet                |
+| s        |              | `<S-Tab>`        | Jump to prev in snippet                |
+| i        |              | `<C-E>`          | Next snippet choice                    |
+| s        |              | `<C-E>`          | Next snippet choice                    |
+| n        |              | `<leader>fs`     | Show symbols outline                   |
+| n        |              | `<leader>ws`     | Toggle window shifter                  |
+| n        |              | `gpd`            | Go to definition (preview)             |
+| n        |              | `gpi`            | Go to implementation (preview)         |
+| n        |              | `gP`             | Close all previews                     |
+| n        | `tsserver`   | `<leader>io`     | Organize imports                       |
+| n        | `tsserver`   | `<space>rf`      | Fix current                            |
+| n        | `tsserver`   | `<space>rn`      | Rename file across workspace           |
+| n        | `tsserver`   | `<leader>ia`     | Import all used definitions            |
+
 
 ## Troubleshooting
 

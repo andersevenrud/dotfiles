@@ -122,92 +122,92 @@ neovim.load({
         },
         keybindings = {
             -- Destroy buffer(s) shortcuts
-            { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true } },
-            { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true } },
+            { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true }, 'Destroy buffer' },
+            { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true }, 'Destroy all buffers' },
 
             -- Horizontal split resizing
-            { 'n',  '<leader>+', '<C-W>4>', { noremap = true } },
-            { 'n',  '<leader>-', '<C-W>4<', { noremap = true } },
+            { 'n',  '<leader>+', '<C-W>4>', { noremap = true }, 'Increase horizontal split size' },
+            { 'n',  '<leader>-', '<C-W>4<', { noremap = true }, 'Decrease horizontal split size '},
 
             -- Vertical split resizing (same as horizontal, but with shift)
-            { 'n',  '<leader>?', '<C-W>4+', { noremap = true } },
-            { 'n',  '<leader>_', '<C-W>4-', { noremap = true } },
+            { 'n',  '<leader>?', '<C-W>4+', { noremap = true }, 'Increase vertical split size' },
+            { 'n',  '<leader>_', '<C-W>4-', { noremap = true }, 'Decrease vertical split size' },
 
             -- Rebind vertical arrows to scrolling
-            { 'n',  '<Up>', '<C-y>', { noremap = true } },
-            { 'n',  '<Down>', '<C-e>', { noremap = true } },
+            { 'n',  '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
+            { 'n',  '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
 
             -- Rebind horizontal arrows to tab switching
-            { 'n',  '<Right>', 'gt', { noremap = true } },
-            { 'n',  '<Left>', 'gT', { noremap = true } },
+            { 'n',  '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
+            { 'n',  '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
 
             -- LSP
             {
                 lsp = '*',
                 keybindings = {
-                    { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true } },
-                    { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true } },
-                    { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true } },
-                    { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true } },
-                    { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true } },
-                    { 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true } },
-                    { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, show_header = false })<CR>', { noremap = true, silent = true } },
-                    { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true } },
-                    { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true } },
+                    { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }, 'Go to decleration' },
+                    { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }, 'Go to definition' },
+                    { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
+                    { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true }, 'Go to implementation'},
+                    { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
+                    { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    { 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    { 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { noremap = true, silent = true }, 'Add workspace' },
+                    { 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { noremap = true, silent = true }, 'Remove workspace' },
+                    { 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { noremap = true, silent = true }, 'List workspaces' },
+                    { 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true }, 'Show type definition' },
+                    { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true }, 'Rename current' },
+                    { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
+                    { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true }, 'Format document' },
+                    { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
+                    { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, show_header = false })<CR>', { noremap = true, silent = true }, 'Show lined diagnostics' },
+                    { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
+                    { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
                 }
             },
 
             -- Telescope
-            { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true } },
-            { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true } },
-            { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true } },
-            { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true } },
-            { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.lsp_workspace_diagnostics()<cr>]], { noremap = true } },
+            { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true }, 'Fuzzy find files' },
+            { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true }, 'Fuzzy grep' },
+            { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true }, 'Fuzzy buffers' },
+            { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true }, 'Fuzzy help' },
+            { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.lsp_workspace_diagnostics()<cr>]], { noremap = true }, 'Fuzzy diagnostics' },
 
             -- neogit
-            { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true } },
+            { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
 
             -- nvim-tree
-            { 'n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true } },
-            { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true } },
-            { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true } },
+            { 'n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true }, 'Refresh file browser' },
+            { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true }, 'Open file browser' },
+            { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true }, 'Toggle file browser' },
 
             -- luasnip
-            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { noremap = true, silent = true, expr = true } },
-            { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true } },
-            { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true } },
-            { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true } },
-            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true } },
-            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true } },
+            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { noremap = true, silent = true, expr = true }, 'Jump to next in snippet' },
+            { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
+            { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true }, 'Jump to next in snippet' },
+            { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
+            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
+            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
 
             -- symbols-outline
-            { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true } },
+            { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
 
             -- winshift
-            { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true } },
+            { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true }, 'Toggle window shifter' },
 
             -- goto-preview
-            { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true } },
-            { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true } },
-            { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true } },
+            { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true }, 'Go to definition (preview)' },
+            { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true }, 'Go to implementation (preview)' },
+            { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true }, 'Close all previews' },
 
             -- nvim-lsp-ts-utils
             {
                 lsp = 'tsserver',
                 keybindings = {
-                    { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true } },
-                    { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true } },
-                    { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true } },
-                    { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true } }
+                    { 'n', '<leader>io', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
+                    { 'n', '<space>rf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
+                    { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
+                    { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
                 }
             }
         }
@@ -248,6 +248,7 @@ neovim.load({
             tailwindcss = {
                 cmd = { '/usr/local/bin/tailwindcss-language-server', '--stdio' }
             },
+            vala_ls = {},
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
@@ -321,6 +322,9 @@ neovim.load({
             'JoosepAlviste/nvim-ts-context-commentstring',
             'nvim-treesitter/nvim-treesitter-textobjects',
             'windwp/nvim-ts-autotag',
+
+            -- Non-treesitter
+            'arrufat/vala.vim',
 
             -- Editing
             'tpope/vim-commentary',
@@ -422,7 +426,7 @@ neovim.load({
     cmp = function(cmp)
         return {
             completion = {
-                autocomplete = false
+                --autocomplete = false,
             },
             sources = {
                 { name = 'nvim_lua' },
