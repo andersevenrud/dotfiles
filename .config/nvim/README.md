@@ -12,27 +12,7 @@ configuration and shims in an attempt to make customization less spaghetti.
 * LSP and diagnostics integrations
 * File browser and fuzzy finder
 * Git integrations
-
-Configured for:
-
-| Language         | Completion | Diagnostics | Formatting | Debugging |
-| ---------------- | ---------- | ----------- | ---------- | --------- |
-| Docker           | Y          | Y           |            |           |
-| YAML             | Y          | Y           |            |           |
-| JSON             |            | Y           | Y          |           |
-| Python           | Y          | Y           | Y          | Y         |
-| Lua              | Y          | Y           | Y          |           |
-| Rust             | Y          | Y           |            |           |
-| Dart (Flutter)   | Y          | Y           | Y          | Y         |
-| PHP              | Y          | Y           | Y          | Y         |
-| TypeScript       | Y          | Y           | Y          | Y         |
-| JavaScript       | Y          | Y           | Y          | Y         |
-| CSS              | Y          | Y           | Y          |           |
-| HTML             | Y          |             |            |           |
-| Vue              | Y          | Y           | Y          |           |
-| Svelte           | Y          | Y           | Y          |           |
-| Arduino          | Y          | Y           | Y          |           |
-| Mardown          |            |             |            | Y         |
+* Nord
 
 ## Dependencies
 
@@ -46,11 +26,12 @@ Configured for:
 
 - `nodejs` for language servers
 - `rust` for language servers
-- [`lua-language-server`](https://github.com/sumneko/lua-language-server)
-- [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
-- [`stylua`](https://github.com/JohnnyMorganz/StyLua)
-- [`luacheck`](https://github.com/mpeterv/luacheck)
-- [`ccls`](https://github.com/MaskRay/ccls)
+- Language servers not covered by automatic installer
+  - [`lua-language-server`](https://github.com/sumneko/lua-language-server)
+  - [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
+  - [`stylua`](https://github.com/JohnnyMorganz/StyLua)
+  - [`luacheck`](https://github.com/mpeterv/luacheck)
+  - [`ccls`](https://github.com/MaskRay/ccls)
 
 ## Setup
 
@@ -67,13 +48,33 @@ return {
 }
 ```
 
+## Configured Languages
+
+| Language         | Completion | Diagnostics | Formatting | Debugging |
+| ---------------- | ---------- | ----------- | ---------- | --------- |
+| Docker           | Y          | Y           |            |           |
+| YAML             | Y          | Y           |            |           |
+| JSON             |            | Y           | Y          |           |
+| C/C++            | Y          | Y           | Y          | Y         |
+| Python           | Y          | Y           | Y          | Y         |
+| Lua              | Y          | Y           | Y          |           |
+| Rust             | Y          | Y           |            |           |
+| Dart (Flutter)   | Y          | Y           | Y          | Y         |
+| PHP              | Y          | Y           | Y          | Y         |
+| TypeScript       | Y          | Y           | Y          | Y         |
+| JavaScript       | Y          | Y           | Y          | Y         |
+| CSS              | Y          | Y           | Y          |           |
+| Tailwind         | Y          | Y           | Y          |           |
+| HTML             | Y          |             |            |           |
+| Vue              | Y          | Y           | Y          |           |
+| Svelte           | Y          | Y           | Y          |           |
+| Arduino          | Y          | Y           | Y          |           |
+| Mardown          |            |             |            | Y         |
+
 ## Custom Keybindings
 
 | Mode     | LSP          | Binding          | Description                            |
 | -------- | ------------ | ---------------- | -------------------------------------- |
-| i        |              | `<C-Space>`      | Trigger completion                     |
-| s        |              | `<C-n>`          | Next completion item                   |
-| s        |              | `<C-p>`          | Prev completion item                   |
 | i        |              | `<Tab>`          | Jump to next in snippet                |
 | i        |              | `<S-Tab>`        | Jump to prev in snippet                |
 | s        |              | `<Tab>`          | Jump to next in snippet                |
