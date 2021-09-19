@@ -121,25 +121,13 @@ neovim.load({
             php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
         },
         keybindings = {
-            -- Destroy buffer(s) shortcuts
-            { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true }, 'Destroy buffer' },
-            { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true }, 'Destroy all buffers' },
-
-            -- Horizontal split resizing
-            { 'n',  '<leader>+', '<C-W>4>', { noremap = true }, 'Increase horizontal split size' },
-            { 'n',  '<leader>-', '<C-W>4<', { noremap = true }, 'Decrease horizontal split size '},
-
-            -- Vertical split resizing (same as horizontal, but with shift)
-            { 'n',  '<leader>?', '<C-W>4+', { noremap = true }, 'Increase vertical split size' },
-            { 'n',  '<leader>_', '<C-W>4-', { noremap = true }, 'Decrease vertical split size' },
-
-            -- Rebind vertical arrows to scrolling
-            { 'n',  '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
-            { 'n',  '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
-
-            -- Rebind horizontal arrows to tab switching
-            { 'n',  '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
-            { 'n',  '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
+            -- luasnip
+            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { noremap = true, silent = true, expr = true }, 'Jump to next in snippet' },
+            { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
+            { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true }, 'Jump to next in snippet' },
+            { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
+            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
+            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
 
             -- LSP
             {
@@ -166,6 +154,16 @@ neovim.load({
                 }
             },
 
+            -- goto-preview
+            {
+                lsp = '*',
+                keybindings = {
+                    { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true }, 'Go to definition (preview)' },
+                    { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true }, 'Go to implementation (preview)' },
+                    { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true }, 'Close all previews' },
+                }
+            },
+
             -- Telescope
             { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true }, 'Fuzzy find files' },
             { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true }, 'Fuzzy grep' },
@@ -181,24 +179,11 @@ neovim.load({
             { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true }, 'Open file browser' },
             { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true }, 'Toggle file browser' },
 
-            -- luasnip
-            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { noremap = true, silent = true, expr = true }, 'Jump to next in snippet' },
-            { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
-            { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true }, 'Jump to next in snippet' },
-            { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
-            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
-            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
-
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
 
             -- winshift
             { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true }, 'Toggle window shifter' },
-
-            -- goto-preview
-            { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true }, 'Go to definition (preview)' },
-            { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true }, 'Go to implementation (preview)' },
-            { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true }, 'Close all previews' },
 
             -- nvim-lsp-ts-utils
             {
@@ -209,7 +194,21 @@ neovim.load({
                     { 'n', '<space>rn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
                     { 'n', '<leader>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
                 }
-            }
+            },
+
+            -- Viewport manipulation
+            { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true }, 'Destroy buffer' },
+            { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true }, 'Destroy all buffers' },
+            { 'n',  '<leader>+', '<C-W>4>', { noremap = true }, 'Increase horizontal split size' },
+            { 'n',  '<leader>-', '<C-W>4<', { noremap = true }, 'Decrease horizontal split size '},
+            { 'n',  '<leader>?', '<C-W>4+', { noremap = true }, 'Increase vertical split size' },
+            { 'n',  '<leader>_', '<C-W>4-', { noremap = true }, 'Decrease vertical split size' },
+
+            -- Rebind arrows
+            { 'n',  '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
+            { 'n',  '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
+            { 'n',  '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
+            { 'n',  '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
         }
     },
 
