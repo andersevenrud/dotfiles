@@ -1,7 +1,4 @@
 configuration {
 	font: "Source Sans Pro 10";
-	color-normal: "#4C566A, #D8DEE9, #4C566A, #5E81AC, #D8DEE9";
-	color-urgent: "#4C566A, #D8DEE9, #4C566A, #BF616A, #D8DEE9";
-	color-active: "#4C566A, #D8DEE9, #4C566A, #8FBCBB, #D8DEE9";
-	color-window: "#4C566A, #4C566A, #4C566A";
+  theme: "nord";
 }
