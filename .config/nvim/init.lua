@@ -219,8 +219,8 @@ neovim.load({
         },
         signs = {
             DiagnosticSignError = { text = '', texthl = 'DiagnosticError' },
-            DiagnosticSignWarning = { text = '', texthl = 'DiagnosticWarn' },
-            DiagnosticSignInformation = { text = '', texthl = 'DiagnosticInfo' },
+            DiagnosticSignWarn = { text = '', texthl = 'DiagnosticWarn' },
+            DiagnosticSignInfo = { text = '', texthl = 'DiagnosticInfo' },
             DiagnosticSignHint = { text = '', texthl = 'DiagnosticHint' }
         },
         servers = {
