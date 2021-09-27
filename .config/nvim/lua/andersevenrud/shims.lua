@@ -65,6 +65,7 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             n.apply_globals(n.config.nvim_tree, 'nvim_tree_')
+            require'nvim-tree'.setup{}
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
