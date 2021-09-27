@@ -63,9 +63,11 @@ return {
     },
     ['kyazdani42/nvim-tree.lua'] = {
         config = function()
+            -- FIXME: This will probably break in the future because this plugin is moving
+            --        settings to setup from global vars.
             local n = require'andersevenrud.neovim'
-            n.apply_globals(n.config.nvim_tree, 'nvim_tree_')
-            require'nvim-tree'.setup{}
+            n.apply_globals(n.config.nvim_tree.global, 'nvim_tree_')
+            require'nvim-tree'.setup(n.config.nvim_tree.options)
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
