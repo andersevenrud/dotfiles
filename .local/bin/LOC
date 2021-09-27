@@ -3,18 +3,35 @@
 # Author: Anders Evenrud <andersevenrud@gmail.com>
 #
 
+OLDIFS="$IFS"
+IFS=$'\n'
+
 declare -A linecount
 declare -A filecount
 
 git_files=`git ls-files --exclude-standard`
-count=`echo $git_files | wc -l`
+count=`git ls-files | wc -l`
 total=0
+skipped=0
+skipped_binaries=0
+
+filename_re="package-lock.json"
+extensions_re='^lock|xlsx|inv?$'
+long_extensions_re='min.[[:alnum:]]*$'
 
 for f in $git_files; do
-  ext="${f##*.}"
-  filename="${f%.*}"
+  filename="${f##*/}" # "${f%.*}"
+  ext="${filename##*.}"
+  long_ext="${filename#*.}"
 
-  if [[ "$filename" == "package-lock.json" || "$ext" =~ ^jpg|jpeg|png|bmp|ico|lock$ ]]; then
+  if [[ "$filename" =~ $filename_re || "$ext" =~ $extensions_re || "$long_ext" =~ $long_extensions_re ]]; then
+    skipped=$(expr $skipped + 1)
+    continue
+  fi
+
+  if ! file "$f" | grep -iq ASCII ; then
+    skipped=$(expr $skipped + 1)
+    skipped_binaries=$(expr $skipped_binaries + 1)
     continue
   fi
 
@@ -22,7 +39,7 @@ for f in $git_files; do
     ext="*"
   fi
 
-  lines=`cat $f 2>/dev/null | wc -l`
+  lines=`cat "$f" 2>/dev/null | wc -l`
   linecount[$ext]=$(expr ${linecount[$ext]} + $lines)
   filecount[$ext]=$(expr ${filecount[$ext]} + 1)
   total=$(expr $total + $lines)
@@ -30,6 +47,10 @@ done
 
 for k in "${!linecount[@]}"; do
   echo "${k}: ${linecount[$k]} in ${filecount[$k]} file(s)"
-done
+done | sort -rn -k2
 
-echo -e "\n${total} in ${count} file(s)"
+checked_files=$(expr $count - $skipped)
+echo -e "\n${checked_files} of ${count} files counted (${skipped} skipped, ${skipped_binaries} binaries)"
+echo "${total} line(s) in total"
+
+IFS="$OLDIFS"
