@@ -292,6 +292,18 @@ M.lualine_arduino = function()
     return nil
 end
 
+-- Creates capabilities for LSP according to cmp
+M.create_cmp_capabilities = function (capabilities)
+    capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
+
+    local status, cmp = pcall(require, 'cmp_nvim_lsp')
+    if status == false then
+        return capabilities
+    end
+
+    return cmp.update_capabilities(capabilities)
+end
+
 -- Initialization wrapper
 M.load = function(config, shims)
     M.config = config

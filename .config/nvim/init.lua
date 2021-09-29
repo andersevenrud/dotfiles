@@ -6,22 +6,6 @@
 local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-
 local border_style = 'single'
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
@@ -213,7 +197,6 @@ neovim.load({
     },
 
     lsp = {
-        capabilities = capabilities,
         flags = {
             debounce_text_changes = 150,
         },
@@ -373,7 +356,9 @@ neovim.load({
     flutter_tools = {
         flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
         lsp = {
-            capabilities = capabilities,
+            capabilities = function(config)
+                return neovim.create_cmp_capabilities(config)
+            end,
         }
     },
 

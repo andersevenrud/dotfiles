@@ -129,14 +129,20 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local nvim_lsp = require'lspconfig'
+            local capabilities = n.create_cmp_capabilities()
+            local flags = n.config.lsp.flags
+            local on_attach = function(k)
+                return function(...)
+                    n.run_on_attach(k, ...)
+                    n.run_on_attach('*', ...)
+                end
+            end
+
             for k, v in pairs(n.config.lsp.servers) do
                 local options = vim.tbl_extend('keep', {
-                    capabilities = n.config.lsp.capabilities,
-                    flags = n.config.lsp.flags,
-                    on_attach = function(...)
-                        n.run_on_attach(k, ...)
-                        n.run_on_attach('*', ...)
-                    end
+                    capabilities = capabilities,
+                    flags = flags,
+                    on_attach = on_attach(k)
                 }, v)
 
                 nvim_lsp[k].setup(options)
