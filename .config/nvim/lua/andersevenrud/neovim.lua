@@ -123,15 +123,15 @@ M.set_lsp_signs = function(signs)
     end
 end
 
--- LSP Handler options
-M.set_lsp_options = function(options)
+-- LSP Handler handlers
+M.set_lsp_handlers = function(handlers)
     local lsp_handlers = {
         ['textDocument/publishDiagnostics'] = vim.lsp.diagnostic.on_publish_diagnostics,
         ['textDocument/hover'] = vim.lsp.handlers.hover,
         ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
     }
 
-    for k, v in pairs(options) do
+    for k, v in pairs(handlers) do
         vim.lsp.handlers[k] = vim.lsp.with(
             lsp_handlers[k],
             v
@@ -313,7 +313,7 @@ M.load = function(config, shims)
     M.set_rules(config.vim.rules)
     M.set_keymaps(config.vim.keybindings)
     M.set_lsp_signs(config.lsp.signs)
-    M.set_lsp_options(config.lsp.options)
+    M.set_lsp_handlers(config.lsp.handlers)
     M.set_auto_commands(config.vim.autocommands)
     M.packer_load(config.packer, shims)
 

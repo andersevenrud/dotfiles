@@ -131,10 +131,18 @@ return {
             local nvim_lsp = require'lspconfig'
             local capabilities = n.create_cmp_capabilities()
             local flags = n.config.lsp.flags
+
+            local set_options = function(bufnr)
+                for k, v in pairs(n.config.lsp.options) do
+                    vim.api.nvim_buf_set_option(bufnr, k, v)
+                end
+            end
+
             local on_attach = function(k)
                 return function(...)
                     n.run_on_attach(k, ...)
                     n.run_on_attach('*', ...)
+                    set_options(...)
                 end
             end
 

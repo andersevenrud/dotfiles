@@ -200,6 +200,9 @@ neovim.load({
         flags = {
             debounce_text_changes = 150,
         },
+        options = {
+            omnifunc = 'v:lua.vim.lsp.omnifunc'
+        },
         signs = {
             DiagnosticSignError = { text = '', texthl = 'DiagnosticError' },
             DiagnosticSignWarn = { text = '', texthl = 'DiagnosticWarn' },
@@ -260,7 +263,7 @@ neovim.load({
                 },
             },
         },
-        options = {
+        handlers = {
             ['textDocument/publishDiagnostics'] = {
                 virtual_text = false
             },
