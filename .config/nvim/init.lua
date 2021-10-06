@@ -40,7 +40,7 @@ local wildignore = {
     '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
     '.git', '.svn', 'CVS',
     'package-lock.json', 'yarn.lock', 'composer.lock',
-    'DS_Store'
+    'DS_Store', 'storybook-static'
 }
 
 neovim.load({
