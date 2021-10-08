@@ -98,9 +98,9 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
-;mount-2 = /data
-;mount-3 = /mnt/ssd-data
-;mount-4 = /mnt/hdd-stuff
+mount-1 = /data
+mount-2 = /mnt/ssd-data
+mount-3 = /mnt/hdd-stuff
 
 label-mounted = %{F#d8dee9}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
