@@ -16,10 +16,10 @@ set $right l
 # i3 gaps
 ###############################################################################
 
-smart_gaps on
-smart_gaps inverse_outer
+#smart_gaps on
+#smart_gaps inverse_outer
 #gaps inner 8
-gaps inner 0
+#gaps inner 0
 for_window [class=".*"] border pixel 0
 
 ###############################################################################
@@ -206,6 +206,7 @@ exec_always --no-startup-id xscreensaver
 exec --no-startup-id nm-applet
 exec --no-startup-id solaar
 exec --no-startup-id redshift-gtk
+exec --no-startup-id udiskie -ans &
 
 exec --no-startup-id alacritty
 exec --no-startup-id chromium
