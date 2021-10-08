@@ -7,8 +7,11 @@ local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 
 local border_style = 'single'
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path..'/bin/Linux/lua-language-server'
+local sumneko_root_path = '/usr/share/lua-language-server' --vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = '/usr/bin/lua-language-server' --sumneko_root_path ..'/bin/Linux/lua-language-server'
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
 local secrets = neovim.prequire('andersevenrud.secrets', {
     intelephense = {
         licenceKey = nil
@@ -245,16 +248,13 @@ neovim.load({
                     Lua = {
                         runtime = {
                             version = 'LuaJIT',
-                            path = vim.split(package.path, ','),
+                            path = runtime_path
                         },
                         diagnostics = {
                             globals = {'vim'},
                         },
                         workspace = {
-                            library = {
-                                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                            },
+                            library = vim.api.nvim_get_runtime_file('', true)
                         },
                         telemetry = {
                             enable = false,
@@ -357,7 +357,7 @@ neovim.load({
     },
 
     flutter_tools = {
-        flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
+        --flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
         lsp = {
             capabilities = function(config)
                 return neovim.create_cmp_capabilities(config)
@@ -547,7 +547,7 @@ neovim.load({
             }
         },
         extensions = {
-            'flutter'
+            --'flutter'
         }
     },
 
