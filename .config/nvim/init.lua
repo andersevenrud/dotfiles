@@ -88,6 +88,7 @@ neovim.load({
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
             wildignore = wildignore,                    -- Ignore these file types
+            lazyredraw = true,                          -- Reduce flicker in macros etc.
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
                 tab = '·\\',
