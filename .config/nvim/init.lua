@@ -18,6 +18,13 @@ local secrets = neovim.prequire('andersevenrud.secrets', {
     }
 })
 
+local signs = {
+    error = '',
+    warning = '',
+    info = '',
+    hint = '',
+}
+
 local autocommands = {
     ['ExtraWhitespaceCommands'] = {
         { { 'InsertEnter' }, '*', [[match ExtraWhitespace /\s\+\%#\@<!$/]] },
@@ -207,10 +214,10 @@ neovim.load({
             omnifunc = 'v:lua.vim.lsp.omnifunc'
         },
         signs = {
-            DiagnosticSignError = { text = '', texthl = 'DiagnosticError' },
-            DiagnosticSignWarn = { text = '', texthl = 'DiagnosticWarn' },
-            DiagnosticSignInfo = { text = '', texthl = 'DiagnosticInfo' },
-            DiagnosticSignHint = { text = '', texthl = 'DiagnosticHint' }
+            DiagnosticSignError = { text = signs.error, texthl = 'DiagnosticError' },
+            DiagnosticSignWarn = { text = signs.warning, texthl = 'DiagnosticWarn' },
+            DiagnosticSignInfo = { text = signs.info, texthl = 'DiagnosticInfo' },
+            DiagnosticSignHint = { text = signs.hint, texthl = 'DiagnosticHint' }
         },
         servers = {
             --dartls = {}, -- See flutter-tools
@@ -578,7 +585,10 @@ neovim.load({
     nvim_tree = {
         options = {
             auto_close = true,
-            lsp_diagnostics = true,
+              diagnostics = {
+                enable = false,
+                icons = signs
+            }
         },
         global = {
             ignore = { '.git', '.cache' },
