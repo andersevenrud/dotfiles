@@ -241,9 +241,7 @@ neovim.load({
                     '$HOME/.arduino15/arduino-cli.yaml',
                 }
             },
-            tailwindcss = {
-                cmd = { '/usr/local/bin/tailwindcss-language-server', '--stdio' }
-            },
+            tailwindcss = {},
             vala_ls = {},
             intelephense = {
                 init_options = {
