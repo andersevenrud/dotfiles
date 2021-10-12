@@ -101,10 +101,13 @@ return {
         branch = 'cmp'
     },
     ['hrsh7th/nvim-cmp'] = {
+        requires = { 'windwp/nvim-autopairs', 'L3MON4D3/LuaSnip', 'onsails/lspkind-nvim' },
         config = function()
             local n = require'andersevenrud.neovim'
             local cmp = require'cmp'
+            local pairs = require'nvim-autopairs.completion.cmp'
             cmp.setup(n.config.cmp(cmp))
+            pairs.setup(n.config.npairs.cmp)
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {

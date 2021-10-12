@@ -376,6 +376,8 @@ neovim.load({
             disable_filetype = { 'TelescopePrompt' },
             check_ts = true,
         },
+        cmp = {
+        },
     },
 
     markdown_composer = {
@@ -417,16 +419,24 @@ neovim.load({
     },
 
     cmp = function(cmp)
+        local menu = {}
+
+        local sources = {
+            { name = 'nvim_lua' },
+            { name = 'nvim_lsp' },
+            { name = 'buffer' },
+            { name = 'luasnip' },
+            { name = 'tmux' }
+        }
+
+        for _, v in pairs(sources) do
+            menu[v.name] = v.name
+        end
+
         return {
+            sources = sources,
             completion = {
                 --autocomplete = false,
-            },
-            sources = {
-                { name = 'nvim_lua' },
-                { name = 'nvim_lsp' },
-                { name = 'buffer' },
-                { name = 'luasnip' },
-                { name = 'tmux' }
             },
             snippet = {
                 expand = function(args)
@@ -434,22 +444,17 @@ neovim.load({
                 end
             },
             formatting = {
-                format = function(entry, vim_item)
-                    vim_item.kind = require'lspkind'.presets.default[vim_item.kind]
-                    return vim_item
-                end
+                format = require('lspkind').cmp_format({
+                    with_text = true,
+                    menu = menu,
+                }),
             },
             mapping = {
-                ['<C-p>'] = cmp.mapping.select_prev_item(),
-                ['<C-n>'] = cmp.mapping.select_next_item(),
                 ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.close(),
-                ['<CR>'] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Insert,
-                    select = true,
-                })
+                ['<CR>'] = cmp.mapping.confirm({ select = true })
             },
         }
     end,
