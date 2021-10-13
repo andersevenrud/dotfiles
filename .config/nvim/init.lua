@@ -222,6 +222,7 @@ neovim.load({
         },
         servers = {
             --dartls = {}, -- See flutter-tools
+            bashls = {},
             ccls = {},
             jsonls = {},
             dockerls = {},
