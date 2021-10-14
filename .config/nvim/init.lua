@@ -7,8 +7,8 @@ local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 
 local border_style = 'single'
-local sumneko_root_path = '/usr/share/lua-language-server' --vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = '/usr/bin/lua-language-server' --sumneko_root_path ..'/bin/Linux/lua-language-server'
+local sumneko_root_path = vim.fn.stdpath('data') .. '/' .. 'lsp_servers/sumneko_lua/extension/server'
+local sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
@@ -358,7 +358,7 @@ neovim.load({
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
-            'alexaandru/nvim-lspupdate',
+            'williamboman/nvim-lsp-installer',
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',
         }

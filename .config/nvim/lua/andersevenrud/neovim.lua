@@ -304,6 +304,19 @@ M.create_cmp_capabilities = function (capabilities)
     return cmp.update_capabilities(capabilities)
 end
 
+-- Automate insallation of lsp servers
+M.install_all_lsp_servers = function()
+    local names = vim.tbl_keys(M.config.lsp.servers)
+    local lsp_installer = require'nvim-lsp-installer'
+
+    for _, name in pairs(names) do
+        local ok = lsp_installer.get_server(name)
+        if ok then
+            lsp_installer.install(name)
+        end
+    end
+end
+
 -- Initialization wrapper
 M.load = function(config, shims)
     M.config = config
@@ -318,6 +331,7 @@ M.load = function(config, shims)
     M.packer_load(config.packer, shims)
 
     -- M.set_keymaps_dump(config.vim.keybindings)
+    vim.cmd([[command LspInstallAll :lua require'andersevenrud.neovim'.install_all_lsp_servers()]])
 end
 
 return M

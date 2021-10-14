@@ -128,11 +128,14 @@ return {
             end)
         end
     },
-    ['neovim/nvim-lspconfig'] = {
+    ['williamboman/nvim-lsp-installer'] = {
+        requires = { 'neovim/nvim-lspconfig' },
         config = function()
-            local n = require'andersevenrud.neovim'
+            local lsp_installer = require'nvim-lsp-installer'
             local nvim_lsp = require'lspconfig'
+            local n = require'andersevenrud.neovim'
             local capabilities = n.create_cmp_capabilities()
+            local names = vim.tbl_keys(n.config.lsp.servers)
             local flags = n.config.lsp.flags
 
             local set_options = function(bufnr)
@@ -149,19 +152,35 @@ return {
                 end
             end
 
-            for k, v in pairs(n.config.lsp.servers) do
-                local options = vim.tbl_extend('keep', {
+            local create_options = function(name)
+                return vim.tbl_extend('keep', {
                     capabilities = capabilities,
                     flags = flags,
-                    on_attach = on_attach(k)
-                }, v)
-
-                nvim_lsp[k].setup(options)
+                    on_attach = on_attach(name)
+                }, n.config.lsp.servers[name])
             end
+
+            for _, name in pairs(names) do
+                local ok, server = lsp_installer.get_server(name)
+                if ok then
+                    if not server:is_installed() then
+                        server:install()
+                    end
+                else
+                    -- Fallback for servers not supported here
+                    local options = create_options(name)
+                    nvim_lsp[name].setup(options)
+                end
+            end
+
+
+            -- Automated installers
+            lsp_installer.on_server_ready(function(server)
+                local options = create_options(server.name)
+                server:setup(options)
+                vim.cmd [[ do User LspAttachBuffers ]]
+            end)
         end
-    },
-    ['alexaandru/nvim-lspupdate'] = {
-        run = 'make lua'
     },
     ['onsails/lspkind-nvim'] = {
         config = function()

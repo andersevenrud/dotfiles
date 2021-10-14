@@ -24,10 +24,10 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ### Optional
 
-- `nodejs` for language servers
-- `rust` for language servers
+- `nodejs` for language servers/tools
+- `rust` for language servers/tools
+- `php` for language servers/tools
 - Language servers not covered by automatic installer
-  - [`lua-language-server`](https://github.com/sumneko/lua-language-server)
   - [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
   - [`stylua`](https://github.com/JohnnyMorganz/StyLua)
   - [`luacheck`](https://github.com/mpeterv/luacheck)
@@ -36,7 +36,7 @@ configuration and shims in an attempt to make customization less spaghetti.
 ## Setup
 
 1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
-2. Use `:LspUpdate` to install language servers (with exception of the optional dependencies above).
+2. Use `:LspInstallAll` to install all language servers at once (instead of on-demand)
 
 Secrets are stored in the optional file `lua/andersevenrud/secrets.lua`:
 
