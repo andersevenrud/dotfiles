@@ -173,7 +173,6 @@ return {
                 end
             end
 
-
             -- Automated installers
             lsp_installer.on_server_ready(function(server)
                 local options = create_options(server.name)

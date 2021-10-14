@@ -16,22 +16,25 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Dependencies
 
-- `neovim >= 0.5`
-- `ripgrep`
-- `git`
+- `neovim >= 0.5.1`
 - [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
 - [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
 
 ### Optional
 
-- `nodejs` for language servers/tools
-- `rust` for language servers/tools
-- `php` for language servers/tools
-- Language servers not covered by automatic installer
+- Tool integrations
+  - `git`
+  - `ripgrep`
+- Language support binaries
+  - `python`
+  - `nodejs`
+  - `rust`
+  - `php`
+- Tools not covered by automatic installers
   - [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
+  - [`ccls`](https://github.com/MaskRay/ccls)
   - [`stylua`](https://github.com/JohnnyMorganz/StyLua)
   - [`luacheck`](https://github.com/mpeterv/luacheck)
-  - [`ccls`](https://github.com/MaskRay/ccls)
 
 ## Setup
 
