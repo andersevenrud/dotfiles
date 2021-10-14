@@ -247,6 +247,7 @@ neovim.load({
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
+                    globalStoragePath = '~/.config/intelephense'
                 },
             },
             sumneko_lua = {
