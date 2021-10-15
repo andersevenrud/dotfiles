@@ -45,10 +45,9 @@ font-2 = "SauceCodePro Nerd Font Mono:pixelsize=10;1"
 font-3 = "SauceCodePro Nerd Font:pixelsize=12:weight=bold;2"
 
 #modules-left = bspwm
-modules-left = i3 filesystem syslog
+modules-left = cpu filesystem-icon filesystem
 modules-center = date
-#modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
-modules-right = title xkeyboard memory cpu eth temperature powermenu
+modules-right = mpd title i3 xkeyboard
 
 tray-position = right
 tray-padding = 2
@@ -81,6 +80,7 @@ enable-ipc = true
 type = internal/xkeyboard
 blacklist-0 = num lock
 
+format = <label-layout>
 format-prefix = "  "
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
@@ -88,19 +88,24 @@ format-prefix-underline = ${colors.secondary}
 label-layout = %layout%
 label-layout-underline = ${colors.secondary}
 
-label-indicator-padding = 2
-label-indicator-margin = 1
+label-indicator-padding = 0
+label-indicator-margin = 0
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
+
+[module/filesystem-icon]
+type = custom/text
+content = 
 
 [module/filesystem]
 type = internal/fs
 interval = 25
 
 mount-0 = /
-mount-1 = /data
-mount-2 = /mnt/ssd-data
-mount-3 = /mnt/hdd-stuff
+mount-1 = /mnt/misc
+mount-2 = /mnt/personal
+mount-3 = /mnt/media
+mount-4 = /mnt/landfill
 
 label-mounted = %{F#d8dee9}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -109,12 +114,13 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/mpd]
 type = internal/mpd
 format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+label-offline = mpd is offline
 
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
 
 label-song-maxlen = 25
 label-song-ellipsis = true
@@ -122,7 +128,7 @@ label-song-ellipsis = true
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "  "
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #55aa55
 label = %percentage:2%%
