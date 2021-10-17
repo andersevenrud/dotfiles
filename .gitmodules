@@ -4,12 +4,6 @@
 [submodule ".bash/git-aware-prompt"]
 	path = .bash/git-aware-prompt
 	url = git://github.com/jimeh/git-aware-prompt.git
-[submodule ".themes/NordGTK"]
-	path = .themes/NordGTK
-	url = https://github.com/r2binx/NordGTK.git
-[submodule ".themes/Nordic"]
-	path = .themes/Nordic
-	url = https://github.com/EliverLara/Nordic.git
 [submodule ".local/src/nord-rofi"]
 	path = .local/src/nord-rofi
 	url = https://github.com/amayer5125/nord-rofi.git
