@@ -338,7 +338,7 @@ neovim.load({
 
             -- Utilities
             'wincent/terminus',
-            'editorconfig/editorconfig-vim',
+            'gpanders/editorconfig.nvim',
             'sindrets/diffview.nvim',
             'TimUntersberger/neogit',
             'euclio/vim-markdown-composer',
