@@ -456,7 +456,11 @@ neovim.load({
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.close(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true })
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                ['<C-c>'] = function(fallback)
+                    cmp.close()
+                    fallback()
+                end
             },
         }
     end,
