@@ -34,4 +34,6 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 SPACESHIP_GCLOUD_SHOW=false
 
+zstyle ':completion:*' rehash true
+
 zplug load
