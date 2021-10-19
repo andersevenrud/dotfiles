@@ -640,5 +640,9 @@ neovim.load({
             { 'phpcs', 'composer.json' },
             { 'luacheck' }
         }
+    },
+
+    tsutils = {
+        filter_out_diagnostics_by_code = { 80001 },
     }
 }, shims)

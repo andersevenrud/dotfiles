@@ -123,7 +123,12 @@ return {
             local n = require'andersevenrud.neovim'
             n.add_on_attach('tsserver', function(client)
                 local ts_utils = require'nvim-lsp-ts-utils'
-                ts_utils.setup{}
+
+                -- use null-ls over tsserver formatting
+                client.resolved_capabilities.document_formatting = false
+                client.resolved_capabilities.document_range_formatting = false
+
+                ts_utils.setup(n.config.tsutils)
                 ts_utils.setup_client(client)
             end)
         end
