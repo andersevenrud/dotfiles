@@ -136,56 +136,8 @@ return {
     ['williamboman/nvim-lsp-installer'] = {
         requires = { 'neovim/nvim-lspconfig', 'ray-x/lsp_signature.nvim' },
         config = function()
-            local lsp_installer = require'nvim-lsp-installer'
-            local lsp_signature = require'lsp_signature'
-            local nvim_lsp = require'lspconfig'
             local n = require'andersevenrud.neovim'
-            local capabilities = n.create_cmp_capabilities()
-            local names = vim.tbl_keys(n.config.lsp.servers)
-            local flags = n.config.lsp.flags
-
-            local set_options = function(bufnr)
-                for k, v in pairs(n.config.lsp.options) do
-                    vim.api.nvim_buf_set_option(bufnr, k, v)
-                end
-            end
-
-            local on_attach = function(k)
-                return function(...)
-                    n.run_on_attach(k, ...)
-                    n.run_on_attach('*', ...)
-                    set_options(...)
-                    lsp_signature.on_attach(n.config.lsp_signature)
-                end
-            end
-
-            local create_options = function(name)
-                return vim.tbl_extend('keep', {
-                    capabilities = capabilities,
-                    flags = flags,
-                    on_attach = on_attach(name)
-                }, n.config.lsp.servers[name])
-            end
-
-            for _, name in pairs(names) do
-                local ok, server = lsp_installer.get_server(name)
-                if ok then
-                    if not server:is_installed() then
-                        server:install()
-                    end
-                else
-                    -- Fallback for servers not supported here
-                    local options = create_options(name)
-                    nvim_lsp[name].setup(options)
-                end
-            end
-
-            -- Automated installers
-            lsp_installer.on_server_ready(function(server)
-                local options = create_options(server.name)
-                server:setup(options)
-                vim.cmd [[ do User LspAttachBuffers ]]
-            end)
+            n.setup_lsp()
         end
     },
     ['onsails/lspkind-nvim'] = {
