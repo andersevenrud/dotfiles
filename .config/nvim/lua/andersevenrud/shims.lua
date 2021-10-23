@@ -134,9 +134,10 @@ return {
         end
     },
     ['williamboman/nvim-lsp-installer'] = {
-        requires = { 'neovim/nvim-lspconfig' },
+        requires = { 'neovim/nvim-lspconfig', 'ray-x/lsp_signature.nvim' },
         config = function()
             local lsp_installer = require'nvim-lsp-installer'
+            local lsp_signature = require'lsp_signature'
             local nvim_lsp = require'lspconfig'
             local n = require'andersevenrud.neovim'
             local capabilities = n.create_cmp_capabilities()
@@ -154,6 +155,7 @@ return {
                     n.run_on_attach(k, ...)
                     n.run_on_attach('*', ...)
                     set_options(...)
+                    lsp_signature.on_attach(n.config.lsp_signature)
                 end
             end
 

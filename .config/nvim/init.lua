@@ -354,6 +354,7 @@ neovim.load({
             'saadparwaiz1/cmp_luasnip',
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
+            'ray-x/lsp_signature.nvim',
 
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
@@ -640,5 +641,10 @@ neovim.load({
 
     tsutils = {
         filter_out_diagnostics_by_code = { 80001 },
+    },
+
+    lsp_signature = {
+        bind = true,
+        hint_enable = false,
     }
 }, shims)
