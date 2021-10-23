@@ -320,7 +320,7 @@ neovim.load({
             'arrufat/vala.vim',
 
             -- Editing
-            'tpope/vim-commentary',
+            'numToStr/Comment.nvim',
             'matze/vim-move',
             'windwp/nvim-autopairs',
 

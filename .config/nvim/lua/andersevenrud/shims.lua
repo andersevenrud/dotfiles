@@ -226,5 +226,10 @@ return {
         config = function()
             require'goto-preview'.setup{}
         end
+    },
+    ['numToStr/Comment.nvim'] = {
+        config = function()
+            require'Comment'.setup{}
+        end
     }
 }
