@@ -16,3 +16,4 @@ slang=en,eng,english,no,nor,nb,norwegian
 unicode=yes
 utf8=yes
 channels=2
+heartbeat-cmd="xscreensaver-command -deactivate >&- 2>&- &"
