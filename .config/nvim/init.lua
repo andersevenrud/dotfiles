@@ -350,6 +350,7 @@ neovim.load({
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-nvim-lua',
             'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-cmdline',
             'andersevenrud/compe-tmux',
             'saadparwaiz1/cmp_luasnip',
             'L3MON4D3/LuaSnip',
@@ -437,27 +438,37 @@ neovim.load({
         end
 
         return {
-            sources = sources,
-            completion = {
-                --autocomplete = false,
+            cmp = {
+                sources = sources,
+                completion = {
+                    --autocomplete = false,
+                },
+                snippet = {
+                    expand = function(args)
+                        require'luasnip'.lsp_expand(args.body)
+                    end
+                },
+                formatting = {
+                    format = require('lspkind').cmp_format({
+                        with_text = true,
+                        menu = menu,
+                    }),
+                },
+                mapping = {
+                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.close(),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true })
+                },
             },
-            snippet = {
-                expand = function(args)
-                    require'luasnip'.lsp_expand(args.body)
-                end
-            },
-            formatting = {
-                format = require('lspkind').cmp_format({
-                    with_text = true,
-                    menu = menu,
-                }),
-            },
-            mapping = {
-                ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.close(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true })
+            cmdline = {
+                ['/'] = {
+                    sources = { { name = 'buffer' } }
+                },
+                [':'] = {
+                    sources = { { name = 'cmdline' } }
+                },
             },
         }
     end,
