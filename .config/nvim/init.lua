@@ -143,7 +143,7 @@ neovim.load({
                     { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
                     { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true }, 'Format document' },
                     { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
-                    { 'n', '<space>e', [[<cmd>lua vim.lsp.diagnostic.diagnostic.open_float({ scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
+                    { 'n', '<space>e', [[<cmd>lua vim.lsp.diagnostic.open_float({ scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
                     { 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
                     { 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
                 }
@@ -289,7 +289,7 @@ neovim.load({
     --
 
     packer = {
-        options = {},
+        options = { },
         load = {
             -- Dependencies
             'wbthomason/packer.nvim',
