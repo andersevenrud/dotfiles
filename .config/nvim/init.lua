@@ -380,8 +380,6 @@ neovim.load({
             disable_filetype = { 'TelescopePrompt' },
             check_ts = true,
         },
-        cmp = {
-        },
     },
 
     markdown_composer = {

@@ -113,7 +113,7 @@ return {
             end
 
             cmp.setup(config.cmp)
-            apairs.setup(n.config.npairs.cmp)
+            cmp.event:on( 'confirm_done', apairs.on_confirm_done({  map_char = { tex = '' } }))
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
