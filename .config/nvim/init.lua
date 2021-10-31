@@ -242,6 +242,16 @@ neovim.load({
                     '$HOME/.arduino15/arduino-cli.yaml',
                 }
             },
+            emmet_ls = {
+                filetypes = {
+                    'html',
+                    'css',
+                    'scss',
+                    'vue',
+                    'svelte',
+                    'twig',
+                }
+            },
             tailwindcss = {},
             vala_ls = {},
             intelephense = {
