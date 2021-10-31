@@ -73,7 +73,7 @@ return {
     ['theHamsta/nvim-dap-virtual-text'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            vim.g.dap_virtual_text = n.config.dap_virtual_text.enabled
+            require'nvim-dap-virtual-text'.setup(n.config.dap_virtual_text)
         end
     },
     ['Pocco81/DAPInstall.nvim'] = {
