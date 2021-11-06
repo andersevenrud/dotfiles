@@ -80,7 +80,7 @@ M.set_keymaps_dump = function(keymaps)
         print(' | ' .. table.concat(strings, ' | ') .. ' |')
     end
 
-    function iterate(k, lsp)
+    local function iterate(k, lsp)
         for _, v in ipairs(k) do
             if v.lsp ~= nil then
                 iterate(v.keybindings, v.lsp)
@@ -289,7 +289,7 @@ M.lualine_arduino = function()
         end
     end
 
-    return nil
+    return ''
 end
 
 -- Creates capabilities for LSP according to cmp
