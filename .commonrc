@@ -47,6 +47,9 @@ alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settin
 # Paths
 export PATH="$DENO_INSTALL/bin:$HOME/.local/bin:$PATH"
 export PATH=$PATH:~/.gem/ruby/2.3.0/bin
+export ANDROID_HOME=/opt/android-sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Personal aliases
 alias gitc-ammend="git commit --amend"
