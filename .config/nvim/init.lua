@@ -207,12 +207,6 @@ neovim.load({
         options = {
             omnifunc = 'v:lua.vim.lsp.omnifunc'
         },
-        signs = {
-            DiagnosticSignError = { text = signs.error, texthl = 'DiagnosticError' },
-            DiagnosticSignWarn = { text = signs.warning, texthl = 'DiagnosticWarn' },
-            DiagnosticSignInfo = { text = signs.info, texthl = 'DiagnosticInfo' },
-            DiagnosticSignHint = { text = signs.hint, texthl = 'DiagnosticHint' }
-        },
         servers = {
             --dartls = {}, -- See flutter-tools
             bashls = {},
@@ -275,9 +269,6 @@ neovim.load({
             },
         },
         handlers = {
-            ['textDocument/publishDiagnostics'] = {
-                virtual_text = false
-            },
             ['textDocument/hover'] = {
                 border = border_style
             },
@@ -285,6 +276,22 @@ neovim.load({
                 border = border_style
             }
         }
+    },
+
+    diagnostics = {
+        options = {
+            virtual_text = false,
+            float = {
+
+
+            },
+        },
+        signs = {
+            DiagnosticSignError = { text = signs.error, texthl = 'DiagnosticError' },
+            DiagnosticSignWarn = { text = signs.warning, texthl = 'DiagnosticWarn' },
+            DiagnosticSignInfo = { text = signs.info, texthl = 'DiagnosticInfo' },
+            DiagnosticSignHint = { text = signs.hint, texthl = 'DiagnosticHint' }
+        },
     },
 
     --

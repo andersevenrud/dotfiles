@@ -117,7 +117,7 @@ M.set_keymaps = function(keymaps, bufnr)
 end
 
 -- LSP Signs
-M.set_lsp_signs = function(signs)
+M.set_diagnostic_signs = function(signs)
     for k, v in pairs(signs) do
         vim.fn.sign_define(k, v)
     end
@@ -378,10 +378,12 @@ M.load = function(config, shims)
     M.set_aliases(config.vim.aliases)
     M.set_rules(config.vim.rules)
     M.set_keymaps(config.vim.keybindings)
-    M.set_lsp_signs(config.lsp.signs)
     M.set_lsp_handlers(config.lsp.handlers)
     M.set_auto_commands(config.vim.autocommands)
     M.packer_load(config.packer, shims)
+
+    M.set_diagnostic_signs(config.diagnostics.signs)
+    vim.diagnostic.config(config.diagnostics.options)
 
     -- M.set_keymaps_dump(config.vim.keybindings)
     vim.cmd([[command LspInstallAll :lua require'andersevenrud.neovim'.install_all_lsp_servers()]])
