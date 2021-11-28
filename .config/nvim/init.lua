@@ -319,7 +319,7 @@ neovim.load({
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
             'rmagatti/goto-preview',
-            'maaslalani/nordbuddy',
+            'andersevenrud/nordic.nvim',
 
             -- Treesitter
             'JoosepAlviste/nvim-ts-context-commentstring',
@@ -636,7 +636,7 @@ neovim.load({
         }
     },
 
-    nordbuddy = {
+    nordic = {
         italic_comments = true
     },
 

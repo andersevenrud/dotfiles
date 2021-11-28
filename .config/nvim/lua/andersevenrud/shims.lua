@@ -29,10 +29,10 @@ return {
             require'gitsigns'.setup(n.config.gitsigns)
         end
     },
-    ['maaslalani/nordbuddy'] = {
+    ['andersevenrud/nordic.nvim'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'nordbuddy'.colorscheme(n.config.nordbuddy)
+            require'nordic'.colorscheme(n.config.nordic)
         end
     },
     ['windwp/nvim-autopairs'] = {
