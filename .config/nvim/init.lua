@@ -639,7 +639,8 @@ neovim.load({
     },
 
     nordic = {
-        italic_comments = true
+        italic_comments = true,
+        alternate_backgrounds = true,
     },
 
     nvim_toggleterm = {
