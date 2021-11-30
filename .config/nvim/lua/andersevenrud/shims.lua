@@ -97,9 +97,6 @@ return {
             n.apply_globals(n.config.markdown_composer, 'markdown_composer_')
         end
     },
-    ['andersevenrud/compe-tmux'] = {
-        branch = 'cmp'
-    },
     ['hrsh7th/nvim-cmp'] = {
         requires = { 'windwp/nvim-autopairs', 'L3MON4D3/LuaSnip', 'onsails/lspkind-nvim' },
         config = function()
