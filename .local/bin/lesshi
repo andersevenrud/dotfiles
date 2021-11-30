@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" less -R $*
