@@ -621,6 +621,9 @@ neovim.load({
     nvim_tree = {
         options = {
             ignore = { '.git', '.cache' },
+            git = {
+                ignore = true,
+            },
             auto_close = true,
               diagnostics = {
                 enable = false,
@@ -628,7 +631,6 @@ neovim.load({
             }
         },
         global = {
-            gitignore = true,
             add_trailing = true,
             git_hl = true,
             indent_markers = true,
