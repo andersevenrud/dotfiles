@@ -1,13 +1,8 @@
-# coreutils overrides
-export LESS='-R '
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s" # 'source-highlight' package
-#export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
-#export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
-#export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
-#export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
-#export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
-#export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
-#export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+# XDG X11 local variables
+USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
+USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
+ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
+ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
@@ -35,11 +30,6 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 
-USERXSESSION="$XDG_CACHE_HOME/X11/xsession"
-USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
-ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
-ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
-
 # XDG Aliases
 alias dosbox='dosbox -conf "$XDG_CONFIG_HOME"/dosbox/dosbox.conf'
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
@@ -52,8 +42,7 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Personal aliases
-alias gitc-ammend="git commit --amend"
-alias gitc-update-branches="git remote update origin --prune"
+alias git-update-branches="git remote update origin --prune"
 alias pacman-clean="sudo pacman -Sc"
 alias pacman-remove="sudo pacman -Rs"
 alias pacman-search="pacman -Ss"
