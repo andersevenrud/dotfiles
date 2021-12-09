@@ -422,7 +422,7 @@ neovim.load({
         },
         sections = {
             lualine_a = { { 'mode', upper = true } },
-            lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_lsp' } } },
+            lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_diagnostic' } } },
             lualine_c = { { 'filename', file_status = true }, 'lsp_progress', neovim.lualine_arduino },
             lualine_x = { 'encoding', 'fileformat', 'filetype' },
             lualine_y = { 'progress' },
