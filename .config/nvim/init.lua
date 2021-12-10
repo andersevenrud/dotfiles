@@ -321,12 +321,7 @@ neovim.load({
             'rmagatti/goto-preview',
             'andersevenrud/nordic.nvim',
 
-            -- Treesitter
-            'JoosepAlviste/nvim-ts-context-commentstring',
-            'nvim-treesitter/nvim-treesitter-textobjects',
-            'windwp/nvim-ts-autotag',
-
-            -- Non-treesitter
+            -- Non-treesitter sytax etc.
             'arrufat/vala.vim',
 
             -- Editing
@@ -335,6 +330,7 @@ neovim.load({
             'windwp/nvim-autopairs',
 
             -- Navigation
+            'nvim-treesitter/nvim-treesitter-textobjects',
             'simrat39/symbols-outline.nvim',
             'folke/todo-comments.nvim',
             'nacro90/numb.nvim',
@@ -366,6 +362,7 @@ neovim.load({
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
             'ray-x/lsp_signature.nvim',
+            'windwp/nvim-ts-autotag',
 
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
