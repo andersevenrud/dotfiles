@@ -156,8 +156,9 @@ return {
             local nlsu = require'null-ls.utils'
             local nls = require'null-ls'
             local sources = n.load_null_ls_sources(nls, nlsh, nlsu, n.config.nullls)
-            nls.config({ sources = sources })
-            require('lspconfig')['null-ls'].setup{}
+            nls.setup{
+                sources = sources
+            }
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
