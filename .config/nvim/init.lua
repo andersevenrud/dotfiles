@@ -336,6 +336,7 @@ neovim.load({
             'nacro90/numb.nvim',
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-tree.lua',
+            'ggandor/lightspeed.nvim',
 
             -- Debugging
             'mfussenegger/nvim-dap',
