@@ -522,6 +522,8 @@ neovim.load({
             'graphql',
             'dockerfile',
             'commonlisp',
+            'markdown',
+            'make',
         },
         highlight = {
             enable = true,
