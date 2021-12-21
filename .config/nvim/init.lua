@@ -222,6 +222,7 @@ neovim.load({
             svelte = {},
             tsserver = {},
             stylelint_lsp = {},
+            omnisharp = {},
             arduino_language_server = {
                 cmd =  {
                     'arduino-language-server',
