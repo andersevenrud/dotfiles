@@ -16,7 +16,7 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Dependencies
 
-- `neovim >= 0.5.1`
+- `neovim >= 0.6`
 - [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
 - [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
 
@@ -31,8 +31,6 @@ configuration and shims in an attempt to make customization less spaghetti.
   - `rust`
   - `php`
 - Tools not covered by automatic installers
-  - [`arduino-language-server`](https://github.com/arduino/arduino-language-server)
-  - [`ccls`](https://github.com/MaskRay/ccls)
   - [`stylua`](https://github.com/JohnnyMorganz/StyLua)
   - [`luacheck`](https://github.com/mpeterv/luacheck)
 
@@ -72,7 +70,7 @@ return {
 | Vue              | Y          | Y           | Y          |           |
 | Svelte           | Y          | Y           | Y          |           |
 | Arduino          | Y          | Y           | Y          |           |
-| Mardown          |            |             |            | Y         |
+| Mardown          |            |             | Y          | Y         |
 
 ## Custom Keybindings
 
