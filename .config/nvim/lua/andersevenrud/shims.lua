@@ -149,7 +149,7 @@ return {
         end
     },
     ['jose-elias-alvarez/null-ls.nvim'] = {
-        requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+        requires = { 'nvim-lua/plenary.nvim' },
         config = function()
             local n = require'andersevenrud.neovim'
             local nlsh = require'null-ls.helpers'
@@ -189,5 +189,5 @@ return {
         config = function()
             require'Comment'.setup{}
         end
-    }
+    },
 }

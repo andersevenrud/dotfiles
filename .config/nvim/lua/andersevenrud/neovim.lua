@@ -246,18 +246,10 @@ M.load_null_ls_sources = function(nls, nlsh, nlsu, config)
             if root_file then
                 local command = builtin._opts.command
                 local prefix = config.bin[root_file]
-                local utils = nlsu.make_conditional_utils()
-
-                if prefix then
-                    local project_local_bin = prefix .. command
-                    command = utils.root_has_file(project_local_bin) and project_local_bin or command
-                end
 
                 instance = builtin.with({
                     command = command,
-                    condition = function(utils)
-                        return utils.root_has_file(root_file) and check_executable(command)
-                    end
+                    prefer_local = prefix,
                 })
             end
 
