@@ -318,7 +318,7 @@ M.setup_lsp = function()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
 
-    local set_options = function(bufnr)
+    local set_options = function(_, bufnr)
         for k, v in pairs(M.config.lsp.options) do
             vim.api.nvim_buf_set_option(bufnr, k, v)
         end
