@@ -422,11 +422,11 @@ neovim.load({
         },
         sections = {
             lualine_a = { { 'mode', upper = true } },
-            lualine_b = { { 'branch', icon = '' }, { 'diagnostics', sources = { 'nvim_diagnostic' } } },
-            lualine_c = { { 'filename', file_status = true }, 'lsp_progress', neovim.lualine_arduino },
-            lualine_x = { 'encoding', 'fileformat', 'filetype' },
-            lualine_y = { 'progress' },
-            lualine_z = { 'location' },
+            lualine_b = { { 'branch', icon = '' }, { 'filename', file_status = true, symbols = { modified = ' ', readonly = ' ' } }, 'filetype', 'diagnostics' },
+            lualine_c = { 'lsp_progress' },
+            lualine_x = { neovim.lualine_arduino, 'filesize' },
+            lualine_y = { 'encoding', 'fileformat' },
+            lualine_z = { 'progress', 'location' },
         },
     },
 
