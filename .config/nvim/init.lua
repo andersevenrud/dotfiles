@@ -320,6 +320,7 @@ neovim.load({
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
             'rmagatti/goto-preview',
+            'stevearc/dressing.nvim',
             'andersevenrud/nordic.nvim',
 
             -- Non-treesitter sytax etc.
