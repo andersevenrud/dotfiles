@@ -323,9 +323,6 @@ neovim.load({
             'stevearc/dressing.nvim',
             'andersevenrud/nordic.nvim',
 
-            -- Non-treesitter sytax etc.
-            'arrufat/vala.vim',
-
             -- Editing
             'numToStr/Comment.nvim',
             'matze/vim-move',
@@ -526,6 +523,7 @@ neovim.load({
             'commonlisp',
             'markdown',
             'make',
+            'vala',
         },
         highlight = {
             enable = true,
