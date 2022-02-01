@@ -6,17 +6,13 @@
 local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 
-local border_style = 'single'
-local sumneko_root_path = vim.fn.stdpath('data') .. '/' .. 'lsp_servers/sumneko_lua/extension/server'
-local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
 local secrets = neovim.prequire('andersevenrud.secrets', {
     intelephense = {
         licenceKey = nil
     }
 })
+
+local border_style = 'single'
 
 local signs = {
     error = '',
@@ -223,6 +219,13 @@ neovim.load({
             tsserver = {},
             stylelint_lsp = {},
             omnisharp = {},
+            sumneko_lua = neovim.create_sumneko_server_options({
+                Lua = {
+                    telemetry = {
+                        enable = false,
+                    },
+                }
+            }),
             arduino_language_server = {
                 cmd =  {
                     'arduino-language-server',
@@ -246,26 +249,6 @@ neovim.load({
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
                     globalStoragePath = '~/.config/intelephense'
-                },
-            },
-            sumneko_lua = {
-                cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-                settings = {
-                    Lua = {
-                        runtime = {
-                            version = 'LuaJIT',
-                            path = runtime_path
-                        },
-                        diagnostics = {
-                            globals = {'vim'},
-                        },
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file('', true)
-                        },
-                        telemetry = {
-                            enable = false,
-                        },
-                    },
                 },
             },
         },

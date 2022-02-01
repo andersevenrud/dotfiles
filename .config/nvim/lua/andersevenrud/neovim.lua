@@ -296,6 +296,33 @@ M.create_cmp_capabilities = function (capabilities)
     return cmp.update_capabilities(capabilities)
 end
 
+-- Creates lua lsp options
+M.create_sumneko_server_options = function(settings)
+    local sumneko_root_path = vim.fn.stdpath('data') .. '/' .. 'lsp_servers/sumneko_lua/extension/server'
+    local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
+    local runtime_path = vim.split(package.path, ';')
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+
+    return {
+        cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+        settings = vim.tbl_deep_extend('force', {
+            Lua = {
+                runtime = {
+                    version = 'LuaJIT',
+                    path = runtime_path
+                },
+                diagnostics = {
+                    globals = {'vim'},
+                },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file('', true)
+                },
+            }
+        }, settings)
+    }
+end
+
 -- Automate insallation of lsp servers
 M.install_all_lsp_servers = function()
     local names = vim.tbl_keys(M.config.lsp.servers)
