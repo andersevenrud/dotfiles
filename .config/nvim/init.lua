@@ -313,7 +313,7 @@ neovim.load({
 
             -- Navigation
             'nvim-treesitter/nvim-treesitter-textobjects',
-            'simrat39/symbols-outline.nvim',
+            --'simrat39/symbols-outline.nvim',
             'folke/todo-comments.nvim',
             'nacro90/numb.nvim',
             'nvim-telescope/telescope.nvim',
@@ -346,6 +346,7 @@ neovim.load({
             'rafamadriz/friendly-snippets',
             'ray-x/lsp_signature.nvim',
             'windwp/nvim-ts-autotag',
+            'RRethy/nvim-treesitter-endwise',
 
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
@@ -428,7 +429,7 @@ neovim.load({
                 end
             },
             { name = 'luasnip' },
-            { name = 'tmux' }
+            { name = 'tmux', option = { all_panes = true } }
         }
 
         for _, v in pairs(sources) do
@@ -507,11 +508,15 @@ neovim.load({
             'markdown',
             'make',
             'vala',
+            'scss',
         },
         highlight = {
             enable = true,
         },
         indent = {
+            enable = true,
+        },
+        endwise = { -- Plugin
             enable = true,
         },
         context_commentstring = { -- Plugin
