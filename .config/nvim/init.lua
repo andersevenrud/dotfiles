@@ -73,11 +73,16 @@ neovim.load({
             softtabstop = 2,                            -- Default spacing
             shiftwidth = 2,                             -- Default spacing
             foldlevel = 999,                            -- Expand all folds by default
+            foldcolumn = 'auto',                        -- Show fold indicator in gutter
             updatetime = 1000,                          -- Lower CursorHold update times
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
             wildignore = wildignore,                    -- Ignore these file types
             lazyredraw = true,                          -- Reduce flicker in macros etc.
+            fillchars = {
+                foldopen = '',
+                foldclose = '',
+            },
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
                 tab = '·\\',
@@ -91,8 +96,6 @@ neovim.load({
             LspDiagnosticsUnderlineWarning = { link = 'DiffChange' },
             GitSignsCurrentLineBlame = { link = 'tscomment' },
             ExtraWhitespace = { link = 'RedrawDebugRecompose' },
-            LineNr = { ctermbg = 'NONE', guibg = 'NONE' },
-            WinShift = { guibg = '#3b4252' }
         },
         aliases = {
             ['*.heml'] = 'html',
@@ -630,6 +633,11 @@ neovim.load({
     nordic = {
         italic_comments = true,
         alternate_backgrounds = true,
+        custom_colors = function(c)
+            return {
+                { 'FoldColumn', c.cyan },
+            }
+        end
     },
 
     nvim_toggleterm = {
