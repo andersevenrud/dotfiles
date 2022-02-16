@@ -190,4 +190,10 @@ return {
             require'Comment'.setup{}
         end
     },
+    ['anuvyklack/pretty-fold.nvim'] = {
+        config = function()
+            local n = require'andersevenrud.neovim'
+            require'pretty-fold'.setup(n.config.pretty_fold)
+        end
+    },
 }

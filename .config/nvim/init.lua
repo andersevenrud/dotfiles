@@ -305,6 +305,7 @@ neovim.load({
             'rmagatti/goto-preview',
             'stevearc/dressing.nvim',
             'andersevenrud/nordic.nvim',
+            'anuvyklack/pretty-fold.nvim',
 
             -- Editing
             'numToStr/Comment.nvim',
@@ -666,5 +667,9 @@ neovim.load({
     lsp_signature = {
         bind = true,
         hint_enable = false,
-    }
+    },
+
+    pretty_fold = {
+        fill_char = ' ',
+    },
 }, shims)
