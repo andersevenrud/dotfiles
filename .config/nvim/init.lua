@@ -82,6 +82,7 @@ neovim.load({
             fillchars = {
                 foldopen = '',
                 foldclose = '',
+                vert = ' ',
             },
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
