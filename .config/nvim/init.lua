@@ -302,7 +302,6 @@ neovim.load({
             'haringsrob/nvim_context_vt',
             'norcalli/nvim-colorizer.lua',
             'hoob3rt/lualine.nvim',
-            'arkav/lualine-lsp-progress',
             'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
@@ -359,6 +358,7 @@ neovim.load({
             'williamboman/nvim-lsp-installer',
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',
+            'j-hui/fidget.nvim',
         }
     },
 
@@ -409,7 +409,7 @@ neovim.load({
         sections = {
             lualine_a = { { 'mode', upper = true } },
             lualine_b = { { 'branch', icon = '' }, { 'filename', file_status = true, symbols = { modified = ' ', readonly = ' ' } }, 'filetype', 'diagnostics' },
-            lualine_c = { 'lsp_progress' },
+            lualine_c = { },
             lualine_x = { neovim.lualine_arduino, 'filesize' },
             lualine_y = { 'encoding', 'fileformat' },
             lualine_z = { 'progress', 'location' },

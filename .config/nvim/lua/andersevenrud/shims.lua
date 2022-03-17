@@ -196,4 +196,9 @@ return {
             require'pretty-fold'.setup(n.config.pretty_fold)
         end
     },
+    ['j-hui/fidget.nvim'] = {
+        config = function()
+            require'fidget'.setup{}
+        end
+    },
 }
