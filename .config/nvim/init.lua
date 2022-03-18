@@ -76,6 +76,7 @@ neovim.load({
             foldcolumn = 'auto',                        -- Show fold indicator in gutter
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
+            foldcolumndigits = false,                   -- Remove fold column level digits
             wildignore = wildignore,                    -- Ignore these file types
             lazyredraw = true,                          -- Reduce flicker in macros etc.
             updatetime = 1000,                          -- Lower CursorHold update times
@@ -621,24 +622,18 @@ neovim.load({
               diagnostics = {
                 enable = false,
                 icons = signs
-            }
+            },
         },
         global = {
             add_trailing = true,
             git_hl = true,
             indent_markers = true,
-            quit_on_open = true
         }
     },
 
     nordic = {
         italic_comments = true,
         alternate_backgrounds = true,
-        custom_colors = function(c)
-            return {
-                { 'FoldColumn', c.cyan },
-            }
-        end
     },
 
     nvim_toggleterm = {
