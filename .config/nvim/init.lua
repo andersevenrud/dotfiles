@@ -74,15 +74,15 @@ neovim.load({
             shiftwidth = 2,                             -- Default spacing
             foldlevel = 999,                            -- Expand all folds by default
             foldcolumn = 'auto',                        -- Show fold indicator in gutter
-            updatetime = 1000,                          -- Lower CursorHold update times
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
             wildignore = wildignore,                    -- Ignore these file types
             lazyredraw = true,                          -- Reduce flicker in macros etc.
+            updatetime = 1000,                          -- Lower CursorHold update times
+            laststatus = 3,                             -- Global statusline
             fillchars = {
                 foldopen = '',
                 foldclose = '',
-                vert = ' ',
             },
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
