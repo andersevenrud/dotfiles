@@ -202,7 +202,7 @@ neovim.load({
 
     lsp = {
         flags = {
-            debounce_text_changes = 150,
+            debounce_text_changes = 250,
         },
         options = {
             omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -652,6 +652,9 @@ neovim.load({
     },
 
     nullls = {
+        options= {
+            debounce = 500,
+        },
         bin = {
             ['package.json'] = 'node_modules/.bin/',
             ['composer.json'] = 'vendor/bin/'
