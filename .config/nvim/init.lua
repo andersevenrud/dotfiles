@@ -435,7 +435,7 @@ neovim.load({
                 end
             },
             { name = 'luasnip' },
-            { name = 'tmux', option = { all_panes = true } }
+            { name = 'tmux' }
         }
 
         for _, v in pairs(sources) do
