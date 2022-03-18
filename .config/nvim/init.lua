@@ -501,6 +501,7 @@ neovim.load({
             'regex',
             'vue',
             'php',
+            'perl',
             'rust',
             'svelte',
             'tsx',
