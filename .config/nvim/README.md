@@ -1,6 +1,6 @@
 # Neovim configuration
 
-My **neovim 0.5+** configuration.
+My **neovim nightly** configuration.
 
 This setup is built on custom abstractions that provides a single point of
 configuration and shims in an attempt to make customization less spaghetti.
@@ -131,13 +131,6 @@ return {
 
 
 ## Troubleshooting
-
-### Treesitter ABI version conflicts
-
-* Build a fresh version of neovim nightly
-* Nuke `~/.config/nvim/plugins/tree-sitter/parser/` directory
-* Start up neovim again and it will install the defined parsers
-  * If this is not enabled, use `:TSInstallFromGrammar` command
 
 ### Treesitter indentation issues
 
