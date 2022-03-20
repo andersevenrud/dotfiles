@@ -170,6 +170,7 @@ neovim.load({
             { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true }, 'Fuzzy buffers' },
             { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true }, 'Fuzzy help' },
             { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.lsp_workspace_diagnostics()<cr>]], { noremap = true }, 'Fuzzy diagnostics' },
+            { 'n', '<leader>fa', [[<cmd>lua require'telescope.builtin'.git_files()<cr>]], { noremap = true }, 'Fuzzy find git repo' },
 
             -- neogit
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
