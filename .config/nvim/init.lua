@@ -211,6 +211,7 @@ neovim.load({
         },
         servers = {
             --dartls = {}, -- See flutter-tools
+            eslint = {},
             bashls = {},
             ccls = {},
             jsonls = {},
@@ -657,13 +658,11 @@ neovim.load({
             ['composer.json'] = 'vendor/bin/'
         },
         formatting = {
-            { 'eslint', 'package.json' },
             { 'prettier', 'package.json' },
             { 'phpcsfixer', 'composer.json' },
             { 'stylua', 'stylua.toml' },
         },
         diagnostics = {
-            { 'eslint', 'package.json' },
             { 'phpcs', 'composer.json' },
             { 'luacheck' }
         }
