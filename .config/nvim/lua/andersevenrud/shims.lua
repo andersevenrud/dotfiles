@@ -61,13 +61,13 @@ return {
             for _, v in ipairs(n.config.telescope.extensions) do telescope.load_extension(v) end
         end
     },
-    ['kyazdani42/nvim-tree.lua'] = {
+    ['nvim-neo-tree/neo-tree.nvim'] = {
+        requires = { "MunifTanjim/nui.nvim" },
         config = function()
             -- FIXME: This will probably break in the future because this plugin is moving
             --        settings to setup from global vars.
             local n = require'andersevenrud.neovim'
-            n.apply_globals(n.config.nvim_tree.global, 'nvim_tree_')
-            require'nvim-tree'.setup(n.config.nvim_tree.options)
+            require'neo-tree'.setup(n.config.neo_tree)
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {

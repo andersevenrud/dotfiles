@@ -176,9 +176,7 @@ neovim.load({
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
 
             -- nvim-tree
-            { 'n', '<leader>fr', ':NvimTreeRefresh<CR>', { noremap = true }, 'Refresh file browser' },
-            { 'n', '<leader>fo', ':NvimTreeFindFile<CR>', { noremap = true }, 'Open file browser' },
-            { 'n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true }, 'Toggle file browser' },
+            { 'n', '<leader>fo', ':Neotree<CR>', { noremap = true }, 'Open file browser' },
 
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
@@ -324,7 +322,7 @@ neovim.load({
             'folke/todo-comments.nvim',
             'nacro90/numb.nvim',
             'nvim-telescope/telescope.nvim',
-            'kyazdani42/nvim-tree.lua',
+            'nvim-neo-tree/neo-tree.nvim',
             'ggandor/lightspeed.nvim',
 
             -- Debugging
@@ -615,23 +613,10 @@ neovim.load({
         }
     },
 
-    nvim_tree = {
-        options = {
-            ignore = { '.git', '.cache' },
-            git = {
-                ignore = true,
-            },
-            auto_close = true,
-              diagnostics = {
-                enable = false,
-                icons = signs
-            },
+    neo_tree = {
+        filesystem = {
+            never_show = { '.git', '.cache' },
         },
-        global = {
-            add_trailing = true,
-            git_hl = true,
-            indent_markers = true,
-        }
     },
 
     nordic = {
