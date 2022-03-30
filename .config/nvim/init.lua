@@ -614,8 +614,14 @@ neovim.load({
     },
 
     neo_tree = {
+        close_if_last_window = true,
         filesystem = {
             never_show = { '.git', '.cache' },
+        },
+        window = {
+            mappings = {
+                ['o'] = 'open',
+            },
         },
     },
 
