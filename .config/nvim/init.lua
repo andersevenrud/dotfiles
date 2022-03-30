@@ -217,7 +217,7 @@ neovim.load({
             yamlls = {},
             pylsp = {},
             cssls = {},
-            vuels = {},
+            volar = {},
             html = {},
             rust_analyzer = {},
             svelte = {},
