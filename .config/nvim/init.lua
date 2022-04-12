@@ -176,7 +176,7 @@ neovim.load({
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
 
             -- nvim-tree
-            { 'n', '<leader>fo', ':Neotree<CR>', { noremap = true }, 'Open file browser' },
+            { 'n', '<leader>fo', ':Neotree filesystem reveal<CR>', { noremap = true }, 'Open file browser' },
 
             -- symbols-outline
             { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
