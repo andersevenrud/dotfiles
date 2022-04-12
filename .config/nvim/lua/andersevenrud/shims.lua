@@ -64,8 +64,6 @@ return {
     ['nvim-neo-tree/neo-tree.nvim'] = {
         requires = { "MunifTanjim/nui.nvim" },
         config = function()
-            -- FIXME: This will probably break in the future because this plugin is moving
-            --        settings to setup from global vars.
             local n = require'andersevenrud.neovim'
             require'neo-tree'.setup(n.config.neo_tree)
         end
@@ -169,6 +167,7 @@ return {
         end
     },
     ['akinsho/nvim-toggleterm.lua'] = {
+        branch = 'main',
         config = function()
             local n = require'andersevenrud.neovim'
             require'toggleterm'.setup(n.config.nvim_toggleterm)

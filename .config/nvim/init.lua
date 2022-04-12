@@ -397,6 +397,7 @@ neovim.load({
     },
 
     gitsigns = {
+        update_debounce = 200,
         current_line_blame = true,
         current_line_blame_opts = {
             delay = 500,
