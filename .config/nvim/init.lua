@@ -470,9 +470,11 @@ neovim.load({
             },
             cmdline = {
                 ['/'] = {
+                    mapping = cmp.mapping.preset.cmdline(),
                     sources = { { name = 'buffer' } }
                 },
                 [':'] = {
+                    mapping = cmp.mapping.preset.cmdline(),
                     sources = { { name = 'cmdline' } }
                 },
             },
