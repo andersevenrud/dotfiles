@@ -224,13 +224,13 @@ neovim.load({
             tsserver = {},
             stylelint_lsp = {},
             omnisharp = {},
-            sumneko_lua = neovim.create_sumneko_server_options({
-                Lua = {
-                    telemetry = {
-                        enable = false,
-                    },
-                }
-            }),
+            --sumneko_lua = neovim.create_sumneko_server_options({
+            --    Lua = {
+            --        telemetry = {
+            --            enable = false,
+            --        },
+            --    }
+            --}),
             arduino_language_server = {
                 cmd =  {
                     'arduino-language-server',
