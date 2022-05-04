@@ -368,25 +368,12 @@ M.setup_lsp = function()
         }, M.config.lsp.servers[name])
     end
 
-    for _, name in pairs(names) do
-        local ok, server = lsp_installer.get_server(name)
-        if ok then
-            if not server:is_installed() then
-                server:install()
-            end
-        else
-            -- Fallback for servers not supported here
-            local options = create_options(name)
-            nvim_lsp[name].setup(options)
-        end
-    end
+    lsp_installer.setup({})
 
-    -- Automated installers
-    lsp_installer.on_server_ready(function(server)
-        local options = create_options(server.name)
-        server:setup(options)
-        vim.cmd [[ do User LspAttachBuffers ]]
-    end)
+    for _, name in pairs(names) do
+        local options = create_options(name)
+        nvim_lsp[name].setup(options)
+    end
 end
 
 -- Initialization wrapper
