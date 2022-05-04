@@ -618,7 +618,16 @@ neovim.load({
 
     neo_tree = {
         close_if_last_window = true,
+
+        -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/268
+        enable_diagnostics = true,
+        enable_git_status = false,
+        enable_modified_markers = false,
+        enable_refresh_on_write = false,
+        resize_timer_interval = -1,
+
         filesystem = {
+            use_libuv_file_watcher = false,
             never_show = { '.git', '.cache' },
         },
         window = {
