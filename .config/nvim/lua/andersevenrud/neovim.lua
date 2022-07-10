@@ -28,11 +28,7 @@ end
 -- Highlights
 M.set_highlights = function(highlights)
     for k, v in pairs(highlights) do
-        if v.link then
-            vim.highlight.link(k, v.link)
-        else
-            vim.highlight.create(k, v)
-        end
+        vim.api.nvim_set_hl(0, k, v)
     end
 end
 
