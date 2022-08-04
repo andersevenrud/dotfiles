@@ -322,19 +322,14 @@ end
 -- Automate insallation of lsp servers
 M.install_all_lsp_servers = function()
     local names = vim.tbl_keys(M.config.lsp.servers)
-    local lsp_installer = require'nvim-lsp-installer'
+    local lsp_installer = require'mason.api.command'
 
-    for _, name in pairs(names) do
-        local ok = lsp_installer.get_server(name)
-        if ok then
-            lsp_installer.install(name)
-        end
-    end
+    lsp_installer.MasonInstall(names)
 end
 
 -- Automates setup of LSP integrations
 M.setup_lsp = function()
-    local lsp_installer = require'nvim-lsp-installer'
+    local lsp_installer = require'mason'
     local lsp_signature = require'lsp_signature'
     local nvim_lsp = require'lspconfig'
     local capabilities = M.create_cmp_capabilities()

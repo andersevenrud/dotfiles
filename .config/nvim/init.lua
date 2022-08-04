@@ -327,7 +327,6 @@ neovim.load({
             -- Debugging
             'mfussenegger/nvim-dap',
             'theHamsta/nvim-dap-virtual-text',
-            'Pocco81/DAPInstall.nvim',
 
             -- Utilities
             'wincent/terminus',
@@ -355,7 +354,7 @@ neovim.load({
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
-            'williamboman/nvim-lsp-installer',
+            'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',
             'j-hui/fidget.nvim',

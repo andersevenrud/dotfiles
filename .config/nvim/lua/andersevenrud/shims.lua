@@ -134,7 +134,7 @@ return {
             end)
         end
     },
-    ['williamboman/nvim-lsp-installer'] = {
+    ['williamboman/mason.nvim'] = {
         requires = { 'neovim/nvim-lspconfig', 'ray-x/lsp_signature.nvim' },
         config = function()
             local n = require'andersevenrud.neovim'
