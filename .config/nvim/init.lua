@@ -314,6 +314,7 @@ neovim.load({
             'numToStr/Comment.nvim',
             'matze/vim-move',
             'windwp/nvim-autopairs',
+            'github/copilot.vim',
 
             -- Navigation
             'nvim-treesitter/nvim-treesitter-textobjects',
