@@ -122,34 +122,35 @@ neovim.load({
             {
                 lsp = '*',
                 keybindings = {
+                    { 'n', 'gpd', '<cmd>Lspsaga preview_definition<CR>', { silent = true }, 'Preview definition' },
                     { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }, 'Go to decleration' },
                     { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }, 'Go to definition' },
-                    { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
-                    { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true }, 'Go to implementation'},
-                    { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
-                    { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
-                    { 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    --{ 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
+                    { 'n', 'K', '<cmd>Lspsaga hover_doc<CR>', { noremap = true, silent = true }, 'Show documentation' },
+                    --{ 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true }, 'Go to implementation'},
+                    { 'n', 'gi', '<cmd>Lspsaga lsp_finder<CR>', { noremap = true, silent = true }, 'Go to implementation'},
+                    --{ 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
+                    { 'n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
+                    --{ 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    { 'n', '<C-k>', '<cmd>Lspsaga signature_help<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    --{ 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
+                    { 'i', '<C-A-k>', '<cmd>Lspsaga signature_help<CR>', { noremap = true, silent = true }, 'Show signature help' },
                     { 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', { noremap = true, silent = true }, 'Add workspace' },
                     { 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', { noremap = true, silent = true }, 'Remove workspace' },
                     { 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', { noremap = true, silent = true }, 'List workspaces' },
                     { 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true }, 'Show type definition' },
-                    { 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true }, 'Rename current' },
-                    { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
+                    --{ 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true }, 'Rename current' },
+                    { 'n', '<space>rn', '<cmd>Lspsaga rename<CR>', { noremap = true, silent = true }, 'Rename current' },
+                    --{ 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
+                    { 'n', '<space>ca', '<cmd>Lspsaga code_action<CR>', { noremap = true, silent = true }, 'Show code actions' },
                     { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true }, 'Format document' },
                     { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
-                    { 'n', '<space>e', [[<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
-                    { 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
-                    { 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
-                }
-            },
-
-            -- goto-preview
-            {
-                lsp = '*',
-                keybindings = {
-                    { 'n', 'gpd', [[<cmd>lua require('goto-preview').goto_preview_definition()<CR>]], { noremap = true }, 'Go to definition (preview)' },
-                    { 'n', 'gpi', [[<cmd>lua require('goto-preview').goto_preview_implementation()<CR>]], { noremap = true }, 'Go to implementation (preview)' },
-                    { 'n', 'gP', [[<cmd>lua require('goto-preview').close_all_win()<CR>]], { noremap = true }, 'Close all previews' },
+                    --{ 'n', '<space>e', [[<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
+                    { 'n', '<space>e', '<cmd>Lspsaga show_line_diagnostics<CR>', { noremap = true, silent = true }, 'Show lined diagnostics' },
+                    --{ 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
+                    { 'n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
+                    --{ 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
+                    { 'n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
                 }
             },
 
@@ -306,8 +307,6 @@ neovim.load({
             'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
-            'rmagatti/goto-preview',
-            'stevearc/dressing.nvim',
             'andersevenrud/nordic.nvim',
             'anuvyklack/pretty-fold.nvim',
 
@@ -360,6 +359,7 @@ neovim.load({
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',
             'j-hui/fidget.nvim',
+            'glepnir/lspsaga.nvim',
         }
     },
 

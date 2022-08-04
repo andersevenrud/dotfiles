@@ -179,11 +179,6 @@ return {
             require'winshift'.setup(n.config.winshift)
         end
     },
-    ['rmagatti/goto-preview'] = {
-        config = function()
-            require'goto-preview'.setup{}
-        end
-    },
     ['numToStr/Comment.nvim'] = {
         config = function()
             require'Comment'.setup{}
@@ -198,6 +193,18 @@ return {
     ['j-hui/fidget.nvim'] = {
         config = function()
             require'fidget'.setup{}
+        end
+    },
+    ['haringsrob/nvim_context_vt'] = {
+        config = function()
+            require('nvim_context_vt').setup({
+                disable_virtual_lines = true
+            })
+        end
+    },
+    ['glepnir/lspsaga.nvim'] = {
+        config = function()
+            require('lspsaga').init_lsp_saga({})
         end
     },
 }
