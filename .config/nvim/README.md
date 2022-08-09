@@ -7,11 +7,14 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Features
 
-* Treesitter and auto pairs
-* Autocompletion and snippets
-* LSP and diagnostics integrations
-* File browser and fuzzy finder
-* Git integrations
+* LSP, Debugging, Diagnostics
+* Automatic LSP installation
+* Treesitter
+* Autocompletion
+* Snippets
+* File browser
+* Fuzzy finder
+* Git
 * Nord
 
 ## Dependencies
@@ -30,13 +33,12 @@ configuration and shims in an attempt to make customization less spaghetti.
   - `nodejs`
   - `rust`
   - `php`
-- Tools not covered by automatic installers
-  - [`stylua`](https://github.com/JohnnyMorganz/StyLua)
-  - [`luacheck`](https://github.com/mpeterv/luacheck)
+  - `lua`
 
 ## Setup
 
 1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
+2. Use `:Mason` to install any extra tools not covered by LSP language servers.
 
 Secrets are stored in the optional file `lua/andersevenrud/secrets.lua`:
 
