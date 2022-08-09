@@ -37,7 +37,6 @@ configuration and shims in an attempt to make customization less spaghetti.
 ## Setup
 
 1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
-2. Use `:LspInstallAll` to install all language servers at once (instead of on-demand)
 
 Secrets are stored in the optional file `lua/andersevenrud/secrets.lua`:
 

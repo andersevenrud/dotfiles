@@ -355,6 +355,7 @@ neovim.load({
             -- LSP
             'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
+            'williamboman/mason-lspconfig.nvim',
             'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',

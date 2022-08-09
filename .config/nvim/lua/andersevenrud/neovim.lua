@@ -319,19 +319,11 @@ M.create_sumneko_server_options = function(settings)
     }
 end
 
--- Automate insallation of lsp servers
-M.install_all_lsp_servers = function()
-    local names = vim.tbl_keys(M.config.lsp.servers)
-    local lsp_installer = require'mason.api.command'
-
-    lsp_installer.MasonInstall(names)
-end
-
 -- Automates setup of LSP integrations
 M.setup_lsp = function()
-    local lsp_installer = require'mason'
+    local mason = require'mason'
+    local mason_lsp = require'mason-lspconfig'
     local lsp_signature = require'lsp_signature'
-    local nvim_lsp = require'lspconfig'
     local capabilities = M.create_cmp_capabilities()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
@@ -359,12 +351,20 @@ M.setup_lsp = function()
         }, M.config.lsp.servers[name])
     end
 
-    lsp_installer.setup({})
+    mason.setup({})
 
-    for _, name in pairs(names) do
-        local options = create_options(name)
-        nvim_lsp[name].setup(options)
-    end
+    mason_lsp.setup_handlers({
+        function (name) -- default handler (optional)
+            if vim.tbl_contains(names, name) then
+                local options = create_options(name)
+                require("lspconfig")[name].setup(options)
+            end
+        end,
+    })
+
+    mason_lsp.setup({
+        ensure_installed = names,
+    })
 end
 
 -- Initialization wrapper
@@ -383,7 +383,6 @@ M.load = function(config, shims)
     vim.diagnostic.config(config.diagnostics.options)
 
     -- M.set_keymaps_dump(config.vim.keybindings)
-    vim.cmd([[command LspInstallAll :lua require'andersevenrud.neovim'.install_all_lsp_servers()]])
 end
 
 return M
