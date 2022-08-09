@@ -309,6 +309,7 @@ neovim.load({
             'sindrets/winshift.nvim',
             'andersevenrud/nordic.nvim',
             'anuvyklack/pretty-fold.nvim',
+            'stevearc/dressing.nvim',
 
             -- Editing
             'numToStr/Comment.nvim',

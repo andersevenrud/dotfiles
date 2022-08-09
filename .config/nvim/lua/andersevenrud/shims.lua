@@ -211,4 +211,9 @@ return {
             require('lspsaga').init_lsp_saga({})
         end
     },
+    ['stevearc/dressing.nvim'] = {
+        config = function()
+            require'dressing'.setup{}
+        end
+    },
 }
