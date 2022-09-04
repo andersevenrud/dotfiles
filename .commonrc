@@ -4,6 +4,9 @@ USERXSESSIONRC="$XDG_CACHE_HOME/X11/xsessionrc"
 ALTUSERXSESSION="$XDG_CACHE_HOME/X11/Xsession"
 ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
 
+# QT 5 themes to match GTK 2 (qt5-styleplugins)
+export QT_QPA_PLATFORMTHEME=gtk2
+
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
