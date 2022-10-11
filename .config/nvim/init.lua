@@ -143,7 +143,7 @@ neovim.load({
                     { 'n', '<space>rn', '<cmd>Lspsaga rename<CR>', { noremap = true, silent = true }, 'Rename current' },
                     --{ 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
                     { 'n', '<space>ca', '<cmd>Lspsaga code_action<CR>', { noremap = true, silent = true }, 'Show code actions' },
-                    { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true }, 'Format document' },
+                    { 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true }, 'Format document' },
                     { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
                     --{ 'n', '<space>e', [[<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
                     { 'n', '<space>e', '<cmd>Lspsaga show_line_diagnostics<CR>', { noremap = true, silent = true }, 'Show lined diagnostics' },
