@@ -362,6 +362,7 @@ neovim.load({
             'jose-elias-alvarez/null-ls.nvim',
             'j-hui/fidget.nvim',
             'glepnir/lspsaga.nvim',
+            'mrshmllow/document-color.nvim',
         }
     },
 
@@ -600,10 +601,8 @@ neovim.load({
     },
 
     colorizer = {
+        -- NOTE: document-color LSP plugin supports some of this already
         filetypes = {
-            'html',
-            'css',
-            'scss',
             'javascript',
             'typescript',
             'javascriptreact',

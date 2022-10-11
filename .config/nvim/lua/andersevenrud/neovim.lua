@@ -284,6 +284,8 @@ end
 M.create_cmp_capabilities = function (capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
+    capabilities.textDocument.colorProvider = true
+
     local status, cmp = pcall(require, 'cmp_nvim_lsp')
     if status == false then
         return capabilities
@@ -334,12 +336,20 @@ M.setup_lsp = function()
         end
     end
 
+    local attach_plugins = function(client, bufnr)
+        lsp_signature.on_attach(M.config.lsp_signature)
+
+        if client.server_capabilities.colorProvider then
+            require("document-color").buf_attach(bufnr)
+        end
+    end
+
     local on_attach = function(k)
         return function(...)
             M.run_on_attach(k, ...)
             M.run_on_attach('*', ...)
             set_options(...)
-            lsp_signature.on_attach(M.config.lsp_signature)
+            attach_plugins(...)
         end
     end
 
