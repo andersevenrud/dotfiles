@@ -53,7 +53,7 @@ neovim.load({
     vim = {
         autocommands = autocommands,
         options = {
-            shortmess = 'filnxtToOFc',                  -- Silence warnings and abbreviate stuff
+            shortmess = 'filnxtToOFcs',                 -- Silence warnings and abbreviate stuff
             completeopt = { 'menuone', 'noselect' },    -- Always open popup and user selection
             pumheight = 30,                             -- Limit height of autocomplete popup
             signcolumn = 'yes',                         -- Use sign column in gutter to prevent jumping
@@ -212,7 +212,7 @@ neovim.load({
             --dartls = {}, -- See flutter-tools
             eslint = {},
             bashls = {},
-            ccls = {},
+            --ccls = {}, -- No more ?
             jsonls = {},
             dockerls = {},
             yamlls = {},
