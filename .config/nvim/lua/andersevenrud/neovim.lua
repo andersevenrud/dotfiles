@@ -291,7 +291,8 @@ M.create_cmp_capabilities = function (capabilities)
         return capabilities
     end
 
-    return cmp.update_capabilities(capabilities)
+    return cmp.default_capabilities(capabilities)
+    --return cmp.update_capabilities(capabilities)
 end
 
 -- Creates lua lsp options
