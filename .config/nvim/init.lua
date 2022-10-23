@@ -310,6 +310,7 @@ neovim.load({
             'andersevenrud/nordic.nvim',
             'anuvyklack/pretty-fold.nvim',
             'stevearc/dressing.nvim',
+            'folke/noice.nvim',
 
             -- Editing
             'numToStr/Comment.nvim',
@@ -360,7 +361,6 @@ neovim.load({
             'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
             'jose-elias-alvarez/null-ls.nvim',
-            'j-hui/fidget.nvim',
             'glepnir/lspsaga.nvim',
             'mrshmllow/document-color.nvim',
         }
@@ -684,4 +684,8 @@ neovim.load({
     pretty_fold = {
         fill_char = ' ',
     },
+
+    noice = {},
+
+    dressing = {},
 }, shims)

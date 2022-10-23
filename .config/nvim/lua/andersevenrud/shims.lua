@@ -194,11 +194,6 @@ return {
             require'pretty-fold'.setup(n.config.pretty_fold)
         end
     },
-    ['j-hui/fidget.nvim'] = {
-        config = function()
-            require'fidget'.setup{}
-        end
-    },
     ['haringsrob/nvim_context_vt'] = {
         config = function()
             require('nvim_context_vt').setup({
@@ -213,12 +208,26 @@ return {
     },
     ['stevearc/dressing.nvim'] = {
         config = function()
-            require'dressing'.setup{}
+            local n = require'andersevenrud.neovim'
+            require'dressing'.setup(n.config.dressing)
+        end
+    },
+    ['folke/noice.nvim'] = {
+        requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+        config = function()
+            local n = require'andersevenrud.neovim'
+            require'noice'.setup(n.config.noice)
         end
     },
     ['mrshmllow/document-color.nvim'] = {
         config = function()
             require'document-color'.setup({})
+        end
+    },
+    ['nat-418/boole.nvim'] = {
+        config = function()
+            local n = require'andersevenrud.neovim'
+            require'boole'.setup(n.config.boole)
         end
     },
 }
