@@ -78,7 +78,7 @@ neovim.load({
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
             foldcolumndigits = false,                   -- Remove fold column level digits
             wildignore = wildignore,                    -- Ignore these file types
-            lazyredraw = true,                          -- Reduce flicker in macros etc.
+            --lazyredraw = true,                          -- Reduce flicker in macros etc.
             updatetime = 1000,                          -- Lower CursorHold update times
             laststatus = 3,                             -- Global statusline
             cmdheight = 0,                              -- No command line height unless entering one
