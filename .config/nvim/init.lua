@@ -81,6 +81,8 @@ neovim.load({
             lazyredraw = true,                          -- Reduce flicker in macros etc.
             updatetime = 1000,                          -- Lower CursorHold update times
             laststatus = 3,                             -- Global statusline
+            cmdheight = 0,                              -- No command line height unless entering one
+            winbar = '%{expand(\'%:~:.\')}',            -- Show relative file path in winbar
             fillchars = {
                 foldopen = '',
                 foldclose = '',
