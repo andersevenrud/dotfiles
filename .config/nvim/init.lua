@@ -317,6 +317,7 @@ neovim.load({
             'matze/vim-move',
             'windwp/nvim-autopairs',
             'github/copilot.vim',
+            'nat-418/boole.nvim',
 
             -- Navigation
             'nvim-treesitter/nvim-treesitter-textobjects',
@@ -683,6 +684,13 @@ neovim.load({
 
     pretty_fold = {
         fill_char = ' ',
+    },
+
+    boole = {
+        mappings = {
+            increment = '<C-a>',
+            decrement = '<C-x>'
+        },
     },
 
     noice = {},
