@@ -695,7 +695,23 @@ neovim.load({
         },
     },
 
-    noice = {},
+    noice = {
+        routes = {
+            -- Show @recording
+            {
+                view = "notify",
+                filter = { event = "msg_showmode" },
+            },
+            -- Hide virtual text
+            {
+                filter = {
+                    event = 'msg_show',
+                    kind = 'search_count',
+                },
+                opts = { skip = true },
+            },
+        },
+    },
 
     dressing = {},
 }, shims)
