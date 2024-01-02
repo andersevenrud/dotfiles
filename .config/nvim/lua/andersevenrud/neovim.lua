@@ -326,7 +326,7 @@ end
 M.setup_lsp = function()
     local mason = require'mason'
     local mason_lsp = require'mason-lspconfig'
-    local lsp_signature = require'lsp_signature'
+    --local lsp_signature = require'lsp_signature'
     local capabilities = M.create_cmp_capabilities()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
@@ -338,10 +338,30 @@ M.setup_lsp = function()
     end
 
     local attach_plugins = function(client, bufnr)
-        lsp_signature.on_attach(M.config.lsp_signature)
+        --lsp_signature.on_attach(M.config.lsp_signature)
 
         if client.server_capabilities.colorProvider then
             require("document-color").buf_attach(bufnr)
+        end
+
+        if client.server_capabilities.document_highlight then
+            vim.api.nvim_create_augroup('lsp_document_highlight', {
+                clear = false
+            })
+            vim.api.nvim_clear_autocmds({
+                buffer = bufnr,
+                group = 'lsp_document_highlight',
+            })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                group = 'lsp_document_highlight',
+                buffer = bufnr,
+                callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                group = 'lsp_document_highlight',
+                buffer = bufnr,
+                callback = vim.lsp.buf.clear_references,
+            })
         end
     end
 

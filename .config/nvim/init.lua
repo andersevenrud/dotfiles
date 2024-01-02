@@ -73,15 +73,15 @@ neovim.load({
             softtabstop = 2,                            -- Default spacing
             shiftwidth = 2,                             -- Default spacing
             foldlevel = 999,                            -- Expand all folds by default
-            foldcolumn = 'auto',                        -- Show fold indicator in gutter
+            --foldcolumn = 'auto',                        -- Show fold indicator in gutter
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
-            foldcolumndigits = false,                   -- Remove fold column level digits
+            --foldcolumndigits = false,                   -- Remove fold column level digits
             wildignore = wildignore,                    -- Ignore these file types
             --lazyredraw = true,                          -- Reduce flicker in macros etc.
             updatetime = 1000,                          -- Lower CursorHold update times
             laststatus = 3,                             -- Global statusline
-            cmdheight = 0,                              -- No command line height unless entering one
+            --cmdheight = 0,                              -- No command line height unless entering one
             winbar = '%{expand(\'%:~:.\')}',            -- Show relative file path in winbar
             fillchars = {
                 foldopen = '',
@@ -124,15 +124,16 @@ neovim.load({
             {
                 lsp = '*',
                 keybindings = {
-                    { 'n', 'gpd', '<cmd>Lspsaga preview_definition<CR>', { silent = true }, 'Preview definition' },
-                    { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }, 'Go to decleration' },
-                    { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }, 'Go to definition' },
+                    --{ 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true }, 'Go to decleration' },
+                    { 'n', 'gD', '<cmd>Lspsaga peek_definition<CR>', { silent = true }, 'Peek definition' },
+                    --{ 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }, 'Go to definition' },
+                    { 'n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { noremap = true, silent = true }, 'Go to definition' },
                     --{ 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
                     { 'n', 'K', '<cmd>Lspsaga hover_doc<CR>', { noremap = true, silent = true }, 'Show documentation' },
                     --{ 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true }, 'Go to implementation'},
-                    { 'n', 'gi', '<cmd>Lspsaga lsp_finder<CR>', { noremap = true, silent = true }, 'Go to implementation'},
+                    { 'n', 'gi', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to implementation'},
                     --{ 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
-                    { 'n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
+                    { 'n', 'gr', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
                     --{ 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
                     { 'n', '<C-k>', '<cmd>Lspsaga signature_help<CR>', { noremap = true, silent = true }, 'Show signature help' },
                     --{ 'i', '<C-A-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true }, 'Show signature help' },
@@ -153,19 +154,20 @@ neovim.load({
                     { 'n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
                     --{ 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
                     { 'n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
+                    { 'n', '<leader>so', '<cmd>Lspsaga outline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
                 }
             },
 
             -- nvim-lsp-ts-utils
-            {
-                lsp = 'tsserver',
-                keybindings = {
-                    { 'n', '<space>ri', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
-                    { 'n', '<space>cf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
-                    { 'n', '<space>rwn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
-                    { 'n', '<space>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
-                }
-            },
+            --{
+            --    lsp = 'tsserver',
+            --    keybindings = {
+            --        { 'n', '<space>ri', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
+            --        { 'n', '<space>cf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
+            --        { 'n', '<space>rwn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
+            --        { 'n', '<space>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
+            --    }
+            --},
 
             -- Telescope
             { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true }, 'Fuzzy find files' },
@@ -178,11 +180,8 @@ neovim.load({
             -- neogit
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
 
-            -- nvim-tree
-            { 'n', '<leader>fo', ':Neotree filesystem reveal<CR>', { noremap = true }, 'Open file browser' },
-
-            -- symbols-outline
-            { 'n', '<leader>fs', ':SymbolsOutline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
+            -- neo-tree
+            { 'n', '<leader>fo', ':Neotree float filesystem reveal<CR>', { noremap = true }, 'Open file browser' },
 
             -- winshift
             { 'n', '<leader>ws', ':WinShift<CR>', { noremap = true, silent = true }, 'Toggle window shifter' },
@@ -224,7 +223,7 @@ neovim.load({
             html = {},
             rust_analyzer = {},
             svelte = {},
-            tsserver = {},
+            --tsserver = {},
             stylelint_lsp = {},
             omnisharp = {},
             --sumneko_lua = neovim.create_sumneko_server_options({
@@ -252,13 +251,29 @@ neovim.load({
                 }
             },
             tailwindcss = {},
-            vala_ls = {},
+            --vala_ls = {},
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
                     globalStoragePath = '~/.config/intelephense'
                 },
             },
+            biome = {},
+            -- rome = {
+            --     -- init_options = {
+            --     --     languageFeatures = {
+            --     --         diagnostics = true,
+            --     --     },
+            --     -- },
+            --     -- settings = {
+            --     --     ["rome"] = {
+            --     --         analysis = {
+            --     --             enableCodeActions = true,
+            --     --             enableDiagnostics = true
+            --     --         }
+            --     --     }
+            --     -- }
+            -- },
         },
         handlers = {
             ['textDocument/hover'] = {
@@ -323,7 +338,6 @@ neovim.load({
 
             -- Navigation
             'nvim-treesitter/nvim-treesitter-textobjects',
-            --'simrat39/symbols-outline.nvim',
             'folke/todo-comments.nvim',
             'nacro90/numb.nvim',
             'nvim-telescope/telescope.nvim',
@@ -342,6 +356,7 @@ neovim.load({
             'euclio/vim-markdown-composer',
             'akinsho/nvim-toggleterm.lua',
             'stevearc/vim-arduino',
+            'wilriker/gcode.vim',
 
             -- Autocomplete
             'hrsh7th/nvim-cmp',
@@ -353,12 +368,12 @@ neovim.load({
             'saadparwaiz1/cmp_luasnip',
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
-            'ray-x/lsp_signature.nvim',
+            --'ray-x/lsp_signature.nvim',
             'windwp/nvim-ts-autotag',
             'RRethy/nvim-treesitter-endwise',
 
             -- LSP
-            'jose-elias-alvarez/nvim-lsp-ts-utils',
+            --'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
             'williamboman/mason-lspconfig.nvim',
             'williamboman/mason.nvim',
@@ -366,6 +381,7 @@ neovim.load({
             'jose-elias-alvarez/null-ls.nvim',
             'glepnir/lspsaga.nvim',
             'mrshmllow/document-color.nvim',
+            'pmizio/typescript-tools.nvim',
         }
     },
 
@@ -442,7 +458,7 @@ neovim.load({
                 end
             },
             { name = 'luasnip' },
-            { name = 'tmux' }
+            { name = 'tmux', option = { all_panes = false} }
         }
 
         for _, v in pairs(sources) do
@@ -625,9 +641,9 @@ neovim.load({
 
         -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/268
         enable_diagnostics = true,
-        enable_git_status = false,
+        enable_git_status = true,
         enable_modified_markers = false,
-        enable_refresh_on_write = false,
+        enable_refresh_on_write = true,
         resize_timer_interval = -1,
 
         filesystem = {
@@ -696,6 +712,30 @@ neovim.load({
     },
 
     noice = {
+        lsp = {
+            override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+                ["cmp.entry.get_documentation"] = true,
+            },
+        },
+        notify = {
+            enabled = false,
+        },
+        messages = {
+            enabled = false,
+        },
+        views = {
+            cmdline_popup = {
+                position = {
+                    row = 4,
+                    col = "50%",
+                },
+            },
+            notify = {
+                top_down = false,
+            },
+        },
         routes = {
             -- Show @recording
             {
@@ -714,4 +754,10 @@ neovim.load({
     },
 
     dressing = {},
+
+    lspsaga = {
+lightbulb = {
+            virtual_text = false
+        }
+    }
 }, shims)

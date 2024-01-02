@@ -138,7 +138,7 @@ return {
         requires = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            'ray-x/lsp_signature.nvim'
+            --'ray-x/lsp_signature.nvim'
         },
         config = function()
             local n = require'andersevenrud.neovim'
@@ -203,7 +203,8 @@ return {
     },
     ['glepnir/lspsaga.nvim'] = {
         config = function()
-            require('lspsaga').init_lsp_saga({})
+            local n = require'andersevenrud.neovim'
+            require('lspsaga').setup(n.config.lspsaga)
         end
     },
     ['stevearc/dressing.nvim'] = {
@@ -228,6 +229,17 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             require'boole'.setup(n.config.boole)
+        end
+    },
+    ['TimUntersberger/neogit'] = {
+        config = function()
+            require'neogit'.setup({})
+        end
+    },
+    ['pmizio/typescript-tools.nvim'] = {
+        requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        config = function()
+            require("typescript-tools").setup {}
         end
     },
 }
