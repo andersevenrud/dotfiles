@@ -378,24 +378,28 @@ M.setup_lsp = function()
         return vim.tbl_extend('keep', {
             capabilities = capabilities,
             flags = flags,
-            on_attach = on_attach(name)
         }, M.config.lsp.servers[name])
     end
 
     mason.setup({})
 
-    mason_lsp.setup_handlers({
-        function (name) -- default handler (optional)
-            if vim.tbl_contains(names, name) then
-                local options = create_options(name)
-                require("lspconfig")[name].setup(options)
-            end
-        end,
-    })
-
     mason_lsp.setup({
         ensure_installed = names,
+        automatic_enable = false
     })
+
+    vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(ev)
+            local client_id = ev.data.client_id
+            local client = assert(vim.lsp.get_client_by_id(client_id))
+            on_attach(client.name)(client, ev.buf)
+        end
+    })
+
+    for _, name in ipairs(names) do
+        local options = create_options(name)
+        vim.lsp.config(name, options)
+    end
 end
 
 -- Initialization wrapper

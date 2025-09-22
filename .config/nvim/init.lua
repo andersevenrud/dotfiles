@@ -41,13 +41,18 @@ if os.getenv('TMUX') then
 end
 
 local wildignore = {
-    '*.o', '*.a', '*.class', '*.mo', '*.la', '*.so', '*.obj',
+    '*.o', '*.a', '*.class', '*.la', '*.so', '*.obj', --, '*.mo'
     '*.swp', '.tern-port', '*.tmp',
     '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
     '.git', '.svn', 'CVS',
+    '*.snap',
     'package-lock.json', 'yarn.lock', 'composer.lock',
     'DS_Store', 'storybook-static'
 }
+
+vim.g.mapleader = '´'
+
+vim.cmd [[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]]
 
 neovim.load({
     vim = {
@@ -104,7 +109,7 @@ neovim.load({
         aliases = {
             ['*.heml'] = 'html',
             ['*.rasi'] = 'css',
-            ['*.tl'] = 'teal'
+            ['*.tl'] = 'teal',
         },
         rules = {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
@@ -158,17 +163,6 @@ neovim.load({
                 }
             },
 
-            -- nvim-lsp-ts-utils
-            --{
-            --    lsp = 'tsserver',
-            --    keybindings = {
-            --        { 'n', '<space>ri', ':TSLspOrganize<CR>', { silent = true }, 'Organize imports' },
-            --        { 'n', '<space>cf', ':TSLspFixCurrent<CR>', { silent = true }, 'Fix current' },
-            --        { 'n', '<space>rwn', ':TSLspRenameFile<CR>', { silent = true }, 'Rename file across workspace' },
-            --        { 'n', '<space>ia', ':TSLspImportAll<CR>', { silent = true }, 'Import all used definitions' }
-            --    }
-            --},
-
             -- Telescope
             { 'n', '<leader>ff', [[<cmd>lua require'telescope.builtin'.find_files()<cr>]], { noremap = true }, 'Fuzzy find files' },
             { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true }, 'Fuzzy grep' },
@@ -210,29 +204,33 @@ neovim.load({
             omnifunc = 'v:lua.vim.lsp.omnifunc'
         },
         servers = {
+            bicep = {
+                    cmd = { "dotnet", "/Users/andersevenrud/.local/bin/bicep-langserver/Bicep.LangServer.dll" };
+            },
             --dartls = {}, -- See flutter-tools
             eslint = {},
             bashls = {},
-            --ccls = {}, -- No more ?
             jsonls = {},
             dockerls = {},
-            yamlls = {},
+            yamlls = {
+                settings = {
+                    yaml = {
+                        format = {
+                            enable = true
+                        },
+                        schemaStore = {
+                            enable = true
+                        }
+                    }
+                }
+            },
             pylsp = {},
             cssls = {},
-            volar = {},
             html = {},
             rust_analyzer = {},
             svelte = {},
-            --tsserver = {},
             stylelint_lsp = {},
             omnisharp = {},
-            --sumneko_lua = neovim.create_sumneko_server_options({
-            --    Lua = {
-            --        telemetry = {
-            --            enable = false,
-            --        },
-            --    }
-            --}),
             arduino_language_server = {
                 cmd =  {
                     'arduino-language-server',
@@ -251,7 +249,6 @@ neovim.load({
                 }
             },
             tailwindcss = {},
-            --vala_ls = {},
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
@@ -259,21 +256,6 @@ neovim.load({
                 },
             },
             biome = {},
-            -- rome = {
-            --     -- init_options = {
-            --     --     languageFeatures = {
-            --     --         diagnostics = true,
-            --     --     },
-            --     -- },
-            --     -- settings = {
-            --     --     ["rome"] = {
-            --     --         analysis = {
-            --     --             enableCodeActions = true,
-            --     --             enableDiagnostics = true
-            --     --         }
-            --     --     }
-            --     -- }
-            -- },
         },
         handlers = {
             ['textDocument/hover'] = {
@@ -288,6 +270,7 @@ neovim.load({
     diagnostics = {
         options = {
             virtual_text = false,
+            severity_sort = true,
             float = {
 
 
@@ -373,12 +356,10 @@ neovim.load({
             'RRethy/nvim-treesitter-endwise',
 
             -- LSP
-            --'jose-elias-alvarez/nvim-lsp-ts-utils',
             'neovim/nvim-lspconfig',
             'williamboman/mason-lspconfig.nvim',
             'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
-            'jose-elias-alvarez/null-ls.nvim',
             'glepnir/lspsaga.nvim',
             'mrshmllow/document-color.nvim',
             'pmizio/typescript-tools.nvim',
@@ -507,6 +488,7 @@ neovim.load({
         ensure_installed = {
             --'jsdoc', -- Seems to slow things down at the moment (issue #1313)
             --'comment', -- todo-comments replaces this
+            'bicep',
             'typescript',
             'javascript',
             'dart',
@@ -541,6 +523,9 @@ neovim.load({
             'make',
             'vala',
             'scss',
+
+            -- custom
+            'blade',
         },
         highlight = {
             enable = true,
@@ -670,25 +655,6 @@ neovim.load({
     winshift = {
         highlight_moving_win = true,
         focused_hl_group = 'WinShift',
-    },
-
-    nullls = {
-        options= {
-            debounce = 500,
-        },
-        bin = {
-            ['package.json'] = 'node_modules/.bin/',
-            ['composer.json'] = 'vendor/bin/'
-        },
-        formatting = {
-            { 'prettier', 'package.json' },
-            { 'phpcsfixer', 'composer.json' },
-            { 'stylua', 'stylua.toml' },
-        },
-        diagnostics = {
-            { 'phpcs', 'composer.json' },
-            { 'luacheck' }
-        }
     },
 
     tsutils = {
