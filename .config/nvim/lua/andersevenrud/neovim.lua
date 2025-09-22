@@ -1,5 +1,5 @@
 --
--- NeoVim 0.5+ Configuration by
+-- NeoVim 0.11+ Configuration by
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
@@ -284,15 +284,14 @@ end
 M.create_cmp_capabilities = function (capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
-    capabilities.textDocument.colorProvider = true
+    local cmp_capabilities = require('blink.cmp').get_lsp_capabilities({
+        textDocument = {
+            colorProvider = true
+        }
 
-    local status, cmp = pcall(require, 'cmp_nvim_lsp')
-    if status == false then
-        return capabilities
-    end
+    })
 
-    return cmp.default_capabilities(capabilities)
-    --return cmp.update_capabilities(capabilities)
+    return vim.tbl_deep_extend('force', capabilities, cmp_capabilities)
 end
 
 -- Creates lua lsp options
@@ -326,7 +325,6 @@ end
 M.setup_lsp = function()
     local mason = require'mason'
     local mason_lsp = require'mason-lspconfig'
-    --local lsp_signature = require'lsp_signature'
     local capabilities = M.create_cmp_capabilities()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
@@ -338,8 +336,6 @@ M.setup_lsp = function()
     end
 
     local attach_plugins = function(client, bufnr)
-        --lsp_signature.on_attach(M.config.lsp_signature)
-
         if client.server_capabilities.colorProvider then
             require("document-color").buf_attach(bufnr)
         end

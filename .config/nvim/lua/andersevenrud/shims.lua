@@ -1,5 +1,5 @@
 --
--- NeoVim 0.5+ Configuration by
+-- NeoVim 0.11+ Configuration by
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
@@ -107,20 +107,12 @@ return {
             n.apply_globals(n.config.markdown_composer, 'markdown_composer_')
         end
     },
-    ['hrsh7th/nvim-cmp'] = {
-        requires = { 'windwp/nvim-autopairs', 'L3MON4D3/LuaSnip', 'onsails/lspkind-nvim' },
+    ['saghen/blink.cmp'] = {
+        run = 'cargo build --release',
+        requires = { 'rafamadriz/friendly-snippets' },
         config = function()
             local n = require'andersevenrud.neovim'
-            local cmp = require'cmp'
-            local apairs = require'nvim-autopairs.completion.cmp'
-            local config = n.config.cmp(cmp)
-
-            for k, v in pairs(config.cmdline) do
-                cmp.setup.cmdline(k, v)
-            end
-
-            cmp.setup(config.cmp)
-            cmp.event:on( 'confirm_done', apairs.on_confirm_done({  map_char = { tex = '' } }))
+            require('blink.cmp').setup(n.config.blink)
         end
     },
     ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {

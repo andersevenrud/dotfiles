@@ -1,5 +1,5 @@
 --
--- NeoVim 0.5+ Configuration by
+-- NeoVim 0.11+ Configuration by
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
@@ -197,9 +197,9 @@ neovim.load({
     },
 
     lsp = {
-        flags = {
-            debounce_text_changes = 250,
-        },
+        --flags = {
+        --    debounce_text_changes = 250,
+        --},
         options = {
             omnifunc = 'v:lua.vim.lsp.omnifunc'
         },
@@ -342,13 +342,8 @@ neovim.load({
             'wilriker/gcode.vim',
 
             -- Autocomplete
-            'hrsh7th/nvim-cmp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-nvim-lua',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-cmdline',
-            'andersevenrud/cmp-tmux',
-            'saadparwaiz1/cmp_luasnip',
+            'saghen/blink.cmp',
+            'mgalliou/blink-cmp-tmux',
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
             --'ray-x/lsp_signature.nvim',
@@ -420,69 +415,6 @@ neovim.load({
             lualine_z = { 'progress', 'location' },
         },
     },
-
-    cmp = function(cmp)
-        local menu = {}
-
-        local sources = {
-            { name = 'nvim_lua' },
-            { name = 'nvim_lsp' },
-            {
-                name = 'buffer',
-                get_bufnrs = function()
-                    local bufs = {}
-                    for _, win in ipairs(vim.api.nvim_list_wins()) do
-                        bufs[vim.api.nvim_win_get_buf(win)] = true
-                    end
-                    return vim.tbl_keys(bufs)
-                    --return vim.api.nvim_list_bufs()
-                end
-            },
-            { name = 'luasnip' },
-            { name = 'tmux', option = { all_panes = false} }
-        }
-
-        for _, v in pairs(sources) do
-            menu[v.name] = v.name
-        end
-
-        return {
-            cmp = {
-                sources = sources,
-                completion = {
-                    --autocomplete = false,
-                },
-                snippet = {
-                    expand = function(args)
-                        require'luasnip'.lsp_expand(args.body)
-                    end
-                },
-                formatting = {
-                    format = require('lspkind').cmp_format({
-                        with_text = true,
-                        menu = menu,
-                    }),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-e>'] = cmp.mapping.close(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true })
-                }),
-            },
-            cmdline = {
-                ['/'] = {
-                    mapping = cmp.mapping.preset.cmdline(),
-                    sources = { { name = 'buffer' } }
-                },
-                [':'] = {
-                    mapping = cmp.mapping.preset.cmdline(),
-                    sources = { { name = 'cmdline' } }
-                },
-            },
-        }
-    end,
 
     treesitter = {
         ensure_installed = {
@@ -722,8 +654,38 @@ neovim.load({
     dressing = {},
 
     lspsaga = {
-lightbulb = {
+        lightbulb = {
             virtual_text = false
         }
+    },
+
+    blink = {
+        keymap = { preset = 'enter' },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
+        completion = {
+            documentation = { auto_show = true },
+            accept = {
+                auto_brackets = { enabled = true }
+            },
+        },
+        cmdline = {
+            completion = {
+                menu = { auto_show = true },
+                list = {
+                    selection = {
+                        preselect = false,
+                    },
+                },
+            },
+        },
+        sources = {
+            default = { 'lsp', 'buffer', 'snippets', 'path', 'tmux' },
+            providers = {
+                tmux = {
+                    module = "blink-cmp-tmux",
+                    name = "tmux",
+                },
+            }
+        },
     }
 }, shims)
