@@ -12,8 +12,6 @@ local secrets = neovim.prequire('andersevenrud.secrets', {
     }
 })
 
-local border_style = 'single'
-
 local signs = {
     error = '',
     warning = '',
@@ -51,6 +49,7 @@ local wildignore = {
 }
 
 vim.g.mapleader = '´'
+vim.g.jsonpath_register = '*'
 
 vim.cmd [[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]]
 
@@ -62,6 +61,7 @@ neovim.load({
             completeopt = { 'menuone', 'noselect' },    -- Always open popup and user selection
             pumheight = 30,                             -- Limit height of autocomplete popup
             signcolumn = 'yes',                         -- Use sign column in gutter to prevent jumping
+            winborder = 'single',                       -- Default border for floating windows (hover, signature, etc.)
             numberwidth = 4,                            -- Wide number gutter
             number = true,                              -- Show number gutter
             relativenumber = true,                      -- Show number gutter as relative number
@@ -257,14 +257,6 @@ neovim.load({
             },
             biome = {},
         },
-        handlers = {
-            ['textDocument/hover'] = {
-                border = border_style
-            },
-            ['textDocument/signatureHelp'] = {
-                border = border_style
-            }
-        }
     },
 
     diagnostics = {
@@ -302,7 +294,7 @@ neovim.load({
             -- UI
             'xiyaowong/nvim-cursorword',
             'haringsrob/nvim_context_vt',
-            'norcalli/nvim-colorizer.lua',
+            'catgoose/nvim-colorizer.lua',
             'hoob3rt/lualine.nvim',
             'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
@@ -316,7 +308,6 @@ neovim.load({
             'numToStr/Comment.nvim',
             'matze/vim-move',
             'windwp/nvim-autopairs',
-            'github/copilot.vim',
             'nat-418/boole.nvim',
 
             -- Navigation
@@ -340,8 +331,10 @@ neovim.load({
             'akinsho/nvim-toggleterm.lua',
             'stevearc/vim-arduino',
             'wilriker/gcode.vim',
+            'mogelbrod/vim-jsonpath',
 
             -- Autocomplete
+            'saghen/blink.lib',
             'saghen/blink.cmp',
             'mgalliou/blink-cmp-tmux',
             'L3MON4D3/LuaSnip',
@@ -358,6 +351,11 @@ neovim.load({
             'glepnir/lspsaga.nvim',
             'mrshmllow/document-color.nvim',
             'pmizio/typescript-tools.nvim',
+
+
+            -- AI
+            'github/copilot.vim',
+            'olimorris/codecompanion.nvim',
         }
     },
 

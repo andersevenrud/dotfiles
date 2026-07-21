@@ -119,22 +119,6 @@ M.set_diagnostic_signs = function(signs)
     end
 end
 
--- LSP Handler handlers
-M.set_lsp_handlers = function(handlers)
-    local lsp_handlers = {
-        ['textDocument/publishDiagnostics'] = vim.lsp.diagnostic.on_publish_diagnostics,
-        ['textDocument/hover'] = vim.lsp.handlers.hover,
-        ['textDocument/signatureHelp'] = vim.lsp.handlers.signature_help
-    }
-
-    for k, v in pairs(handlers) do
-        vim.lsp.handlers[k] = vim.lsp.with(
-            lsp_handlers[k],
-            v
-        )
-    end
-end
-
 -- Autocmd
 M.autocmd = function(cmd)
     local group = table.concat(cmd[1], ',')
@@ -406,7 +390,6 @@ M.load = function(config, shims)
     M.set_aliases(config.vim.aliases)
     M.set_rules(config.vim.rules)
     M.set_keymaps(config.vim.keybindings)
-    M.set_lsp_handlers(config.lsp.handlers)
     M.set_auto_commands(config.vim.autocommands)
     M.packer_load(config.packer, shims)
 

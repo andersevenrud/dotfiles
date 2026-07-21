@@ -23,10 +23,13 @@ return {
             require'nvim-treesitter.configs'.setup(n.config.treesitter)
         end
     },
-    ['norcalli/nvim-colorizer.lua'] = {
+    ['catgoose/nvim-colorizer.lua'] = {
         config = function()
             local n = require'andersevenrud.neovim'
-            require'colorizer'.setup(n.config.colorizer.filetypes, n.config.colorizer.options)
+            require'colorizer'.setup({
+                filetypes = n.config.colorizer.filetypes,
+                user_default_options = n.config.colorizer.options,
+            })
         end
     },
     ['hoob3rt/lualine.nvim'] = {
@@ -110,6 +113,9 @@ return {
     ['saghen/blink.cmp'] = {
         run = 'cargo build --release',
         requires = { 'rafamadriz/friendly-snippets' },
+        run = function()
+            require('blink.cmp').build():pwait()
+        end,
         config = function()
             local n = require'andersevenrud.neovim'
             require('blink.cmp').setup(n.config.blink)
@@ -244,6 +250,11 @@ return {
         requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         config = function()
             require("typescript-tools").setup {}
+        end
+    },
+    ['olimorris/codecompanion.nvim'] = {
+        config = function()
+            require("codecompanion").setup({})
         end
     },
 }
