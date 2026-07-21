@@ -34,65 +34,36 @@ end
 
 -- Custom filetypes
 M.set_aliases = function(aliases)
+    local extension = {}
+    local pattern = {}
+
     for k, v in pairs(aliases) do
-        vim.cmd('autocmd BufNewFile,BufRead ' .. k .. ' set ft=' .. v)
+        local ext = k:match('^%*%.([%w_]+)$')
+        if ext then
+            extension[ext] = v
+        else
+            pattern[k] = v
+        end
     end
+
+    vim.filetype.add({ extension = extension, pattern = pattern })
 end
 
 -- Custom rules per filetype
 M.set_rules = function(rules)
-    for k, v in pairs(rules) do
-        local locals = {}
-        for a, b in pairs(v) do
-            table.insert(locals, string.format('%s=%s', a, b))
-        end
-        vim.cmd('autocmd FileType ' .. k .. ' setlocal ' .. table.concat(locals, ' '))
+    local group = vim.api.nvim_create_augroup('FiletypeRules', { clear = true })
+
+    for ft, options in pairs(rules) do
+        vim.api.nvim_create_autocmd('FileType', {
+            group = group,
+            pattern = ft,
+            callback = function(args)
+                for k, v in pairs(options) do
+                    vim.bo[args.buf][k] = v
+                end
+            end,
+        })
     end
-end
-
--- Keymaps mardown output
-M.set_keymaps_dump = function(keymaps)
-    local paddings = { 8, 12, 16, 38 }
-
-    local pad = function(s, l, p)
-        return s .. string.rep(p or ' ', l - #s)
-    end
-
-    local tick = function(s)
-        return '`' .. s .. '`'
-    end
-
-    local printer = function(...)
-        local strings = {}
-
-        for i, v in ipairs({ ... }) do
-            if v == '-' then
-                table.insert(strings, pad(v, paddings[i], v))
-            else
-                table.insert(strings, pad(v, paddings[i]))
-            end
-        end
-
-        print(' | ' .. table.concat(strings, ' | ') .. ' |')
-    end
-
-    local function iterate(k, lsp)
-        for _, v in ipairs(k) do
-            if v.lsp ~= nil then
-                iterate(v.keybindings, v.lsp)
-            else
-                local mode = v[1]
-                local submode = lsp and tick(lsp) or ''
-                local binding = tick(v[2])
-                local description = v[5] or v[3]
-                printer(mode, submode, binding, description)
-            end
-        end
-    end
-
-    printer('Mode', 'LSP', 'Binding', 'Description')
-    printer('-', '-', '-', '-')
-    iterate(keymaps)
 end
 
 -- Keymaps
@@ -103,52 +74,47 @@ M.set_keymaps = function(keymaps, bufnr)
                 M.set_keymaps(v.keybindings, bnr)
             end)
         else
-            if bufnr ~= nil then
-                vim.api.nvim_buf_set_keymap(bufnr, v[1], v[2], v[3], v[4] and v[4] or {})
-            else
-                vim.api.nvim_set_keymap(v[1], v[2], v[3], v[4] and v[4] or {})
-            end
+            local opts = vim.deepcopy(v[4] or {})
+
+            -- vim.keymap.set defaults to non-recursive and ignores `noremap`
+            opts.remap = opts.noremap ~= true
+            opts.noremap = nil
+            opts.desc = v[5]
+            opts.buffer = bufnr
+
+            vim.keymap.set(v[1], v[2], v[3], opts)
         end
     end
 end
 
--- LSP Signs
-M.set_diagnostic_signs = function(signs)
+-- Diagnostic sign text per severity
+M.create_diagnostic_signs = function(signs)
+    local text = {}
     for k, v in pairs(signs) do
-        vim.fn.sign_define(k, v)
+        text[vim.diagnostic.severity[k]] = v
     end
+    return text
 end
 
--- Autocmd
-M.autocmd = function(cmd)
-    local group = table.concat(cmd[1], ',')
-    vim.cmd(string.format('autocmd %s %s %s', group, cmd[2], cmd[3]))
-end
-
--- Wrapper for multiple commands
-M.autocmds = function(cmds)
-    for _, c in pairs(cmds) do
-        M.autocmd(c)
-    end
-end
-
--- Wrapper for multiple commands with a namespace
-M.autocmds_ns = function(ns, cmds)
-    vim.cmd('augroup ' .. ns)
-    vim.cmd('autocmd!')
-    M.autocmds(cmds)
-    vim.cmd('augroup END')
-end
-
--- Wrapper for autocmds_ns over entries
+-- Autocmds, grouped by namespace
 M.set_auto_commands = function(entries)
     for ns, cmds in pairs(entries) do
-        M.autocmds_ns(ns, cmds)
+        local group = vim.api.nvim_create_augroup(ns, { clear = true })
+
+        for _, cmd in pairs(cmds) do
+            local action = cmd[3]
+            vim.api.nvim_create_autocmd(cmd[1], {
+                group = group,
+                pattern = cmd[2],
+                callback = type(action) == 'function' and action or nil,
+                command = type(action) == 'string' and action or nil,
+            })
+        end
     end
 end
 
 -- Converts wildcard options to a table
-M.wildcars_to_table = function(wildignore)
+M.wildcards_to_table = function(wildignore)
     local result = {}
     for _, v in ipairs(wildignore) do
         local p = v:gsub('^*.(%a+)$', '%%.%1')
@@ -189,7 +155,7 @@ end
 -- lazy.nvim plugin loader wrapper
 M.lazy_load = function(config, shims)
     local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-    if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    if not vim.uv.fs_stat(lazypath) then
         vim.fn.system({
             'git', 'clone', '--filter=blob:none',
             'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath
@@ -285,41 +251,6 @@ M.setup_treesitter_textobjects = function(config)
     end
 end
 
--- null-ls source loading abstraction
-M.load_null_ls_sources = function(nls, nlsh, nlsu, config)
-    local sources = {}
-
-    local check_executable = function(cmd)
-        return vim.fn.executable(cmd) > 0
-    end
-
-    for _, ns in pairs({ 'formatting', 'diagnostics' }) do
-        for _, t in pairs(config[ns]) do
-            local name, root_file = unpack(t)
-            local builtin = nls.builtins[ns][name]
-            local instance = builtin.with({
-                condition = function()
-                    return check_executable(builtin._opts.command)
-                end
-            })
-
-            if root_file then
-                local command = builtin._opts.command
-                local prefix = config.bin[root_file]
-
-                instance = builtin.with({
-                    command = command,
-                    prefer_local = prefix,
-                })
-            end
-
-            table.insert(sources, instance)
-        end
-    end
-
-    return sources
-end
-
 -- Returns another string if the input is empty
 M.empty_string_or = function(s, ors)
     return (s == nil or #s == 0) and ors or s
@@ -345,56 +276,25 @@ M.lualine_arduino = function()
 end
 
 -- Creates capabilities for LSP according to cmp
-M.create_cmp_capabilities = function (capabilities)
+M.create_autocomplete_capabilities = function (capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
-    -- NOTE: document colors are handled by the built-in `vim.lsp.document_color`
-    -- (neovim 0.12+), which advertises its own capabilities. Declaring
-    -- `textDocument.colorProvider = true` here violates the LSP spec (it expects
-    -- an object, not a boolean) and is rejected by strict servers.
-    local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
+    local autocomplete_capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    return vim.tbl_deep_extend('force', capabilities, cmp_capabilities)
-end
-
--- Creates lua lsp options
-M.create_sumneko_server_options = function(settings)
-    local sumneko_root_path = vim.fn.stdpath('data') .. '/' .. 'lsp_servers/sumneko_lua/extension/server'
-    local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
-    local runtime_path = vim.split(package.path, ';')
-    table.insert(runtime_path, "lua/?.lua")
-    table.insert(runtime_path, "lua/?/init.lua")
-
-    return {
-        cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
-        settings = vim.tbl_deep_extend('force', {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = runtime_path
-                },
-                diagnostics = {
-                    globals = {'vim'},
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file('', true)
-                },
-            }
-        }, settings)
-    }
+    return vim.tbl_deep_extend('force', capabilities, autocomplete_capabilities)
 end
 
 -- Automates setup of LSP integrations
 M.setup_lsp = function()
     local mason = require'mason'
     local mason_lsp = require'mason-lspconfig'
-    local capabilities = M.create_cmp_capabilities()
+    local capabilities = M.create_autocomplete_capabilities()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
 
     local set_options = function(_, bufnr)
         for k, v in pairs(M.config.lsp.options) do
-            vim.api.nvim_buf_set_option(bufnr, k, v)
+            vim.bo[bufnr][k] = v
         end
     end
 
@@ -403,7 +303,7 @@ M.setup_lsp = function()
             vim.lsp.document_color.enable(true, { bufnr = bufnr })
         end
 
-        if client.server_capabilities.document_highlight then
+        if client:supports_method('textDocument/documentHighlight') then
             vim.api.nvim_create_augroup('lsp_document_highlight', {
                 clear = false
             })
@@ -433,19 +333,14 @@ M.setup_lsp = function()
         end
     end
 
-    local create_options = function(name)
-        return vim.tbl_extend('keep', {
-            capabilities = capabilities,
-            flags = flags,
-        }, M.config.lsp.servers[name])
-    end
-
     mason.setup({})
 
     mason_lsp.setup({
         ensure_installed = names,
         automatic_enable = false
     })
+
+    M.install_mason_packages(M.config.mason.packages)
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(ev)
@@ -455,10 +350,51 @@ M.setup_lsp = function()
         end
     })
 
+    vim.lsp.config('*', {
+        capabilities = capabilities,
+        flags = flags,
+    })
+
     for _, name in ipairs(names) do
-        local options = create_options(name)
-        vim.lsp.config(name, options)
+        vim.lsp.config(name, M.config.lsp.servers[name])
         vim.lsp.enable(name)
+    end
+end
+
+-- Mason packages where the lspconfig name mapping is ambiguous or absent
+M.install_mason_packages = function(packages)
+    local registry = require'mason-registry'
+
+    for _, name in ipairs(packages) do
+        local ok, pkg = pcall(registry.get_package, name)
+        if ok and not pkg:is_installed() then
+            pkg:install()
+        end
+    end
+end
+
+-- Debugger UI, opened and closed with the session
+M.setup_dap_ui = function(config)
+    local dap = require'dap'
+    local dapui = require'dapui'
+
+    dapui.setup(config)
+
+    dap.listeners.after.event_initialized['dapui'] = function() dapui.open() end
+    dap.listeners.before.event_terminated['dapui'] = function() dapui.close() end
+    dap.listeners.before.event_exited['dapui'] = function() dapui.close() end
+end
+
+-- Debug adapters and configurations
+M.setup_dap = function(config)
+    local dap = require'dap'
+
+    for name, adapter in pairs(config.adapters) do
+        dap.adapters[name] = adapter
+    end
+
+    for ft, configurations in pairs(config.configurations) do
+        dap.configurations[ft] = configurations
     end
 end
 
@@ -473,10 +409,9 @@ M.load = function(config, shims)
     M.set_auto_commands(config.vim.autocommands)
     M.lazy_load(config.lazy, shims)
 
-    M.set_diagnostic_signs(config.diagnostics.signs)
-    vim.diagnostic.config(config.diagnostics.options)
-
-    -- M.set_keymaps_dump(config.vim.keybindings)
+    vim.diagnostic.config(vim.tbl_extend('force', config.diagnostics.options, {
+        signs = { text = M.create_diagnostic_signs(config.diagnostics.signs) },
+    }))
 end
 
 return M

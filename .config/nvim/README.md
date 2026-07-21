@@ -1,6 +1,6 @@
 # Neovim configuration
 
-My **neovim nightly** configuration.
+My **neovim** configuration.
 
 This setup is built on custom abstractions that provides a single point of
 configuration and shims in an attempt to make customization less spaghetti.
@@ -66,7 +66,7 @@ return {
 | C/C++            | Y          | Y           | Y          | Y         |
 | Python           | Y          | Y           | Y          | Y         |
 | Lua              | Y          | Y           | Y          |           |
-| Rust             | Y          | Y           |            |           |
+| Rust             | Y          | Y           |            | Y         |
 | Dart (Flutter)   | Y          | Y           | Y          | Y         |
 | PHP              | Y          | Y           | Y          | Y         |
 | TypeScript       | Y          | Y           | Y          | Y         |
@@ -77,9 +77,13 @@ return {
 | Vue              | Y          | Y           | Y          |           |
 | Svelte           | Y          | Y           | Y          |           |
 | Arduino          | Y          | Y           | Y          |           |
-| Mardown          |            |             | Y          | Y         |
+| Mardown          |            |             | Y          |           |
 
 ## Custom Keybindings
+
+Some of these shadow Neovim 0.11+ built-in LSP mappings (`grn`, `gra`, `grt`, `[d`/`]d`)
+and route them through lspsaga instead. `K` deliberately uses the built-in hover, which
+aggregates all LSP clients instead of reporting on each one separately.
 
 | Mode     | LSP          | Binding          | Description                            |
 | -------- | ------------ | ---------------- | -------------------------------------- |
@@ -89,7 +93,7 @@ return {
 | s        |              | `<S-Tab>`        | Jump to prev in snippet                |
 | i        |              | `<C-E>`          | Next snippet choice                    |
 | s        |              | `<C-E>`          | Next snippet choice                    |
-| n        | `*`          | `gD`             | Go to decleration                      |
+| n        | `*`          | `gD`             | Peek definition                        |
 | n        | `*`          | `gd`             | Go to definition                       |
 | n        | `*`          | `K`              | Show documentation                     |
 | n        | `*`          | `gi`             | Go to implementation                   |
@@ -107,23 +111,25 @@ return {
 | n        | `*`          | `<space>e`       | Show lined diagnostics                 |
 | n        | `*`          | `[d`             | Go to prev diagnostic                  |
 | n        | `*`          | `]d`             | Go to next diagnostic                  |
-| n        | `*`          | `gpd`            | Go to definition (preview)             |
-| n        | `*`          | `gpi`            | Go to implementation (preview)         |
-| n        | `*`          | `gP`             | Close all previews                     |
-| n        | `tsserver`   | `<space>ri`      | Organize imports                       |
-| n        | `tsserver`   | `<space>cf`      | Fix current                            |
-| n        | `tsserver`   | `<space>rwn`     | Rename file across workspace           |
-| n        | `tsserver`   | `<space>ia`      | Import all used definitions            |
+| n        | `*`          | `<leader>so`     | Show symbols outline                   |
 | n        |              | `<leader>ff`     | Fuzzy find files                       |
 | n        |              | `<leader>fg`     | Fuzzy grep                             |
 | n        |              | `<leader>fb`     | Fuzzy buffers                          |
 | n        |              | `<leader>fh`     | Fuzzy help                             |
 | n        |              | `<leader>fd`     | Fuzzy diagnostics                      |
+| n        |              | `<leader>fa`     | Fuzzy find git repo                    |
+| n/x/o    |              | `s`              | Leap                                   |
+| n        |              | `S`              | Leap from window                       |
+| n        |              | `<F5>`           | Start/continue debugging               |
+| n        |              | `<F10>`          | Step over                              |
+| n        |              | `<F11>`          | Step into                              |
+| n        |              | `<F12>`          | Step out                               |
+| n        |              | `<leader>b`      | Toggle breakpoint                      |
+| n        |              | `<leader>B`      | Set conditional breakpoint             |
+| n        |              | `<leader>du`     | Toggle debugger UI                     |
+| n/v      |              | `<leader>de`     | Evaluate expression                    |
 | n        |              | `<leader>go`     | Open neogit                            |
-| n        |              | `<leader>fr`     | Refresh file browser                   |
 | n        |              | `<leader>fo`     | Open file browser                      |
-| n        |              | `<leader>ft`     | Toggle file browser                    |
-| n        |              | `<leader>fs`     | Show symbols outline                   |
 | n        |              | `<leader>ws`     | Toggle window shifter                  |
 | n        |              | `<leader><C-w>`  | Destroy buffer                         |
 | n        |              | `<leader><C-q>`  | Destroy all buffers                    |
@@ -135,7 +141,6 @@ return {
 | n        |              | `<Down>`         | Scroll down                            |
 | n        |              | `<Right>`        | Switch tab left                        |
 | n        |              | `<Left>`         | Swtich tab right                       |
-
 
 ## Troubleshooting
 

@@ -25,16 +25,44 @@ local autocommands = {
         { { 'InsertLeave' }, '*', [[match ExtraWhitespace /\s\+$/]] }
     },
     ['YankHighlighting'] = {
-        { { 'TextYankPost' }, '*', [[lua vim.highlight.on_yank {higroup="IncSearch", timeout=500, on_visual=true}]]}
+        { { 'TextYankPost' }, '*', function()
+            vim.hl.on_yank({ higroup = 'IncSearch', timeout = 500, on_visual = true })
+        end },
+    },
+    ['ReloadChangedFiles'] = {
+        { { 'FocusGained' }, '*', function()
+            pcall(vim.cmd, 'checktime')
+        end },
     },
 }
 
 if os.getenv('TMUX') then
+    local tmux = function(args, blocking)
+        local proc = vim.system(vim.list_extend({ 'tmux' }, args))
+        local result = blocking and proc:wait(1000) or nil
+        return result and vim.trim(result.stdout or '') or ''
+    end
+
+    -- tmux rejects window names containing '.' or ':'
+    local rename_window = function(name, blocking)
+        if name ~= '' then
+            tmux({ 'rename-window', (name:gsub('[.:]', '-')) }, blocking)
+        end
+    end
+
+    local original_window = tmux({ 'display-message', '-p', '#{window_name}' }, true)
+
     autocommands['TmuxWindowTitlesCommands'] = {
-        { { 'BufReadPost', 'FileReadPost', 'BufNewFile' },  '*', [[call system("tmux rename-window %")]] },
-        { { 'BufEnter' }, '*', [[call system("tmux rename-window " . expand("%:t"))]] },
-        { { 'VimLeave' }, '*', [[call system("tmux rename-window bash")]] },
-        { { 'BufEnter' }, '*', [[let &titlestring = ' ' . expand("%:t")]] }
+        { { 'BufReadPost', 'FileReadPost', 'BufNewFile', 'BufEnter' }, '*', function()
+            local name = vim.fn.expand('%:t')
+            rename_window(name)
+            if name ~= '' then
+                vim.o.titlestring = ' ' .. name
+            end
+        end },
+        { { 'VimLeave' }, '*', function()
+            rename_window(original_window, true)
+        end },
     }
 end
 
@@ -48,10 +76,40 @@ local wildignore = {
     'DS_Store', 'storybook-static'
 }
 
+local js_debug_configurations = {
+    {
+        type = 'pwa-node',
+        request = 'launch',
+        name = 'Launch file',
+        program = '${file}',
+        cwd = '${workspaceFolder}',
+    },
+    {
+        type = 'pwa-node',
+        request = 'attach',
+        name = 'Attach to process',
+        processId = function()
+            return require'dap.utils'.pick_process()
+        end,
+        cwd = '${workspaceFolder}',
+    },
+}
+
+local lldb_debug_configurations = {
+    {
+        type = 'codelldb',
+        request = 'launch',
+        name = 'Launch executable',
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+    },
+}
+
 vim.g.mapleader = '´'
 vim.g.jsonpath_register = '*'
-
-vim.cmd [[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]]
 
 neovim.load({
     vim = {
@@ -81,16 +139,19 @@ neovim.load({
             --foldcolumn = 'auto',                        -- Show fold indicator in gutter
             foldmethod = 'expr',                        -- Use custom folding
             foldexpr = 'v:lua.vim.treesitter.foldexpr()', -- Use tree-sitter for folding
+            foldtext = '',                              -- Show folded line with syntax highlighting
             --foldcolumndigits = false,                   -- Remove fold column level digits
             wildignore = wildignore,                    -- Ignore these file types
             --lazyredraw = true,                          -- Reduce flicker in macros etc.
             updatetime = 1000,                          -- Lower CursorHold update times
+            ttimeoutlen = 10,                           -- Speed up escape sequences in the terminal
             laststatus = 3,                             -- Global statusline
             --cmdheight = 0,                              -- No command line height unless entering one
             winbar = '%{expand(\'%:~:.\')}',            -- Show relative file path in winbar
             fillchars = {
                 foldopen = '',
                 foldclose = '',
+                fold = ' ',
             },
             listchars = {                               -- Show symbols for certain special characters
                 nbsp = '¬',
@@ -110,6 +171,7 @@ neovim.load({
             ['*.heml'] = 'html',
             ['*.rasi'] = 'css',
             ['*.tl'] = 'teal',
+            ['*.bicep'] = 'bicep',
         },
         rules = {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
@@ -133,8 +195,7 @@ neovim.load({
                     { 'n', 'gD', '<cmd>Lspsaga peek_definition<CR>', { silent = true }, 'Peek definition' },
                     --{ 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true }, 'Go to definition' },
                     { 'n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { noremap = true, silent = true }, 'Go to definition' },
-                    --{ 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
-                    { 'n', 'K', '<cmd>Lspsaga hover_doc<CR>', { noremap = true, silent = true }, 'Show documentation' },
+                    { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
                     --{ 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true }, 'Go to implementation'},
                     { 'n', 'gi', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to implementation'},
                     --{ 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
@@ -152,7 +213,7 @@ neovim.load({
                     --{ 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }, 'Show code actions' },
                     { 'n', '<space>ca', '<cmd>Lspsaga code_action<CR>', { noremap = true, silent = true }, 'Show code actions' },
                     { 'n', '<space>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true }, 'Format document' },
-                    { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
+                    { 'n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true }, 'Set location list item' },
                     --{ 'n', '<space>e', [[<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', focusable = false, show_header = false })<CR>]], { noremap = true, silent = true }, 'Show lined diagnostics' },
                     { 'n', '<space>e', '<cmd>Lspsaga show_line_diagnostics<CR>', { noremap = true, silent = true }, 'Show lined diagnostics' },
                     --{ 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
@@ -168,8 +229,22 @@ neovim.load({
             { 'n', '<leader>fg', [[<cmd>lua require'telescope.builtin'.live_grep()<cr>]], { noremap = true }, 'Fuzzy grep' },
             { 'n', '<leader>fb', [[<cmd>lua require'telescope.builtin'.buffers()<cr>]], { noremap = true }, 'Fuzzy buffers' },
             { 'n', '<leader>fh', [[<cmd>lua require'telescope.builtin'.help_tags()<cr>]], { noremap = true }, 'Fuzzy help' },
-            { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.lsp_workspace_diagnostics()<cr>]], { noremap = true }, 'Fuzzy diagnostics' },
+            { 'n', '<leader>fd', [[<cmd>lua require'telescope.builtin'.diagnostics()<cr>]], { noremap = true }, 'Fuzzy diagnostics' },
             { 'n', '<leader>fa', [[<cmd>lua require'telescope.builtin'.git_files()<cr>]], { noremap = true }, 'Fuzzy find git repo' },
+
+            -- dap
+            { 'n', '<F5>', [[<cmd>lua require'dap'.continue()<CR>]], { noremap = true, silent = true }, 'Start/continue debugging' },
+            { 'n', '<F10>', [[<cmd>lua require'dap'.step_over()<CR>]], { noremap = true, silent = true }, 'Step over' },
+            { 'n', '<F11>', [[<cmd>lua require'dap'.step_into()<CR>]], { noremap = true, silent = true }, 'Step into' },
+            { 'n', '<F12>', [[<cmd>lua require'dap'.step_out()<CR>]], { noremap = true, silent = true }, 'Step out' },
+            { 'n', '<leader>b', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], { noremap = true, silent = true }, 'Toggle breakpoint' },
+            { 'n', '<leader>B', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true }, 'Set conditional breakpoint' },
+            { 'n', '<leader>du', [[<cmd>lua require'dapui'.toggle()<CR>]], { noremap = true, silent = true }, 'Toggle debugger UI' },
+            { { 'n', 'v' }, '<leader>de', [[<cmd>lua require'dapui'.eval()<CR>]], { noremap = true, silent = true }, 'Evaluate expression' },
+
+            -- leap
+            { { 'n', 'x', 'o' }, 's', '<Plug>(leap)', { silent = true }, 'Leap' },
+            { 'n', 'S', '<Plug>(leap-from-window)', { silent = true }, 'Leap from window' },
 
             -- neogit
             { 'n', '<leader>go', ':Neogit<CR>', { noremap = true, silent = true }, 'Open neogit' },
@@ -194,6 +269,16 @@ neovim.load({
             { 'n',  '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
             { 'n',  '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
         }
+    },
+
+    mason = {
+        packages = {
+            'stylelint-language-server',
+            'js-debug-adapter',
+            'debugpy',
+            'php-debug-adapter',
+            'codelldb',
+        },
     },
 
     lsp = {
@@ -263,16 +348,12 @@ neovim.load({
         options = {
             virtual_text = false,
             severity_sort = true,
-            float = {
-
-
-            },
         },
         signs = {
-            DiagnosticSignError = { text = signs.error, texthl = 'DiagnosticError' },
-            DiagnosticSignWarn = { text = signs.warning, texthl = 'DiagnosticWarn' },
-            DiagnosticSignInfo = { text = signs.info, texthl = 'DiagnosticInfo' },
-            DiagnosticSignHint = { text = signs.hint, texthl = 'DiagnosticHint' }
+            ERROR = signs.error,
+            WARN = signs.warning,
+            INFO = signs.info,
+            HINT = signs.hint,
         },
     },
 
@@ -290,20 +371,16 @@ neovim.load({
             -- Dependencies
             'nvim-lua/plenary.nvim',
             'kyazdani42/nvim-web-devicons',
-            'ryanoasis/vim-devicons',
             'nvim-treesitter/nvim-treesitter',
 
             -- UI
-            'xiyaowong/nvim-cursorword',
             'haringsrob/nvim_context_vt',
             'catgoose/nvim-colorizer.lua',
             'hoob3rt/lualine.nvim',
-            'onsails/lspkind-nvim',
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
             'andersevenrud/nordic.nvim',
-            'anuvyklack/pretty-fold.nvim',
-            'stevearc/dressing.nvim',
+            'folke/snacks.nvim',
             'folke/noice.nvim',
 
             -- Editing
@@ -318,14 +395,14 @@ neovim.load({
             'nacro90/numb.nvim',
             'nvim-telescope/telescope.nvim',
             'nvim-neo-tree/neo-tree.nvim',
-            'ggandor/lightspeed.nvim',
+            'https://codeberg.org/andyg/leap.nvim',
 
             -- Debugging
             'mfussenegger/nvim-dap',
+            'rcarriga/nvim-dap-ui',
             'theHamsta/nvim-dap-virtual-text',
 
             -- Utilities
-            'wincent/terminus',
             'sindrets/diffview.nvim',
             'TimUntersberger/neogit',
             'euclio/vim-markdown-composer',
@@ -361,9 +438,12 @@ neovim.load({
 
     flutter_tools = {
         --flutter_path = '/mnt/ssd-data/flutter/bin/flutter',
+        debugger = {
+            enabled = true,
+        },
         lsp = {
             capabilities = function(config)
-                return neovim.create_cmp_capabilities(config)
+                return neovim.create_autocomplete_capabilities(config)
             end,
         }
     },
@@ -383,13 +463,61 @@ neovim.load({
         enabled = true
     },
 
-    dap_install = {
-        setup = {},
-        install = {
-          -- 'php_dbg',
-          -- 'jsnode_dbg',
-          -- 'dart_dbg'
-        }
+    dap_ui = {},
+
+    dap = {
+        adapters = {
+            ['pwa-node'] = {
+                type = 'server',
+                host = 'localhost',
+                port = '${port}',
+                executable = {
+                    command = 'js-debug-adapter',
+                    args = { '${port}' },
+                },
+            },
+            python = {
+                type = 'executable',
+                command = 'debugpy-adapter',
+            },
+            php = {
+                type = 'executable',
+                command = 'php-debug-adapter',
+            },
+            codelldb = {
+                type = 'server',
+                port = '${port}',
+                executable = {
+                    command = 'codelldb',
+                    args = { '--port', '${port}' },
+                },
+            },
+        },
+        configurations = {
+            javascript = js_debug_configurations,
+            typescript = js_debug_configurations,
+            javascriptreact = js_debug_configurations,
+            typescriptreact = js_debug_configurations,
+            python = {
+                {
+                    type = 'python',
+                    request = 'launch',
+                    name = 'Launch file',
+                    program = '${file}',
+                },
+            },
+            php = {
+                {
+                    type = 'php',
+                    request = 'launch',
+                    name = 'Listen for Xdebug',
+                    port = 9003,
+                },
+            },
+            c = lldb_debug_configurations,
+            cpp = lldb_debug_configurations,
+            rust = lldb_debug_configurations,
+        },
     },
 
     gitsigns = {
@@ -512,7 +640,7 @@ neovim.load({
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = neovim.wildcars_to_table(wildignore)
+                file_ignore_patterns = neovim.wildcards_to_table(wildignore)
             }
         },
         extensions = {
@@ -572,19 +700,6 @@ neovim.load({
         focused_hl_group = 'WinShift',
     },
 
-    tsutils = {
-        filter_out_diagnostics_by_code = { 80001 },
-    },
-
-    lsp_signature = {
-        bind = true,
-        hint_enable = false,
-    },
-
-    pretty_fold = {
-        fill_char = ' ',
-    },
-
     boole = {
         mappings = {
             increment = '<C-a>',
@@ -594,6 +709,9 @@ neovim.load({
 
     noice = {
         lsp = {
+            hover = {
+                silent = true,
+            },
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                 ["vim.lsp.util.stylize_markdown"] = true,
@@ -634,7 +752,11 @@ neovim.load({
         },
     },
 
-    dressing = {},
+    snacks = {
+        input = { enabled = true },
+        notifier = { enabled = true },
+        picker = { enabled = true, ui_select = true },
+    },
 
     lspsaga = {
         lightbulb = {
@@ -644,6 +766,7 @@ neovim.load({
 
     blink = {
         keymap = { preset = 'enter' },
+        snippets = { preset = 'luasnip' },
         fuzzy = { implementation = "prefer_rust_with_warning" },
         completion = {
             documentation = { auto_show = true },

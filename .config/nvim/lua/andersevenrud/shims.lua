@@ -90,6 +90,19 @@ return {
             require'neo-tree'.setup(n.config.neo_tree)
         end
     },
+    ['mfussenegger/nvim-dap'] = {
+        config = function()
+            local n = require'andersevenrud.neovim'
+            n.setup_dap(n.config.dap)
+        end
+    },
+    ['rcarriga/nvim-dap-ui'] = {
+        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+        config = function()
+            local n = require'andersevenrud.neovim'
+            n.setup_dap_ui(n.config.dap_ui)
+        end
+    },
     ['theHamsta/nvim-dap-virtual-text'] = {
         config = function()
             local n = require'andersevenrud.neovim'
@@ -109,10 +122,16 @@ return {
             n.apply_globals(n.config.markdown_composer, 'markdown_composer_')
         end
     },
+    ['L3MON4D3/LuaSnip'] = {
+        dependencies = { 'rafamadriz/friendly-snippets' },
+        config = function()
+            require'luasnip.loaders.from_vscode'.lazy_load()
+        end
+    },
     ['saghen/blink.cmp'] = {
         -- NOTE: blink.lib is required at module load time, so it has to be an
         -- explicit dependency for the build step below to be able to run
-        dependencies = { 'saghen/blink.lib', 'rafamadriz/friendly-snippets' },
+        dependencies = { 'saghen/blink.lib', 'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets' },
         build = function()
             -- NOTE: `pwait` is pcall wrapped and swallows build failures, which
             -- silently leaves the plugin on the slower Lua fuzzy matcher
@@ -135,11 +154,6 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             n.setup_lsp()
-        end
-    },
-    ['onsails/lspkind-nvim'] = {
-        config = function()
-            require'lspkind'.init{}
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
@@ -167,12 +181,6 @@ return {
             require'Comment'.setup{}
         end
     },
-    ['anuvyklack/pretty-fold.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
-            require'pretty-fold'.setup(n.config.pretty_fold)
-        end
-    },
     ['haringsrob/nvim_context_vt'] = {
         config = function()
             require('nvim_context_vt').setup({
@@ -186,14 +194,16 @@ return {
             require('lspsaga').setup(n.config.lspsaga)
         end
     },
-    ['stevearc/dressing.nvim'] = {
+    ['folke/snacks.nvim'] = {
+        priority = 1000,
+        lazy = false,
         config = function()
             local n = require'andersevenrud.neovim'
-            require'dressing'.setup(n.config.dressing)
+            require'snacks'.setup(n.config.snacks)
         end
     },
     ['folke/noice.nvim'] = {
-        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+        dependencies = { "MunifTanjim/nui.nvim" },
         config = function()
             local n = require'andersevenrud.neovim'
             require'noice'.setup(n.config.noice)
