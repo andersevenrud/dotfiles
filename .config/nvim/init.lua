@@ -80,7 +80,7 @@ neovim.load({
             foldlevel = 999,                            -- Expand all folds by default
             --foldcolumn = 'auto',                        -- Show fold indicator in gutter
             foldmethod = 'expr',                        -- Use custom folding
-            foldexpr = 'nvim_treesitter#foldexpr()',    -- Use tree-sitter for folding
+            foldexpr = 'v:lua.vim.treesitter.foldexpr()', -- Use tree-sitter for folding
             --foldcolumndigits = false,                   -- Remove fold column level digits
             wildignore = wildignore,                    -- Ignore these file types
             --lazyredraw = true,                          -- Reduce flicker in macros etc.
@@ -350,7 +350,6 @@ neovim.load({
             'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
             'glepnir/lspsaga.nvim',
-            'mrshmllow/document-color.nvim',
             'pmizio/typescript-tools.nvim',
 
 
@@ -416,7 +415,16 @@ neovim.load({
     },
 
     treesitter = {
-        ensure_installed = {
+        options = {
+            -- Parsers and queries are installed here, prepended to runtimepath
+            install_dir = vim.fn.stdpath('data') .. '/site',
+        },
+        indent = true,                                  -- Use tree-sitter indentation (experimental)
+        languages = {
+            -- Filetypes without a parser of their own, mapped onto a compatible one
+            jsonc = 'json',
+        },
+        install = {
             --'jsdoc', -- Seems to slow things down at the moment (issue #1313)
             --'comment', -- todo-comments replaces this
             'bicep',
@@ -432,9 +440,8 @@ neovim.load({
             'html',
             'json',
             'lua',
+            'teal',
             'python',
-            'c',
-            'cpp',
             'regex',
             'vue',
             'php',
@@ -445,7 +452,6 @@ neovim.load({
             'yaml',
             'toml',
             'ruby',
-            'jsonc',
             'graphql',
             'dockerfile',
             'commonlisp',
@@ -453,65 +459,50 @@ neovim.load({
             'make',
             'vala',
             'scss',
-
-            -- custom
             'blade',
         },
-        highlight = {
-            enable = true,
-        },
-        indent = {
-            enable = true,
-        },
-        endwise = { -- Plugin
-            enable = true,
-        },
-        context_commentstring = { -- Plugin
-            enable = true,
-        },
-        autotag = { -- Plugin
-            enable = true,
-        },
-        textobjects = { -- Plugin
+    },
+
+    treesitter_textobjects = {
+        options = {
             select = {
-                enable = true,
                 lookahead = true,
-                keymaps = {
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
-                    ['ac'] = '@class.outer',
-                    ['ic'] = '@class.inner',
-                },
-            },
-            swap = {
-                enable = true,
-                swap_next = {
-                    ['<leader>a'] = '@parameter.inner',
-                },
-                swap_previous = {
-                    ['<leader>A'] = '@parameter.inner',
-                },
             },
             move = {
-                enable = true,
                 set_jumps = true,
-                goto_next_start = {
-                    [']m'] = '@function.outer',
-                    [']]'] = '@class.outer',
-                },
-                goto_next_end = {
-                    [']M'] = '@function.outer',
-                    [']['] = '@class.outer',
-                },
-                goto_previous_start = {
-                    ['[m'] = '@function.outer',
-                    ['[['] = '@class.outer',
-                },
-                goto_previous_end = {
-                    ['[M'] = '@function.outer',
-                    ['[]'] = '@class.outer',
-                },
-            }
+            },
+        },
+        select = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
+        },
+        swap = {
+            swap_next = {
+                ['<leader>a'] = '@parameter.inner',
+            },
+            swap_previous = {
+                ['<leader>A'] = '@parameter.inner',
+            },
+        },
+        move = {
+            goto_next_start = {
+                [']m'] = '@function.outer',
+                [']]'] = '@class.outer',
+            },
+            goto_next_end = {
+                [']M'] = '@function.outer',
+                [']['] = '@class.outer',
+            },
+            goto_previous_start = {
+                ['[m'] = '@function.outer',
+                ['[['] = '@class.outer',
+            },
+            goto_previous_end = {
+                ['[M'] = '@function.outer',
+                ['[]'] = '@class.outer',
+            },
         },
     },
 
@@ -535,7 +526,7 @@ neovim.load({
     },
 
     colorizer = {
-        -- NOTE: document-color LSP plugin supports some of this already
+        -- NOTE: the built-in `vim.lsp.document_color` supports some of this already
         filetypes = {
             'javascript',
             'typescript',

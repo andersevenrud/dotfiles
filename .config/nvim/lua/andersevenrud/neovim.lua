@@ -209,6 +209,82 @@ M.lazy_load = function(config, shims)
     require'lazy'.setup(specs, config.options)
 end
 
+-- Treesitter setup (nvim-treesitter `main` branch)
+--
+-- The `main` branch provides no modules: it only installs parsers and queries.
+-- Features are enabled per buffer, which is done here for every filetype that
+-- resolves to an installed parser.
+M.setup_treesitter = function(config)
+    local ts = require'nvim-treesitter'
+
+    ts.setup(config.options)
+    ts.install(config.install)
+
+    for ft, lang in pairs(config.languages) do
+        vim.treesitter.language.register(lang, ft)
+    end
+
+    vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('TreesitterFeatures', { clear = true }),
+        callback = function(args)
+            local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+            if not lang then
+                return
+            end
+
+            -- NOTE: `get_lang` falls back to the filetype itself when it has no
+            -- mapping, so plugin UI buffers (TelescopePrompt, noice, etc.) end up
+            -- here as well. `language.add` returns `nil, err` instead of raising
+            -- when no parser exists, hence checking its result and not just the
+            -- pcall status.
+            local ok, added = pcall(vim.treesitter.language.add, lang)
+            if not ok or not added then
+                return
+            end
+
+            vim.treesitter.start(args.buf, lang)
+
+            if config.indent then
+                vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+        end,
+    })
+end
+
+-- Treesitter textobject keymaps (nvim-treesitter-textobjects `main` branch)
+--
+-- The `main` branch dropped its keymap configuration in favour of plain
+-- keymaps calling into its modules, which is abstracted away here.
+M.setup_treesitter_textobjects = function(config)
+    require'nvim-treesitter-textobjects'.setup(config.options)
+
+    local map = function(modes, lhs, fn, desc)
+        vim.keymap.set(modes, lhs, fn, { silent = true, desc = desc })
+    end
+
+    for lhs, query in pairs(config.select) do
+        map({ 'x', 'o' }, lhs, function()
+            require'nvim-treesitter-textobjects.select'.select_textobject(query, 'textobjects')
+        end, 'Select ' .. query)
+    end
+
+    for name, keys in pairs(config.swap) do
+        for lhs, query in pairs(keys) do
+            map('n', lhs, function()
+                require'nvim-treesitter-textobjects.swap'[name](query)
+            end, 'Swap ' .. query)
+        end
+    end
+
+    for name, keys in pairs(config.move) do
+        for lhs, query in pairs(keys) do
+            map({ 'n', 'x', 'o' }, lhs, function()
+                require'nvim-treesitter-textobjects.move'[name](query, 'textobjects')
+            end, 'Move ' .. query)
+        end
+    end
+end
+
 -- null-ls source loading abstraction
 M.load_null_ls_sources = function(nls, nlsh, nlsu, config)
     local sources = {}
@@ -272,12 +348,11 @@ end
 M.create_cmp_capabilities = function (capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
-    local cmp_capabilities = require('blink.cmp').get_lsp_capabilities({
-        textDocument = {
-            colorProvider = true
-        }
-
-    })
+    -- NOTE: document colors are handled by the built-in `vim.lsp.document_color`
+    -- (neovim 0.12+), which advertises its own capabilities. Declaring
+    -- `textDocument.colorProvider = true` here violates the LSP spec (it expects
+    -- an object, not a boolean) and is rejected by strict servers.
+    local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
 
     return vim.tbl_deep_extend('force', capabilities, cmp_capabilities)
 end
@@ -324,8 +399,8 @@ M.setup_lsp = function()
     end
 
     local attach_plugins = function(client, bufnr)
-        if client.server_capabilities.colorProvider then
-            require("document-color").buf_attach(bufnr)
+        if client:supports_method('textDocument/documentColor') then
+            vim.lsp.document_color.enable(true, { bufnr = bufnr })
         end
 
         if client.server_capabilities.document_highlight then

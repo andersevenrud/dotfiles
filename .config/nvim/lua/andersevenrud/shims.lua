@@ -5,27 +5,29 @@
 
 return {
     ['nvim-treesitter/nvim-treesitter'] = {
-        branch = 'master', -- NOTE: 'main' is the incompatible rewrite
+        branch = 'main',
+        lazy = false, -- Does not support lazy-loading
         build = ':TSUpdate',
         config = function()
             local n = require'andersevenrud.neovim'
-            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-            parser_config.blade = {
-                install_info = {
-                    url = "https://github.com/EmranMR/tree-sitter-blade",
-                    files = { "src/parser.c" },
-                    branch = "main",
-                },
-                filetype = "blade",
-            }
 
             vim.filetype.add({ pattern = { [".*%.blade%.php"] = "blade" } })
 
-            require'nvim-treesitter.configs'.setup(n.config.treesitter)
+            n.setup_treesitter(n.config.treesitter)
         end
     },
     ['nvim-treesitter/nvim-treesitter-textobjects'] = {
-        branch = 'master', -- NOTE: 'main' is the incompatible rewrite
+        branch = 'main',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = function()
+            local n = require'andersevenrud.neovim'
+            n.setup_treesitter_textobjects(n.config.treesitter_textobjects)
+        end
+    },
+    ['windwp/nvim-ts-autotag'] = {
+        config = function()
+            require'nvim-ts-autotag'.setup{}
+        end
     },
     ['catgoose/nvim-colorizer.lua'] = {
         config = function()
@@ -189,11 +191,6 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             require'noice'.setup(n.config.noice)
-        end
-    },
-    ['mrshmllow/document-color.nvim'] = {
-        config = function()
-            require'document-color'.setup({})
         end
     },
     ['nat-418/boole.nvim'] = {

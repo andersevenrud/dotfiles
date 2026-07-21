@@ -19,9 +19,12 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Dependencies
 
-- `neovim >= 0.11`
+- `neovim >= 0.12`
 - [`lazy.nvim`](https://github.com/folke/lazy.nvim) for plugin management (bootstraps itself on first start)
 - [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
+- [`tree-sitter-cli`](https://github.com/tree-sitter/tree-sitter) `>= 0.26.1` for parser installation
+  (install via a package manager, i.e. `brew install tree-sitter-cli` -- *not* npm)
+- a C compiler for parser compilation
 
 ### Optional
 
