@@ -111,9 +111,16 @@ return {
         end
     },
     ['saghen/blink.cmp'] = {
-        dependencies = { 'rafamadriz/friendly-snippets' },
+        -- NOTE: blink.lib is required at module load time, so it has to be an
+        -- explicit dependency for the build step below to be able to run
+        dependencies = { 'saghen/blink.lib', 'rafamadriz/friendly-snippets' },
         build = function()
-            require('blink.cmp').build():pwait()
+            -- NOTE: `pwait` is pcall wrapped and swallows build failures, which
+            -- silently leaves the plugin on the slower Lua fuzzy matcher
+            local ok, err = require('blink.cmp').build():pwait()
+            if not ok then
+                error('blink.cmp: native library build failed: ' .. tostring(err))
+            end
         end,
         config = function()
             local n = require'andersevenrud.neovim'
