@@ -19,8 +19,8 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Dependencies
 
-- `neovim >= 0.6`
-- [`packer.nvim`](https://github.com/wbthomason/packer.nvim) for plugin management
+- `neovim >= 0.11`
+- [`lazy.nvim`](https://github.com/folke/lazy.nvim) for plugin management (bootstraps itself on first start)
 - [`nerd-fonts`](https://www.nerdfonts.com/) for icons and symbols
 
 ### Optional
@@ -37,8 +37,11 @@ configuration and shims in an attempt to make customization less spaghetti.
 
 ## Setup
 
-1. Use `:PackerInstall` to install plugins and everything else is set up the next time neovim is started.
+1. Start neovim. `lazy.nvim` installs itself and all plugins on the first run; use `:Lazy` to manage them afterwards.
 2. Use `:Mason` to install any extra tools not covered by LSP language servers.
+
+Plugin versions are locked in `lazy-lock.json`. Use `:Lazy update` to bump them and
+`:Lazy restore` to return to the locked versions.
 
 Secrets are stored in the optional file `lua/andersevenrud/secrets.lua`:
 

@@ -280,12 +280,14 @@ neovim.load({
     -- Plugins
     --
 
-    packer = {
-        options = { },
+    lazy = {
+        options = {
+            install = { colorscheme = { 'nordic' } },
+            change_detection = { notify = false },
+            rocks = { enabled = false },
+        },
         load = {
             -- Dependencies
-            'wbthomason/packer.nvim',
-            'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim',
             'kyazdani42/nvim-web-devicons',
             'ryanoasis/vim-devicons',
@@ -324,7 +326,6 @@ neovim.load({
 
             -- Utilities
             'wincent/terminus',
-            'gpanders/editorconfig.nvim',
             'sindrets/diffview.nvim',
             'TimUntersberger/neogit',
             'euclio/vim-markdown-composer',
@@ -431,7 +432,6 @@ neovim.load({
             'html',
             'json',
             'lua',
-            'teal',
             'python',
             'c',
             'cpp',

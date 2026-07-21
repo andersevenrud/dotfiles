@@ -5,7 +5,8 @@
 
 return {
     ['nvim-treesitter/nvim-treesitter'] = {
-        run = ':TSUpdate',
+        branch = 'master', -- NOTE: 'main' is the incompatible rewrite
+        build = ':TSUpdate',
         config = function()
             local n = require'andersevenrud.neovim'
             local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -22,6 +23,9 @@ return {
 
             require'nvim-treesitter.configs'.setup(n.config.treesitter)
         end
+    },
+    ['nvim-treesitter/nvim-treesitter-textobjects'] = {
+        branch = 'master', -- NOTE: 'main' is the incompatible rewrite
     },
     ['catgoose/nvim-colorizer.lua'] = {
         config = function()
@@ -45,6 +49,7 @@ return {
         end
     },
     ['andersevenrud/nordic.nvim'] = {
+        priority = 1000,
         config = function()
             local n = require'andersevenrud.neovim'
             require'nordic'.colorscheme(n.config.nordic)
@@ -77,7 +82,8 @@ return {
         end
     },
     ['nvim-neo-tree/neo-tree.nvim'] = {
-        requires = { "MunifTanjim/nui.nvim" },
+        branch = 'v2.x',
+        dependencies = { "MunifTanjim/nui.nvim" },
         config = function()
             local n = require'andersevenrud.neovim'
             require'neo-tree'.setup(n.config.neo_tree)
@@ -89,21 +95,13 @@ return {
             require'nvim-dap-virtual-text'.setup(n.config.dap_virtual_text)
         end
     },
-    ['Pocco81/DAPInstall.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
-            local dap = require'dap-install'
-            dap.setup(n.config.dap_install.setup)
-            for _, v in ipairs(n.config.dap_install.install) do dap.config(v, {}) end
-        end
-    },
     ['sindrets/diffview.nvim'] = {
         config = function()
             require'diffview'.setup{}
         end
     },
     ['euclio/vim-markdown-composer'] = {
-        run = 'cargo build --release',
+        build = 'cargo build --release',
         ft = { 'markdown' },
         config = function()
             local n = require'andersevenrud.neovim'
@@ -111,9 +109,8 @@ return {
         end
     },
     ['saghen/blink.cmp'] = {
-        run = 'cargo build --release',
-        requires = { 'rafamadriz/friendly-snippets' },
-        run = function()
+        dependencies = { 'rafamadriz/friendly-snippets' },
+        build = function()
             require('blink.cmp').build():pwait()
         end,
         config = function()
@@ -121,31 +118,8 @@ return {
             require('blink.cmp').setup(n.config.blink)
         end
     },
-    ['jose-elias-alvarez/nvim-lsp-ts-utils'] = {
-        ft = {
-            'javascript',
-            'typescript',
-            'javascriptreact',
-            'typescriptreact',
-            'vue',
-            'svelte',
-        },
-        config = function()
-            local n = require'andersevenrud.neovim'
-            n.add_on_attach('tsserver', function(client)
-                local ts_utils = require'nvim-lsp-ts-utils'
-
-                -- use null-ls over tsserver formatting
-                client.server_capabilities.document_formatting = false
-                client.server_capabilities.document_range_formatting = false
-
-                ts_utils.setup(n.config.tsutils)
-                ts_utils.setup_client(client)
-            end)
-        end
-    },
     ['neovim/nvim-lspconfig'] = {
-        requires = {
+        dependencies = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
             --'ray-x/lsp_signature.nvim'
@@ -158,19 +132,6 @@ return {
     ['onsails/lspkind-nvim'] = {
         config = function()
             require'lspkind'.init{}
-        end
-    },
-    ['jose-elias-alvarez/null-ls.nvim'] = {
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            local n = require'andersevenrud.neovim'
-            local nlsh = require'null-ls.helpers'
-            local nlsu = require'null-ls.utils'
-            local nls = require'null-ls'
-            local sources = n.load_null_ls_sources(nls, nlsh, nlsu, n.config.nullls)
-            nls.setup(vim.tbl_extend('keep', {
-                sources = sources,
-            }, n.config.nullls.options))
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
@@ -224,7 +185,7 @@ return {
         end
     },
     ['folke/noice.nvim'] = {
-        requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
         config = function()
             local n = require'andersevenrud.neovim'
             require'noice'.setup(n.config.noice)
@@ -247,7 +208,7 @@ return {
         end
     },
     ['pmizio/typescript-tools.nvim'] = {
-        requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         config = function()
             require("typescript-tools").setup {}
         end

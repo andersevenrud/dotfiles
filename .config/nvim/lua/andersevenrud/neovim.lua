@@ -186,23 +186,27 @@ M.run_on_attach = function(ns, ...)
     end
 end
 
--- Packer.nvim plugin loader wrapper
-M.packer_load = function(config, shims)
-    local startup = function(use)
-        for _, v in ipairs(config.load) do
-            if type(v) == 'string' and shims[v] then
-                local s = vim.tbl_deep_extend('keep', { v }, shims[v])
-                use(s)
-            else
-                use(v)
-            end
+-- lazy.nvim plugin loader wrapper
+M.lazy_load = function(config, shims)
+    local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+    if not (vim.uv or vim.loop).fs_stat(lazypath) then
+        vim.fn.system({
+            'git', 'clone', '--filter=blob:none',
+            'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath
+        })
+    end
+    vim.opt.rtp:prepend(lazypath)
+
+    local specs = {}
+    for _, v in ipairs(config.load) do
+        if type(v) == 'string' and shims[v] then
+            table.insert(specs, vim.tbl_deep_extend('keep', { v }, shims[v]))
+        else
+            table.insert(specs, type(v) == 'string' and { v } or v)
         end
     end
 
-    require'packer'.startup({
-        startup,
-        config = config.options
-    })
+    require'lazy'.setup(specs, config.options)
 end
 
 -- null-ls source loading abstraction
@@ -379,6 +383,7 @@ M.setup_lsp = function()
     for _, name in ipairs(names) do
         local options = create_options(name)
         vim.lsp.config(name, options)
+        vim.lsp.enable(name)
     end
 end
 
@@ -391,7 +396,7 @@ M.load = function(config, shims)
     M.set_rules(config.vim.rules)
     M.set_keymaps(config.vim.keybindings)
     M.set_auto_commands(config.vim.autocommands)
-    M.packer_load(config.packer, shims)
+    M.lazy_load(config.lazy, shims)
 
     M.set_diagnostic_signs(config.diagnostics.signs)
     vim.diagnostic.config(config.diagnostics.options)
