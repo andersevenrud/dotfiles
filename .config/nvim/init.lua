@@ -3,6 +3,7 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
+local jsonpath = require'andersevenrud.jsonpath'
 local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
 local tmux = require'andersevenrud.tmux'
@@ -72,6 +73,7 @@ local lldb_debug_configurations = {
     },
 }
 
+jsonpath.setup()
 tmux.setup()
 
 neovim.load({
