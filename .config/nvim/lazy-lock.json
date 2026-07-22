@@ -44,7 +44,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "typescript-tools.nvim": { "branch": "master", "commit": "c2f5910074103705661e9651aa841e0d7eea9932" },
   "vim-arduino": { "branch": "master", "commit": "2ded67cdf09bb07c4805d9e93d478095ed3d8606" },
-  "vim-jsonpath": { "branch": "master", "commit": "af9c07b87765fc5aee176a894bc91fb04a5e3c47" },
   "vim-markdown-composer": { "branch": "master", "commit": "4f53f1c6e41c8fb916c50b50e18284d923f0f3cd" },
   "vim-move": { "branch": "master", "commit": "267fd1cff61fc643dfb5f9b188c434906f5214aa" },
   "winshift.nvim": { "branch": "main", "commit": "37468ed6f385dfb50402368669766504c0e15583" }

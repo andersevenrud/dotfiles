@@ -3,6 +3,8 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
+local jsonpath = require'andersevenrud.jsonpath'
+
 local on_attach_list = {}
 
 local M = {
@@ -412,6 +414,8 @@ M.load = function(config, shims)
     vim.diagnostic.config(vim.tbl_extend('force', config.diagnostics.options, {
         signs = { text = M.create_diagnostic_signs(config.diagnostics.signs) },
     }))
+
+    jsonpath.setup()
 end
 
 return M

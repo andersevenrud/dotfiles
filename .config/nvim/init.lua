@@ -109,7 +109,6 @@ local lldb_debug_configurations = {
 }
 
 vim.g.mapleader = '´'
-vim.g.jsonpath_register = '*'
 
 neovim.load({
     vim = {
@@ -409,7 +408,6 @@ neovim.load({
             'akinsho/nvim-toggleterm.lua',
             'stevearc/vim-arduino',
             'wilriker/gcode.vim',
-            'mogelbrod/vim-jsonpath',
 
             -- Autocomplete
             'saghen/blink.lib',
