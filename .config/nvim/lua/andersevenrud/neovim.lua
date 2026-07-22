@@ -426,6 +426,7 @@ end
 -- Initialization wrapper
 M.load = function(config, shims)
     M.config = config
+    M.apply_globals(config.vim.globals)
     M.set_options(config.vim.options)
     M.set_highlights(config.vim.highlights)
     M.set_aliases(config.vim.aliases)
