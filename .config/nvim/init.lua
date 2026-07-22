@@ -602,6 +602,10 @@ neovim.load({
        show_cursorline = true
     },
 
+    context_vt = {
+        disable_virtual_lines = true,
+    },
+
     colorizer = {
         -- NOTE: the built-in `vim.lsp.document_color` supports some of this already
         filetypes = {

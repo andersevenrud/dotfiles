@@ -165,10 +165,8 @@ return {
         end
     },
     ['haringsrob/nvim_context_vt'] = {
-        config = function()
-            require('nvim_context_vt').setup({
-                disable_virtual_lines = true
-            })
+        config = function(n)
+            require('nvim_context_vt').setup(n.config.context_vt)
         end
     },
     ['glepnir/lspsaga.nvim'] = {
