@@ -173,11 +173,22 @@ M.lazy_load = function(config, shims)
 
     local specs = {}
     for _, v in ipairs(config.load) do
+        local spec
         if type(v) == 'string' and shims[v] then
-            table.insert(specs, vim.tbl_deep_extend('keep', { v }, shims[v]))
+            spec = vim.tbl_deep_extend('keep', { v }, shims[v])
         else
-            table.insert(specs, type(v) == 'string' and { v } or v)
+            spec = type(v) == 'string' and { v } or v
         end
+
+        -- Shim config functions receive this module, followed by lazy's own arguments
+        if type(spec.config) == 'function' then
+            local shim_config = spec.config
+            spec.config = function(...)
+                return shim_config(M, ...)
+            end
+        end
+
+        table.insert(specs, spec)
     end
 
     require'lazy'.setup(specs, config.options)

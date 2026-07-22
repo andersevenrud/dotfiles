@@ -8,9 +8,7 @@ return {
         branch = 'main',
         lazy = false, -- Does not support lazy-loading
         build = ':TSUpdate',
-        config = function()
-            local n = require'andersevenrud.neovim'
-
+        config = function(n)
             vim.filetype.add({ pattern = { [".*%.blade%.php"] = "blade" } })
 
             n.setup_treesitter(n.config.treesitter)
@@ -19,8 +17,7 @@ return {
     ['nvim-treesitter/nvim-treesitter-textobjects'] = {
         branch = 'main',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             n.setup_treesitter_textobjects(n.config.treesitter_textobjects)
         end
     },
@@ -30,8 +27,7 @@ return {
         end
     },
     ['catgoose/nvim-colorizer.lua'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'colorizer'.setup({
                 filetypes = n.config.colorizer.filetypes,
                 user_default_options = n.config.colorizer.options,
@@ -39,27 +35,23 @@ return {
         end
     },
     ['hoob3rt/lualine.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'lualine'.setup(n.config.lualine)
         end
     },
     ['lewis6991/gitsigns.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'gitsigns'.setup(n.config.gitsigns)
         end
     },
     ['andersevenrud/nordic.nvim'] = {
         priority = 1000,
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'nordic'.colorscheme(n.config.nordic)
         end
     },
     ['windwp/nvim-autopairs'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             local a = require'nvim-autopairs'
             a.setup(n.config.npairs.options)
         end
@@ -70,14 +62,12 @@ return {
         end
     },
     ['nacro90/numb.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'numb'.setup(n.config.numb)
         end
     },
     ['nvim-telescope/telescope.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             local telescope = require'telescope'
 
             telescope.setup(n.config.telescope.setup)
@@ -89,27 +79,23 @@ return {
     },
     ['nvim-neo-tree/neo-tree.nvim'] = {
         dependencies = { "MunifTanjim/nui.nvim" },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'neo-tree'.setup(n.config.neo_tree)
         end
     },
     ['mfussenegger/nvim-dap'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             n.setup_dap(n.config.dap)
         end
     },
     ['rcarriga/nvim-dap-ui'] = {
         dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             n.setup_dap_ui(n.config.dap_ui)
         end
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'nvim-dap-virtual-text'.setup(n.config.dap_virtual_text)
         end
     },
@@ -121,8 +107,7 @@ return {
     ['euclio/vim-markdown-composer'] = {
         build = 'cargo build --release',
         ft = { 'markdown' },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             n.apply_globals(n.config.markdown_composer, 'markdown_composer_')
         end
     },
@@ -144,8 +129,7 @@ return {
                 error('blink.cmp: native library build failed: ' .. tostring(err))
             end
         end,
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require('blink.cmp').setup(n.config.blink)
         end
     },
@@ -154,28 +138,24 @@ return {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
         },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             n.setup_lsp()
         end
     },
     ['akinsho/flutter-tools.nvim'] = {
         ft = { 'flutter', 'dart' },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'flutter-tools'.setup(n.config.flutter_tools)
         end
     },
     ['akinsho/nvim-toggleterm.lua'] = {
         branch = 'main',
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'toggleterm'.setup(n.config.nvim_toggleterm)
         end
     },
     ['sindrets/winshift.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'winshift'.setup(n.config.winshift)
         end
     },
@@ -192,29 +172,25 @@ return {
         end
     },
     ['glepnir/lspsaga.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require('lspsaga').setup(n.config.lspsaga)
         end
     },
     ['folke/snacks.nvim'] = {
         priority = 1000,
         lazy = false,
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'snacks'.setup(n.config.snacks)
         end
     },
     ['folke/noice.nvim'] = {
         dependencies = { "MunifTanjim/nui.nvim" },
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'noice'.setup(n.config.noice)
         end
     },
     ['nat-418/boole.nvim'] = {
-        config = function()
-            local n = require'andersevenrud.neovim'
+        config = function(n)
             require'boole'.setup(n.config.boole)
         end
     },
