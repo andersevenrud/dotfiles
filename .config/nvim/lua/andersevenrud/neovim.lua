@@ -115,13 +115,21 @@ M.set_auto_commands = function(entries)
     end
 end
 
--- Converts wildcard options to a table
+-- Converts wildcard options to lua patterns
 M.wildcards_to_table = function(wildignore)
     local result = {}
+
     for _, v in ipairs(wildignore) do
-        local p = v:gsub('^*.(%a+)$', '%%.%1')
-        table.insert(result, p)
+        local pattern = v:gsub('[%^%$%(%)%%%.%[%]%+%-%?]', '%%%0')
+
+        if pattern:find('%*') then
+            table.insert(result, pattern:gsub('%*', '.*') .. '$')
+        else
+            table.insert(result, pattern .. '$')
+            table.insert(result, pattern .. '/')
+        end
     end
+
     return result
 end
 
