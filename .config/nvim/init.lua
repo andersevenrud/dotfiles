@@ -289,7 +289,8 @@ neovim.load({
         },
         servers = {
             bicep = {
-                    cmd = { "dotnet", "/Users/andersevenrud/.local/bin/bicep-langserver/Bicep.LangServer.dll" };
+                cmd = { 'bicep-lsp' },
+                cmd_env = { DOTNET_ROLL_FORWARD = 'Major' },
             },
             --dartls = {}, -- See flutter-tools
             eslint = {},
