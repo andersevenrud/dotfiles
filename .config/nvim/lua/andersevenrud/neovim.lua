@@ -286,6 +286,21 @@ M.create_autocomplete_capabilities = function (capabilities)
     return vim.tbl_deep_extend('force', capabilities, autocomplete_capabilities)
 end
 
+-- Creates the arduino LSP command, using the first cli config found
+M.create_arduino_command = function(candidates)
+    local cmd = { 'arduino-language-server' }
+
+    local config = vim.iter(candidates):map(vim.fn.expand):find(function(path)
+        return vim.uv.fs_stat(path) ~= nil
+    end)
+
+    if config then
+        vim.list_extend(cmd, { '-cli-config', config })
+    end
+
+    return cmd
+end
+
 -- Automates setup of LSP integrations
 M.setup_lsp = function()
     local mason = require'mason'

@@ -316,11 +316,10 @@ neovim.load({
             stylelint_lsp = {},
             omnisharp = {},
             arduino_language_server = {
-                cmd =  {
-                    'arduino-language-server',
-                    '-cli-config',
-                    '$HOME/.arduino15/arduino-cli.yaml',
-                }
+                cmd = neovim.create_arduino_command({
+                    '~/.arduinoIDE/arduino-cli.yaml',
+                    '~/.arduino15/arduino-cli.yaml',
+                }),
             },
             emmet_ls = {
                 filetypes = {
