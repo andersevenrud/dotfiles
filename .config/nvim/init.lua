@@ -140,6 +140,7 @@ neovim.load({
             ['*.rasi'] = 'css',
             ['*.tl'] = 'teal',
             ['*.bicep'] = 'bicep',
+            ['.*%.blade%.php'] = 'blade',
         },
         rules = {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },

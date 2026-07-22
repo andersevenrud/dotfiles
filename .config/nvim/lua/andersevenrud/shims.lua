@@ -9,8 +9,6 @@ return {
         lazy = false, -- Does not support lazy-loading
         build = ':TSUpdate',
         config = function(n)
-            vim.filetype.add({ pattern = { [".*%.blade%.php"] = "blade" } })
-
             n.setup_treesitter(n.config.treesitter)
         end
     },
