@@ -622,10 +622,9 @@ neovim.load({
     neo_tree = {
         close_if_last_window = true,
         enable_modified_markers = false,
-        git_status_scope_to_path = true,            -- Scope git status to the browsed path, not the whole monorepo
+        enable_git_status = false,                  -- `git status --ignored` dominates open time in large repos
 
         filesystem = {
-            use_libuv_file_watcher = true,
             never_show = { '.git', '.cache' },
         },
         window = {
