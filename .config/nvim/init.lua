@@ -5,6 +5,7 @@
 
 local neovim = require'andersevenrud.neovim'
 local shims = require'andersevenrud.shims'
+local tmux = require'andersevenrud.tmux'
 
 local secrets = neovim.prequire('andersevenrud.secrets', {
     intelephense = {
@@ -35,36 +36,6 @@ local autocommands = {
         end },
     },
 }
-
-if os.getenv('TMUX') then
-    local tmux = function(args, blocking)
-        local proc = vim.system(vim.list_extend({ 'tmux' }, args))
-        local result = blocking and proc:wait(1000) or nil
-        return result and vim.trim(result.stdout or '') or ''
-    end
-
-    -- tmux rejects window names containing '.' or ':'
-    local rename_window = function(name, blocking)
-        if name ~= '' then
-            tmux({ 'rename-window', (name:gsub('[.:]', '-')) }, blocking)
-        end
-    end
-
-    local original_window = tmux({ 'display-message', '-p', '#{window_name}' }, true)
-
-    autocommands['TmuxWindowTitlesCommands'] = {
-        { { 'BufReadPost', 'FileReadPost', 'BufNewFile', 'BufEnter' }, '*', function()
-            local name = vim.fn.expand('%:t')
-            rename_window(name)
-            if name ~= '' then
-                vim.o.titlestring = ' ' .. name
-            end
-        end },
-        { { 'VimLeave' }, '*', function()
-            rename_window(original_window, true)
-        end },
-    }
-end
 
 local wildignore = {
     '*.o', '*.a', '*.class', '*.la', '*.so', '*.obj', --, '*.mo'
@@ -109,6 +80,8 @@ local lldb_debug_configurations = {
 }
 
 vim.g.mapleader = '´'
+
+tmux.setup()
 
 neovim.load({
     vim = {
