@@ -74,9 +74,10 @@ local lldb_debug_configurations = {
 }
 
 jsonpath.setup()
+
 tmux.setup()
 
-neovim.load({
+neovim.setup({
     vim = {
         autocommands = autocommands,
         globals = {
@@ -312,10 +313,6 @@ neovim.load({
             HINT = '',
         },
     },
-
-    --
-    -- Plugins
-    --
 
     lazy = {
         options = {

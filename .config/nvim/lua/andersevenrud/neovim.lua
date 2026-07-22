@@ -9,31 +9,43 @@ local M = {
     config = {}
 }
 
--- protected require
-M.prequire = function(req, fallback)
-    local status, result = pcall(require, req)
-    if status == false then
-        return fallback
+-- Creates a binding used for lsp on_attach
+local function add_on_attach(ns, fn)
+    if on_attach_list[ns] == nil then
+        on_attach_list[ns] = {}
     end
-    return result
+
+    table.insert(on_attach_list[ns], fn)
+end
+
+-- Runs all bindings used for lsp on_attach
+local function run_on_attach(ns, ...)
+    local list = on_attach_list[ns]
+    if list == nil then
+        return
+    end
+
+    for _, fn in ipairs(list) do
+        fn(...)
+    end
 end
 
 -- Options
-M.set_options = function(options)
+local function set_options(options)
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
 end
 
 -- Highlights
-M.set_highlights = function(highlights)
+local function set_highlights(highlights)
     for k, v in pairs(highlights) do
         vim.api.nvim_set_hl(0, k, v)
     end
 end
 
 -- Custom filetypes
-M.set_aliases = function(aliases)
+local function set_aliases(aliases)
     local extension = {}
     local pattern = {}
 
@@ -50,7 +62,7 @@ M.set_aliases = function(aliases)
 end
 
 -- Custom rules per filetype
-M.set_rules = function(rules)
+local function set_rules(rules)
     local group = vim.api.nvim_create_augroup('FiletypeRules', { clear = true })
 
     for ft, options in pairs(rules) do
@@ -67,11 +79,11 @@ M.set_rules = function(rules)
 end
 
 -- Keymaps
-M.set_keymaps = function(keymaps, bufnr)
+local function set_keymaps(keymaps, bufnr)
     for _, v in ipairs(keymaps) do
         if v.lsp ~= nil then
-            M.add_on_attach(v.lsp, function(_, bnr)
-                M.set_keymaps(v.keybindings, bnr)
+            add_on_attach(v.lsp, function(_, bnr)
+                set_keymaps(v.keybindings, bnr)
             end)
         else
             local opts = vim.deepcopy(v[4] or {})
@@ -88,7 +100,7 @@ M.set_keymaps = function(keymaps, bufnr)
 end
 
 -- Diagnostic sign text per severity
-M.create_diagnostic_signs = function(signs)
+local function create_diagnostic_signs(signs)
     local text = {}
     for k, v in pairs(signs) do
         text[vim.diagnostic.severity[k]] = v
@@ -97,7 +109,7 @@ M.create_diagnostic_signs = function(signs)
 end
 
 -- Autocmds, grouped by namespace
-M.set_auto_commands = function(entries)
+local function set_auto_commands(entries)
     for ns, cmds in pairs(entries) do
         local group = vim.api.nvim_create_augroup(ns, { clear = true })
 
@@ -113,55 +125,8 @@ M.set_auto_commands = function(entries)
     end
 end
 
--- Converts wildcard options to lua patterns
-M.wildcards_to_table = function(wildignore)
-    local result = {}
-
-    for _, v in ipairs(wildignore) do
-        local pattern = v:gsub('[%^%$%(%)%%%.%[%]%+%-%?]', '%%%0')
-
-        if pattern:find('%*') then
-            table.insert(result, pattern:gsub('%*', '.*') .. '$')
-        else
-            table.insert(result, pattern .. '$')
-            table.insert(result, pattern .. '/')
-        end
-    end
-
-    return result
-end
-
--- Wrapper for applying globals
-M.apply_globals = function(list, prefix)
-    prefix = prefix and prefix or ''
-    for k, v in pairs(list) do
-        vim.g[prefix .. k] = v
-    end
-end
-
--- Creates a binding used for lsp on_attach
-M.add_on_attach = function(ns, fn)
-    if on_attach_list[ns] == nil then
-        on_attach_list[ns] = {}
-    end
-
-    table.insert(on_attach_list[ns], fn)
-end
-
--- Runs all bindings used for lsp on_attach
-M.run_on_attach = function(ns, ...)
-    local list = on_attach_list[ns]
-    if list == nil then
-        return
-    end
-
-    for _, fn in ipairs(list) do
-        fn(...)
-    end
-end
-
 -- lazy.nvim plugin loader wrapper
-M.lazy_load = function(config, shims)
+local function lazy_load(config, shims)
     local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
     if not vim.uv.fs_stat(lazypath) then
         vim.fn.system({
@@ -192,6 +157,58 @@ M.lazy_load = function(config, shims)
     end
 
     require'lazy'.setup(specs, config.options)
+end
+
+-- Returns another string if the input is empty
+local function empty_string_or(s, ors)
+    return (s == nil or #s == 0) and ors or s
+end
+
+-- Mason packages where the lspconfig name mapping is ambiguous or absent
+local function install_mason_packages(packages)
+    local registry = require'mason-registry'
+
+    for _, name in ipairs(packages) do
+        local ok, pkg = pcall(registry.get_package, name)
+        if ok and not pkg:is_installed() then
+            pkg:install()
+        end
+    end
+end
+
+-- protected require
+M.prequire = function(req, fallback)
+    local status, result = pcall(require, req)
+    if status == false then
+        return fallback
+    end
+    return result
+end
+
+-- Converts wildcard options to lua patterns
+M.wildcards_to_table = function(wildignore)
+    local result = {}
+
+    for _, v in ipairs(wildignore) do
+        local pattern = v:gsub('[%^%$%(%)%%%.%[%]%+%-%?]', '%%%0')
+
+        if pattern:find('%*') then
+            table.insert(result, pattern:gsub('%*', '.*') .. '$')
+        else
+            table.insert(result, pattern .. '$')
+            table.insert(result, pattern .. '/')
+        end
+    end
+
+    return result
+end
+
+-- Wrapper for applying globals
+M.apply_globals = function(list, prefix)
+    prefix = prefix and prefix or ''
+    for k, v in pairs(list) do
+        vim.g[prefix .. k] = v
+    end
 end
 
 -- Treesitter setup (nvim-treesitter `main` branch)
@@ -270,18 +287,13 @@ M.setup_treesitter_textobjects = function(config)
     end
 end
 
--- Returns another string if the input is empty
-M.empty_string_or = function(s, ors)
-    return (s == nil or #s == 0) and ors or s
-end
-
 -- Lualine source for vim-arduino
 M.lualine_arduino = function()
     if vim.bo.filetype == 'arduino' then
         local status, port = pcall(vim.call, 'arduino#GetPort')
         if status == true then
-            local board = ' ' .. M.empty_string_or(vim.g.arduino_board, 'no board')
-            local programmer = ' ' .. M.empty_string_or(vim.g.arduino_programmer, 'no programmer')
+            local board = ' ' .. empty_string_or(vim.g.arduino_board, 'no board')
+            local programmer = ' ' .. empty_string_or(vim.g.arduino_programmer, 'no programmer')
             local connection = ''
             if port then
                 connection = ' ' .. port .. '  ' .. vim.g.arduino_serial_baud .. 'bps'
@@ -360,8 +372,8 @@ M.setup_lsp = function()
 
     local on_attach = function(k)
         return function(...)
-            M.run_on_attach(k, ...)
-            M.run_on_attach('*', ...)
+            run_on_attach(k, ...)
+            run_on_attach('*', ...)
             set_options(...)
             attach_plugins(...)
         end
@@ -374,7 +386,7 @@ M.setup_lsp = function()
         automatic_enable = false
     })
 
-    M.install_mason_packages(M.config.mason.packages)
+    install_mason_packages(M.config.mason.packages)
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(ev)
@@ -393,18 +405,10 @@ M.setup_lsp = function()
         vim.lsp.config(name, M.config.lsp.servers[name])
         vim.lsp.enable(name)
     end
-end
 
--- Mason packages where the lspconfig name mapping is ambiguous or absent
-M.install_mason_packages = function(packages)
-    local registry = require'mason-registry'
-
-    for _, name in ipairs(packages) do
-        local ok, pkg = pcall(registry.get_package, name)
-        if ok and not pkg:is_installed() then
-            pkg:install()
-        end
-    end
+    vim.diagnostic.config(vim.tbl_extend('force', M.config.diagnostics.options, {
+        signs = { text = create_diagnostic_signs(M.config.diagnostics.signs) },
+    }))
 end
 
 -- Debugger UI, opened and closed with the session
@@ -433,20 +437,18 @@ M.setup_dap = function(config)
 end
 
 -- Initialization wrapper
-M.load = function(config, shims)
+M.setup = function(config, shims)
     M.config = config
-    M.apply_globals(config.vim.globals)
-    M.set_options(config.vim.options)
-    M.set_highlights(config.vim.highlights)
-    M.set_aliases(config.vim.aliases)
-    M.set_rules(config.vim.rules)
-    M.set_keymaps(config.vim.keybindings)
-    M.set_auto_commands(config.vim.autocommands)
-    M.lazy_load(config.lazy, shims)
 
-    vim.diagnostic.config(vim.tbl_extend('force', config.diagnostics.options, {
-        signs = { text = M.create_diagnostic_signs(config.diagnostics.signs) },
-    }))
+    M.apply_globals(config.vim.globals)
+
+    set_options(config.vim.options)
+    set_highlights(config.vim.highlights)
+    set_aliases(config.vim.aliases)
+    set_rules(config.vim.rules)
+    set_keymaps(config.vim.keybindings)
+    set_auto_commands(config.vim.autocommands)
+    lazy_load(config.lazy, shims)
 end
 
 return M
