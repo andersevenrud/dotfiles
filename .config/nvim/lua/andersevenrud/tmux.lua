@@ -14,14 +14,19 @@ local tmux = function(args, blocking)
     return result and vim.trim(result.stdout or '') or ''
 end
 
--- tmux rejects window names containing '.' or ':'
+-- tmux reserves '.' and ':' as target separators, so lookalikes are used instead
+local separators = {
+    ['.'] = '․',
+    [':'] = '∶',
+}
+
 local rename_window = function(name, blocking)
     if name == '' or (not blocking and name == current_window) then
         return
     end
 
     current_window = name
-    tmux({ 'rename-window', (name:gsub('[.:]', '-')) }, blocking)
+    tmux({ 'rename-window', (name:gsub('[.:]', separators)) }, blocking)
 end
 
 M.setup = function()
