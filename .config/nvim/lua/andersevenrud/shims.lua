@@ -79,8 +79,12 @@ return {
         config = function()
             local n = require'andersevenrud.neovim'
             local telescope = require'telescope'
+
             telescope.setup(n.config.telescope.setup)
-            for _, v in ipairs(n.config.telescope.extensions) do telescope.load_extension(v) end
+
+            for _, v in ipairs(n.config.telescope.extensions or {}) do
+                telescope.load_extension(v)
+            end
         end
     },
     ['nvim-neo-tree/neo-tree.nvim'] = {
