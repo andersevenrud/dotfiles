@@ -322,8 +322,6 @@ neovim.setup({
         },
         load = {
             -- Dependencies
-            'nvim-lua/plenary.nvim',
-            'nvim-tree/nvim-web-devicons',
             'nvim-treesitter/nvim-treesitter',
 
             -- UI
@@ -364,18 +362,13 @@ neovim.setup({
             'wilriker/gcode.vim',
 
             -- Autocomplete
-            'saghen/blink.lib',
             'saghen/blink.cmp',
-            'mgalliou/blink-cmp-tmux',
             'L3MON4D3/LuaSnip',
-            'rafamadriz/friendly-snippets',
             'windwp/nvim-ts-autotag',
             'RRethy/nvim-treesitter-endwise',
 
             -- LSP
             'neovim/nvim-lspconfig',
-            'williamboman/mason-lspconfig.nvim',
-            'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
             'nvimdev/lspsaga.nvim',
             'pmizio/typescript-tools.nvim',

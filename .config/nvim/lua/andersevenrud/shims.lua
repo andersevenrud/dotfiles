@@ -33,6 +33,7 @@ return {
         end
     },
     ['nvim-lualine/lualine.nvim'] = {
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function(n)
             require'lualine'.setup(n.config.lualine)
         end
@@ -65,6 +66,7 @@ return {
         end
     },
     ['nvim-telescope/telescope.nvim'] = {
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
         config = function(n)
             local telescope = require'telescope'
 
@@ -76,7 +78,7 @@ return {
         end
     },
     ['nvim-neo-tree/neo-tree.nvim'] = {
-        dependencies = { "MunifTanjim/nui.nvim" },
+        dependencies = { "MunifTanjim/nui.nvim", 'nvim-lua/plenary.nvim' },
         config = function(n)
             require'neo-tree'.setup(n.config.neo_tree)
         end
@@ -118,7 +120,7 @@ return {
     ['saghen/blink.cmp'] = {
         -- NOTE: blink.lib is required at module load time, so it has to be an
         -- explicit dependency for the build step below to be able to run
-        dependencies = { 'saghen/blink.lib', 'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets' },
+        dependencies = { 'saghen/blink.lib', 'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets', 'mgalliou/blink-cmp-tmux' },
         build = function()
             -- NOTE: `pwait` is pcall wrapped and swallows build failures, which
             -- silently leaves the plugin on the slower Lua fuzzy matcher
@@ -175,6 +177,7 @@ return {
     ['folke/snacks.nvim'] = {
         priority = 1000,
         lazy = false,
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function(n)
             require'snacks'.setup(n.config.snacks)
         end
