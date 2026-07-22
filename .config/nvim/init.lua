@@ -323,13 +323,13 @@ neovim.setup({
         load = {
             -- Dependencies
             'nvim-lua/plenary.nvim',
-            'kyazdani42/nvim-web-devicons',
+            'nvim-tree/nvim-web-devicons',
             'nvim-treesitter/nvim-treesitter',
 
             -- UI
             'haringsrob/nvim_context_vt',
             'catgoose/nvim-colorizer.lua',
-            'hoob3rt/lualine.nvim',
+            'nvim-lualine/lualine.nvim',
             'lewis6991/gitsigns.nvim',
             'sindrets/winshift.nvim',
             'andersevenrud/nordic.nvim',
@@ -357,9 +357,9 @@ neovim.setup({
 
             -- Utilities
             'sindrets/diffview.nvim',
-            'TimUntersberger/neogit',
+            'NeogitOrg/neogit',
             'euclio/vim-markdown-composer',
-            'akinsho/nvim-toggleterm.lua',
+            'akinsho/toggleterm.nvim',
             'stevearc/vim-arduino',
             'wilriker/gcode.vim',
 
@@ -377,7 +377,7 @@ neovim.setup({
             'williamboman/mason-lspconfig.nvim',
             'williamboman/mason.nvim',
             'akinsho/flutter-tools.nvim',
-            'glepnir/lspsaga.nvim',
+            'nvimdev/lspsaga.nvim',
             'pmizio/typescript-tools.nvim',
 
             -- AI

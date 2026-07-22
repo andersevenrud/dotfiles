@@ -32,7 +32,7 @@ return {
             })
         end
     },
-    ['hoob3rt/lualine.nvim'] = {
+    ['nvim-lualine/lualine.nvim'] = {
         config = function(n)
             require'lualine'.setup(n.config.lualine)
         end
@@ -146,7 +146,7 @@ return {
             require'flutter-tools'.setup(n.config.flutter_tools)
         end
     },
-    ['akinsho/nvim-toggleterm.lua'] = {
+    ['akinsho/toggleterm.nvim'] = {
         branch = 'main',
         config = function(n)
             require'toggleterm'.setup(n.config.nvim_toggleterm)
@@ -167,7 +167,7 @@ return {
             require('nvim_context_vt').setup(n.config.context_vt)
         end
     },
-    ['glepnir/lspsaga.nvim'] = {
+    ['nvimdev/lspsaga.nvim'] = {
         config = function(n)
             require('lspsaga').setup(n.config.lspsaga)
         end
@@ -190,7 +190,7 @@ return {
             require'boole'.setup(n.config.boole)
         end
     },
-    ['TimUntersberger/neogit'] = {
+    ['NeogitOrg/neogit'] = {
         config = function()
             require'neogit'.setup({})
         end
