@@ -382,7 +382,6 @@ neovim.load({
             'glepnir/lspsaga.nvim',
             'pmizio/typescript-tools.nvim',
 
-
             -- AI
             'github/copilot.vim',
             'olimorris/codecompanion.nvim',
