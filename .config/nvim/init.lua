@@ -80,9 +80,11 @@ tmux.setup()
 neovim.setup({
     vim = {
         autocommands = autocommands,
+
         globals = {
             mapleader = vim.fn.has('mac') == 1 and '´' or '\\', -- Key left of backspace
         },
+
         options = {
             shortmess = 'filnxtToOFcs',                         -- Silence warnings and abbreviate stuff
             completeopt = { 'menuone', 'noselect' },            -- Always open popup and user selection
@@ -130,12 +132,14 @@ neovim.setup({
                 extends = '>'
             },
         },
+
         highlights = {
             LspDiagnosticsUnderlineError = { link = 'DiffDelete' },
             LspDiagnosticsUnderlineWarning = { link = 'DiffChange' },
             GitSignsCurrentLineBlame = { link = 'tscomment' },
             ExtraWhitespace = { link = 'RedrawDebugRecompose' },
         },
+
         aliases = {
             ['*.heml'] = 'html',
             ['*.rasi'] = 'css',
@@ -143,11 +147,13 @@ neovim.setup({
             ['*.bicep'] = 'bicep',
             ['.*%.blade%.php'] = 'blade',
         },
+
         rules = {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
             python = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
             php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
         },
+
         keybindings = {
             -- luasnip
             { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { silent = true, expr = true }, 'Jump to next in snippet' },
@@ -245,6 +251,7 @@ neovim.setup({
         options = {
             omnifunc = 'v:lua.vim.lsp.omnifunc'
         },
+
         servers = {
             bicep = {
                 cmd = { 'bicep-lsp' },
