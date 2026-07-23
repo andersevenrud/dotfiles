@@ -24,6 +24,9 @@ return {
             require('nvim-ts-autotag').setup({})
         end,
     },
+    ['github/copilot.vim'] = {
+        event = 'InsertEnter',
+    },
     ['stevearc/vim-arduino'] = {
         ft = { 'arduino' },
     },
