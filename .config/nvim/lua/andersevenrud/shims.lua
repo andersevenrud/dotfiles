@@ -159,11 +159,6 @@ return {
             require('winshift').setup(n.config.winshift)
         end,
     },
-    ['numToStr/Comment.nvim'] = {
-        config = function()
-            require('Comment').setup({})
-        end,
-    },
     ['haringsrob/nvim_context_vt'] = {
         config = function(n)
             require('nvim_context_vt').setup(n.config.context_vt)

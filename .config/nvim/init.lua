@@ -404,7 +404,6 @@ neovim.setup({
             'folke/noice.nvim',
 
             -- Editing
-            'numToStr/Comment.nvim',
             'matze/vim-move',
             'windwp/nvim-autopairs',
             'nat-418/boole.nvim',
