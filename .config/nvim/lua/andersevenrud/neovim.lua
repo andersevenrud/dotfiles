@@ -99,6 +99,84 @@ local function set_keymaps(keymaps, bufnr)
     end
 end
 
+-- Flatten nested (LSP) keybinding entries into table rows
+local function collect_keymaps(keymaps, lsp, rows)
+    for _, v in ipairs(keymaps) do
+        if v.lsp ~= nil then
+            collect_keymaps(v.keybindings, v.lsp, rows)
+        else
+            local mode = type(v[1]) == 'table' and table.concat(v[1], ',') or v[1]
+            table.insert(rows, { mode, lsp or '', v[2], v[5] or '' })
+        end
+    end
+    return rows
+end
+
+-- Floating, aligned table of all configured keybindings
+local function show_keymaps(keymaps)
+    local headers = { 'Mode', 'LSP', 'Binding', 'Description' }
+    local rows = collect_keymaps(keymaps, nil, {})
+
+    local widths = {}
+    for i, h in ipairs(headers) do
+        widths[i] = vim.fn.strdisplaywidth(h)
+    end
+    for _, row in ipairs(rows) do
+        for i, cell in ipairs(row) do
+            widths[i] = math.max(widths[i], vim.fn.strdisplaywidth(cell))
+        end
+    end
+
+    local function line(row, joiner)
+        local cells = {}
+        for i = 1, #headers do
+            local cell = row[i] or ''
+            cells[i] = cell .. string.rep(' ', widths[i] - vim.fn.strdisplaywidth(cell))
+        end
+        return ' ' .. table.concat(cells, joiner) .. ' '
+    end
+
+    local sep = {}
+    for i = 1, #headers do
+        sep[i] = string.rep('─', widths[i])
+    end
+
+    local lines = { line(headers, ' │ '), line(sep, '─┼─') }
+    for _, row in ipairs(rows) do
+        table.insert(lines, line(row, ' │ '))
+    end
+
+    local width = 0
+    for _, l in ipairs(lines) do
+        width = math.max(width, vim.fn.strdisplaywidth(l))
+    end
+
+    local ui = vim.api.nvim_list_uis()[1] or { width = 120, height = 40 }
+    local win_width = math.min(width, ui.width - 4)
+    local win_height = math.min(#lines, ui.height - 4)
+
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+    vim.bo[buf].modifiable = false
+    vim.bo[buf].bufhidden = 'wipe'
+
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',
+        width = win_width,
+        height = win_height,
+        col = math.floor((ui.width - win_width) / 2),
+        row = math.floor((ui.height - win_height) / 2),
+        style = 'minimal',
+        border = 'rounded',
+        title = ' Keybindings ',
+        title_pos = 'center',
+    })
+    vim.wo[win].cursorline = true
+
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = buf, silent = true })
+    vim.keymap.set('n', '<Esc>', '<cmd>close<cr>', { buffer = buf, silent = true })
+end
+
 -- Diagnostic sign text per severity
 local function create_diagnostic_signs(signs)
     local text = {}
@@ -446,6 +524,11 @@ M.setup = function(config, shims)
     set_rules(config.vim.rules)
     set_keymaps(config.vim.keybindings)
     set_auto_commands(config.vim.autocommands)
+
+    vim.api.nvim_create_user_command('Keymaps', function()
+        show_keymaps(config.vim.keybindings)
+    end, { desc = 'Show configured keybindings' })
+
     lazy_load(config.lazy, shims)
 end
 
