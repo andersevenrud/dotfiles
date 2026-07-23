@@ -81,10 +81,6 @@ return {
 
 ## Custom Keybindings
 
-Some of these shadow Neovim 0.11+ built-in LSP mappings (`grn`, `gra`, `grt`, `[d`/`]d`)
-and route them through lspsaga instead. `K` deliberately uses the built-in hover, which
-aggregates all LSP clients instead of reporting on each one separately.
-
 | Mode     | LSP          | Binding          | Description                            |
 | -------- | ------------ | ---------------- | -------------------------------------- |
 | i        |              | `<Tab>`          | Jump to next in snippet                |
@@ -139,11 +135,13 @@ aggregates all LSP clients instead of reporting on each one separately.
 | n        |              | `<leader>_`      | Decrease vertical split size           |
 | n        |              | `<Up>`           | Scroll up                              |
 | n        |              | `<Down>`         | Scroll down                            |
-| n        |              | `<Right>`        | Switch tab left                        |
-| n        |              | `<Left>`         | Swtich tab right                       |
+| n        |              | `<Right>`        | Switch tab right                       |
+| n        |              | `<Left>`         | Switch tab left                        |
 
-## Troubleshooting
+## Custom Commands
 
-### Treesitter indentation issues
-
-Indentation of multiline comments is [not working correctly](https://github.com/nvim-treesitter/nvim-treesitter/projects/6) for all grammars.
+| Command     | Arguments | Description                                                              |
+| ----------- | --------- | ------------------------------------------------------------------------ |
+| `:Keymaps`  |           | Show all configured keybindings in a floating table (`q`/`<Esc>` closes) |
+| `:JsonPath` |           | Copy the JSON path under the cursor to the `*` register                  |
+| `:JsonPath` | `{path}`  | Move the cursor to the given JSON path, e.g. `:JsonPath scripts.build`   |

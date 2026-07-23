@@ -388,7 +388,7 @@ M.lualine_arduino = function()
     return ''
 end
 
--- Creates capabilities for LSP according to cmp
+-- Creates LSP capabilities for autocompletion, merging with existing capabilities if provided
 M.create_autocomplete_capabilities = function(capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
