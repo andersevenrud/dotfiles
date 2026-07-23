@@ -83,6 +83,7 @@ neovim.setup({
 
         globals = {
             mapleader = vim.fn.has('mac') == 1 and '´' or '\\', -- Key left of backspace
+            copilot_no_tab_map = true,                  -- <Tab> is handled manually to avoid recursion
         },
 
         options = {
@@ -156,12 +157,33 @@ neovim.setup({
 
         keybindings = {
             -- luasnip
-            { 'i', '<Tab>', [[luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>']], { silent = true, expr = true }, 'Jump to next in snippet' },
+            { 'i', '<Tab>', function()
+                local ls = require'luasnip'
+                if ls.expand_or_jumpable() then
+                    ls.expand_or_jump()
+                elseif vim.fn.exists('*copilot#GetDisplayedSuggestion') == 1 and vim.fn['copilot#GetDisplayedSuggestion']().text ~= '' then
+                    vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](''), 'n', false)
+                else
+                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
+                end
+            end, { silent = true }, 'Expand snippet, accept copilot, or tab' },
             { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
             { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true }, 'Jump to next in snippet' },
             { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
-            { 'i', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
-            { 's', '<C-E>', [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']], { silent = true, expr = true }, 'Next snippet choice' },
+            { 'i', '<C-E>', function()
+                local ls = require'luasnip'
+                if ls.choice_active() then
+                    ls.change_choice(1)
+                else
+                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-E>', true, true, true), 'n', false)
+                end
+            end, { silent = true }, 'Next snippet choice' },
+            { 's', '<C-E>', function()
+                local ls = require'luasnip'
+                if ls.choice_active() then
+                    ls.change_choice(1)
+                end
+            end, { silent = true }, 'Next snippet choice' },
 
             -- LSP
             {
