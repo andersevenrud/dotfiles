@@ -338,12 +338,6 @@ M.setup_lsp = function()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
 
-    local set_options = function(_, bufnr)
-        for k, v in pairs(M.config.lsp.options) do
-            vim.bo[bufnr][k] = v
-        end
-    end
-
     local attach_plugins = function(client, bufnr)
         if client:supports_method('textDocument/documentColor') then
             vim.lsp.document_color.enable(true, { bufnr = bufnr })
@@ -374,7 +368,6 @@ M.setup_lsp = function()
         return function(...)
             run_on_attach(k, ...)
             run_on_attach('*', ...)
-            set_options(...)
             attach_plugins(...)
         end
     end
@@ -403,8 +396,9 @@ M.setup_lsp = function()
 
     for _, name in ipairs(names) do
         vim.lsp.config(name, M.config.lsp.servers[name])
-        vim.lsp.enable(name)
     end
+
+    vim.lsp.enable(names)
 
     vim.diagnostic.config(vim.tbl_extend('force', M.config.diagnostics.options, {
         signs = { text = create_diagnostic_signs(M.config.diagnostics.signs) },

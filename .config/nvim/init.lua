@@ -270,10 +270,6 @@ neovim.setup({
 
     lsp = {
         --flags = {},
-        options = {
-            omnifunc = 'v:lua.vim.lsp.omnifunc'
-        },
-
         servers = {
             bicep = {
                 cmd = { 'bicep-lsp' },
