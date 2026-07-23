@@ -694,6 +694,14 @@ neovim.setup({
         window = {
             mappings = {
                 ['o'] = 'open',
+                -- Disable the `o`-prefixed order-by submenu so `o` opens without a timeout
+                ['oc'] = 'none',
+                ['od'] = 'none',
+                ['og'] = 'none',
+                ['om'] = 'none',
+                ['on'] = 'none',
+                ['os'] = 'none',
+                ['ot'] = 'none',
             },
         },
     },
