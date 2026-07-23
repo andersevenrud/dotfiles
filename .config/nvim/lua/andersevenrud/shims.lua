@@ -24,7 +24,11 @@ return {
             require('nvim-ts-autotag').setup({})
         end,
     },
+    ['stevearc/vim-arduino'] = {
+        ft = { 'arduino' },
+    },
     ['catgoose/nvim-colorizer.lua'] = {
+        ft = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'twig', 'lua' },
         config = function(n)
             require('colorizer').setup({
                 filetypes = n.config.colorizer.filetypes,
@@ -39,6 +43,7 @@ return {
         end,
     },
     ['lewis6991/gitsigns.nvim'] = {
+        event = { 'BufReadPre', 'BufNewFile' },
         config = function(n)
             require('gitsigns').setup(n.config.gitsigns)
         end,
@@ -50,22 +55,27 @@ return {
         end,
     },
     ['windwp/nvim-autopairs'] = {
+        event = 'InsertEnter',
         config = function(n)
             local a = require('nvim-autopairs')
             a.setup(n.config.npairs.options)
         end,
     },
     ['folke/todo-comments.nvim'] = {
+        event = { 'BufReadPost', 'BufNewFile' },
+        dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('todo-comments').setup({})
         end,
     },
     ['nacro90/numb.nvim'] = {
+        event = 'CmdlineEnter',
         config = function(n)
             require('numb').setup(n.config.numb)
         end,
     },
     ['nvim-telescope/telescope.nvim'] = {
+        lazy = true,
         dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons' },
         config = function(n)
             local telescope = require('telescope')
@@ -84,22 +94,27 @@ return {
         end,
     },
     ['mfussenegger/nvim-dap'] = {
+        lazy = true,
+        dependencies = { 'theHamsta/nvim-dap-virtual-text' },
         config = function(n)
             n.setup_dap(n.config.dap)
         end,
     },
     ['rcarriga/nvim-dap-ui'] = {
+        lazy = true,
         dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
         config = function(n)
             n.setup_dap_ui(n.config.dap_ui)
         end,
     },
     ['theHamsta/nvim-dap-virtual-text'] = {
+        lazy = true,
         config = function(n)
             require('nvim-dap-virtual-text').setup(n.config.dap_virtual_text)
         end,
     },
     ['sindrets/diffview.nvim'] = {
+        cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffviewRefresh', 'DiffviewFileHistory', 'DiffviewLog' },
         config = function()
             require('diffview').setup({})
         end,
@@ -150,16 +165,20 @@ return {
     },
     ['akinsho/toggleterm.nvim'] = {
         branch = 'main',
+        cmd = { 'ToggleTerm', 'ToggleTermToggleAll', 'TermExec', 'TermSelect' },
+        keys = { '<leader>t' },
         config = function(n)
             require('toggleterm').setup(n.config.nvim_toggleterm)
         end,
     },
     ['sindrets/winshift.nvim'] = {
+        cmd = { 'WinShift' },
         config = function(n)
             require('winshift').setup(n.config.winshift)
         end,
     },
     ['haringsrob/nvim_context_vt'] = {
+        event = { 'BufReadPost', 'BufNewFile' },
         config = function(n)
             require('nvim_context_vt').setup(n.config.context_vt)
         end,
@@ -189,17 +208,20 @@ return {
         end,
     },
     ['NeogitOrg/neogit'] = {
+        cmd = { 'Neogit', 'NeogitCommit', 'NeogitLogCurrent', 'NeogitResetState' },
         config = function()
             require('neogit').setup({})
         end,
     },
     ['pmizio/typescript-tools.nvim'] = {
+        ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         config = function()
             require('typescript-tools').setup({})
         end,
     },
     ['olimorris/codecompanion.nvim'] = {
+        cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions', 'CodeCompanionCmd', 'CodeCompanionToggle' },
         config = function()
             require('codecompanion').setup({})
         end,
