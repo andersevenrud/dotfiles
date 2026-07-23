@@ -4,7 +4,7 @@
 --
 
 local M = {
-    register = '*'
+    register = '*',
 }
 
 local unquote = function(node, bufnr)

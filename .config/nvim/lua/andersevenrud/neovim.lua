@@ -6,7 +6,7 @@
 local on_attach_list = {}
 
 local M = {
-    config = {}
+    config = {},
 }
 
 -- Creates a binding used for lsp on_attach
@@ -130,8 +130,12 @@ local function lazy_load(config, shims)
     local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
     if not vim.uv.fs_stat(lazypath) then
         vim.fn.system({
-            'git', 'clone', '--filter=blob:none',
-            'https://github.com/folke/lazy.nvim.git', '--branch=stable', lazypath
+            'git',
+            'clone',
+            '--filter=blob:none',
+            'https://github.com/folke/lazy.nvim.git',
+            '--branch=stable',
+            lazypath,
         })
     end
     vim.opt.rtp:prepend(lazypath)
@@ -156,7 +160,7 @@ local function lazy_load(config, shims)
         table.insert(specs, spec)
     end
 
-    require'lazy'.setup(specs, config.options)
+    require('lazy').setup(specs, config.options)
 end
 
 -- Returns another string if the input is empty
@@ -166,7 +170,7 @@ end
 
 -- Mason packages where the lspconfig name mapping is ambiguous or absent
 local function install_mason_packages(packages)
-    local registry = require'mason-registry'
+    local registry = require('mason-registry')
 
     for _, name in ipairs(packages) do
         local ok, pkg = pcall(registry.get_package, name)
@@ -217,7 +221,7 @@ end
 -- Features are enabled per buffer, which is done here for every filetype that
 -- resolves to an installed parser.
 M.setup_treesitter = function(config)
-    local ts = require'nvim-treesitter'
+    local ts = require('nvim-treesitter')
 
     ts.setup(config.options)
     ts.install(config.install)
@@ -258,7 +262,7 @@ end
 -- The `main` branch dropped its keymap configuration in favour of plain
 -- keymaps calling into its modules, which is abstracted away here.
 M.setup_treesitter_textobjects = function(config)
-    require'nvim-treesitter-textobjects'.setup(config.options)
+    require('nvim-treesitter-textobjects').setup(config.options)
 
     local map = function(modes, lhs, fn, desc)
         vim.keymap.set(modes, lhs, fn, { silent = true, desc = desc })
@@ -266,14 +270,14 @@ M.setup_treesitter_textobjects = function(config)
 
     for lhs, query in pairs(config.select) do
         map({ 'x', 'o' }, lhs, function()
-            require'nvim-treesitter-textobjects.select'.select_textobject(query, 'textobjects')
+            require('nvim-treesitter-textobjects.select').select_textobject(query, 'textobjects')
         end, 'Select ' .. query)
     end
 
     for name, keys in pairs(config.swap) do
         for lhs, query in pairs(keys) do
             map('n', lhs, function()
-                require'nvim-treesitter-textobjects.swap'[name](query)
+                require('nvim-treesitter-textobjects.swap')[name](query)
             end, 'Swap ' .. query)
         end
     end
@@ -281,7 +285,7 @@ M.setup_treesitter_textobjects = function(config)
     for name, keys in pairs(config.move) do
         for lhs, query in pairs(keys) do
             map({ 'n', 'x', 'o' }, lhs, function()
-                require'nvim-treesitter-textobjects.move'[name](query, 'textobjects')
+                require('nvim-treesitter-textobjects.move')[name](query, 'textobjects')
             end, 'Move ' .. query)
         end
     end
@@ -307,7 +311,7 @@ M.lualine_arduino = function()
 end
 
 -- Creates capabilities for LSP according to cmp
-M.create_autocomplete_capabilities = function (capabilities)
+M.create_autocomplete_capabilities = function(capabilities)
     capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
     local autocomplete_capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -332,8 +336,8 @@ end
 
 -- Automates setup of LSP integrations
 M.setup_lsp = function()
-    local mason = require'mason'
-    local mason_lsp = require'mason-lspconfig'
+    local mason = require('mason')
+    local mason_lsp = require('mason-lspconfig')
     local capabilities = M.create_autocomplete_capabilities()
     local names = vim.tbl_keys(M.config.lsp.servers)
     local flags = M.config.lsp.flags
@@ -345,7 +349,7 @@ M.setup_lsp = function()
 
         if client:supports_method('textDocument/documentHighlight') then
             vim.api.nvim_create_augroup('lsp_document_highlight', {
-                clear = false
+                clear = false,
             })
             vim.api.nvim_clear_autocmds({
                 buffer = bufnr,
@@ -368,7 +372,7 @@ M.setup_lsp = function()
 
     mason_lsp.setup({
         ensure_installed = names,
-        automatic_enable = false
+        automatic_enable = false,
     })
 
     install_mason_packages(M.config.mason.packages)
@@ -380,7 +384,7 @@ M.setup_lsp = function()
             run_on_attach(client.name, client, ev.buf)
             run_on_attach('*', client, ev.buf)
             attach_plugins(client, ev.buf)
-        end
+        end,
     })
 
     vim.lsp.config('*', {
@@ -401,19 +405,25 @@ end
 
 -- Debugger UI, opened and closed with the session
 M.setup_dap_ui = function(config)
-    local dap = require'dap'
-    local dapui = require'dapui'
+    local dap = require('dap')
+    local dapui = require('dapui')
 
     dapui.setup(config)
 
-    dap.listeners.after.event_initialized['dapui'] = function() dapui.open() end
-    dap.listeners.before.event_terminated['dapui'] = function() dapui.close() end
-    dap.listeners.before.event_exited['dapui'] = function() dapui.close() end
+    dap.listeners.after.event_initialized['dapui'] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated['dapui'] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited['dapui'] = function()
+        dapui.close()
+    end
 end
 
 -- Debug adapters and configurations
 M.setup_dap = function(config)
-    local dap = require'dap'
+    local dap = require('dap')
 
     for name, adapter in pairs(config.adapters) do
         dap.adapters[name] = adapter

@@ -3,42 +3,68 @@
 -- Anders Evenrud <andersevenrud@gmail.com>
 --
 
-local jsonpath = require'andersevenrud.jsonpath'
-local neovim = require'andersevenrud.neovim'
-local shims = require'andersevenrud.shims'
-local tmux = require'andersevenrud.tmux'
+local jsonpath = require('andersevenrud.jsonpath')
+local neovim = require('andersevenrud.neovim')
+local shims = require('andersevenrud.shims')
+local tmux = require('andersevenrud.tmux')
 
 local secrets = neovim.prequire('andersevenrud.secrets', {
     intelephense = {
-        licenceKey = nil
-    }
+        licenceKey = nil,
+    },
 })
 
 local autocommands = {
     ['ExtraWhitespaceCommands'] = {
         { { 'InsertEnter' }, '*', [[match ExtraWhitespace /\s\+\%#\@<!$/]] },
-        { { 'InsertLeave' }, '*', [[match ExtraWhitespace /\s\+$/]] }
+        { { 'InsertLeave' }, '*', [[match ExtraWhitespace /\s\+$/]] },
     },
     ['YankHighlighting'] = {
-        { { 'TextYankPost' }, '*', function()
-            vim.hl.on_yank({ higroup = 'IncSearch', timeout = 500, on_visual = true })
-        end },
+        {
+            { 'TextYankPost' },
+            '*',
+            function()
+                vim.hl.on_yank({ higroup = 'IncSearch', timeout = 500, on_visual = true })
+            end,
+        },
     },
     ['ReloadChangedFiles'] = {
-        { { 'FocusGained' }, '*', function()
-            pcall(vim.cmd, 'checktime')
-        end },
+        {
+            { 'FocusGained' },
+            '*',
+            function()
+                pcall(vim.cmd, 'checktime')
+            end,
+        },
     },
 }
 
 local wildignore = {
-    '*.o', '*.a', '*.class', '*.la', '*.so', '*.obj', --, '*.mo'
-    '*.swp', '.tern-port', '*.tmp',
-    '*.jpg', '*.jpeg', '*.png', '*.xpm', '*.gif', '*.bmp', '*.ico',
-    '.git', '.svn', 'CVS',
+    '*.o',
+    '*.a',
+    '*.class',
+    '*.la',
+    '*.so',
+    '*.obj', --, '*.mo'
+    '*.swp',
+    '.tern-port',
+    '*.tmp',
+    '*.jpg',
+    '*.jpeg',
+    '*.png',
+    '*.xpm',
+    '*.gif',
+    '*.bmp',
+    '*.ico',
+    '.git',
+    '.svn',
+    'CVS',
     '*.snap',
-    'package-lock.json', 'yarn.lock', 'composer.lock',
-    'DS_Store', 'storybook-static'
+    'package-lock.json',
+    'yarn.lock',
+    'composer.lock',
+    'DS_Store',
+    'storybook-static',
 }
 
 local js_debug_configurations = {
@@ -54,7 +80,7 @@ local js_debug_configurations = {
         request = 'attach',
         name = 'Attach to process',
         processId = function()
-            return require'dap.utils'.pick_process()
+            return require('dap.utils').pick_process()
         end,
         cwd = '${workspaceFolder}',
     },
@@ -83,54 +109,54 @@ neovim.setup({
 
         globals = {
             mapleader = vim.fn.has('mac') == 1 and '´' or '\\', -- Key left of backspace
-            copilot_no_tab_map = true,                  -- <Tab> is handled manually to avoid recursion
+            copilot_no_tab_map = true, -- <Tab> is handled manually to avoid recursion
         },
 
         options = {
-            shortmess = 'filnxtToOFcs',                         -- Silence warnings and abbreviate stuff
-            completeopt = { 'menuone', 'noselect' },            -- Always open popup and user selection
-            pumheight = 30,                                     -- Limit height of autocomplete popup
-            signcolumn = 'yes',                                 -- Use sign column in gutter to prevent jumping
-            winborder = 'single',                               -- Default border for floating windows (hover, signature, etc.)
-            numberwidth = 4,                                    -- Wide number gutter
-            number = true,                                      -- Show number gutter
-            relativenumber = true,                              -- Show number gutter as relative number
-            termguicolors = true,                               -- Respect terminal colors
-            smartcase = true,                                   -- Smart case handling in search
-            ignorecase = true,                                  -- Ignore casing in highlights etc
-            showmode = false,                                   -- No show mode
-            wrap = false,                                       -- No text wrapping
-            showmatch = true,                                   -- Show matching brackets, etc
-            cursorline = true,                                  -- Show cursor line hightlight
-            title = true,                                       -- Use window title
-            expandtab = true,                                   -- Spaces, not tabs
-            tabstop = 2,                                        -- Default spacing
-            softtabstop = 2,                                    -- Default spacing
-            shiftwidth = 2,                                     -- Default spacing
-            foldlevel = 999,                                    -- Expand all folds by default
-            --foldcolumn = 'auto',                              -- Show fold indicator in gutter
-            foldmethod = 'expr',                                -- Use custom folding
-            foldexpr = 'v:lua.vim.treesitter.foldexpr()',       -- Use tree-sitter for folding
-            foldtext = '',                                      -- Show folded line with syntax highlighting
-            --foldcolumndigits = false,                         -- Remove fold column level digits
-            wildignore = wildignore,                            -- Ignore these file types
-            --lazyredraw = true,                                -- Reduce flicker in macros etc.
-            updatetime = 1000,                                  -- Lower CursorHold update times
-            ttimeoutlen = 10,                                   -- Speed up escape sequences in the terminal
-            laststatus = 3,                                     -- Global statusline
-            --cmdheight = 0,                                    -- No command line height unless entering one
-            winbar = '%{expand(\'%:~:.\')}',                    -- Show relative file path in winbar
+            shortmess = 'filnxtToOFcs', -- Silence warnings and abbreviate stuff
+            completeopt = { 'menuone', 'noselect' }, -- Always open popup and user selection
+            pumheight = 30, -- Limit height of autocomplete popup
+            signcolumn = 'yes', -- Use sign column in gutter to prevent jumping
+            winborder = 'single', -- Default border for floating windows (hover, signature, etc.)
+            numberwidth = 4, -- Wide number gutter
+            number = true, -- Show number gutter
+            relativenumber = true, -- Show number gutter as relative number
+            termguicolors = true, -- Respect terminal colors
+            smartcase = true, -- Smart case handling in search
+            ignorecase = true, -- Ignore casing in highlights etc
+            showmode = false, -- No show mode
+            wrap = false, -- No text wrapping
+            showmatch = true, -- Show matching brackets, etc
+            cursorline = true, -- Show cursor line hightlight
+            title = true, -- Use window title
+            expandtab = true, -- Spaces, not tabs
+            tabstop = 2, -- Default spacing
+            softtabstop = 2, -- Default spacing
+            shiftwidth = 2, -- Default spacing
+            foldlevel = 999, -- Expand all folds by default
+            --foldcolumn = 'auto', -- Show fold indicator in gutter
+            foldmethod = 'expr', -- Use custom folding
+            foldexpr = 'v:lua.vim.treesitter.foldexpr()', -- Use tree-sitter for folding
+            foldtext = '', -- Show folded line with syntax highlighting
+            --foldcolumndigits = false, -- Remove fold column level digits
+            wildignore = wildignore, -- Ignore these file types
+            --lazyredraw = true, -- Reduce flicker in macros etc.
+            updatetime = 1000, -- Lower CursorHold update times
+            ttimeoutlen = 10, -- Speed up escape sequences in the terminal
+            laststatus = 3, -- Global statusline
+            --cmdheight = 0, -- No command line height unless entering one
+            winbar = "%{expand('%:~:.')}", -- Show relative file path in winbar
             fillchars = {
                 foldopen = '',
                 foldclose = '',
                 fold = ' ',
             },
-            listchars = {                                       -- Show symbols for certain special characters
+            listchars = { -- Show symbols for certain special characters
                 nbsp = '¬',
                 tab = '·\\',
                 trail = '.',
                 precedes = '<',
-                extends = '>'
+                extends = '>',
             },
         },
 
@@ -152,38 +178,56 @@ neovim.setup({
         rules = {
             lua = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
             python = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
-            php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 }
+            php = { tabstop = 4, softtabstop = 4, shiftwidth = 4 },
         },
 
         keybindings = {
             -- luasnip
-            { 'i', '<Tab>', function()
-                local ls = require'luasnip'
-                if ls.expand_or_jumpable() then
-                    ls.expand_or_jump()
-                elseif vim.fn.exists('*copilot#GetDisplayedSuggestion') == 1 and vim.fn['copilot#GetDisplayedSuggestion']().text ~= '' then
-                    vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](''), 'n', false)
-                else
-                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
-                end
-            end, { silent = true }, 'Expand snippet, accept copilot, or tab' },
+            {
+                'i',
+                '<Tab>',
+                function()
+                    local ls = require('luasnip')
+                    if ls.expand_or_jumpable() then
+                        ls.expand_or_jump()
+                    elseif vim.fn.exists('*copilot#GetDisplayedSuggestion') == 1 and vim.fn['copilot#GetDisplayedSuggestion']().text ~= '' then
+                        vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](''), 'n', false)
+                    else
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n', false)
+                    end
+                end,
+                { silent = true },
+                'Expand snippet, accept copilot, or tab',
+            },
             { 'i', '<S-Tab>', [[<cmd>lua require'luasnip'.jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
             { 's', '<Tab>', [[<cmd>lua require('luasnip').jump(1)<Cr>]], { noremap = true, silent = true }, 'Jump to next in snippet' },
             { 's', '<S-Tab>', [[<cmd>lua require('luasnip').jump(-1)<Cr>]], { noremap = true, silent = true }, 'Jump to prev in snippet' },
-            { 'i', '<C-E>', function()
-                local ls = require'luasnip'
-                if ls.choice_active() then
-                    ls.change_choice(1)
-                else
-                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-E>', true, true, true), 'n', false)
-                end
-            end, { silent = true }, 'Next snippet choice' },
-            { 's', '<C-E>', function()
-                local ls = require'luasnip'
-                if ls.choice_active() then
-                    ls.change_choice(1)
-                end
-            end, { silent = true }, 'Next snippet choice' },
+            {
+                'i',
+                '<C-E>',
+                function()
+                    local ls = require('luasnip')
+                    if ls.choice_active() then
+                        ls.change_choice(1)
+                    else
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-E>', true, true, true), 'n', false)
+                    end
+                end,
+                { silent = true },
+                'Next snippet choice',
+            },
+            {
+                's',
+                '<C-E>',
+                function()
+                    local ls = require('luasnip')
+                    if ls.choice_active() then
+                        ls.change_choice(1)
+                    end
+                end,
+                { silent = true },
+                'Next snippet choice',
+            },
 
             -- LSP
             {
@@ -192,7 +236,7 @@ neovim.setup({
                     { 'n', 'gD', '<cmd>Lspsaga peek_definition<CR>', { silent = true }, 'Peek definition' },
                     { 'n', 'gd', '<cmd>Lspsaga goto_definition<CR>', { noremap = true, silent = true }, 'Go to definition' },
                     { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }, 'Show documentation' },
-                    { 'n', 'gi', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to implementation'},
+                    { 'n', 'gi', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to implementation' },
                     { 'n', 'gr', '<cmd>Lspsaga finder<CR>', { noremap = true, silent = true }, 'Go to reference(s)' },
                     { 'n', '<C-k>', '<cmd>Lspsaga signature_help<CR>', { noremap = true, silent = true }, 'Show signature help' },
                     { 'i', '<C-A-k>', '<cmd>Lspsaga signature_help<CR>', { noremap = true, silent = true }, 'Show signature help' },
@@ -208,7 +252,7 @@ neovim.setup({
                     { 'n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { noremap = true, silent = true }, 'Go to prev diagnostic' },
                     { 'n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', { noremap = true, silent = true }, 'Go to next diagnostic' },
                     { 'n', '<leader>so', '<cmd>Lspsaga outline<CR>', { noremap = true, silent = true }, 'Show symbols outline' },
-                }
+                },
             },
 
             -- Telescope
@@ -245,17 +289,17 @@ neovim.setup({
             -- Viewport manipulation
             { 'n', '<leader><C-w>', ':bd<CR>', { noremap = true }, 'Destroy buffer' },
             { 'n', '<leader><C-q>', '<cmd>%bd<cr>', { noremap = true }, 'Destroy all buffers' },
-            { 'n',  '<leader>+', '<C-W>4>', { noremap = true }, 'Increase horizontal split size' },
-            { 'n',  '<leader>-', '<C-W>4<', { noremap = true }, 'Decrease horizontal split size '},
-            { 'n',  '<leader>?', '<C-W>4+', { noremap = true }, 'Increase vertical split size' },
-            { 'n',  '<leader>_', '<C-W>4-', { noremap = true }, 'Decrease vertical split size' },
+            { 'n', '<leader>+', '<C-W>4>', { noremap = true }, 'Increase horizontal split size' },
+            { 'n', '<leader>-', '<C-W>4<', { noremap = true }, 'Decrease horizontal split size ' },
+            { 'n', '<leader>?', '<C-W>4+', { noremap = true }, 'Increase vertical split size' },
+            { 'n', '<leader>_', '<C-W>4-', { noremap = true }, 'Decrease vertical split size' },
 
             -- Rebind arrows
-            { 'n',  '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
-            { 'n',  '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
-            { 'n',  '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
-            { 'n',  '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
-        }
+            { 'n', '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
+            { 'n', '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
+            { 'n', '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
+            { 'n', '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
+        },
     },
 
     mason = {
@@ -284,13 +328,13 @@ neovim.setup({
                 settings = {
                     yaml = {
                         format = {
-                            enable = true
+                            enable = true,
                         },
                         schemaStore = {
-                            enable = true
-                        }
-                    }
-                }
+                            enable = true,
+                        },
+                    },
+                },
             },
             pylsp = {},
             cssls = {},
@@ -313,13 +357,13 @@ neovim.setup({
                     'vue',
                     'svelte',
                     'twig',
-                }
+                },
             },
             tailwindcss = {},
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
-                    globalStoragePath = '~/.config/intelephense'
+                    globalStoragePath = '~/.config/intelephense',
                 },
             },
             biome = {},
@@ -401,7 +445,7 @@ neovim.setup({
             -- AI
             'github/copilot.vim',
             'olimorris/codecompanion.nvim',
-        }
+        },
     },
 
     flutter_tools = {
@@ -413,7 +457,7 @@ neovim.setup({
             capabilities = function(config)
                 return neovim.create_autocomplete_capabilities(config)
             end,
-        }
+        },
     },
 
     npairs = {
@@ -424,11 +468,11 @@ neovim.setup({
     },
 
     markdown_composer = {
-        autostart = 0
+        autostart = 0,
     },
 
     dap_virtual_text = {
-        enabled = true
+        enabled = true,
     },
 
     dap_ui = {},
@@ -503,7 +547,7 @@ neovim.setup({
         sections = {
             lualine_a = { { 'mode', upper = true } },
             lualine_b = { { 'branch', icon = '' }, { 'filename', file_status = true, symbols = { modified = ' ', readonly = ' ' } }, 'filetype', 'diagnostics' },
-            lualine_c = { },
+            lualine_c = {},
             lualine_x = { neovim.lualine_arduino, 'filesize' },
             lualine_y = { 'encoding', 'fileformat' },
             lualine_z = { 'progress', 'location' },
@@ -515,7 +559,7 @@ neovim.setup({
             -- Parsers and queries are installed here, prepended to runtimepath
             install_dir = vim.fn.stdpath('data') .. '/site',
         },
-        indent = true,                                  -- Use tree-sitter indentation (experimental)
+        indent = true, -- Use tree-sitter indentation (experimental)
         languages = {
             -- Filetypes without a parser of their own, mapped onto a compatible one
             jsonc = 'json',
@@ -608,14 +652,14 @@ neovim.setup({
                 treesitter = true,
             },
             defaults = {
-                file_ignore_patterns = neovim.wildcards_to_table(wildignore)
-            }
+                file_ignore_patterns = neovim.wildcards_to_table(wildignore),
+            },
         },
     },
 
     numb = {
-       show_numbers = true,
-       show_cursorline = true
+        show_numbers = true,
+        show_cursorline = true,
     },
 
     context_vt = {
@@ -635,14 +679,14 @@ neovim.setup({
             'lua',
         },
         options = {
-            css = true
-        }
+            css = true,
+        },
     },
 
     neo_tree = {
         close_if_last_window = true,
         enable_modified_markers = false,
-        enable_git_status = false,                  -- `git status --ignored` dominates open time in large repos
+        enable_git_status = false, -- `git status --ignored` dominates open time in large repos
 
         filesystem = {
             never_show = { '.git', '.cache' },
@@ -660,8 +704,8 @@ neovim.setup({
     },
 
     nvim_toggleterm = {
-      open_mapping = [[<leader>t]],
-      shell = 'bash'
+        open_mapping = [[<leader>t]],
+        shell = 'bash',
     },
 
     winshift = {
@@ -672,7 +716,7 @@ neovim.setup({
     boole = {
         mappings = {
             increment = '<C-a>',
-            decrement = '<C-x>'
+            decrement = '<C-x>',
         },
     },
 
@@ -682,9 +726,9 @@ neovim.setup({
                 silent = true,
             },
             override = {
-                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                ["vim.lsp.util.stylize_markdown"] = true,
-                ["cmp.entry.get_documentation"] = true,
+                ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+                ['vim.lsp.util.stylize_markdown'] = true,
+                ['cmp.entry.get_documentation'] = true,
             },
         },
         notify = {
@@ -697,7 +741,7 @@ neovim.setup({
             cmdline_popup = {
                 position = {
                     row = 4,
-                    col = "50%",
+                    col = '50%',
                 },
             },
             notify = {
@@ -707,8 +751,8 @@ neovim.setup({
         routes = {
             -- Show @recording
             {
-                view = "notify",
-                filter = { event = "msg_showmode" },
+                view = 'notify',
+                filter = { event = 'msg_showmode' },
             },
             -- Hide virtual text
             {
@@ -729,18 +773,18 @@ neovim.setup({
 
     lspsaga = {
         lightbulb = {
-            virtual_text = false
-        }
+            virtual_text = false,
+        },
     },
 
     blink = {
         keymap = { preset = 'enter' },
         snippets = { preset = 'luasnip' },
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = { implementation = 'prefer_rust_with_warning' },
         completion = {
             documentation = { auto_show = true },
             accept = {
-                auto_brackets = { enabled = true }
+                auto_brackets = { enabled = true },
             },
         },
         cmdline = {
@@ -757,10 +801,10 @@ neovim.setup({
             default = { 'lsp', 'buffer', 'snippets', 'path', 'tmux' },
             providers = {
                 tmux = {
-                    module = "blink-cmp-tmux",
-                    name = "tmux",
+                    module = 'blink-cmp-tmux',
+                    name = 'tmux',
                 },
-            }
+            },
         },
-    }
+    },
 }, shims)
