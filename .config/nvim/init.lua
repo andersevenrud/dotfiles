@@ -297,8 +297,8 @@ neovim.setup({
             -- Rebind arrows
             { 'n', '<Up>', '<C-y>', { noremap = true }, 'Scroll up' },
             { 'n', '<Down>', '<C-e>', { noremap = true }, 'Scroll down' },
-            { 'n', '<Right>', 'gt', { noremap = true }, 'Switch tab left' },
-            { 'n', '<Left>', 'gT', { noremap = true }, 'Swtich tab right' },
+            { 'n', '<Right>', 'gt', { noremap = true }, 'Switch tab right' },
+            { 'n', '<Left>', 'gT', { noremap = true }, 'Switch tab left' },
         },
     },
 
