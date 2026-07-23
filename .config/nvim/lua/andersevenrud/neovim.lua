@@ -364,15 +364,7 @@ M.setup_lsp = function()
         end
     end
 
-    local on_attach = function(k)
-        return function(...)
-            run_on_attach(k, ...)
-            run_on_attach('*', ...)
-            attach_plugins(...)
-        end
-    end
-
-    mason.setup({})
+    mason.setup()
 
     mason_lsp.setup({
         ensure_installed = names,
@@ -383,9 +375,11 @@ M.setup_lsp = function()
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(ev)
-            local client_id = ev.data.client_id
-            local client = assert(vim.lsp.get_client_by_id(client_id))
-            on_attach(client.name)(client, ev.buf)
+            local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+
+            run_on_attach(client.name, client, ev.buf)
+            run_on_attach('*', client, ev.buf)
+            attach_plugins(client, ev.buf)
         end
     })
 
