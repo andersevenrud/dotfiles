@@ -363,7 +363,6 @@ neovim.setup({
             intelephense = {
                 init_options = {
                     licenceKey = secrets.intelephense.licenceKey,
-                    globalStoragePath = '~/.config/intelephense',
                 },
             },
             biome = {},
