@@ -7,6 +7,7 @@ local M = {}
 
 local current_window = nil
 local original_window = nil
+local leaving = false
 
 local tmux = function(args, blocking)
     local proc = vim.system(vim.list_extend({ 'tmux' }, args))
@@ -38,9 +39,13 @@ M.setup = function()
 
     local group = vim.api.nvim_create_augroup('TmuxWindowTitles', { clear = true })
 
-    vim.api.nvim_create_autocmd({ 'BufReadPost', 'FileReadPost', 'BufNewFile', 'BufEnter' }, {
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'WinEnter', 'TabEnter' }, {
         group = group,
-        callback = function()
+        callback = vim.schedule_wrap(function()
+            if leaving or vim.fn.win_gettype() ~= '' then
+                return
+            end
+
             local name = vim.fn.expand('%:t')
 
             rename_window(name)
@@ -48,12 +53,13 @@ M.setup = function()
             if name ~= '' then
                 vim.o.titlestring = ' ' .. name
             end
-        end,
+        end),
     })
 
     vim.api.nvim_create_autocmd('VimLeave', {
         group = group,
         callback = function()
+            leaving = true
             rename_window(original_window, true)
         end,
     })
